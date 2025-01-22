@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hexbin Random Simulation</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://d3js.org/d3-hexbin.v0.2.min.js"></script>
+  <script src="js/dynamicContainers.js"></script>
+  <style>
+    #container {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 250px 350px auto;
+      row-gap: 5px;
+      width: 600px;
+      height: 600px;
+      margin: auto;
+    }
+
+    #hex-container {
+      width: 100%;
+      height: 100%;
+    }
+
+    .axis-label {
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+    }
+
+    .tick text {
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+    }
+
+    #controls {
+      display: flex;
+      flex-direction: row;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="container">
+    <div id="hex-container"></div>
+    <div id="histogram-container"></div>
+    <!-- <div id="controls">
+      <button id="start-stop-btn">Start</button>
+      <button id="reset-btn">Reset</button>
+      <input type="number" id="bin-count" min="0" max="7" value="0">
+      <label for="speed-slider">Speed:</label>
+      <input type="range" id="speed-slider" min="1" max="100" value="50" step="1">
+      <button id="toggle-axis-btn">Show Probability</button>
+    </div> -->
+  </div>
+
+  <script>
+    // Global state
+    let isCountMode = true;
+    let intervalID;
+    let numBins = 0; // Initial bin count set to 0
+    let hexRadius = 20;
+    let hexBorder = 1;
+    let simulationRunning = false; // Tracks if simulation is running
+    let bins = Array(7).fill(0); // Array to hold counts for each group
+    let totalSimulations = 0; // Total number of simulations to track points
+    let dropSpeed = 500; // Initial speed set to 500ms
+    let displayMode = 'counts'; // Track current display mode: 'counts' or 'probability'
+
+    // Initialize the two SVG elements
+    const hexSVG = new SVG({
+      elementName: 'hex-container',
+      initialWidth: 620,
+      initialHeight: 250,
+      margin: {
+        top: 20,
+        right: 50,
+        bottom: 0,
+        left: 80
+      }
+    });
+
+    const histogramSVG = new SVG({
+      elementName: 'histogram-container',
+      initialWidth: 700,
+      initialHeight: 350,
+      margin: {
+        top: 20,
+        right: 20,
+        bottom: 50,
+        left: 70
+      }
+    });
+
+    // Define colors and scales
+    const possibleColors = ['#FF9B3C', '#00D0A2', '#64BCFF', '#FF4A3C', '#FFFF00', '#7272FF', '#55D733'];
+    const xScale = d3.scaleBand().domain(d3.range(7)).range([0, histogramSVG.width]).padding(0.05);
+    const yScale = d3.scaleLinear().domain([0, 1]).range([histogramSVG.height - 50, 0]);
+
+    // Create the hexbin layout
+    const hexbin = d3.hexbin()
+      .radius(hexRadius)
+      .extent([
+        [0, 0],
+        [hexSVG.width, hexSVG.height]
+      ]);
+
+    // Create hexagons
+    const hexagons = hexSVG.g.selectAll('.hexagon')
+      .data(hexbin(hexbin.centers()))
+      .enter().append('path')
+      .attr('class', 'hexagon')
+      .attr('d', hexbin.hexagon(hexRadius - hexBorder / 2))
+      .attr('transform', d => `translate(${d.x},${d.y})`)
+      .attr('fill', 'white')
+      .attr('stroke', 'black')
+      .attr('stroke-width', 0.5);
+
+    // Create histogram bars
+    const histogram = histogramSVG.g.selectAll('.bar')
+      .data(bins)
+      .enter().append('rect')
+      .attr('class', 'bar')
+      .attr('x', (d, i) => xScale(i))
+      .attr('width', xScale.bandwidth())
+      .attr('y', yScale(0))
+      .attr('height', 0)
+      .style('fill', (d, i) => possibleColors[i]);
+
+    // Create axes
+    const xAxis = d3.axisBottom(xScale).tickFormat((d, i) => `${i}`);
+    const yAxis = d3.axisLeft(yScale).ticks(5);
+
+    // Append axes
+    histogramSVG.g.append('g')
+      .attr('class', 'x-axis')
+      .attr('transform', `translate(0, ${histogramSVG.height - 50})`)
+      .call(xAxis);
+
+    histogramSVG.g.append('g')
+      .attr('class', 'y-axis')
+      .attr('transform', 'translate(0, 0)')
+      .call(yAxis);
+
+    // Append a y-axis label and center it correctly on the y-axis
+    const yAxisLabel = histogramSVG.g.append('text')
+      .attr('class', 'axis-label')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -(histogramSVG.height - histogramSVG.margin.top - histogramSVG.margin.bottom) / 2) // Center vertically
+      .attr('y', -histogramSVG.margin.left + 20) // Adjust to position away from the axis
+      .attr('text-anchor', 'middle')
+      .text('Count'); // Initial label
+
+
+    // Function to divide hexagons into groups and update IDs
+    function divideHexagonsIntoGroups(numGroups) {
+      if (numGroups < 1) {
+        hexagons.transition().duration(500).attr('fill', 'white').attr('id', 'group0');
+        bins = [0]; // Set bins to one for the entire hex grid
+        numBins = 1; // Set the histogram to one bin
+        totalSimulations = 0; // Reset the total count when bin count changes
+        updateHistogram(); // Update the histogram with one bin
+        return;
+      }
+
+      bins = Array(numGroups).fill(0); // Reset the bins array to match the new group count
+      totalSimulations = 0; // Reset the total count when bin count changes
+
+      // Determine bin width based on the number of groups
+      const groupWidth = hexSVG.width / numGroups;
+
+      // Assign each hexagon an ID and fill color based on its group
+      hexagons.each(function (d) {
+        const groupIndex = Math.min(Math.floor(d.x / groupWidth), numGroups - 1); // Ensure index is within bounds
+        const groupId = `group${groupIndex}`;
+
+        // Update the hexagon's ID and fill color with a smooth transition
+        d3.select(this)
+          .attr('id', groupId)
+          .transition()
+          .duration(500)
+          .attr('fill', possibleColors[groupIndex] || 'white'); // Use the color or default to white
+      });
+
+      updateHistogram(); // Update the histogram to reflect the new number of groups
+    }
+
+
+    // Function to drop random uniform points and update histogram
+    function dropRandomPoints() {
+      const randomX = Math.random() * hexSVG.width;
+      const randomY = Math.random() * hexSVG.height;
+
+      // Find which hexagon the point falls into
+      const hex = hexbin([
+        [randomX, randomY]
+      ])[0];
+
+      if (hex) {
+        // Find the group ID of the hexagon using its index safely
+        const hexElement = d3.select(hexSVG.g.selectAll('.hexagon').nodes().find(el => {
+          const [x, y] = d3.select(el).attr('transform').match(/-?\d+(\.\d+)?/g).map(Number);
+          return Math.abs(x - hex.x) < hexRadius && Math.abs(y - hex.y) < hexRadius;
+        }));
+
+        if (!hexElement.empty()) {
+          const groupId = hexElement.attr('id');
+
+          // Extract group number from groupId, e.g., 'group0' -> 0
+          const groupNumber = parseInt(groupId.replace('group', ''));
+
+          if (!isNaN(groupNumber) && groupNumber >= 0 && groupNumber < numBins) {
+            bins[groupNumber] += 1; // Increment count for this group
+            totalSimulations += 1; // Increment total simulation count
+            updateHistogram(); // Placeholder to update histogram
+          }
+
+          // Add the point with fading effect
+          hexSVG.g.append('circle')
+            .attr('cx', randomX)
+            .attr('cy', randomY)
+            .attr('r', 5)
+            .style('fill', 'black')
+            .style('opacity', 1)
+            .transition()
+            .duration(1000)
+            .style('opacity', 0)
+            .remove();
+        }
+      }
+    }
+
+    // Function to update the histogram bars based on counts or probability
+    function updateHistogram() {
+      const maxCount = Math.max(...bins, 1); // Get the maximum count for scaling
+
+      // Determine the y-axis domain based on the display mode
+      if (displayMode === 'counts') {
+        yScale.domain([0, maxCount]); // Domain based on counts
+      } else {
+        yScale.domain([0, maxCount / (totalSimulations || 1)]); // Domain based on probability
+      }
+
+      // Update xScale domain to match the current number of bins and adjust the bar widths
+      xScale.domain(d3.range(numBins)).range([0, histogramSVG.width]).padding(0.1);
+
+      // Update the histogram bars based on the bins array
+      const bars = histogramSVG.g.selectAll('.bar')
+        .data(bins);
+
+      // Handle entering, updating, and exiting bars correctly
+      bars.enter()
+        .append('rect')
+        .attr('class', 'bar')
+        .attr('x', (d, i) => xScale(i))
+        .attr('width', xScale.bandwidth())
+        .attr('y', yScale(0))
+        .attr('height', 0)
+        .style('fill', (d, i) => possibleColors[i % possibleColors.length])
+        .merge(bars) // Merge enter and update selections
+        .transition()
+        .duration(300)
+        .attr('x', (d, i) => xScale(i))
+        .attr('width', xScale.bandwidth())
+        .attr('y', d => displayMode === 'counts' ? yScale(d) : yScale(d / (totalSimulations || 1)))
+        .attr('height', d => displayMode === 'counts' ?
+          histogramSVG.height - 50 - yScale(d) :
+          histogramSVG.height - 50 - yScale(d / (totalSimulations || 1)))
+        .style('fill', (d, i) => possibleColors[i % possibleColors.length]);
+
+      // Remove any bars that are no longer needed
+      bars.exit().remove();
+
+      // Update the x-axis to reflect the current bin count
+      histogramSVG.g.select('.x-axis')
+        .transition()
+        .duration(300)
+        .call(d3.axisBottom(xScale).tickFormat((d, i) => `${i}`));
+
+      // Adjust the y-axis ticks to avoid duplicates and ensure pretty values
+      const tickValues = displayMode === 'counts' && maxCount <= 1 ? [0, 1] : null; // Set specific ticks when counts are low
+
+      histogramSVG.g.select('.y-axis')
+        .transition()
+        .duration(300)
+        .call(
+          d3.axisLeft(yScale)
+          .ticks(displayMode === 'counts' ? 5 : 5) // Set a reasonable number of ticks
+          .tickValues(tickValues) // Apply custom tick values if necessary
+          .tickFormat(displayMode === 'counts' ? d3.format("d") : d3.format(".0%"))
+        );
+    }
+
+
+
+    // Function to calculate the next interval with random variation (-10% to +10%)
+    function getRandomizedInterval(baseSpeed) {
+      const variation = baseSpeed * (Math.random() * 0.2 - 0.1); // Random variation between -10% and +10%
+      return baseSpeed + variation;
+    }
+
+    // Function to map the slider value to the interval duration (1 -> 600ms, 100 -> 5ms)
+    function mapSliderValueToInterval(sliderValue) {
+      const minInterval = 5; // Fastest speed
+      const maxInterval = 600; // Slowest speed
+      // Map the slider value (1-100) to the interval (600ms to 5ms)
+      return maxInterval - ((sliderValue - 1) / 99) * (maxInterval - minInterval);
+    }
+
+
+    // // Event listener for the start/stop button
+    // document.getElementById('start-stop-btn').addEventListener('click', function () {
+    //   if (simulationRunning) {
+    //     clearInterval(intervalID);
+    //     this.textContent = 'Start';
+    //   } else {
+    //     // Set the interval with the mapped drop speed
+    //     intervalID = setInterval(function () {
+    //       dropRandomPoints();
+    //       // Set a new interval with variation each time a point drops
+    //       clearInterval(intervalID);
+    //       intervalID = setInterval(arguments.callee, getRandomizedInterval(dropSpeed));
+    //     }, getRandomizedInterval(dropSpeed));
+    //     this.textContent = 'Stop';
+    //   }
+    //   simulationRunning = !simulationRunning;
+    // });
+
+
+    // // Event listener for the speed slider
+    // document.getElementById('speed-slider').addEventListener('input', function () {
+    //   dropSpeed = mapSliderValueToInterval(parseInt(this.value)); // Map slider value to interval speed
+
+    //   // Restart the interval with the new randomized speed if the simulation is running
+    //   if (simulationRunning) {
+    //     clearInterval(intervalID);
+    //     intervalID = setInterval(function () {
+    //       dropRandomPoints();
+    //       clearInterval(intervalID);
+    //       intervalID = setInterval(arguments.callee, getRandomizedInterval(dropSpeed));
+    //     }, getRandomizedInterval(dropSpeed));
+    //   }
+    // });
+
+
+    // // Event listener for the bin count input
+    // document.getElementById('bin-count').addEventListener('change', function () {
+    //   numBins = Math.min(Math.max(parseInt(this.value), 0), 7); // Ensure bins are between 0 and 7
+    //   divideHexagonsIntoGroups(numBins); // Divide hexagons into groups based on the new bin count
+    // });
+
+    // // Event listener for the reset button
+    // document.getElementById('reset-btn').addEventListener('click', function () {
+    //   clearInterval(intervalID); // Stop the simulation
+    //   simulationRunning = false; // Set running state to false
+    //   document.getElementById('start-stop-btn').textContent = 'Start'; // Update button text
+
+    //   // Reset histogram data without changing bin count or colors
+    //   bins.fill(0); // Clear bin counts
+    //   totalSimulations = 0; // Reset the total simulation count
+    //   updateHistogram(); // Update histogram to reflect cleared data
+    // });
+
+    // // Event listener for the toggle button to switch between counts and probability
+    // document.getElementById('toggle-axis-btn').addEventListener('click', function () {
+    //   if (displayMode === 'counts') {
+    //     displayMode = 'probability'; // Switch to probability mode
+    //     this.textContent = 'Show Counts'; // Update button text
+    //     yAxisLabel.text("Probability");
+    //   } else {
+    //     displayMode = 'counts'; // Switch to counts mode
+    //     this.textContent = 'Show Probability'; // Update button text
+    //     yAxisLabel.text("Count");
+    //   }
+    //   updateHistogram(); // Update the histogram to reflect the new mode
+    // });
+
+
+
+
+    // Initialize hexagons as belonging to group 0 (all white)
+    divideHexagonsIntoGroups(0); // Start with all hexagons in 'group0'
+
+    // Adjusts the drop speed based on a slider value
+    function adjustDropSpeed(sliderValue) {
+      dropSpeed = mapSliderValueToInterval(sliderValue);
+      if (simulationRunning) {
+        restartSimulationInterval();
+      }
+    }
+
+    // Starts the simulation
+    function startSimulation() {
+      if (!simulationRunning) {
+        intervalID = setInterval(function () {
+          dropRandomPoints();
+          clearInterval(intervalID);
+          intervalID = setInterval(arguments.callee, getRandomizedInterval(dropSpeed));
+        }, getRandomizedInterval(dropSpeed));
+        simulationRunning = true;
+      }
+    }
+
+    // Stops the simulation
+    function stopSimulation() {
+      clearInterval(intervalID);
+      simulationRunning = false;
+    }
+
+    // Adjusts the number of bins and updates relevant components
+    function adjustNumberOfBins(binCount) {
+      numBins = Math.min(Math.max(binCount, 1), 7); // Ensure bins are between 1 and 7
+      divideHexagonsIntoGroups(numBins);
+      updateHistogram();
+    }
+
+    // Toggles the display mode between 'counts' and 'probability'
+    function toggleDisplayMode(mode = 'counts') {
+      if (displayMode === mode) {
+        return
+      }
+      displayMode = mode;
+      yAxisLabel.text(displayMode.charAt(0).toUpperCase() + displayMode.slice(1)); // Updates y-axis label
+      updateHistogram();
+    }
+
+    // Resets the animation, clearing counts but keeping the number of bins and drop speed
+    function resetAnimation() {
+      stopSimulation(); // Stop the simulation
+      bins.fill(0); // Clear bin counts
+      totalSimulations = 0; // Reset total simulation count
+      updateHistogram(); // Update histogram to reflect cleared data
+    }
+
+    // Helper function to restart the simulation interval with the current drop speed
+    function restartSimulationInterval() {
+      clearInterval(intervalID);
+      intervalID = setInterval(function () {
+        dropRandomPoints();
+        clearInterval(intervalID);
+        intervalID = setInterval(arguments.callee, getRandomizedInterval(dropSpeed));
+      }, getRandomizedInterval(dropSpeed));
+    }
+
+
+    // Fragments
+    window._fragments = [{
+        index: 1,
+        activate: () => {
+          // Clear and start the simulation from the default state
+          resetAnimation(); // Reset without changing bins or speed
+          adjustNumberOfBins(1); // Set to default 1 bin
+
+          // Delay before starting the simulation
+          setTimeout(() => {
+            adjustDropSpeed(50); // Set default drop speed
+            startSimulation(); // Start the simulation
+          }, 350);
+        },
+        reverse: () => {
+          // Stop the animation without clearing
+          stopSimulation();
+        },
+      },
+      {
+        index: 2,
+        activate: () => {
+          // Reset, update to 2 bins, and speed up to slider value 80
+          resetAnimation();
+          adjustNumberOfBins(2); // Set to 2 bins
+
+          // Delay before starting the simulation
+          setTimeout(() => {
+            adjustDropSpeed(80); // Set drop speed
+            startSimulation(); // Start the simulation
+          }, 350);
+        },
+        reverse: () => {
+          // Slow the simulation down to slider value 40
+          adjustDropSpeed(40);
+          if (simulationRunning) {
+            restartSimulationInterval(); // Restart with the new speed
+          }
+        },
+      },
+      {
+        index: 3,
+        activate: () => {
+          // Reset, update to 7 bins, and speed up to slider value 90
+          resetAnimation();
+          adjustNumberOfBins(7); // Set to 7 bins
+
+          // Delay before starting the simulation
+          setTimeout(() => {
+            adjustDropSpeed(90); // Set drop speed
+            startSimulation(); // Start the simulation
+          }, 350);
+        },
+        reverse: () => {
+          // Update to 3 bins, slow down slider to 70, and reset
+          resetAnimation();
+          adjustNumberOfBins(2); // Set to 2 bins
+
+          // Delay before starting the simulation
+          setTimeout(() => {
+            adjustDropSpeed(70); // Set drop speed
+            startSimulation(); // Start the simulation
+          }, 350);
+        },
+      },
+      {
+        index: 4,
+        activate: () => {
+          toggleDisplayMode('probability'); // Toggle to 'probability'
+          // Increase speed to 99, toggle the y-axis to probability
+          adjustDropSpeed(99);
+          if (simulationRunning) {
+            restartSimulationInterval(); // Restart with the new speed
+          }
+        },
+        reverse: () => {
+          toggleDisplayMode('counts'); // Toggle to 'counts'
+          // Slow speed to 90, toggle probability to counts
+          setTimeout(() => {
+            adjustDropSpeed(90); // Set drop speed
+            if (simulationRunning) {
+              restartSimulationInterval(); // Restart with the new speed
+            }
+          }, 350);
+        },
+      }
+    ];
+
+    // Assign functions to the iframe's window object
+    window.adjustDropSpeed = adjustDropSpeed;
+    window.startSimulation = startSimulation;
+    window.stopSimulation = stopSimulation;
+    window.adjustNumberOfBins = adjustNumberOfBins;
+    window.toggleDisplayMode = toggleDisplayMode;
+    window.resetAnimation = resetAnimation;
+    window.restartSimulationInterval = restartSimulationInterval;
+  </script>
+
+</body>
+
+</html>

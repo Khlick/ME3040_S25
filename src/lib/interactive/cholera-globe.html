@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<style>
+  * {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .country {
+    fill: #b8b8b8;
+    stroke: #fff;
+    stroke-width: 0.5px;
+    stroke-linejoin: round;
+  }
+
+  .graticule {
+    fill: none;
+    stroke: #000;
+    stroke-opacity: 0.3;
+    stroke-width: 0.5px;
+  }
+
+  .graticule-outline {
+    fill: none;
+    stroke: #333;
+    stroke-width: 1.5px;
+  }
+
+  text {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-anchor: middle;
+  }
+</style>
+<body>
+  <script src="js/d3.min.js"></script>
+  <script src="js/topojson.min.js"></script>
+  <script>
+    const margin = 5;
+    const width = 900;
+    const height = 700;
+    const projection = d3.geoOrthographic().scale(300).clipAngle(90);
+
+    const coordLondon = [-0.118092, 51.509865];
+    const londonScale = 0.2;
+    const londonXshift = -5;
+    const londonYshift = -6.5;
+
+    const colors = {
+      info: "#00BFFF",
+      danger: "#fb4c52",
+      warning: "#FBC15E",
+      orange: "#FF8B22",
+    };
+
+    let countries, country, london;
+
+    const targets = {
+      india: 356,
+      europe: [
+        276, 643, 348, 616, 203, 703, 804, 642, 112, 440, 705, 191, 688, 40,
+        498, 807, 70,
+      ],
+      uk: 826,
+    };
+
+    projection.fitExtent(
+      [
+        [margin, margin],
+        [width - margin, height - margin],
+      ],
+      {
+        type: "Sphere",
+      }
+    );
+
+    const path = d3.geoPath().projection(projection);
+
+    const svg = d3
+      .select("body")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    const g = svg.append("g").attr("class", "globe");
+
+    g.append("circle")
+      .attr("class", "graticule-outline")
+      .attr("cx", width / 2)
+      .attr("cy", height / 2)
+      .attr("r", projection.scale());
+
+    // Use Promise.all to handle multiple async operations
+    Promise.all([
+      d3.json("data/world-110m.json"),
+      d3.xml("data/cholera-london.svg")
+    ])
+      .then(([world, xml]) => {
+        countries = topojson.feature(world, world.objects.countries).features;
+
+        country = g
+          .selectAll(".country")
+          .data(countries)
+          .enter()
+          .insert("path", ".graticule")
+          .attr("class", "country")
+          .attr("d", path);
+
+        const londonNode = g
+          .node()
+          .appendChild(xml.documentElement.querySelector("#london"));
+
+        london = g
+          .select("#london")
+          .attr("opacity", 0)
+          .attr(
+            "transform",
+            `translate(${projection(coordLondon)[0] + londonXshift}, ${
+              projection(coordLondon)[1] + londonYshift
+            }) scale(${londonScale}, ${londonScale})`
+          );
+      })
+      .catch((error) => {
+        console.error("Error loading resources:", error);
+      });
+
+    function highlightCountry(id, color) {
+      country
+        .transition()
+        .style("fill", (d) => (d.id === id ? color : "#b8b8b8"));
+
+      d3.transition()
+        .duration(1250)
+        .tween("rotate", function () {
+          var point = d3.geoCentroid(countries.filter((d) => d.id == id)[0]),
+            rotate = d3.interpolate(projection.rotate(), [
+              -point[0],
+              -point[1],
+            ]);
+          return function (t) {
+            projection.rotate(rotate(t));
+            country.attr("d", path);
+            london.attr(
+              "transform",
+              `translate(${projection(coordLondon)[0] + londonXshift}, ${
+                projection(coordLondon)[1] + londonYshift
+              }) scale(${londonScale}, ${londonScale})`
+            );
+          };
+        })
+        .transition();
+    }
+
+    function highlightCountries(ids, color) {
+      country
+        .transition()
+        .style("fill", (d) => (ids.includes(d.id) ? color : "#b8b8b8"));
+
+      d3.transition()
+        .duration(1250)
+        .tween("rotate", function () {
+          var point = d3.geoCentroid(
+              countries.filter((d) => d.id == ids[0])[0]
+            ),
+            rotate = d3.interpolate(projection.rotate(), [
+              -point[0],
+              -point[1],
+            ]);
+          return function (t) {
+            projection.rotate(rotate(t));
+            country.attr("d", path);
+            london.attr(
+              "transform",
+              `translate(${projection(coordLondon)[0] + londonXshift}, ${
+                projection(coordLondon)[1] + londonYshift
+              }) scale(${londonScale}, ${londonScale})`
+            );
+          };
+        })
+        .transition();
+    }
+
+    const zoom = d3.zoom().on("zoom", zoomed);
+
+    function zoomed() {
+      g.style("stroke-width", 1.5 / d3.event.transform.k + "px");
+      g.attr("transform", d3.event.transform);
+    }
+
+    function zoomCountry(country, zoomScale) {
+      const bounds = path.bounds(country),
+        dx = bounds[1][0] - bounds[0][0],
+        dy = bounds[1][1] - bounds[0][1],
+        x = (bounds[0][0] + bounds[1][0]) / 2,
+        y = (bounds[0][1] + bounds[1][1]) / 2,
+        scale = Math.max(
+          1,
+          Math.min(zoomScale, 0.9 / Math.max(dx / width, dy / height))
+        ),
+        translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+      svg
+        .transition()
+        .duration(1250)
+        .call(
+          zoom.transform,
+          d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
+        );
+    }
+
+    function reset() {
+      svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity); // updated for d3 v4
+    }
+
+    var _fragments = [
+      {
+        activate: () => highlightCountry(targets.india, colors.danger),
+        reverse: () => {
+          country.transition().style("fill", (d) => "#b8b8b8");
+
+          d3.transition()
+            .duration(1250)
+            .tween("rotate", function () {
+              var point = d3.geoCentroid(
+                  countries.filter((d) => d.id == 288)[0]
+                ),
+                rotate = d3.interpolate(projection.rotate(), [
+                  -point[0],
+                  -point[1],
+                ]);
+              return function (t) {
+                projection.rotate(rotate(t));
+                country.attr("d", path);
+              };
+            })
+            .transition();
+        },
+        index: 0,
+      },
+      {
+        activate: () =>
+          highlightCountries(targets.europe, colors.orange),
+        index: 1,
+      },
+      {
+        activate: () => {
+          highlightCountry(targets.uk, colors.info);
+          d3.timeout(() => {
+            zoomCountry(countries.filter((d) => d.id == targets.uk)[0], 15);
+            london.transition().duration(1000).attr("opacity", 1);
+          }, 800);
+        },
+        reverse: () => {
+          reset();
+          london.transition().duration(1000).attr("opacity", 0);
+        },
+        index: 2,
+      },
+    ];
+  </script>
+</body>

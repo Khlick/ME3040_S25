@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+
+<body>
+  <style>
+    * {
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+      user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+    }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 95%;
+      width: 95%;
+      overflow: hidden;
+    }
+    svg {
+      background-color: #36363d;
+    }
+  </style>
+  <script src="js/d3.min.js"></script>
+  <script>
+    const width = 600,
+      height = 560;
+    let svg, map;
+
+    function setSVGDimensions() {
+      const iframeHeight = window.innerHeight; // Get iframe height
+      svg.attr("width", iframeHeight * 0.9).attr("height", iframeHeight * 0.9);
+    }
+
+    d3.xml("data/cholera-soho-spatial.svg", function (error, xml) {
+      if (error) throw error;
+    }).then(function (importedNode) {
+      const mapNode = importedNode.documentElement;
+
+      //svg = d3.select('body').append('svg')
+      //  .attr("width", "100%")
+      //  .attr("height", "100%");
+      svg = d3
+        .select("body")
+        .append("svg")
+        .attr("viewBox", `0 0 ${width} ${height}`); // Adjust viewBox to original aspect ratio
+
+      svg.node().appendChild(mapNode.querySelector("#Layer_1"));
+
+      setSVGDimensions();
+
+      //svg.attr("viewBox", "30 50 1900 1700");
+      svg.attr("viewBox", "50 160 1676 1500");
+    });
+
+    function zoomout() {
+      //svg.transition().duration(500).attr("viewBox", "30 50 1900 1700");
+      svg.transition().duration(500).attr("viewBox", "50 160 1676 1500");
+
+      svg.selectAll("#workhouse, #brewery").style("fill", "#BFBFBF");
+    }
+
+    function zoomin() {
+      svg.transition().duration(500).attr("viewBox", "775 460 600 600");
+
+      svg.selectAll("#workhouse, #brewery").style("fill", "#BFBFBF");
+    }
+
+    function colorize_bg(color) {
+      svg.selectAll("#workhouse, #brewery").style("fill", color);
+    }
+
+    // Listen for window resize events to adjust SVG dimensions
+    window.addEventListener("resize", setSVGDimensions);
+
+    var _fragments = [
+      {
+        activate: () => zoomin(),
+        reverse: () => zoomout(),
+        index: 0,
+      },
+      {
+        activate: () => colorize_bg("#FF8B22"), //#FCECBEFF
+        reverse: () => colorize_bg("#bfbfbf"),
+        index: 1,
+      },
+    ];
+  </script>
+</body>

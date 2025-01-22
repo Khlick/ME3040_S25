@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?><svg id="ttable_1-12" xmlns="http://www.w3.org/2000/svg" width="5.83333in" height="4.27385in" viewBox="0 0 420 307.71729">
+  <g id="ttext"><text transform="translate(184.27051 16.62329)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0">t-distribution</tspan>
+    </text><text transform="translate(202.59521 39.05884)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0">Conﬁdenc</tspan>
+      <tspan x="44.03564" y="0" style="letter-spacing:.33199em;">e</tspan>
+      <tspan x="52.2417" y="0" style="letter-spacing:-.00009em;">Le</tspan>
+      <tspan x="62.87744" y="0" style="letter-spacing:-.02595em;">v</tspan>
+      <tspan x="67.84814" y="0" style="letter-spacing:-.00009em;">el</tspan>
+    </text><text transform="translate(62.81592 52.61255)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0">60</tspan>
+      <tspan x="10.65723" y="0" style="letter-spacing:1.53898em;">%</tspan>
+      <tspan x="34.69922" y="0">70</tspan>
+      <tspan x="45.34619" y="0" style="letter-spacing:1.53898em;">%</tspan>
+      <tspan x="69.38818" y="0">80</tspan>
+      <tspan x="80.04541" y="0" style="letter-spacing:1.53898em;">%</tspan>
+      <tspan x="104.0874" y="0">85</tspan>
+      <tspan x="114.41455" y="0" style="letter-spacing:1.53996em;">%</tspan>
+      <tspan x="138.46729" y="0">90</tspan>
+      <tspan x="149.12451" y="0" style="letter-spacing:1.53898em;">%</tspan>
+      <tspan x="173.1665" y="0">95</tspan>
+      <tspan x="183.49365" y="0" style="letter-spacing:1.53898em;">%</tspan>
+      <tspan x="207.53564" y="0">98</tspan>
+      <tspan x="217.85205" y="0" style="letter-spacing:1.53996em;">%</tspan>
+      <tspan x="241.90479" y="0">99</tspan>
+      <tspan x="252.22119" y="0" style="letter-spacing:1.31705em;">%</tspan>
+      <tspan x="273.84131" y="0" style="letter-spacing:-.00009em;">99.8</tspan>
+      <tspan x="291.79834" y="0" style="letter-spacing:1.17799em;">%</tspan>
+      <tspan x="311.90088" y="0">99.9%</tspan>
+    </text><text transform="translate(194.56348 79.71021)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0">Le</tspan>
+      <tspan x="10.63574" y="0" style="letter-spacing:-.02595em;">v</tspan>
+      <tspan x="15.60645" y="0" style="letter-spacing:-.00009em;">e</tspan>
+      <tspan x="20.18848" y="0" style="letter-spacing:.33208em;">l</tspan>
+      <tspan x="26.4873" y="0" style="letter-spacing:-.00009em;">o</tspan>
+      <tspan x="31.92188" y="0" style="letter-spacing:.33405em;">f</tspan>
+      <tspan x="38.77539" y="0">Signiﬁcance</tspan>
+    </text><text transform="translate(9.95166 93.25415)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0" style="letter-spacing:.33199em;">2</tspan>
+      <tspan x="8.78125" y="0" style="letter-spacing:-.083em;">T</tspan>
+      <tspan x="15.00537" y="0">aile</tspan>
+      <tspan x="29.77637" y="0" style="letter-spacing:1.34497em;">d</tspan>
+      <tspan x="49.75098" y="0">0.4</tspan>
+      <tspan x="62.89111" y="0" style="letter-spacing:1.59504em;">0</tspan>
+      <tspan x="85.79688" y="0">0.3</tspan>
+      <tspan x="98.6709" y="0" style="letter-spacing:1.59499em;">0</tspan>
+      <tspan x="121.57617" y="0">0.2</tspan>
+      <tspan x="134.71631" y="0" style="letter-spacing:1.59504em;">0</tspan>
+      <tspan x="157.62207" y="0">0.1</tspan>
+      <tspan x="169.63281" y="0" style="letter-spacing:1.59598em;">5</tspan>
+      <tspan x="192.21875" y="0">0.1</tspan>
+      <tspan x="204.22998" y="0" style="letter-spacing:1.59598em;">0</tspan>
+      <tspan x="227.146" y="0">0.0</tspan>
+      <tspan x="240.62744" y="0" style="letter-spacing:1.59598em;">5</tspan>
+      <tspan x="263.21338" y="0">0.0</tspan>
+      <tspan x="276.69482" y="0" style="letter-spacing:1.59401em;">2</tspan>
+      <tspan x="299.24854" y="0">0.0</tspan>
+      <tspan x="312.72998" y="0" style="letter-spacing:1.51302em;">1</tspan>
+      <tspan x="333.27002" y="0">0.00</tspan>
+      <tspan x="352.25049" y="0" style="letter-spacing:1.51195em;">2</tspan>
+      <tspan x="373.90869" y="0">0.001</tspan>
+    </text><text transform="translate(9.95166 106.80884)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0" style="letter-spacing:.33199em;">1</tspan>
+      <tspan x="7.65137" y="0" style="letter-spacing:-.083em;">T</tspan>
+      <tspan x="13.87549" y="0">aile</tspan>
+      <tspan x="28.64648" y="0" style="letter-spacing:1.34497em;">d</tspan>
+      <tspan x="48.62109" y="0">0.2</tspan>
+      <tspan x="61.76172" y="0" style="letter-spacing:1.59499em;">0</tspan>
+      <tspan x="84.66699" y="0">0.1</tspan>
+      <tspan x="96.67773" y="0" style="letter-spacing:1.59499em;">5</tspan>
+      <tspan x="119.25293" y="0">0.1</tspan>
+      <tspan x="131.26367" y="0" style="letter-spacing:1.346em;">0</tspan>
+      <tspan x="151.45166" y="0">0.07</tspan>
+      <tspan x="170.08057" y="0" style="letter-spacing:1.346em;">5</tspan>
+      <tspan x="189.93848" y="0">0.0</tspan>
+      <tspan x="203.41943" y="0" style="letter-spacing:1.34604em;">5</tspan>
+      <tspan x="223.27783" y="0">0.02</tspan>
+      <tspan x="241.91748" y="0" style="letter-spacing:1.34399em;">5</tspan>
+      <tspan x="261.75342" y="0">0.0</tspan>
+      <tspan x="275.23486" y="0" style="letter-spacing:1.34595em;">1</tspan>
+      <tspan x="293.95166" y="0">0.00</tspan>
+      <tspan x="312.93213" y="0" style="letter-spacing:1.263em;">5</tspan>
+      <tspan x="331.88428" y="0">0.00</tspan>
+      <tspan x="350.86475" y="0" style="letter-spacing:1.26103em;">1</tspan>
+      <tspan x="368.65479" y="0">0.0005</tspan>
+    </text><text transform="translate(24.49561 133.90649)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0">df</tspan>
+    </text><text transform="translate(24.30176 147.44946)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0" style="letter-spacing:2.60802em;">1</tspan>
+      <tspan x="32.48975" y="0">1.37</tspan>
+      <tspan x="49.04053" y="0" style="letter-spacing:1.09499em;">6</tspan>
+      <tspan x="66.14844" y="0">1.96</tspan>
+      <tspan x="82.97607" y="0" style="letter-spacing:1.09499em;">3</tspan>
+      <tspan x="99.81738" y="0" style="letter-spacing:.00004em;">3.13</tspan>
+      <tspan x="116.1123" y="0" style="letter-spacing:1.09504em;">3</tspan>
+      <tspan x="132.9541" y="0">4.19</tspan>
+      <tspan x="149.78174" y="0" style="letter-spacing:1.09598em;">5</tspan>
+      <tspan x="166.91113" y="0">6.32</tspan>
+      <tspan x="184.60254" y="0" style="letter-spacing:1.09504em;">0</tspan>
+      <tspan x="202.05176" y="0">12.6</tspan>
+      <tspan x="218.87891" y="0" style="letter-spacing:1.09504em;">9</tspan>
+      <tspan x="235.9873" y="0">31.8</tspan>
+      <tspan x="252.54883" y="0" style="letter-spacing:1.09495em;">1</tspan>
+      <tspan x="268.52637" y="0">63.6</tspan>
+      <tspan x="286.21777" y="0" style="letter-spacing:1.90095em;">7</tspan>
+      <tspan x="312.11035" y="0" style="letter-spacing:2.789em;">—</tspan>
+      <tspan x="352.98047" y="0">—</tspan>
+    </text><text transform="translate(24.30176 161.00317)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0" style="letter-spacing:2.60797em;">2</tspan>
+      <tspan x="33.61914" y="0" style="letter-spacing:.00004em;">1.06</tspan>
+      <tspan x="50.78809" y="0" style="letter-spacing:1.09504em;">0</tspan>
+      <tspan x="68.2373" y="0">1.38</tspan>
+      <tspan x="84.79834" y="0" style="letter-spacing:1.09499em;">5</tspan>
+      <tspan x="101.91699" y="0">1.88</tspan>
+      <tspan x="118.74512" y="0" style="letter-spacing:1.09499em;">3</tspan>
+      <tspan x="135.58643" y="0">2.27</tspan>
+      <tspan x="153.5332" y="0" style="letter-spacing:1.09598em;">8</tspan>
+      <tspan x="170.65186" y="0">2.91</tspan>
+      <tspan x="187.47949" y="0" style="letter-spacing:1.09504em;">2</tspan>
+      <tspan x="204.58789" y="0">4.27</tspan>
+      <tspan x="222.53418" y="0" style="letter-spacing:1.09504em;">1</tspan>
+      <tspan x="238.5127" y="0">6.81</tspan>
+      <tspan x="255.34082" y="0" style="letter-spacing:1.09495em;">6</tspan>
+      <tspan x="272.44824" y="0">9.52</tspan>
+      <tspan x="290.41699" y="0" style="letter-spacing:1.26202em;">0</tspan>
+      <tspan x="309.68848" y="0">19.6</tspan>
+      <tspan x="326.51562" y="0" style="letter-spacing:1.51204em;">5</tspan>
+      <tspan x="348.18555" y="0" style="letter-spacing:-.00009em;">26.30</tspan>
+    </text><text transform="translate(24.30176 174.55688)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0" style="letter-spacing:2.60802em;">3</tspan>
+      <tspan x="33.35303" y="0">0.97</tspan>
+      <tspan x="51.64062" y="0" style="letter-spacing:1.09499em;">8</tspan>
+      <tspan x="68.74854" y="0" style="letter-spacing:.00004em;">1.25</tspan>
+      <tspan x="85.58691" y="0" style="letter-spacing:1.09504em;">0</tspan>
+      <tspan x="103.03613" y="0">1.63</tspan>
+      <tspan x="119.59766" y="0" style="letter-spacing:1.09499em;">7</tspan>
+      <tspan x="136.69482" y="0">1.92</tspan>
+      <tspan x="153.52246" y="0" style="letter-spacing:1.09602em;">4</tspan>
+      <tspan x="170.6416" y="0" style="letter-spacing:-.00004em;">2.35</tspan>
+      <tspan x="188.34277" y="0" style="letter-spacing:1.09504em;">2</tspan>
+      <tspan x="205.45117" y="0">3.17</tspan>
+      <tspan x="222.00195" y="0" style="letter-spacing:1.09495em;">9</tspan>
+      <tspan x="239.10938" y="0">4.52</tspan>
+      <tspan x="257.07812" y="0" style="letter-spacing:1.09495em;">5</tspan>
+      <tspan x="274.19629" y="0">5.79</tspan>
+      <tspan x="292.15332" y="0" style="letter-spacing:1.26202em;">7</tspan>
+      <tspan x="311.07324" y="0">9.93</tspan>
+      <tspan x="328.76465" y="0" style="letter-spacing:1.51195em;">7</tspan>
+      <tspan x="350.41211" y="0" style="letter-spacing:.00009em;">12.39</tspan>
+    </text><text transform="translate(24.30176 188.10083)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0" style="letter-spacing:2.60797em;">4</tspan>
+      <tspan x="33.61914" y="0" style="letter-spacing:.00004em;">0.94</tspan>
+      <tspan x="51.91797" y="0" style="letter-spacing:1.09499em;">1</tspan>
+      <tspan x="67.896" y="0">1.19</tspan>
+      <tspan x="83.59424" y="0" style="letter-spacing:1.09499em;">0</tspan>
+      <tspan x="101.04297" y="0" style="letter-spacing:.00004em;">1.53</tspan>
+      <tspan x="117.61523" y="0" style="letter-spacing:1.09499em;">3</tspan>
+      <tspan x="134.45654" y="0" style="letter-spacing:.00004em;">1.77</tspan>
+      <tspan x="151.26318" y="0" style="letter-spacing:1.09598em;">8</tspan>
+      <tspan x="168.38184" y="0">2.13</tspan>
+      <tspan x="184.94336" y="0" style="letter-spacing:1.09504em;">2</tspan>
+      <tspan x="202.05176" y="0" style="letter-spacing:-.00009em;">2.77</tspan>
+      <tspan x="219.9873" y="0" style="letter-spacing:1.09504em;">6</tspan>
+      <tspan x="237.0957" y="0">3.74</tspan>
+      <tspan x="254.77539" y="0" style="letter-spacing:1.09504em;">4</tspan>
+      <tspan x="271.88379" y="0">4.59</tspan>
+      <tspan x="289.85156" y="0" style="letter-spacing:1.26202em;">6</tspan>
+      <tspan x="308.78223" y="0">7.11</tspan>
+      <tspan x="324.46973" y="0" style="letter-spacing:1.51195em;">5</tspan>
+      <tspan x="346.13867" y="0">8.499</tspan>
+    </text><text transform="translate(24.30176 201.65454)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0" style="letter-spacing:2.60797em;">5</tspan>
+      <tspan x="33.62988" y="0" style="letter-spacing:.00004em;">0.91</tspan>
+      <tspan x="50.79883" y="0" style="letter-spacing:1.09499em;">9</tspan>
+      <tspan x="67.90674" y="0">1.15</tspan>
+      <tspan x="83.61572" y="0" style="letter-spacing:1.09499em;">6</tspan>
+      <tspan x="100.72363" y="0">1.47</tspan>
+      <tspan x="117.54053" y="0" style="letter-spacing:1.09499em;">6</tspan>
+      <tspan x="134.64844" y="0">1.69</tspan>
+      <tspan x="151.47656" y="0" style="letter-spacing:1.09598em;">9</tspan>
+      <tspan x="168.59521" y="0">2.01</tspan>
+      <tspan x="185.76367" y="0" style="letter-spacing:1.09504em;">5</tspan>
+      <tspan x="202.88281" y="0">2.57</tspan>
+      <tspan x="220.83984" y="0" style="letter-spacing:1.09504em;">0</tspan>
+      <tspan x="238.28906" y="0">3.36</tspan>
+      <tspan x="255.71387" y="0" style="letter-spacing:1.09495em;">5</tspan>
+      <tspan x="272.83203" y="0">4.03</tspan>
+      <tspan x="290.86426" y="0" style="letter-spacing:1.26202em;">0</tspan>
+      <tspan x="310.13574" y="0">5.87</tspan>
+      <tspan x="328.09277" y="0" style="letter-spacing:1.51204em;">6</tspan>
+      <tspan x="349.75195" y="0">6.835</tspan>
+    </text><text transform="translate(24.30176 215.19849)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0" style="letter-spacing:2.60797em;">6</tspan>
+      <tspan x="33.61914" y="0" style="letter-spacing:.00004em;">0.90</tspan>
+      <tspan x="52.25879" y="0" style="letter-spacing:1.09499em;">6</tspan>
+      <tspan x="69.3667" y="0">1.13</tspan>
+      <tspan x="84.79834" y="0" style="letter-spacing:1.09499em;">4</tspan>
+      <tspan x="101.90625" y="0" style="letter-spacing:.00004em;">1.44</tspan>
+      <tspan x="118.73438" y="0" style="letter-spacing:1.09499em;">0</tspan>
+      <tspan x="136.18311" y="0">1.65</tspan>
+      <tspan x="153.02148" y="0" style="letter-spacing:1.09602em;">0</tspan>
+      <tspan x="170.48145" y="0">1.94</tspan>
+      <tspan x="187.30957" y="0" style="letter-spacing:1.09495em;">3</tspan>
+      <tspan x="204.15039" y="0">2.44</tspan>
+      <tspan x="222.1084" y="0" style="letter-spacing:1.09495em;">7</tspan>
+      <tspan x="239.20508" y="0">3.14</tspan>
+      <tspan x="255.7666" y="0" style="letter-spacing:1.09504em;">3</tspan>
+      <tspan x="272.6084" y="0">3.70</tspan>
+      <tspan x="290.62988" y="0" style="letter-spacing:1.26202em;">7</tspan>
+      <tspan x="309.5498" y="0" style="letter-spacing:-.00009em;">5.20</tspan>
+      <tspan x="327.8584" y="0" style="letter-spacing:1.51204em;">1</tspan>
+      <tspan x="348.3877" y="0">5.946</tspan>
+    </text><text transform="translate(24.30176 228.7522)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0" style="letter-spacing:2.60802em;">7</tspan>
+      <tspan x="33.60889" y="0">0.89</tspan>
+      <tspan x="51.90723" y="0" style="letter-spacing:1.09499em;">6</tspan>
+      <tspan x="69.01514" y="0">1.11</tspan>
+      <tspan x="83.5835" y="0" style="letter-spacing:1.09499em;">9</tspan>
+      <tspan x="100.69141" y="0">1.41</tspan>
+      <tspan x="116.38965" y="0" style="letter-spacing:1.09499em;">5</tspan>
+      <tspan x="133.5083" y="0">1.61</tspan>
+      <tspan x="149.20654" y="0" style="letter-spacing:1.09598em;">7</tspan>
+      <tspan x="166.31445" y="0">1.89</tspan>
+      <tspan x="183.14209" y="0" style="letter-spacing:1.09499em;">5</tspan>
+      <tspan x="200.26074" y="0">2.36</tspan>
+      <tspan x="217.95215" y="0" style="letter-spacing:1.09495em;">5</tspan>
+      <tspan x="235.07031" y="0">2.99</tspan>
+      <tspan x="253.02832" y="0" style="letter-spacing:1.09495em;">9</tspan>
+      <tspan x="270.13574" y="0">3.50</tspan>
+      <tspan x="288.17871" y="0" style="letter-spacing:1.26202em;">0</tspan>
+      <tspan x="307.4502" y="0">4.78</tspan>
+      <tspan x="325.39648" y="0" style="letter-spacing:1.51204em;">3</tspan>
+      <tspan x="346.78906" y="0">5.403</tspan>
+    </text><text transform="translate(24.30176 242.29614)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0" style="letter-spacing:2.60797em;">8</tspan>
+      <tspan x="33.61914" y="0" style="letter-spacing:.00004em;">0.88</tspan>
+      <tspan x="51.91797" y="0" style="letter-spacing:1.09499em;">9</tspan>
+      <tspan x="69.02588" y="0">1.10</tspan>
+      <tspan x="85.06494" y="0" style="letter-spacing:1.09499em;">8</tspan>
+      <tspan x="102.17285" y="0">1.39</tspan>
+      <tspan x="118.73438" y="0" style="letter-spacing:1.09499em;">7</tspan>
+      <tspan x="135.83154" y="0">1.59</tspan>
+      <tspan x="152.66992" y="0" style="letter-spacing:1.09598em;">2</tspan>
+      <tspan x="169.78857" y="0" style="letter-spacing:.00004em;">1.86</tspan>
+      <tspan x="186.61621" y="0" style="letter-spacing:1.09504em;">0</tspan>
+      <tspan x="204.06543" y="0">2.30</tspan>
+      <tspan x="222.09766" y="0" style="letter-spacing:1.09495em;">6</tspan>
+      <tspan x="239.20508" y="0">2.89</tspan>
+      <tspan x="257.16309" y="0" style="letter-spacing:1.09495em;">7</tspan>
+      <tspan x="274.25977" y="0" style="letter-spacing:.00009em;">3.35</tspan>
+      <tspan x="291.69531" y="0" style="letter-spacing:1.26202em;">6</tspan>
+      <tspan x="310.62598" y="0">4.50</tspan>
+      <tspan x="328.93457" y="0" style="letter-spacing:1.51204em;">0</tspan>
+      <tspan x="350.93457" y="0">5.039</tspan>
+    </text><text transform="translate(24.30176 255.85083)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0" style="letter-spacing:2.60797em;">9</tspan>
+      <tspan x="33.61914" y="0" style="letter-spacing:.00004em;">0.88</tspan>
+      <tspan x="51.91797" y="0" style="letter-spacing:1.09499em;">3</tspan>
+      <tspan x="68.75928" y="0">1.10</tspan>
+      <tspan x="84.79834" y="0" style="letter-spacing:1.09504em;">0</tspan>
+      <tspan x="102.24756" y="0">1.38</tspan>
+      <tspan x="118.80859" y="0" style="letter-spacing:1.09504em;">3</tspan>
+      <tspan x="135.65039" y="0">1.57</tspan>
+      <tspan x="152.47803" y="0" style="letter-spacing:1.09598em;">4</tspan>
+      <tspan x="169.59668" y="0" style="letter-spacing:.00004em;">1.83</tspan>
+      <tspan x="186.1582" y="0" style="letter-spacing:1.09504em;">3</tspan>
+      <tspan x="203" y="0">2.26</tspan>
+      <tspan x="220.95703" y="0" style="letter-spacing:1.09504em;">2</tspan>
+      <tspan x="238.06543" y="0">2.82</tspan>
+      <tspan x="256.02246" y="0" style="letter-spacing:1.09504em;">2</tspan>
+      <tspan x="273.13086" y="0">3.25</tspan>
+      <tspan x="290.83203" y="0" style="letter-spacing:1.26202em;">0</tspan>
+      <tspan x="310.10352" y="0">4.29</tspan>
+      <tspan x="328.06152" y="0" style="letter-spacing:1.51195em;">7</tspan>
+      <tspan x="349.70898" y="0">4.780</tspan>
+    </text><text transform="translate(24.30182 269.3938)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0">1</tspan>
+      <tspan x="4.02832" y="0" style="letter-spacing:2.35902em;">0</tspan>
+      <tspan x="35.27148" y="0">0.87</tspan>
+      <tspan x="53.55957" y="0" style="letter-spacing:1.09499em;">9</tspan>
+      <tspan x="70.66748" y="0">1.09</tspan>
+      <tspan x="87.83594" y="0" style="letter-spacing:1.09504em;">3</tspan>
+      <tspan x="104.67773" y="0">1.37</tspan>
+      <tspan x="121.22852" y="0" style="letter-spacing:1.09495em;">2</tspan>
+      <tspan x="138.33594" y="0" style="letter-spacing:.00004em;">1.55</tspan>
+      <tspan x="155.18555" y="0" style="letter-spacing:1.09499em;">9</tspan>
+      <tspan x="172.29346" y="0">1.81</tspan>
+      <tspan x="187.99121" y="0" style="letter-spacing:1.09504em;">3</tspan>
+      <tspan x="204.83301" y="0">2.22</tspan>
+      <tspan x="222.79004" y="0" style="letter-spacing:1.09602em;">8</tspan>
+      <tspan x="239.90918" y="0">2.76</tspan>
+      <tspan x="257.85645" y="0" style="letter-spacing:1.09495em;">4</tspan>
+      <tspan x="274.96387" y="0">3.17</tspan>
+      <tspan x="291.51465" y="0" style="letter-spacing:1.26103em;">0</tspan>
+      <tspan x="310.77539" y="0">4.14</tspan>
+      <tspan x="327.60254" y="0" style="letter-spacing:1.51302em;">4</tspan>
+      <tspan x="349.27246" y="0">4.586</tspan>
+    </text><text transform="translate(24.30182 282.94751)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0">1</tspan>
+      <tspan x="4.02832" y="0" style="letter-spacing:2.35902em;">1</tspan>
+      <tspan x="33.80078" y="0">0.87</tspan>
+      <tspan x="52.08887" y="0" style="letter-spacing:1.09495em;">5</tspan>
+      <tspan x="69.20703" y="0" style="letter-spacing:.00004em;">1.08</tspan>
+      <tspan x="86.37598" y="0" style="letter-spacing:1.09499em;">8</tspan>
+      <tspan x="103.48389" y="0">1.36</tspan>
+      <tspan x="120.04541" y="0" style="letter-spacing:1.09499em;">3</tspan>
+      <tspan x="136.88672" y="0">1.54</tspan>
+      <tspan x="153.7251" y="0" style="letter-spacing:1.09499em;">8</tspan>
+      <tspan x="170.83301" y="0" style="letter-spacing:.00004em;">1.79</tspan>
+      <tspan x="187.65039" y="0" style="letter-spacing:1.09495em;">6</tspan>
+      <tspan x="204.75781" y="0">2.20</tspan>
+      <tspan x="223.05664" y="0" style="letter-spacing:1.09602em;">1</tspan>
+      <tspan x="239.0459" y="0">2.71</tspan>
+      <tspan x="255.86328" y="0" style="letter-spacing:1.09495em;">9</tspan>
+      <tspan x="272.9707" y="0">3.10</tspan>
+      <tspan x="289.87305" y="0" style="letter-spacing:1.26103em;">6</tspan>
+      <tspan x="308.79297" y="0">4.02</tspan>
+      <tspan x="327.0918" y="0" style="letter-spacing:1.51294em;">5</tspan>
+      <tspan x="348.77148" y="0">4.437</tspan>
+    </text><text transform="translate(24.30182 296.49146)" style="fill:#000; font-family:CrimsonText-Regular, &apos;Crimson Text&apos;; font-size:10.91305px;">
+      <tspan x="0" y="0">1</tspan>
+      <tspan x="4.02832" y="0" style="letter-spacing:2.35902em;">2</tspan>
+      <tspan x="34.93066" y="0">0.87</tspan>
+      <tspan x="53.21826" y="0" style="letter-spacing:1.09499em;">3</tspan>
+      <tspan x="70.05957" y="0" style="letter-spacing:.00004em;">1.08</tspan>
+      <tspan x="87.22852" y="0" style="letter-spacing:1.09504em;">3</tspan>
+      <tspan x="104.07031" y="0">1.35</tspan>
+      <tspan x="120.64209" y="0" style="letter-spacing:1.09499em;">6</tspan>
+      <tspan x="137.75" y="0">1.53</tspan>
+      <tspan x="154.32227" y="0" style="letter-spacing:1.09499em;">8</tspan>
+      <tspan x="171.43018" y="0">1.78</tspan>
+      <tspan x="188.24707" y="0" style="letter-spacing:1.09504em;">2</tspan>
+      <tspan x="205.35547" y="0" style="letter-spacing:-.00009em;">2.17</tspan>
+      <tspan x="222.17188" y="0" style="letter-spacing:1.09602em;">9</tspan>
+      <tspan x="239.29102" y="0">2.68</tspan>
+      <tspan x="257.24805" y="0" style="letter-spacing:1.09504em;">2</tspan>
+      <tspan x="274.35645" y="0">3.05</tspan>
+      <tspan x="292.39941" y="0" style="letter-spacing:1.26094em;">5</tspan>
+      <tspan x="311.3291" y="0">3.93</tspan>
+      <tspan x="328.75391" y="0" style="letter-spacing:1.51302em;">0</tspan>
+      <tspan x="350.76465" y="0">4.318</tspan>
+    </text></g>
+  <g id="column">
+    <rect x="225.32934" y="43.34731" width="33.62874" height="256.38323" style="fill:none; stroke:#9e005d; stroke-miterlimit:10; stroke-width:3px;" />
+  </g>
+  <g id="row">
+    <rect x="18.38323" y="245.11976" width="240.57485" height="14.37126" style="fill:none; stroke:#0071bc; stroke-miterlimit:10; stroke-width:3px;" />
+  </g>
+</svg>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Understanding The Sampling distribution</title>
+  <script src="js/d3.v7.8.5.js"></script>
+  <script src="js/jstat.v1.9.6.js"></script>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+    }
+    #container {
+      margin: auto;
+      padding: 0;
+      width: 900px;
+      height: 550px;
+    }
+    #controls {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      margin-right: 10px;
+    }
+
+    #canvasContainer {
+      position: relative;
+    }
+
+    canvas {
+      border: none;
+      margin-left: 50px;
+      margin-right: 70px;
+    }
+
+    svg {
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div id="controls">
+      <label for="N">Sample Size (N)</label>
+      <input type="number" id="N" min="2" value="5" />
+
+      <label for="statistic">Statistic:</label>
+      <select id="statistic">
+        <option value="mean">Mean</option>
+        <option value="median">Median</option>
+        <option value="q1q3">Q1/Q3</option>
+        <option value="range">Range</option>
+      </select>
+
+      <label for="distribution">Distribution:</label>
+      <select id="distribution">
+        <option value="Uniform">Uniform</option>
+        <option value="Normal">Normal</option>
+        <option value="LeftSkewed">Left Skewed</option>
+        <option value="RightSkewed">Right Skewed</option>
+      </select>
+
+      <button id="sampleBtn">Take Sample</button>
+      <button id="manyBtn">Many</button>
+    </div>
+    <div id="canvasContainer">
+      <!-- CANVAS element for sampling and animations -->
+      <div id="samplingCanvas"></div>
+    </div>
+
+    <!-- SVG element for the histogram -->
+    <div id="histogram"></div>
+  </div>
+  <!-- JAVASCRIPT INTERACTIVE -->
+  <script src="js/dynamicContainers.js"></script>
+  <script src="js/clt-simulation.js"></script>
+  <script>
+    window.runSimulation = runSimulation;
+    window.resetVisualization = resetVisualization;
+    window.changeSampleSize = changeSampleSize;
+    window.changeStatistic = changeStatistic;
+    window.changeDistribution = changeDistribution;
+
+    window._fragments = [{
+        activate: () => runSimulation(1),
+        reverse: () => resetVisualization(),
+        index: 1,
+      },
+      {
+        activate: () => runSimulation(9),
+        reverse: () => runSimulation(1),
+        index: 3,
+      },
+      {
+        activate: () => runSimulation(1000),
+        reverse: () => runSimulation(1),
+        index: 4,
+      },
+      {
+        activate: () => {
+          changeDistribution("RightSkewed").then(() => runSimulation(1000));
+        },
+        reverse: () => changeDistribution("Normal"),
+        index: 5,
+      }
+    ];
+  </script>
+</body>
+
+</html>

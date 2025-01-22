@@ -1,0 +1,78 @@
+name: Build and Release ME3040_S25
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  setup-release:
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+
+  build-mac:
+    needs: setup-release
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm install
+      - name: Build and package macOS
+        run: |
+          export GH_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          npm run package-mac
+      - name: List output in dist directory
+        run: ls -l dist/
+      - name: Upload macOS Installers
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./dist/ME3040_S25-${{ github.ref_name }}-mac-x64.dmg
+            ./dist/ME3040_S25-${{ github.ref_name }}-mac-arm64.dmg
+            ./dist/ME3040_S25-${{ github.ref_name }}-mac-universal.dmg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-win:
+    needs: setup-release
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm install
+      - name: Build and package Windows
+        run: |
+          $env:GH_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+          npm run package-win
+        shell: pwsh
+      - name: List output in dist directory
+        run: dir dist
+      - name: Upload Windows Installers
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./dist/ME3040_S25-${{ github.ref_name }}-win-x64.exe
+            ./dist/ME3040_S25-${{ github.ref_name }}-win-ia32.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

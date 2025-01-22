@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+  <head>
+    <title>Venn Diagrams: Set Rules</title>
+    <script src="js/d3.v7.8.5.js"></script>
+    <script src="js/jstat.v1.9.6.js"></script>
+    <script src="js/chroma.v2.4.2.min.js"></script>
+    <script>
+      window.MathJax = {
+        loader: {
+          load: ["[tex]/cancel"],
+        },
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [["$$", "$$"]],
+          packages: { "[+]": ["cancel"] },
+          tags: "ams",
+        },
+        startup: {
+          pageReady: () => {
+            return MathJax.startup.defaultPageReady().then(() => {
+              document.querySelectorAll(".MathJax").forEach((node) => {
+                node.parentNode.classList.add("has-jax");
+              });
+            });
+          },
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      src="js/mathjax.v3.2.2/es5/tex-svg.js"
+    ></script>
+
+    <style>
+      * {
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+      }
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Prevents scrolling */
+      }
+      #container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+      }
+      #radioButtons {
+        width: 400px;
+      }
+      #radioButtons label {
+        font-size: 18pt; /* Adjust the size as needed */
+      }
+      #vennDiagram {
+        flex-grow: 1;
+        height: 100vh; /* Full viewport height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #clearButton {
+        background-color: steelblue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        margin-top: 10px;
+        cursor: pointer;
+      }
+      #clearButton:hover {
+        background-color: darkslateblue;
+      }
+      svg {
+        user-select: none;
+      }
+      .label-text {
+        font-size: 36pt; /* Adjust the size as needed */
+        font-weight: bold;
+      }
+      #setTheoryDescription p:first-child {
+        font-size: 12pt;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      #setTheoryDescription p:nth-child(2) {
+        font-size: 12pt;
+        font-weight: normal;
+        text-align: left;
+      }
+
+      #setTheoryDescription p:nth-child(3) {
+        font-size: 14pt;
+        font-family: "Times New Roman", Times, serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="radioButtons">
+        <input
+          type="radio"
+          id="universalSet"
+          name="setOperation"
+          value="universalSet"
+        />
+        <label for="universalSet">$\xi$</label><br />
+
+        <input type="radio" id="setX" name="setOperation" value="setX" />
+        <label for="setX">$X$</label><br />
+
+        <input
+          type="radio"
+          id="complementX"
+          name="setOperation"
+          value="complementX"
+        />
+        <label for="complementX">$X'$</label><br />
+
+        <input
+          type="radio"
+          id="intersectionXY"
+          name="setOperation"
+          value="intersectionXY"
+        />
+        <label for="intersectionXY">$X \cap Y$</label><br />
+
+        <input
+          type="radio"
+          id="complementIntersection"
+          name="setOperation"
+          value="complementIntersection"
+        />
+        <label for="complementIntersection">$(X \cap Y)'$</label><br />
+
+        <input type="radio" id="unionXY" name="setOperation" value="unionXY" />
+        <label for="unionXY">$X \cup Y$</label><br />
+
+        <input
+          type="radio"
+          id="complementUnion"
+          name="setOperation"
+          value="complementUnion"
+        />
+        <label for="complementUnion">$(X \cup Y)'$</label><br />
+
+        <input
+          type="radio"
+          id="complementXUnionY"
+          name="setOperation"
+          value="complementXUnionY"
+        />
+        <label for="complementXUnionY">$X' \cup Y$</label><br />
+
+        <input
+          type="radio"
+          id="exclusiveOr"
+          name="setOperation"
+          value="exclusiveOr"
+        />
+        <label for="exclusiveOr">$X \oplus Y$</label><br />
+
+        <input
+          type="radio"
+          id="symmetricDifference"
+          name="setOperation"
+          value="symmetricDifference"
+        />
+        <label for="symmetricDifference">$X \triangle Y$</label><br />
+
+        <input
+          type="radio"
+          id="complementXIntersectionY"
+          name="setOperation"
+          value="complementXIntersectionY"
+        />
+        <label for="complementXIntersectionY">$X' \cap Y$</label><br />
+
+        <input type="radio" id="subset" name="setOperation" value="subset" />
+        <label for="subset">$Y \subseteq X$</label><br />
+
+        <input
+          type="radio"
+          id="notSubset"
+          name="setOperation"
+          value="notSubset"
+        />
+        <label for="notSubset">$Y \nsubseteq X$</label><br />
+
+        <!-- Clear Button -->
+        <button id="clearButton">Clear</button>
+        <!-- div for displaying set theory descriptions and formulas -->
+        <div id="setTheoryDescription"></div>
+      </div>
+      <div id="vennDiagram"></div>
+    </div>
+    <!-- JAVASCRIPT INTERACTIVE -->
+    <script>
+      const isFree = false;
+    </script>
+    <script src="js/dynamicContainers.js"></script>
+    <script src="js/vennSets.js"></script>
+    <script>
+      const radioButtonOrder = [
+        "universalSet",
+        "setX",
+        "complementX",
+        "intersectionXY",
+        "complementIntersection",
+        "unionXY",
+        "complementUnion",
+        "complementXUnionY",
+        "exclusiveOr",
+        "symmetricDifference",
+        "complementXIntersectionY",
+        "subset",
+        "notSubset",
+      ];
+
+      function setRadioButton(id) {
+        if (!id || id === "none") {
+          // Uncheck all radio buttons
+          radioButtonOrder.forEach(function(radioId) {
+            const radioButton = document.getElementById(radioId);
+            if (radioButton) {
+              radioButton.checked = false;
+            }
+          });
+        } else {
+          // Check the specified radio button
+          const radioButton = document.getElementById(id);
+          if (radioButton) {
+            radioButton.checked = true;
+          }
+        }
+      
+        // Call the onRadioButtonChange function
+        onRadioButtonChange();
+      }
+      // Assign to window for vizzy
+      window.setRadioButton = setRadioButton;
+
+      var _fragments = radioButtonOrder.map((id, index) => ({
+        activate: () => {
+          setRadioButton(id);
+        },
+        reverse: () => {
+          if (index > 0) {
+            setRadioButton(radioButtonOrder[index - 1]);
+          } else {
+            onClearButtonClick();
+          }
+        },
+        index: index,
+      }));
+    </script>
+  </body>
+</html>

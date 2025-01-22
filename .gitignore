@@ -1,0 +1,74 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Logs
+*.log
+logs
+*.log.*
+logs/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Build directories
+/dist
+/out
+/release-builds
+/release-installers
+
+# Temporary files
+tmp/
+temp/
+
+# System files
+*.swp
+*.swo
+*~
+# Windows system files
+$RECYCLE.BIN/
+*.bak
+*.ini
+*.lnk
+*.tmp
+*.log
+*.gid
+*.dmp
+*.mdmp
+*.ldf
+*.sdf
+
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+build/Release
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# NPM cache directory
+.npm
+
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Bower dependency directory (https://bower.io/)
+bower_components/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+
+# VS Code directories
+.vscode/
+
+# SASS and other preprocessor cache
+.sass-cache/
+.ruby-sass-cache/
+
+# lock files
+*.lock

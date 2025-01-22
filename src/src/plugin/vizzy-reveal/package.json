@@ -1,0 +1,64 @@
+{
+  "name": "vizzy-reveal",
+  "version": "1.1.21",
+  "description": "A Reveal.js plugin to integrate and interact with external pages.",
+  "keywords": [
+    "revealjs-plugin",
+    "reveal.js",
+    "reveal-plugins",
+    "reveal",
+    "presentation",
+    "interactive",
+    "visualization",
+    "iframes",
+    "embed",
+    "data-visualization",
+    "slides",
+    "custom-plugins",
+    "slideshow",
+    "slide-deck",
+    "interactive-presentation",
+    "plugin"
+  ],
+  "main": "vizzy.js",
+  "module": "vizzy.esm.js",
+  "scripts": {
+    "build": "gulp build:vizzy",
+    "copy": "gulp copy:dist",
+    "prepublishOnly": "npm run build",
+    "test": "npm run build && npm run copy"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/plugin-transform-modules-commonjs": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "babel-plugin-transform-html-import-to-string": "^2.0.0",
+    "core-js": "^3.37.1",
+    "del": "^7.1.0",
+    "gulp": "^5.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-rename": "^2.0.0",
+    "rimraf": "^5.0.7",
+    "rollup": "^2.79.1"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/Khlick/Vizzy",
+  "bugs": "https://github.com/Khlick/Vizzy/issues",
+  "author": {
+    "name": "Khris Griffis, Ph.D.",
+    "email": "khris.griffis.phd@gmail.com",
+    "url": "https://khrisgriffis.com"
+  },
+  "files": [
+    "vizzy.js",
+    "vizzy.esm.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Khlick/Vizzy.git"
+  }
+}

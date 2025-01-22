@@ -1,0 +1,79 @@
+{
+  "name": "ME3040_S25",
+  "version": "1.1.1",
+  "description": "ME3040: Experimental Methods For Engineering",
+  "main": "main.js",
+  "authors": [
+    "Khris Griffis, Ph.D. <khrisgriffis@ucla.edu>"
+  ],
+  "author": "Khris Griffis, Ph.D.",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "package-win": "electron-builder --win",
+    "package-mac": "electron-builder --mac",
+    "test": "echo \"No tests specified\" && exit 1"
+  },
+  "keywords": [
+    "reveal.js",
+    "statistics",
+    "stats lectures",
+    "engineering",
+    "mechanical engineering",
+    "uncertainty quantification",
+    "probabilty",
+    "experimental methods"
+  ],
+  "devDependencies": {
+    "electron": "^31.4.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.me3040_s25",
+    "productName": "ME3040_S25",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "main.js"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "assets/icons/win/icon.ico",
+      "artifactName": "ME3040_S25-v${version}-win-${arch}.exe"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64",
+            "universal"
+          ]
+        }
+      ],
+      "icon": "assets/icons/mac/icon.icns",
+      "minimumSystemVersion": "10.12",
+      "artifactName": "ME3040_S25-v${version}-mac-${arch}.dmg",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "ME3040: Experimental Methods For Engineering"
+    }
+  }
+}

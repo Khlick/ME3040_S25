@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sum of 2 dice histogram</title>
+    <script src="js/d3.v7.8.5.js"></script>
+    <style>
+      * {
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+      }
+      body,
+      html {
+        margin: 0;
+        display: flex;
+        height: 100vh;
+        width: 100vw;
+        justify-content: center;
+        align-items: start;
+      }
+      #container {
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        width: 100%;
+        height: 100%;
+      }
+      svg {
+        height: 95%;
+        width: 95%;
+      }
+      .label {
+        font-size: 26pt;
+      }
+      .tick text {
+        font-size: 18pt;
+        font-family: "Times New Roman";
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <!-- JAVASCRIPT INTERACTIVE -->
+    <script src="js/dynamicContainers.js"></script>
+    <script>
+      // DATA
+      const data = [
+        { sum: 1, frequency: 0 }, // empty for removal
+        { sum: 2, frequency: 1 },
+        { sum: 3, frequency: 2 },
+        { sum: 4, frequency: 3 },
+        { sum: 5, frequency: 4 },
+        { sum: 6, frequency: 5 },
+        { sum: 7, frequency: 6 },
+        { sum: 8, frequency: 5 },
+        { sum: 9, frequency: 4 },
+        { sum: 10, frequency: 3 },
+        { sum: 11, frequency: 2 },
+        { sum: 12, frequency: 1 },
+      ];
+
+      // Aesthetics
+      const baseColor = "#00A8E8"; // Base color for the bars
+      const updatedColor = d3.rgb(baseColor).darker(3); // Darkened color for updated bars
+
+      // Create an SVG instance
+      const hist = new SVG({
+        elementName: "container",
+        initialWidth: window.innerWidth,
+        initialHeight: window.innerHeight,
+        margin: { top: 20, right: 20, bottom: 70, left: 65 },
+      });
+
+      // scales
+      // Define x scale
+      const xScale = d3
+        .scaleBand()
+        .rangeRound([0, hist.width])
+        .padding(0.1)
+        .domain(data.map((d) => d.sum));
+
+      // Define y scale
+      let yScale = d3
+        .scaleLinear()
+        .rangeRound([hist.height, 0])
+        .domain([0, d3.max(data, (d) => d.frequency) + 1]);
+
+      const gHist = hist.g.append("g").attr("class", "hist-internal");
+
+      // append top-layer information
+      const xAxis = hist.g
+        .append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", `translate(0,${hist.height})`)
+        .call(d3.axisBottom(xScale));
+      const yAxis = hist.g
+        .append("g")
+        .attr("class", "axis axis--y")
+        .attr("transform", "translate(0,0)")
+        .call(d3.axisLeft(yScale).ticks(7, "d"));
+
+      // Axis labels
+      hist.g
+        .append("text")
+        .attr("class", "x-label")
+        .text("Sum Of Face Values")
+        .attr("class", "label")
+        .attr("dx", hist.width / 2 + hist.margin.left)
+        .attr("dy", hist.height + hist.margin.bottom)
+        .style("text-anchor", "middle");
+      const yLabel = hist.g
+        .append("text")
+        .attr("class", "label y-label")
+        .attr("transform", "rotate(-90)")
+        .attr("dy", "1em")
+        .attr("x", -hist.height / 2 - hist.margin.top)
+        .attr("y", -hist.margin.left - 10)
+        .style("text-anchor", "middle")
+        .text("Frequency");
+
+      // Define the transition for the bounce effect
+      function transitionBounce() {
+        return d3.transition().duration(500).ease(d3.easeBounce);
+      }
+
+      // Function to update the histogram based on the provided index
+      function updateHistogram(index) {
+        // Create a copy of data from index 0 to the specified input
+        const updatedData = data.slice(0, index + 1);
+        // Select bars and join with updated data using the join method
+        gHist
+          .selectAll(".bar")
+          .data(updatedData, (d) => d.sum)
+          .join(
+            // Enter selection
+            (enter) =>
+              enter
+                .append("rect")
+                .attr("class", "bar")
+                .attr("x", (d) => xScale(d.sum))
+                .attr("y", yScale(0))
+                .attr("width", xScale.bandwidth())
+                .attr("height", 0)
+                .attr("fill", baseColor)
+                .call((enter) =>
+                  enter
+                    .transition(transitionBounce())
+                    .attr("y", (d) => yScale(d.frequency))
+                    .attr("height", (d) =>
+                      Math.max(0, hist.height - yScale(d.frequency))
+                    )
+                ),
+
+            // Update selection
+            (update) =>
+              update.call((u) =>
+                u
+                  .transition()
+                  .duration(200)
+                  .attr("fill", updatedColor)
+                  .attr("y", (d) => yScale(d.frequency))
+                  .attr("height", (d) =>
+                    Math.max(0, hist.height - yScale(d.frequency))
+                  )
+              ),
+
+            // Exit selection
+            (exit) =>
+              exit.call((ex) =>
+                ex
+                  .transition()
+                  .duration(200)
+                  .attr("fill", "lightgray")
+                  .transition(transitionBounce().duration(200))
+                  .attr("y", yScale(0))
+                  .attr("height", 0)
+                  .remove()
+              )
+          );
+      }
+
+      // Function to toggle between frequency and probability
+      function toggleYScale(type) {
+        const totalFrequency = d3.sum(data, (d) => d.frequency);
+        let newDomain;
+
+        if (type === "probability") {
+          newDomain = [0, d3.max(data, (d) => (d.frequency / totalFrequency) * 100)];
+        } else {
+          newDomain = [0, d3.max(data, (d) => d.frequency) + 1];
+        }
+
+        yScale.domain(newDomain);
+
+        // Update y axis
+        yAxis
+          .transition()
+          .duration(500)
+          .call(
+            d3.axisLeft(yScale)
+              .ticks(7)
+              .tickFormat(type === "probability"
+                ? d => d.toFixed(0) // No decimals
+                : d3.format("d"))
+          );
+
+        // Update y axis label
+        yLabel.text(type === "probability" ? "Probability (%)" : "Frequency (count)");
+
+        // Update bars
+        gHist
+          .selectAll(".bar")
+          .transition(transitionBounce())
+          .attr("y", (d) =>
+            yScale(
+              type === "probability"
+                ? (d.frequency / totalFrequency) * 100
+                : d.frequency
+            )
+          )
+          .attr("height", (d) =>
+            Math.max(
+              0,
+              hist.height -
+                yScale(
+                  type === "probability"
+                    ? (d.frequency / totalFrequency) * 100
+                    : d.frequency
+                )
+            )
+          );
+      }
+
+      // TRANSITIONS
+      var _fragments = data.map((_, index) => ({
+        activate: () => {
+          updateHistogram(index);
+        },
+        reverse: () => {
+          updateHistogram(index - 1 >= 0 ? index - 1 : 0);
+        },
+        index: index,
+      }));
+
+      // Add function to toggle between frequency and probability
+      _fragments.push({
+        activate: () => toggleYScale("probability"),
+        reverse: () => toggleYScale("frequency"),
+        index: data.length,
+      });
+
+      // Initialize view
+      hist.updateSvgDimensions();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ANOVA Interactive</title>
+    <script src="js/d3.v7.8.5.js"></script>
+    <script src="js/jstat.v1.9.6.js"></script>
+    <script src="js/chroma.v2.4.2.min.js"></script>
+    <script
+      type="text/javascript"
+      async
+      src="js/mathjax.v2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+    >
+
+      MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        displayMath: [['$$','$$']],
+        processEscapes: true,
+      imageFont:null,
+        processEnvironments: true,
+      showMathMenu: false,
+
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      jax: ["input/TeX","output/SVG"]
+      }
+      });
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i = 0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <style>
+      * {
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+      }
+      body,
+      html {
+        margin: 0;
+        margin-top: 5px;
+      }
+      #container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        height: calc(100vh - 20px);
+        align-items: start;
+        justify-items: center;
+      }
+      #graphic-container {
+        display: block;
+        height: 100%;
+      }
+      .tick text {
+        font-size: 16pt;
+      }
+
+      .tick line,
+      .axis--y path.domain {
+        stroke: #030303;
+        stroke-width: 2;
+      }
+
+      #arrow-head {
+        stroke: #333;
+        fill: #333;
+      }
+
+      .dot {
+        stroke: #333;
+      }
+
+      .axis--x path.domain {
+        stroke: none;
+      }
+
+      .legend text {
+        font-size: 14px;
+        fill: #333;
+      }
+      circle.mean-circle {
+        fill: #411;
+        stroke: #fff;
+      }
+
+      .stddev-line {
+        stroke: #411;
+        stroke-width: 2px;
+      }
+
+      .interaction-line {
+        stroke-width: 5px; /* Set desired thickness */
+        stroke: gray;
+        stroke-dasharray: 4, 2;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="graphic-container">
+        <!-- D3.js Graphic will go here -->
+      </div>
+    </div>
+    <!-- load the javscript code -->
+    <script src="js/dynamicContainers.js"></script>
+    <script src="js/accurate-beeswarm-plot.nomodule.js"></script>
+    <script src="js/anova_1.js"></script>
+    <script>
+      /*************************************
+       * INITIALIZE PAGE
+       ************************************
+       */
+
+      /*****************
+       * Setup Transitions
+       */
+      var _fragments = [
+        {
+          activate: () => {
+            toggleMeans();
+          },
+          reverse: () => {
+            toggleMeans();
+          },
+          index: 0,
+        },
+        {
+          activate: () => {
+            currentView = 1;
+            updateView();
+          },
+          reverse: () => {
+            currentView = 0;
+            updateView();
+          },
+          index: 1,
+        },
+        {
+          activate: () => {
+            currentView = 2;
+            updateView();
+          },
+          reverse: () => {
+            currentView = 1;
+            updateView();
+          },
+          index: 2,
+        },
+        {
+          activate: () => {
+            currentView = 0;
+            updateView();
+          },
+          reverse: () => {
+            currentView = 2;
+            updateView();
+          },
+          index: 3,
+        },
+        {
+          activate: () => {
+            currentView = 3;
+            updateView();
+            toggleInteractions();
+          },
+          reverse: () => {
+            currentView = 0;
+            updateView();
+            toggleInteractions();
+          },
+          index: 4,
+        },
+        {
+          activate: () => {
+            currentView = 0;
+            updateView();
+          },
+          reverse: () => {
+            currentView = 3;
+            updateView();
+          },
+          index: 5,
+        },
+      ];
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1661 @@
+@charset "UTF-8";
+@use 'sass:color';
+@use 'sass:string';
+.no-margin {
+  margin: 0 !important;
+  padding: 0 !important; }
+
+.reveal {
+  /*
+  .title-slide
+  - Grid layout for title slides with 4 rows, 5 columns
+  - fill-view mixin scales to fit view
+
+  .image
+  - Covers full grid, background image settings, z-index 1
+
+  .headline
+  - Top right, spans 2 columns, z-index 3
+  - fill-view mixin, bold h2
+
+  .sub-header
+  - Middle right, spans 2 columns, z-index 3
+  - .by paragraph with specific font and styling
+
+  .byline
+  - Bottom right, spans 2 columns, z-index 3
+  - .byinfo paragraph with specific font and styling
+
+  .background
+  - Partial cover, spans 2 columns, z-index 2
+  - Gradient background, border-radius, margin adjustment
+  */
+  /*
+  Provide a generic slide layout using grid css. This is used for 
+  section title content.
+  .grid-wrapper
+  - Responsive grid layout for slides: header, content, footer
+  - fill-view mixin scales to fit view
+  - 3 rows: auto (header), 1fr (content), min-content (footer)
+  - 3 columns: 1fr each
+
+  .header, h2
+  - Centered in header area
+
+  .content
+  - Centered flexbox in content area
+  - Child divs take full width
+
+  .foot-left, .foot-center, .foot-right
+  - Footer areas with respective text alignment, smaller font
+
+  .section-title-content
+  - Specific grid layout for section titles
+  - Areas: section-number, headlines, gap
+  - .section-number: Large, bold, stylized number
+  - .headlines: Column flexbox, custom fonts, colors
+  */ }
+  .reveal .title-slide {
+    margin: 0;
+    padding: 0;
+    height: calc(var(--slide-height) * 0.99 * var(--slide-scale));
+    width: 100%;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 10vw 1fr 1fr 1fr 1fr; }
+    .reveal .title-slide .image {
+      grid-row: 1 / 5;
+      grid-column: 1 / 6;
+      z-index: 1;
+      background-repeat: no-repeat !important;
+      background-position: center center !important;
+      background-size: contain; }
+    .reveal .title-slide .headline {
+      grid-row: 1 / 2;
+      grid-column: 4 / 6;
+      z-index: 3;
+      display: block;
+      justify-self: right;
+      align-self: center;
+      align-content: start;
+      height: calc(var(--slide-height) * 0.15 * var(--slide-scale));
+      width: 100%; }
+      .reveal .title-slide .headline h2 {
+        font-weight: bold; }
+    .reveal .title-slide .sub-header {
+      grid-row: 2 / 4;
+      grid-column: 4 / 6;
+      z-index: 3;
+      align-self: end; }
+      .reveal .title-slide .sub-header p.by {
+        margin: 0;
+        padding: 0;
+        font-family: 'Playfair Display', serif;
+        font-weight: normal;
+        text-align: end; }
+    .reveal .title-slide .byline {
+      grid-row: 4 / 6;
+      grid-column: 4 / 6;
+      align-self: start;
+      z-index: 3; }
+      .reveal .title-slide .byline p.byinfo {
+        margin: 0;
+        padding: 0;
+        font-family: 'PT Sans', sans-serif;
+        font-style: italic;
+        text-align: end; }
+    .reveal .title-slide .background {
+      grid-row: 1 / 5;
+      grid-column: 3 / 6;
+      z-index: 2;
+      border-radius: 2rem;
+      margin-right: -4vmin; }
+  .reveal footer.main-footer {
+    position: absolute;
+    width: calc(100% - 1em);
+    bottom: 0;
+    font-size: 30%;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em; }
+  .reveal .grid-generic {
+    align-self: start;
+    justify-self: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-items: start;
+    justify-content: center;
+    align-content: start;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0; }
+    .reveal .grid-generic > div {
+      display: grid;
+      width: 100%; }
+      .reveal .grid-generic > div p {
+        margin-top: 3px;
+        margin-bottom: 0;
+        padding: 0; }
+    .reveal .grid-generic > p {
+      width: 100%;
+      margin-top: 5px;
+      margin-bottom: 0;
+      padding: 0; }
+  .reveal .grid-wrapper {
+    margin: 0;
+    padding: 0;
+    height: calc(var(--slide-height) * 0.95 * var(--slide-scale));
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-areas: "header header header" "content content content" "foot-left foot-center foot-right";
+    grid-template-rows: auto 1fr min-content;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 1vmin; }
+    .reveal .grid-wrapper .header {
+      grid-area: header;
+      align-self: center;
+      align-content: center; }
+    .reveal .grid-wrapper h2 {
+      grid-area: header;
+      align-self: center;
+      align-content: center; }
+    .reveal .grid-wrapper .content {
+      grid-area: content;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      align-content: center;
+      height: 100%; }
+      .reveal .grid-wrapper .content > div {
+        width: 100%; }
+    .reveal .grid-wrapper .foot-left {
+      grid-area: foot-left;
+      text-align: left;
+      font-size: 40%; }
+    .reveal .grid-wrapper .foot-center {
+      grid-area: foot-center;
+      text-align: center;
+      font-size: 40%; }
+    .reveal .grid-wrapper .foot-right {
+      grid-area: foot-right;
+      text-align: right;
+      font-size: 40%; }
+    .reveal .grid-wrapper .section-title-content {
+      grid-area: content;
+      display: grid;
+      grid-template-areas: "section-number headlines gap";
+      grid-template-columns: min-content 20fr 1fr;
+      align-items: center;
+      grid-column-gap: 6vmin;
+      height: 100%;
+      width: 100%; }
+      .reveal .grid-wrapper .section-title-content .section-number {
+        grid-area: section-number;
+        display: flex;
+        place-self: start center;
+        align-items: start;
+        margin: 0;
+        padding: 0;
+        transform: translateY(-6vmin); }
+        .reveal .grid-wrapper .section-title-content .section-number .large-number {
+          font-size: 8em;
+          font-weight: bold;
+          margin: 0;
+          padding: 0;
+          text-align: top;
+          line-height: 1; }
+        .reveal .grid-wrapper .section-title-content .section-number h2 {
+          overflow-wrap: break-word; }
+      .reveal .grid-wrapper .section-title-content .headlines {
+        grid-area: headlines;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; }
+        .reveal .grid-wrapper .section-title-content .headlines h2 {
+          align-self: center; }
+
+.massive {
+  font-size: 250% !important; }
+
+.huge {
+  font-size: 200% !important; }
+
+.biggest {
+  font-size: 160% !important; }
+
+.bigger {
+  font-size: 140% !important; }
+
+.big {
+  font-size: 110% !important; }
+
+.small {
+  font-size: 90% !important; }
+
+.smaller {
+  font-size: 80% !important; }
+
+.smallest {
+  font-size: 70% !important; }
+
+.tiny {
+  font-size: 65% !important; }
+
+.strong {
+  font-weight: bold !important; }
+
+.em {
+  font-style: italic !important; }
+
+.u {
+  text-decoration: underline; }
+
+.strike {
+  text-decoration: line-through !important; }
+
+.tt {
+  font-family: monospace !important; }
+
+.sf {
+  font-family: sans-serif !important; }
+
+.full-width {
+  width: 100% !important; }
+
+.q3-width {
+  width: 75% !important; }
+
+.half-width {
+  width: 50% !important; }
+
+.q1-width {
+  width: 25% !important; }
+
+.box-width {
+  width: 80% !important; }
+
+.center-justify, .center-justify * {
+  text-align: center !important; }
+
+.left-justify, .left-justify * {
+  text-align: left !important; }
+
+.right-justify, .right-justify * {
+  text-align: right !important; }
+
+.just-justify, .just-justify * {
+  text-align: justify !important;
+  text-justify: inter-word !important;
+  padding-right: 5px !important;
+  padding-left: 5px !important; }
+
+.no-hang > * {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: 1.2 !important; }
+
+.no-hang .MathJax_Display {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important; }
+
+.pdf-page .grid-wrapper .section-title-content .headlines {
+  max-width: 100% !important; }
+  .pdf-page .grid-wrapper .section-title-content .headlines h2 {
+    display: block !important;
+    font-size: 1.3rem !important; }
+
+/*********************************************
+* EMOJIS
+*********************************************/
+i[role="emoji"] {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased; }
+  i[role="emoji"]::before {
+    content: attr(data-emoji);
+    font-size: 105%; }
+
+i.angry::before {
+  content: "😡";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.angry_face::before {
+  content: "🤬";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.arrowr::before {
+  content: "→";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.arrorl::before {
+  content: "←";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.beaker::before {
+  content: "🧪";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.brain::before {
+  content: "🧠";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.calculator::before {
+  content: "🖩";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.calendar::before {
+  content: "🗓";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.chart::before {
+  content: "📈";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.check::before {
+  content: "✔";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.clock::before {
+  content: "🕗";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.construction::before {
+  content: "🚧";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.cool::before {
+  content: "😎";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.crying::before {
+  content: "😭";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.dna::before {
+  content: "🧬";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.double_exclamation::before {
+  content: "‼";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.exclamation::before {
+  content: "❗";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.exclamation_question::before {
+  content: "⁉";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.fire::before {
+  content: "🔥";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.floppy_disk::before {
+  content: "💾";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.gem_stone::before {
+  content: "💎";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.goggles::before {
+  content: "🥽";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.happy::before {
+  content: "🙂";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.key::before {
+  content: "🗝";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.lightbulb::before {
+  content: "💡";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.lightning::before {
+  content: "⚡";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.locked::before {
+  content: "🔒";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.loudspeaker::before {
+  content: "📢";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.medal::before {
+  content: "🥇";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.memo::before {
+  content: "📝";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.microscope::before {
+  content: "🔬";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.mirror::before {
+  content: "🪞";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.no_entry::before {
+  content: "🚫";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.no-entry::before {
+  content: "⛔";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.party_popper::before {
+  content: "🎉";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.pin::before {
+  content: "📌";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.question::before {
+  content: "❓";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.report::before {
+  content: "📝";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.ribbon::before {
+  content: "🎗";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.sad::before {
+  content: "😞";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.scream::before {
+  content: "😱";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.sigh::before {
+  content: "😔";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.skull_and_crossbones::before {
+  content: "☠";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.smiley::before {
+  content: "😄";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.speech_balloon::before {
+  content: "🗨";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.star::before {
+  content: "🌟";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.star-struck::before {
+  content: "🤩";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.stop_sign::before {
+  content: "🛑";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.target::before {
+  content: "🎯";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.test_tube::before {
+  content: "🧪";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.thought_balloon::before {
+  content: "💭";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.unlocked::before {
+  content: "🔓";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.warning::before {
+  content: "🚨";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+li.emoji-angry {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-angry::before {
+    content: "😡";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-angry_face {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-angry_face::before {
+    content: "🤬";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-arrowr {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-arrowr::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-arrorl {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-arrorl::before {
+    content: "←";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-beaker {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-beaker::before {
+    content: "🧪";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-brain {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-brain::before {
+    content: "🧠";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-calculator {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-calculator::before {
+    content: "🖩";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-calendar {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-calendar::before {
+    content: "🗓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-chart {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-chart::before {
+    content: "📈";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-check {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-check::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-clock {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-clock::before {
+    content: "🕗";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-construction {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-construction::before {
+    content: "🚧";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-cool {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-cool::before {
+    content: "😎";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-crying {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-crying::before {
+    content: "😭";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-dna {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-dna::before {
+    content: "🧬";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-double_exclamation {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-double_exclamation::before {
+    content: "‼";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-exclamation {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-exclamation::before {
+    content: "❗";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-exclamation_question {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-exclamation_question::before {
+    content: "⁉";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-fire {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-fire::before {
+    content: "🔥";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-floppy_disk {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-floppy_disk::before {
+    content: "💾";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-gem_stone {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-gem_stone::before {
+    content: "💎";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-goggles {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-goggles::before {
+    content: "🥽";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-happy {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-happy::before {
+    content: "🙂";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-key {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-key::before {
+    content: "🗝";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-lightbulb {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-lightbulb::before {
+    content: "💡";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-lightning {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-lightning::before {
+    content: "⚡";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-locked {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-locked::before {
+    content: "🔒";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-loudspeaker {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-loudspeaker::before {
+    content: "📢";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-medal {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-medal::before {
+    content: "🥇";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-memo {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-memo::before {
+    content: "📝";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-microscope {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-microscope::before {
+    content: "🔬";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-mirror {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-mirror::before {
+    content: "🪞";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-no_entry {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-no_entry::before {
+    content: "🚫";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-no-entry {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-no-entry::before {
+    content: "⛔";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-party_popper {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-party_popper::before {
+    content: "🎉";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-pin {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-pin::before {
+    content: "📌";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-question {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-question::before {
+    content: "❓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-report {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-report::before {
+    content: "📝";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-ribbon {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-ribbon::before {
+    content: "🎗";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-sad {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-sad::before {
+    content: "😞";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-scream {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-scream::before {
+    content: "😱";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-sigh {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-sigh::before {
+    content: "😔";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-skull_and_crossbones {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-skull_and_crossbones::before {
+    content: "☠";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-smiley {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-smiley::before {
+    content: "😄";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-speech_balloon {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-speech_balloon::before {
+    content: "🗨";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-star {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-star::before {
+    content: "🌟";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-star-struck {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-star-struck::before {
+    content: "🤩";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-stop_sign {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-stop_sign::before {
+    content: "🛑";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-target {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-target::before {
+    content: "🎯";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-test_tube {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-test_tube::before {
+    content: "🧪";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-thought_balloon {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-thought_balloon::before {
+    content: "💭";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-unlocked {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-unlocked::before {
+    content: "🔓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-warning {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-warning::before {
+    content: "🚨";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+    font-style: normal;
+    font-size: 80%; }
+
+span.emoji {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Android Emoji", "EmojiSymbols";
+  font-style: normal;
+  display: inline-block;
+  vertical-align: middle; }

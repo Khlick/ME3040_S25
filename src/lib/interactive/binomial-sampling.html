@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Binomial Sampling Distribution</title>
+    <title>Understanding The T distribution</title>
+    <script src="js/d3.v7.8.5.js"></script>
+    <script src="js/jstat.v1.9.6.js"></script>
+    <script>
+      window.MathJax = {
+        loader: {
+          load: ["[tex]/cancel", "ui/lazy"],
+        },
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [["$$", "$$"]],
+          packages: { "[+]": ["cancel"] },
+          tags: "ams",
+        },
+        startup: {
+          pageReady: () => {
+            return MathJax.startup.defaultPageReady().then(() => {
+              document.querySelectorAll(".MathJax").forEach((node) => {
+                node.parentNode.classList.add("has-jax");
+              });
+            });
+          },
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="js/mathjax.v3.2.2/es5/tex-svg.js"
+    ></script>
+    <style>
+      * {
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+      }
+      body,
+      html {
+        margin: 0;
+        margin-top: 5px;
+      }
+      #container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr;
+        height: 80vh;
+        width: 100%;
+        align-items: start;
+        justify-items: center;
+      }
+      #histogram {
+        display: grid;
+        align-items: start;
+        justify-items: center;
+        margin: 0;
+        padding: 0;
+      }
+      #info-panel {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      #info-content {
+        text-align: left;
+        margin: auto;
+        width: 90%;
+      }
+      /* Axis styles */
+      .tick text {
+        font-size: 14pt;
+        font-family: "Times New Roman", Times, serif;
+        dominant-baseline: middle;
+      }
+      .label {
+        font-size: 1.5em;
+        font-family: "Times New Roman", Times, serif;
+        dominant-baseline: auto;
+        text-anchor: middle;
+      }
+      /* Table Style */
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 20px; /* Adjust as needed */
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+
+      thead {
+        background-color: steelblue;
+        color: white;
+      }
+
+      tbody tr:nth-child(odd) {
+        background-color: #f2f2f2; /* Very light gray */
+      }
+
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+      }
+
+      /* Optional: Improve table readability */
+      td input[type="number"] {
+        /* Style inputs if needed */
+        width: 100%;
+        padding: 4px;
+        box-sizing: border-box; /* Ensures padding does not increase the input's size beyond 100% width */
+      }
+
+      label {
+        display: block;
+        margin-top: 10px; /* Creates some space above the checkbox */
+      }
+      /* PLOT STYLES */
+      .stem {
+        stroke: none;
+        fill: black;
+      }
+      .null-marker {
+        stroke: none;
+        fill: black;
+        r: 6;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <button id="toggle-info" style="justify-self: start">Options</button>
+      <div id="info-content" style="display: none">
+        <table>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Simulations</td>
+              <td id="simulations-count">0</td>
+            </tr>
+            <tr>
+              <td>Current Outcome Count</td>
+              <td id="current-outcome-count">0</td>
+            </tr>
+            <tr>
+              <td>Current Outcome Probability</td>
+              <td id="current-outcome-prob">
+                $P(X = k) = {n \choose k} p^k (1-p)^{n-k}$
+              </td>
+            </tr>
+            <tr>
+              <td>Experiment Size</td>
+              <td>
+                <input
+                  type="number"
+                  id="experiment-size"
+                  value="28"
+                  min="5"
+                  max="50"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>$E[H_{\text{a}}]$</td>
+              <td>
+                <input
+                  type="number"
+                  id="expected-ha"
+                  value="0.68"
+                  step="0.01"
+                  min="0"
+                  max="1"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>$E[H_{0}]$</td>
+              <td>
+                <input
+                  type="number"
+                  id="expected-h0"
+                  value="0.5"
+                  step="0.01"
+                  min="0"
+                  max="1"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Samples Per Simulation</td>
+              <td>
+                <input
+                  type="number"
+                  id="samples-per-simulation"
+                  value="1"
+                  min="1"
+                  max="10000"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button id="submit-button">Submit</button>
+        <button id="reset-button">Reset</button>
+        <button id="run-simulation-button">Run Simulation</button>
+        <label
+          ><input type="checkbox" id="toggle-theoretical" /> Show Theoretical
+          Distribution</label
+        >
+      </div>
+      <div id="histogram"></div>
+    </div>
+    <!-- JAVSCRIPT INTERACTIVE -->
+    <script src="js/dynamicContainers.js"></script>
+    <script src="js/binomial-sampling.js"></script>
+
+    <!-- Handle collapsible panel and interactions -->
+  </body>
+</html>

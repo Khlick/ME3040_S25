@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Understanding The T distribution</title>
+    <script src="js/d3.v7.8.5.js"></script>
+    <script src="js/jstat.v1.9.6.js"></script>
+    <script src="js/chroma.v2.4.2.min.js"></script>
+    <script
+      type="text/javascript"
+      async
+      src="js/mathjax.v2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+    >
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)']
+          ],
+          displayMath: [
+            ['$$', '$$']
+          ],
+          processEscapes: true,
+          imageFont: null,
+          processEnvironments: true,
+          showMathMenu: false,
+
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          jax: ["input/TeX", "output/SVG"]
+        }
+      });
+      MathJax.Hub.Queue(function () {
+        var all = MathJax.Hub.getAllJax(),
+          i;
+        for (i = 0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+
+    <style>
+      * {
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+      }
+      body,
+      html {
+        margin: 0;
+        margin-top: 5px;
+      }
+
+      #container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 6fr 4fr;
+        height: 100%;
+        max-height: 100vh;
+        align-items: start;
+        column-gap: 2vmin;
+        justify-items: center;
+      }
+
+      #controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.5em;
+      }
+
+      #controls input[type="number"] {
+        width: 80px;
+      }
+      #controls input[type="number"]:not(:last-child) {
+        margin-right: 1em; /* Add margin to the right of each input element except the last one */
+      }
+      #controls label {
+        margin-right: 0.5em; /* Add margin to the right of each label */
+      }
+
+      #controls .spacer {
+        flex-grow: 1;
+      }
+      #container > div {
+        display: flex;
+        max-width: 85vw;
+        width: 100%; /* Make each internal div stretch to the maximum width of the container */
+        justify-content: center;
+      }
+      /* Axis styles */
+      .tick text {
+        font-size: 1.5em;
+        font-family: "Times New Roman", Times, serif;
+        dominant-baseline: middle;
+      }
+
+      /* TOOLTIPS */
+      .tooltip {
+        position: absolute;
+        text-align: center;
+        width: 120px;
+        height: 45px;
+        padding: 2px;
+        font: 12px sans-serif;
+        background: lightsteelblue;
+        border: 0px;
+        border-radius: 8px;
+        pointer-events: none;
+      }
+
+      /* gc styles to modify later*/
+      .bar {
+        fill: #dfbdf3;
+        stroke: white;
+      }
+
+      .label {
+        font-family: helvetica;
+        font-size: 1.5em;
+        text-anchor: middle;
+      }
+
+      .textChart {
+        font-family: helvetica;
+        font-size: 1em;
+        text-anchor: beginning;
+      }
+
+      .textChartDif {
+        font-family: helvetica;
+        font-size: 1em;
+        text-anchor: beginning;
+      }
+
+      .textNum {
+        font-family: helvetica;
+        font-size: 1.5em;
+        text-anchor: beginning;
+        fill: #b4b4b4;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="controls">
+        <!-- Group A Controls -->
+        <label for="NA">$N_A $</label>
+        <input type="number" id="NA" min="3" step="1" value="30" />
+
+        <label for="barA">$\bar{A} $</label>
+        <input type="number" id="barA" step="0.01" value="107.81" />
+
+        <label for="sigmaA2">$\sigma^2_{A} $</label>
+        <input type="number" id="sigmaA2" min="0.01" step="0.01" value="4.89" />
+
+        <!-- Spacer -->
+        <div class="spacer">
+          <p style="text-align: center">
+            B: <span id="bootcount">0</span>. p=<span id="pvalue">-</span>
+          </p>
+        </div>
+
+        <!-- Group B Controls -->
+        <label for="sigmaB2">$\sigma^2_{B} $</label>
+        <input type="number" id="sigmaB2" min="0.01" step="0.01" value="6.25" />
+
+        <label for="barB">$\bar{B} $</label>
+        <input type="number" id="barB" step="0.01" value="108.34" />
+
+        <label for="NB">$N_B $</label>
+        <input type="number" id="NB" min="3" step="1" value="26" />
+      </div>
+      <div id="simulation"></div>
+      <div id="histogram"></div>
+    </div>
+    <!-- JAVASCRIPT INTERACTIVE -->
+    <script src="js/dynamicContainers.js"></script>
+    <script src="js/t-simulation.js"></script>
+    <script>
+      var _fragments = [
+        {
+          activate: () => gatherGroups(),
+          reverse: () => {
+            resetAll();
+          },
+          index: 0,
+        },
+        {
+          activate: () => bootstrap(1),
+          reverse: () => {
+            data = data.filter((d) => d.group <= 2);
+            histData = histData.filter((v, i) => i == 0);
+            updateSimulation(data);
+            updateHistInfo();
+            updateHistogram();
+          },
+          index: 1,
+        },
+        {
+          activate: () => bootstrap(9),
+          reverse: () => {
+            data = data.filter((d) => d.group <= 2);
+            histData = histData.filter((v, i) => i < 10);
+            updateSimulation(data);
+            updateHistInfo();
+            updateHistogram();
+          },
+          index: 2,
+        },
+        {
+          activate: () => bootstrap(90),
+          reverse: () => {
+            data = data.filter((d) => d.group <= 2);
+            histData = histData.filter((v, i) => i < 100);
+            updateSimulation(data);
+            updateHistInfo();
+            updateHistogram();
+          },
+          index: 3,
+        },
+        {
+          activate: () => bootstrap(400),
+          reverse: () => {
+            data = data.filter((d) => d.group <= 2);
+            histData = histData.filter((v, i) => i < 500);
+            updateSimulation(data);
+            updateHistInfo();
+            updateHistogram();
+          },
+          index: 4,
+        },
+        {
+          activate: () => bootstrap(1500),
+          reverse: () => {
+            data = data.filter((d) => d.group <= 2);
+            histData = histData.filter((v, i) => i < 2000);
+            updateSimulation(data);
+            updateHistInfo();
+            updateHistogram();
+          },
+          index: 5,
+        },
+        {
+          activate: () => bootstrap(3000),
+          reverse: () => {
+            data = data.filter((d) => d.group <= 2);
+            histData = histData.filter((v, i) => i < 5000);
+            updateSimulation(data);
+            updateHistInfo();
+            updateHistogram();
+          },
+          index: 6,
+        },
+        {
+          activate: () => bootstrap(5000),
+          index: 7,
+        },
+      ];
+    </script>
+  </body>
+</html>

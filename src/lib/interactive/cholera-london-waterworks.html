@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+
+<body>
+  <style>
+    * {
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+      user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+    }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    svg {
+      max-width: 100%;
+      max-height: 100%;
+      height: auto;
+      width: auto;
+    }
+  </style>
+  <script src="js/d3.min.js"></script>
+  <script>
+    let svg;
+
+    function setSVGDimensions() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      svg.attr("width", width).attr("height", height);
+    }
+
+    d3.xml("data/london-waterworks.svg", function (error, xml) {
+      if (error) throw error;
+    }).then(function (importedNode) {
+      const mapNode = importedNode.documentElement;
+
+      const ids = [
+        "#lambeth1852",
+        "#sv1852",
+        "#lambeth1839",
+        "#central",
+        "#legend",
+        "#thames",
+        "#lambeth",
+        "#sv",
+        "#wards",
+        "#greaterlondon",
+      ];
+
+      svg = d3
+        .select("body")
+        .append("svg")
+        .attr("preserveAspectRatio", "xMidYMid meet") // Preserve aspect ratio
+        .attr("viewBox", "0 0 1425 1140"); // Adjust viewBox to original aspect ratio
+
+      ids.reverse().forEach((d) => {
+        svg.node().appendChild(mapNode.querySelectorAll(d)[0]);
+      });
+
+      setSVGDimensions();
+      svg.attr("viewBox", "0 0 1425 1140");
+
+      svg
+        .selectAll("#legend, #lambeth1852, #lambeth, #sv, #wards")
+        .attr("opacity", 0);
+    });
+
+    function reset() {
+      svg
+        .selectAll("#legend, #lambeth1852, #lambeth, #sv, #wards")
+        .attr("opacity", 0);
+    }
+
+    function lambeth_move() {
+      svg.transition().duration(1000).attr("viewBox", "0 0 1425 1140");
+
+      svg
+        .selectAll("#lambeth1852, #central, #sv1852, #lambeth1839")
+        .transition()
+        .duration(200)
+        .attr("opacity", 1);
+
+      svg
+        .selectAll("#legend, #lambeth, #sv, #wards")
+        .transition()
+        .duration(400)
+        .attr("opacity", 0);
+    }
+
+    function zoomin() {
+      svg.transition().duration(1000).attr("viewBox", "450 450 500 400");
+
+      svg
+        .selectAll("#legend, #lambeth, #sv, #wards")
+        .transition()
+        .duration(800)
+        .attr("opacity", 1);
+
+      svg
+        .selectAll("#lambeth1852, #central, #sv1852, #lambeth1839")
+        .transition()
+        .duration(400)
+        .attr("opacity", 0);
+    }
+
+    function zoomout() {
+      svg.transition().duration(500).attr("viewBox", "0 0 1425 1140");
+
+      svg
+        .selectAll("#legend, #lambeth, #sv, #wards")
+        .transition()
+        .duration(100)
+        .attr("opacity", 0);
+
+      svg
+        .selectAll("#central, #lambeth1852, #sv1852, #lambeth1839")
+        .transition()
+        .duration(300)
+        .attr("opacity", 1);
+    }
+
+    // Listen for window resize events to adjust SVG dimensions
+    window.addEventListener("resize", setSVGDimensions);
+
+    var _fragments = [
+      {
+        activate: () => lambeth_move(),
+        reverse: () => reset(),
+        index: 0,
+      },
+      {
+        activate: () => zoomin(),
+        reverse: () => zoomout(),
+        index: 1,
+      },
+    ];
+  </script>
+</body>

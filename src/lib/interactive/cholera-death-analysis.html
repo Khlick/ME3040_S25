@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <style>
+    * {
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+      user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    body {
+      margin: 5px;
+    }
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+    .yAxis .tick text {
+      font-size: 2.2em;
+    }
+    .xAxis .tick text {
+      font-size: 3em;
+    }
+  </style>
+</head>
+<body>
+  <script src="js/d3.min.js"></script>
+  <script>
+    // Define the data array
+    const data = [
+      { name: "Southwark<br>& Vauxhaull", deaths_raw: 1263, deaths_norm: 315 },
+      { name: "Lambeth<br>Waterworks", deaths_raw: 98, deaths_norm: 38 },
+      { name: "Rest of<br>London", deaths_raw: 1422, deaths_norm: 55 },
+    ];
+
+    // Define the colors object
+    const colors = {
+      info: "#00BFFF",
+      danger: "#fb4c52",
+      warning: "#FBC15E",
+      orange: "#FF8B22",
+    };
+
+    // Set the initial subject to 'deaths_raw'
+    const subject = "deaths_raw";
+
+    // Define the margins
+    const margin = { top: 10, right: 10, bottom: 70, left: 100 };
+
+    // Function to calculate dynamic width and height based on window size
+    function getDimensions() {
+      const width = window.innerWidth - margin.left - margin.right - 10; // Adjusted for margin
+      const height = window.innerHeight - margin.top - margin.bottom - 10; // Adjusted for margin
+      return { width, height };
+    }
+
+    var _fragments = []
+
+    function drawChart() {
+      const { width, height } = getDimensions();
+
+      // Remove the existing SVG element, if any
+      d3.select("svg").remove();
+
+      // Set up scales and axes
+      const xScale = d3.scaleBand()
+        .domain(data.map(d => d.name))
+        .range([0, width])
+        .padding(0.2);
+
+      const yScale = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d[subject])])
+        .range([height, 0]);
+
+      const xAxis = d3.axisBottom(xScale);
+      const yAxis = d3.axisLeft(yScale);
+
+      // Append the SVG object to the body
+      const svg = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      // Add X Axis
+      svg.append("g")
+        .attr("class", "xAxis")
+        .attr("transform", `translate(0,${height})`)
+        .call(xAxis)
+        .selectAll("text")
+        .style("text-anchor", "middle")
+        .style("font-family", "Raleway")
+        .each(insertLinebreaks);
+
+      // Add Y Axis
+      svg.append("g")
+        .attr("class", "yAxis")
+        .call(yAxis)
+        .selectAll("text")
+        .style("font-family", "Raleway");
+
+      // Y Axis Label
+      svg.append("text")
+        .attr("class", "ylabel")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - height / 2)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .style("font-size", "1.5em")
+        .style("font-family", "Raleway")
+        .text("Deaths");
+
+      svg.append("text")
+        .attr("class", "ylabel2")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - height / 2)
+        .attr("dy", "2em")
+        .style("text-anchor", "middle")
+        .style("font-size", "1.5em")
+        .style("font-family", "Raleway")
+        .style("fill", colors["danger"])
+        .text(ylabel(subject));
+
+      // Draw bars
+      draw_bar("deaths_raw");
+
+      function draw_bar(subject) {
+        yScale.domain([
+          0,
+          d3.max(data, d => d[subject]),
+        ]);
+
+        const bars = svg.selectAll("rect").data(data);
+        bars.exit().remove();
+
+        bars.transition()
+          .ease(d3.easeLinear)
+          .duration(500)
+          .attr("y", d => yScale(d[subject]))
+          .attr("height", d => height - yScale(d[subject]));
+
+        bars.enter().append("rect")
+          .style("fill", colors["info"])
+          .attr("x", d => xScale(d.name))
+          .attr("width", xScale.bandwidth())
+          .attr("y", d => yScale(d[subject]))
+          .attr("height", d => height - yScale(d[subject]));
+
+        svg.select(".yAxis").transition().duration(500).call(yAxis);
+        svg.select(".yAxis").selectAll("text")
+          .style("font-family", "Raleway");
+
+        svg.select(".ylabel2").text(ylabel(subject));
+      }
+
+      function insertLinebreaks(d) {
+        const el = d3.select(this);
+        const words = d.split("<br>");
+        el.text("");
+        for (let i = 0; i < words.length; i++) {
+          let tspan = el.append("tspan").text(words[i]);
+          if (i > 0) tspan.attr("x", 0).attr("dy", "20");
+        }
+      }
+
+      function ylabel(subject) {
+        return subject === "deaths_raw" ? " " : "(per 10,000 houses)";
+      }
+
+      _fragments = [
+        {
+          activate: () => draw_bar("deaths_norm"),
+          reverse: () => draw_bar("deaths_raw"),
+          index: 2,
+        }
+      ];
+    }
+
+    // Draw the chart initially
+    drawChart();
+
+    // Redraw the chart on window resize
+    window.addEventListener("resize", drawChart);
+  </script>
+</body>
+</html>

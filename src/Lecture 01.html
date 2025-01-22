@@ -1,0 +1,3828 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="notranslate" name="google"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>
+      Introduction To Experimental Methods
+    </title>
+    <link href="lib\favicon.png" rel="icon" type="image/x-icon"/>
+    <link href="./src/css/reset.css" rel="stylesheet"/>
+    <link href="./src/css/reveal.css" rel="stylesheet"/>
+    <link href="./src/css/revealpack.css" rel="stylesheet"/>
+    <link href="./src/theme/drG.css" id="theme" rel="stylesheet"/>
+    <!-- highlight.js theme -->
+    <link href="./src/theme/vs.css" id="highlight-theme" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <!-- Custom Scripts -->
+    <!-- Print PDF script -->
+    <script>
+      var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match(/print-pdf/gi) ? './src/css/print/pdf.css' : './src/css/print/paper.css';
+document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!-- Deck CSS Injections -->
+    <!-- Deck Script Injections -->
+    <!-- Deck Raw Injections -->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-image="lib/img/gearbench.png" data-background-size="cover" id="deck-title-slide">
+          <div class="title-slide background">
+            <div class="headline">
+              <h2 class="r-fit-text">
+                Introduction To Experimental Methods
+              </h2>
+            </div>
+            <div class="sub-header">
+              <p class="by">
+                Khris Griffis, Ph.D.
+              </p>
+            </div>
+            <div class="byline">
+              <p class="byinfo">
+                Lecture 01
+              </p>
+              <p class="byinfo">
+                CSULA: ME3040
+              </p>
+            </div>
+          </div>
+          <aside class="notes">
+            <p>
+              What if your engineering skills could not only solve complex problems but also open doors to new worlds, from the human body to the vastness of space? Imagine the impact you could make, the boundaries you could break. This course is your springboard into that reality. We will dive deep into the realm of mechanical and biomechanical engineering, harnessing advanced experimental methods and statistical analysis to turn possibilities into accomplishments. We are more than engineers; we are the catalysts for change, innovation, and progress.
+            </p>
+            <p>
+              Hi, I'm Doctor Khris Griffis. This semester, you'll be equipped with the tools and knowledge to transcend traditional engineering boundaries, applying your skills in diverse and impactful ways. We'll also focus on refining your communication abilities, empowering you to share your innovative ideas with the world. Today, we start with the core principles of experimental investigation, setting the stage for a transformative journey in your engineering career.
+            </p>
+          </aside>
+        </section>
+        <section>
+          <style>
+
+.admin-two-col {
+
+grid-template-columns: 1fr 1fr;
+
+align-items: end;
+
+grid-column-gap: 5vw;
+
+grid-auto-rows: auto;
+
+}
+
+
+
+/* Table styles */
+
+.admin-two-col table {
+
+width: 100%;
+
+border-collapse: collapse;
+
+}
+
+
+
+/* Header styles */
+
+.admin-two-col table th {
+
+border-bottom: 2px solid black;
+
+padding: 8px;
+
+text-align: left;
+
+}
+
+
+
+/* Row styles */
+
+.admin-two-col table td {
+
+padding: 8px;
+
+text-align: left;
+
+}
+
+
+
+/* Banded rows */
+
+.admin-two-col table tr:nth-child(even) {
+
+background-color: lightgray;
+
+}
+
+
+
+/* Grid container */
+
+.admin-container {
+
+display: grid;
+
+grid-auto-rows: auto;
+
+row-gap: 16px;
+
+}
+
+
+
+/* First and third rows */
+
+.admin-item:nth-child(1),
+
+.admin-item:nth-child(4) {
+
+align-self: end;
+
+border-bottom: 3px solid var(--r-heading-color);
+
+}
+
+
+
+/* Last row */
+
+.admin-item:last-child {
+
+display: grid;
+
+grid-template-columns: 1fr 1fr;
+
+column-gap: 16px;
+
+}
+
+
+
+/* Emoji size */
+
+#bigemoji:before {
+
+font-size: 150%;
+
+}
+
+
+
+#medemoji:before {
+
+font-size: 125%;
+
+}
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header" style="align-items: center">
+
+<h2>Administrative Stuff</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic admin-two-col">
+
+<div>
+
+<!-- left -->
+
+<h3>Office Hours and Locations</h3>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Day</th>
+
+<th>Location</th>
+
+<th>Time</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>Tuesday & Thursday</td>
+
+<td>ET A225</td>
+
+<td>8:00a-9:00a</td>
+
+</tr>
+
+<tr>
+
+<td>Virtual & In Person</td>
+
+<td>By Appointment</td>
+
+<td>-</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="admin-container">
+
+<div class="admin-item" style="height: 8vh; align-content: end">
+
+<p>Requirements</p>
+
+</div>
+
+<div class="admin-item small">
+
+<ul>
+
+<li id="medemoji" class="emoji-floppy_disk" style="padding-left: 2em">
+
+MATLAB:
+
+<a href="https://www.calstatela.edu/its/software/personal-computers#heading-950546">CSULA IT services
+
+site</a>
+
+</li>
+
+<li id="medemoji" class="emoji-floppy_disk" style="padding-left: 2em">
+
+Vernier Logger Pro: <span class="em">see Lab Canvas</span>
+
+</li>
+
+</ul>
+
+<ul>
+
+<li id="medemoji" class="emoji-exclamation" style="padding-left: 2em">
+
+<span class="danger">Attendance Is Mandatory</span>
+
+</li>
+
+<li id="medemoji" class="emoji-target" style="padding-left: 2em">
+
+Review the syllabus!<br />
+
+<span class="small danger fragment" data-fragment-index="0">Take Quiz #0 by 4/1</span>
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+
+<!-- right -->
+
+<div class="admin-container">
+
+<div class="admin-item">Contact</div>
+
+<div class="admin-item">
+
+<p>cgriff13@calstatela.edu<br /></p>
+
+<p class="em danger">
+
+Please email directly from your calstatela.edu email.
+
+</p>
+
+</div>
+
+<div class="admin-item" style="height: 8vh"></div>
+
+<div class="admin-item fragment" data-fragment-index="1">Course Specifics</div>
+
+<div class="admin-item">
+
+<ul class="fragment" data-fragment-index="1">
+
+<li id="bigemoji" class="emoji-report fragment" data-fragment-index="1" style="padding-left: 2em">
+
+Weekly Quizzes
+
+</li>
+
+<li id="bigemoji" class="emoji-report fragment" data-fragment-index="2" style="padding-left: 2em">
+
+Midterm & Final Exam
+
+</li>
+
+<li id="bigemoji" class="emoji-report fragment" data-fragment-index="3" style="padding-left: 2em">
+
+Lab Reports
+
+</li>
+
+</ul>
+
+<ul class="fragment" data-fragment-index="4">
+
+<li id="bigemoji" class="emoji-chart fragment" data-fragment-index="4" style="padding-left: 2em">
+
+Oral Presentation
+
+</li>
+
+<li id="bigemoji" class="emoji-chart fragment" data-fragment-index="5" style="padding-left: 2em">
+
+Term Report
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Syllabus -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Course Outline</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="left-justify smaller">
+
+<p>
+
+The purpose of this course is to acquaint students statistical approaches and experimentation.
+
+</p>
+
+<p>
+
+We'll be using MATLAB, and Vernier hardware, to collect, analyze, and report results from experiments.
+
+</p>
+
+<h4>Requirements</h4>
+
+<p>
+
+All enrolled students will be required to finish lab reports.
+
+The final term project will be a short scientific report, applying methods of the course to a
+
+student-designed experiment.
+
+</p>
+
+<p>
+
+Grading will be on an absolute scale, however the professor may make adjustments to benefit the students.
+
+</p>
+
+</div>
+
+<div>
+
+<table class="schedule-table">
+
+<thead>
+
+<tr class="special-header">
+
+<th>Module</th>
+
+<th>Week</th>
+
+<th>Lecture</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr class="schedule-row">
+
+<td rowspan="10">Module 1: Introduction To Experimental Methods And Statistical Investigation</td>
+
+<td style="width: 60px;">Week 1</td>
+
+<td>Lecture 1: Wed 01/22 - Introduction To Experimental Methods And Statistical Investigation</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 2</td>
+
+<td>Lecture 2: Mon 01/27 - Introduction To Probability</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 2</td>
+
+<td>Lecture 3: Wed 01/29 - Probability & Discrete Distributions</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 3</td>
+
+<td>Lecture 4: Mon 02/03 - The <span class="s-quote">Normal</span> Distribution & The Central Limit Theorem</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 3</td>
+
+<td>Lecture 5: Wed 02/05 - Descriptive Statistics</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 4</td>
+
+<td>Lecture 6: Mon 02/10 - Data Visualization & Reporting</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 4</td>
+
+<td>Lecture 7: Wed 02/12 - Categorical Variables: Introduction To Hypothesis Testing</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 5</td>
+
+<td>Lecture 8: Mon 02/17 - The <span class="s-quote">p-value</span> & Two Proportions Hypothesis Testing</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 5</td>
+
+<td>Lecture 9: Wed 02/19 - No Lecture</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 6</td>
+
+<td>Lecture 10: Mon 02/24 - Quantitative Variables: One-Group Hypothesis Testing</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Course Outline</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="left-justify smaller">
+
+<table class="schedule-table">
+
+<thead>
+
+<tr class="special-header">
+
+<th>Module</th>
+
+<th>Week</th>
+
+<th>Lecture</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr class="schedule-row">
+
+<td rowspan="12">Module 2: Inferential Statistics</td>
+
+<td>Week 6</td>
+
+<td>Lecture 11: Wed 02/26 - Midterm Exam</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 7</td>
+
+<td>Lecture 12: Mon 03/03 - Term Paper and Oral Presentation Discussion</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 7</td>
+
+<td>Lecture 13: Wed 03/05 - Two-Group Hypothesis Testing</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 8</td>
+
+<td>Lecture 14: Mon 03/10 - Two-Group Hypothesis Testing (Paired Design, Effect Size)</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 8</td>
+
+<td>Lecture 15: Wed 03/12 - Relationships Between Variables: An Introduction to Bivariate Data</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 9</td>
+
+<td>Lecture 16: Mon 03/17 - Correlation: Dependent Variability</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 9</td>
+
+<td>Lecture 17: Wed 03/19 - Correlation: Hypothesis Testing</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 10</td>
+
+<td>Lecture 18: Mon 03/24 - Introduction to Linear Regression</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 10</td>
+
+<td>Lecture 19: Wed 03/26 - Linear Regression (Ordinary Least Squares)</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 11</td>
+
+<td>Lecture 20: Mon 03/31 - Spring Break</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 11</td>
+
+<td>No Lecture: Wed 04/02 - Spring Break</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 12</td>
+
+<td>No Lecture: Mon 04/07 - Linear Regression (Parameter Estimation, Hypothesis Testing)</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div>
+
+<table class="schedule-table">
+
+<thead>
+
+<tr class="special-header">
+
+<th>Module</th>
+
+<th>Week</th>
+
+<th>Lecture</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr class="schedule-row">
+
+<td rowspan="10">Module 3: Advanced Experimental Methods & Analysis</td>
+
+<td style="width: 60px;">Week 12</td>
+
+<td>Lecture 23: Wed 04/09 - Extended Linear Models: An Introduction To Multiple Groups Comparisons</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 13</td>
+
+<td>Lecture 24: Mon 04/14 - Analysis Of Variance: Concepts</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 13</td>
+
+<td>Lecture 25: Wed 04/16 - Analysis Of Variance: Correlated Samples</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 14</td>
+
+<td>Lecture 26: Mon 04/21 - Analysis Of Variance: Interactions</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 14</td>
+
+<td>Lecture 27: Wed 04/23 - Analysis Of Generalized Proportions</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 15</td>
+
+<td>Lecture 28: Mon 04/28 - Chi-Squared: Goodness Of Fit</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 15</td>
+
+<td>Lecture 29: Wed 04/30 - Statistical Power & Reproducibility</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 16</td>
+
+<td>Lecture 30: Mon 05/05 - Uncertainty</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td>Week 16</td>
+
+<td>Lecture 31: Wed 05/07 - Final Review</td>
+
+</tr>
+
+<tr class="schedule-row">
+
+<td colspan="2">May 12 - 16, 2025: Final Exams</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/statistics_5.png" id="section-title-1">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-1">
+              <div class="section-number">
+                <span class="large-number">
+                  1
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Experimental Methods
+                </h2>
+                <h3>
+                  The Engineering Method
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+.section-title-content {
+
+background-color: #ffffff99 !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(255, 255, 255, 0.6) !important;
+
+}
+
+</style>
+
+
+
+<aside class="notes">
+
+<p>
+
+In engineering, success or failure is not a destination, but a transient in
+
+the perpetuity of the scientific process. It is through iteration and
+
+recursion of scientific methods that innovation is born, solutions are
+
+refined, and progress is made. Each cycle is a step forward, turning
+
+uncertainty into knowledge, and transforming challenges into opportunities
+
+for greatness.
+
+</p>
+
+<p>
+
+Underlying all of STEM, and particularly in the field of engineering, is the
+
+fundamental principle of the scientific method - a rigorous, systematic
+
+approach that is the bedrock of discovery and innovation. It's this
+
+methodical process of observation, hypothesis, experimentation, and analysis
+
+that empowers engineers to transform theoretical ideas into tangible
+
+realities. In this journey, statistics play a pivotal role, providing the
+
+tools to navigate through data, discern patterns, and extract meaningful
+
+insights. It's through statistical analysis that we quantify uncertainty,
+
+assess reliability, and validate our findings, turning raw data into
+
+valuable information that guides our decision-making and propels engineering
+
+advancements.
+
+</p>
+
+</aside>
+        </section>
+        <section>
+          <!--
+
+NOTE: THIS FILE HAS MULTIPLE SLIDES ON IT.
+
+SLIDES SHARE CUSTOM CSS
+
+-->
+
+<style>
+
+.whystats-2-col {
+
+grid-template-columns: 1fr 1fr;
+
+align-items:end;
+
+grid-column-gap: 5vw;
+
+}
+
+</style>
+
+
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Understanding $\phantom{}\gt\phantom{}$ Knowing</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.35fr;grid-auto-rows:auto;gap:5vw;align-items:end">
+
+<div> <!-- left -->
+
+<img src="lib/img/answer.png" class="framed" style="max-height:100%;">
+
+</div>
+
+<div class="smaller"> <!-- right -->
+
+<p>
+
+Getting an answer is one thing, but knowing <span class="fragment highlight-bg-success" data-fragment-index="1">WHAT</span> the question is
+
+and <span class="fragment highlight-bg-success" data-fragment-index="2">WHY</span> we get this answer is crucial.
+
+</p>
+
+<p style="margin-bottom: 0;" class="fragment" data-fragment-index="3">
+
+Understanding statistics means understanding the
+
+<span class="fragment highlight-bg-success" data-fragment-index="4">underlying process</span> that leads to the answer, not just the
+
+result itself.
+
+</p>
+
+<p class="fragment quoted small" data-fragment-index="5">
+
+The answer to the great question of life, the universe, and everything is 42. But the real challenge is to
+
+know what the question is.
+
+</p>
+
+<p class="fragment right-justify smaller" data-fragment-index="5">
+
+- Douglas Adams, <span class="em">The Hitchhiker's Guide To The Galaxy</span>
+
+</p>
+
+<img src="lib/img/push-button.svg" class="fragment" style="width:45%;justify-self:center;" data-fragment-index="6">
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+We believe understanding how things work is far more interesting
+
+and useful, because it can be applied and tweaked to very specific situations.
+
+<br>
+
+Formula have been developed for a certain kind of data.
+
+</p>
+
+</aside>
+
+
+
+</section>
+
+
+
+<!-- What is statistics -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>What is statistics<span class="emoji" role="img" style="font-size:90%;">&#x2753;</span></h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-wrapper">
+
+<!-- ... (other elements) -->
+
+<div class="content" style="display: grid; grid-template-rows: 1fr 3fr; grid-template-columns: 1fr;align-items:start;">
+
+<div style="display: grid; grid-template-rows: 1fr; grid-template-columns: 1fr 1fr; grid-column-gap: 5vmin;align-items:start;">
+
+<img src="lib/img/data.svg" style="max-height:25vh;justify-self:end;height:100%;">
+
+<img src="lib/img/statistics-wordcloud.svg" style="max-height:25vh;justify-self:start;height:100%;">
+
+</div>
+
+<div style="display: grid; grid-template-rows: 1fr; grid-template-columns: 1fr 1fr 1fr 1fr; grid-column-gap: 1vmin;align-items:center">
+
+<div style="justify-self: end;">
+
+<p>Statistics is the <span class="u-accent">science</span> of</p>
+
+</div>
+
+<div class="border-left accent fragment" data-fragment-index="1" style="justify-self: start;justify-items:start;text-align:start;padding-left:10px;">
+
+<span class="highlight-current-danger">collecting,</span> <br>
+
+<span class="highlight-current-danger">organizing,</span> <br>
+
+<span class="highlight-current-danger">presentating,</span> <br>
+
+<span class="highlight-current-danger">analyzing,</span> <br>
+
+<span class="highlight-current-danger">interpreting,</span> <br>
+
+<span class="highlight-current-danger">and dealing with uncertainty</span>
+
+</div>
+
+<div style="justify-self: center;" class="fragment" data-fragment-index="1">of <span class="u-accent">DATA</span></div>
+
+<div style="justify-self: start;" class="fragment" data-fragment-index="1">So we can make <span class="fragment highlight-bg-accent-white" data-fragment-index="2">better,
+
+more informed and critical decisions</span> about the world around us.</div>
+
+</div>
+
+</div>
+
+<!-- ... (other elements) -->
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<aside class="notes">
+
+<p>
+
+Data are everywhere!
+
+<br>
+
+Regardless of your field, interests, lifestyle, etc., you will almost definitely have to make decisions based on data, or evaluate
+
+decisions someone else has made based on data.
+
+<br>
+
+Statistics is basically the science of how to deal with all those data, and what information can I extract from them.
+
+<br>
+
+Use to make predictions
+
+<br>
+
+key word here is "assist". It won't give you the right answer. It will help you choose one.
+
+</p>
+
+</aside>
+        </section>
+        <section data-background-image="lib/img/cholera-disposal-bodies.jpg" id="section-title-2">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-2">
+              <div class="section-number">
+                <span class="large-number">
+                  2
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Scientific Investigation
+                </h2>
+                <h3>
+                  Example: The Cholera Epidemics
+                </h3>
+              </div>
+            </div>
+          </div>
+          <aside class="notes">
+
+<p>
+
+First truly global disease and also the most feared.
+
+<br />
+
+Symptoms of this disease include nausea, vomiting, abdominal pain and a
+
+horribly violent case of diarrhea that can cause one to lose as much as 20
+
+liters of fluid and electrolytes per day, leading to extremely severe
+
+dehydration.
+
+</p>
+
+<p>
+
+Why Cholera in Engineering?
+
+<ul>
+
+<li><strong>Improved Water and Sanitation Systems:</strong>
+
+<ul>
+
+<li>Modern sewer systems built to prevent contamination.</li>
+
+<li>Separation of drinking water from sewage.</li>
+
+</ul>
+
+</li>
+
+<li><strong>Public Health Advances:</strong>
+
+<ul>
+
+<li>Water filtration and treatment became standard.</li>
+
+<li>Establishment of public health boards.</li>
+
+</ul>
+
+</li>
+
+<li><strong>Urban Planning:</strong>
+
+<ul>
+
+<li>Introduction of zoning regulations for water and sewage systems.</li>
+
+</ul>
+
+</li>
+
+<li><strong>Mapping Techniques:</strong>
+
+<ul>
+
+<li>Early use of mapping in public health led to modern GIS.</li>
+
+</ul>
+
+</li>
+
+<li><strong>Support for Germ Theory:</strong>
+
+<ul>
+
+<li>Challenged miasma theory, paving the way for germ theory.</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</p>
+
+</aside>
+        </section>
+        <section data-background-color="#fcf8e3">
+          <!-- CHOLERA EPIDEMIC -->
+
+<style>
+
+
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2 class="r-fit-text">Cholera Epidemics</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns: 6fr 3fr;align-items:start;grid-column-gap: 5vmin;height:100%;">
+
+<!-- <div class="fig-container"  data-file="lib/interactive/cholera-globe.html" style="height:640px;"></div> -->
+
+<vizzy style="height:700px;" data-src="lib/interactive/cholera-globe.html"></vizzy>
+
+<div>
+
+<p class='fragment framed border-danger' data-fragment-index="0">
+
+<span class="u-danger strong">1816-1826</span><br>
+
+Bengal, India
+
+</p>
+
+<p class='fragment framed border-orange' data-fragment-index="1">
+
+<span class="u-orange strong">1829-1831</span><br>
+
+Russia, Hungary, Germany
+
+</p>
+
+<p class='fragment framed border-info' data-fragment-index="2">
+
+<span class="u-info strong">1832-1854</span><br>
+
+United Kingdom <br>
+
+<span class="em">London:</span> 3 outbreaks
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<aside class="notes">
+
+<p>
+
+The first outbreak began in India early in the 19th century and spread to England in 1831.
+
+<br>
+
+Cholera's mortality rate was about 20 percent, and the nature of how it spread was the subject of intense professional debate.
+
+</p>
+
+<p>Finally, in London, is where Cholera's reign of terror was finally overthrown.</p>
+
+</aside>
+
+
+
+</section>
+
+
+
+<!-- JOHN SNOW -->
+
+
+
+<section data-background-color="#fcf8e3">
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2 class="r-fit-text">Cholera Theories: Is it in the air?</h2>
+
+</div>
+
+<div class="content">
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; grid-auto-rows: auto;align-items:start;">
+
+<div style="grid-row: 1 / 3; grid-column: 1 / 2;">
+
+<ul>
+
+<li class="emoji-question" style="padding-left:2em;">Miasma Theory <span class="danger">(airborne transmission)</span></li>
+
+<li class="fragment emoji-exclamation" style="padding-left:2em;" data-fragment-index="1">Prevailing dogma of the 19th century was that all disease and epidemics stemmed from <span class="u-danger">"Bad Air"</span>.</li>
+
+<li class="fragment emoji-exclamation" style="padding-left:2em;" data-fragment-index="2">"Bad Air", called miasmata, is a poisonous vapor with suspended particles of decaying matter and a foul smell.</span></li>
+
+</ul>
+
+<ul>
+
+<li class="fragment emoji-lightbulb" style="padding-left:2em;" data-fragment-index="3">John Snow: A British physician. <span class="info">Skeptical</span> of the Miasma Theory.</li>
+
+<li class="fragment emoji-lightbulb" style="padding-left:2em;" data-fragment-index="4">He proposed that cholera was attributable to a "self-replicating agent", probably in the drinking water.</li>
+
+<li class="fragment emoji-lightbulb info" style="padding-left:2em;" data-fragment-index="5">This is a Scientific Hypothesis!</li>
+
+</ul>
+
+</div>
+
+
+
+<!-- Image on the upper-right quadrant -->
+
+<div style="grid-row: 1 / 2; grid-column: 2 / 3;">
+
+<img class="framed" src="lib/img/cholera-miasma.png" style="max-height:25vh;margin:0;padding:0;">
+
+</div>
+
+<!-- Image on the lower-right quadrant -->
+
+<div class="fragment" data-fragment-index="3" style="grid-row: 2 / 3; grid-column: 2 / 3;">
+
+<img class="framed" src="lib/img/cholera-john-snow.jpg" style="max-height:25vh;margin:0;padding:0;">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>The prevailing theory was that it was airborne, and they believed this of most disease at the time.</p>
+
+<p>Worse, because cholera afflicted people in poor areas, who smelled badly, they thought it was a poor-person's disease.</p>
+
+<p>A newly minted physician, John Snow, who mainly focused on the beginnings of anesthesia for obstetrics, thought cholera might be from contaminated water.</p>
+
+<p>In 1854, a suburb of London call Soho was hit hard with a cholera outbreak. Snow lived nearby and got to work investigating.</p>
+
+<p>He had a hypothesis!</p>
+
+</aside>
+        </section>
+        <section>
+          <style>
+
+.tables-wrapper {
+
+display: grid;
+
+grid-template-columns: 1fr 1fr;
+
+gap: 5vmin;
+
+margin-top: 2vmin;
+
+}
+
+.table {
+
+background-color: #f7f7f7;
+
+border-radius: 12px;
+
+padding: 1vmin;
+
+box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
+
+width: 100%;
+
+}
+
+.table h4 {
+
+text-align: center;
+
+margin-top: 0;
+
+}
+
+.table ul {
+
+list-style-type: none;
+
+padding: 0;
+
+margin: 0;
+
+}
+
+.table ul li {
+
+margin: 0.5vmin auto;
+
+padding: 0.5vmin;
+
+background-color: #e0e0e0;
+
+border-radius: 4px;
+
+width: 95%;
+
+}
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Types of Hypotheses</h2>
+
+</div>
+
+<div class="content" style="display: grid; grid-template-rows: auto auto auto auto; gap: 1vmin;">
+
+<p style="padding: 1vmin; border-radius: 4px; margin: 0;" class="left-justify fragment" data-fragment-index="1">
+
+Generally, a <span class="danger">hypothesis</span> is an
+
+<span style="text-decoration: underline;" class="danger">assumption about certain characteristics</span>
+
+of an object of interest/study. This assumption
+
+<span style="text-decoration: underline;" class="danger">may or may not be true</span>.
+
+</p>
+
+<p style="padding: 1vmin; border-radius: 4px; margin: 0;" class="left-justify fragment big" data-fragment-index="2">
+
+A <span class="pop">scientific hypothesis</span> is a specific statement
+
+proposed as an
+
+<span style="text-decoration: underline;" class="pop">explanation for a
+
+<span class="pop">phenomenon</span></span>,
+
+regardless of truth.
+
+</p>
+
+<p style="padding: 1vmin; border-radius: 4px; margin: 0;" class="left-justify fragment big" data-fragment-index="3">
+
+A <span class="orange">statistical hypothesis</span> is a specific
+
+statement about a
+
+<span style="text-decoration: underline;" class="u-orange">characteristic or parameter of the
+
+<span class="orange">data</span></span>.
+
+</p>
+
+<div class="tables-wrapper fragment" data-fragment-index="4">
+
+<div class="table">
+
+<h4>Scientific</h4>
+
+<ul class="smaller">
+
+<li class="fragment" data-fragment-index="4">Is farming salmon cost prohibitive?</li>
+
+<li class="fragment" data-fragment-index="5">Does smoking cause lung cancer?</li>
+
+<li class="fragment small" data-fragment-index="6">Does thermal cycling cause premature failure in turbine blades?</li>
+
+</ul>
+
+</div>
+
+<div class="table">
+
+<h4>Statistical</h4>
+
+<ul class="smaller">
+
+<li class="fragment small" data-fragment-index="4">Is the average length of farmed salmon greater than wild salmon?</li>
+
+<li class="fragment small" data-fragment-index="5">Are Diacetyl concentrations and lung cancer cell-division rate correlated?</li>
+
+<li class="fragment smallest" data-fragment-index="6">Is the mean time-to-failure of thermally cycled turbine blades less than non-cycled blades?</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<ul>
+
+<li>General: An assumption that may or may not be true.</li>
+
+<li>
+
+Scientific: A <em>specific proposal</em> as an explanation for some
+
+phenomenon.
+
+</li>
+
+<li>
+
+Statistical: A <em>specific statement</em> about some aspect of the DATA.
+
+</li>
+
+</ul>
+
+<p>
+
+These are clear distinctions. We need to be careful that we don't confuse
+
+them.
+
+</p>
+
+</aside>
+        </section>
+        <section data-background-color="#fcf8e3">
+          <style>
+
+.soho-2-col {
+
+display: grid;
+
+grid-template-columns: 1fr 1fr;
+
+grid-column-gap: 5vmin;
+
+box-sizing: border-box;
+
+margin: 0;
+
+padding: 0;
+
+height: 100%;
+
+}
+
+.broad-2-col {
+
+display: grid;
+
+grid-template-columns: 1fr 4fr;
+
+grid-column-gap: 5vmin;
+
+box-sizing: border-box;
+
+margin: 0;
+
+padding: 0;
+
+height: 100%;
+
+align-items:start;
+
+justify-items:center;
+
+}
+
+.broad-2-col-r {
+
+display:grid;
+
+grid-template-columns: 7fr 4fr;
+
+align-items:center;
+
+justify-items:center;
+
+grid-column-gap: 5vw;
+
+box-sizing: border-box;
+
+margin: 0;
+
+padding: 0;
+
+height: 100%;
+
+}
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>The River Thames</h2>
+
+<h3>A source and a destination</h3>
+
+</div>
+
+<div class="content">
+
+<img src="lib/img/cholera-london-thames.jpg" class="framed graphic" style="height:700px;">
+
+</div>
+
+</div>
+
+
+
+</section>
+
+
+
+<!-- SOHO Animation -->
+
+
+
+<section data-background-color="#fcf8e3">
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Tracking Down The Source</h2>
+
+</div>
+
+<div class="content">
+
+<div class="soho-2-col">
+
+<div style="justify-self:end;">
+
+<p>Snow took to the streets, mapped fatalities, and analyzed the spatial pattern relative to nearby water wells.</p>
+
+<ul>
+
+<li class="fragment info" data-fragment-index="0">Water sources (wells)</li>
+
+<li class="fragment danger" data-fragment-index="0">Fatality frequencies per household</li>
+
+</ul>
+
+<p class="fragment sided border-orange" data-fragment-index="2">
+
+<span class="orange u-orange strong">Outliers</span><br>
+
+Workhouse<br><span class="tab">(535 inmates)</span><br>
+
+Brewery <br><span class="tab">(70 workers)</span>
+
+</p>
+
+</div>
+
+<!-- <div style="justify-self:start;width:100%" class="fig-container" data-file="lib/interactive/cholera-soho-spatial.html"  data-style="height:100%;width:100%;"></div> -->
+
+<vizzy style="justify-self:start;width:100%" data-src="lib/interactive/cholera-soho-spatial.html" data-style="height:100%;width:100%;"></vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+<aside class="notes">
+
+<p>
+
+In the first 10 days of the outbreak, there were 500 reported deaths from
+
+a small concentrated area around the Broad Street well.
+
+</p>
+
+<p>Snow, mapped the data and tried to make sense of it.</p>
+
+<p>
+
+He noticed something that didn't seem right. The Work House and the Brewery
+
+were both unaffected.
+
+</p>
+
+<p>
+
+Questioning the outliers he discovered that the work house inmates mostly
+
+drank from their own well, which wasn't polluted. And the 70 workers of
+
+the brewery mostly drank alcohol, or from the brewery's water source. A an
+
+old lady's niece in a region just outside of the broad street died of cholera,
+
+and when asked, the lady said her niece "liked the taste" of the broad street well water.
+
+</p>
+
+<p>
+
+It's important to look at your outliers! They are often a sign of
+
+something you haven't thought of yet.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Outliers -->
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Outliers</h2>
+
+</div>
+
+<div class="content">
+
+<p class="quoted bigger">
+
+An outlier is an <span class="danger">observed value that is notably distinct</span> from the other values in a dataset. Usually, an outlier is <span class="u-danger">much larger or much smaller</span> than the rest of the data values.
+
+</p>
+
+<img src="lib/img/outlier.svg" class="graphic" style="height: 500px;">
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Anomaly.
+
+<br>
+
+We'll see later in the class how to detect, represent and deal with outliers.
+
+<br>
+
+But you already see here that outliers are important, and shouldn't be ignored.
+
+<br>
+
+They store information that can help better understand your dataset.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+
+
+
+
+<!-- Broad Street Pump Area -->
+
+
+
+<section data-background-color="#fcf8e3">
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>The Broad Street Pump Area</h2>
+
+</div>
+
+<div class="content">
+
+<div class="broad-2-col">
+
+<div> <!-- left -->
+
+<p>
+
+Data visualization is a powerful tool!
+
+</p>
+
+<p class="fragment success" data-fragment-index=1 class="small">Area for which the Broad Street pump is the fastest trip to water <br>(on foot).</p>
+
+</div>
+
+<svg height="80%" viewbox="550 300 1300 1000" style="background-color: #36363d;">
+
+<use xlink:href="lib/interactive/data/cholera-soho-spatial.svg#Layer1"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/interactive/data/cholera-soho-spatial.svg#nearest"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<aside class="notes">
+
+<ul>
+
+<li>Snow employed network analysis to calculate which water pump was closest to each house.</li>
+
+<li>The stroke of genius: he based it on walking distance, not as-the-crow-flies distance.</li>
+
+<li>He binned the areas in polygons, and determined the frequency of fatalities</li>
+
+<li>It was impossible to deny the high concentration near the well.</li>
+
+</ul>
+
+<p>Snow took his results <em>evidence</em> to the authorities... What was his "evidence"? The data.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Snow's Data Set -->
+
+
+
+<section data-background-color="#fcf8e3">
+
+
+
+<style>
+
+/* Grid container */
+
+.snow-data-grid {
+
+display: grid;
+
+grid-template-rows: 100px auto 1fr;
+
+grid-template-columns: auto auto;
+
+grid-column-gap: 1vw;
+
+grid-row-gap: 1vh;
+
+align-items: center;
+
+align-self: start;
+
+justify-self: start;
+
+}
+
+
+
+/* Table */
+
+.snow-data-center {
+
+grid-row: 3 / 4;
+
+grid-column: 2 / 3;
+
+justify-self: start;
+
+align-self: start;
+
+font-size: 95%;
+
+}
+
+.snow-data-center tbody tr td {
+
+text-align: center;
+
+}
+
+/* Categorical/Quantitative */
+
+.snow-data-cat-quant {
+
+grid-row: 1 / 2;
+
+grid-column: 1 / 2;
+
+display: grid; /* Change to grid */
+
+justify-items: center; /* Center content horizontally */
+
+align-items: center; /* Center content vertically */
+
+}
+
+.snow-data-cat-quant p {
+
+grid-row: 1 / 2;
+
+grid-column: 1 / 2;
+
+display: flex;
+
+}
+
+
+
+/* Variables */
+
+.snow-data-variables {
+
+grid-row: 1 / 2;
+
+grid-column: 2 / 3;
+
+display: flex;
+
+justify-content: center;
+
+align-items: end;
+
+border-bottom: 2px solid;
+
+}
+
+
+
+/* Observational Units */
+
+.snow-data-obs-units {
+
+grid-row: 3 / 4;
+
+grid-column: 1 / 2;
+
+display: grid;
+
+align-items: end;
+
+border-bottom: 2px solid;
+
+transform: rotate(-90deg);
+
+align-self: center;
+
+justify-self: stretch;
+
+}
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>John Snow's Dataset</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-wrapper">
+
+<div class="header no-margin"><p>Snow tracked the cholera fatalities of an outbreak in a nearby neighborhood.</p></div>
+
+<div class="content" style="height:100%;">
+
+<div class="snow-data-grid">
+
+<!-- Categorical/Quantitative -->
+
+<div class="snow-data-cat-quant">
+
+<p class="fragment current-visible info strong" data-fragment-index="1">
+
+Categorical
+
+</p>
+
+<p class="fragment current-visible success strong" data-fragment-index="2">
+
+Quantitative
+
+</p>
+
+<p class="fragment current-visible danger strong" data-fragment-index="3">
+
+Quantitative
+
+</p>
+
+</div>
+
+
+
+<!-- Variables -->
+
+<div class="snow-data-variables em orange">
+
+Variables
+
+</div>
+
+
+
+<!-- Observational Units -->
+
+<div class="snow-data-obs-units em orange">
+
+Observational<br>Units
+
+</div>
+
+
+
+<!-- Table -->
+
+<table class="snow-data-center">
+
+<thead>
+
+<tr class="bg-muted" >
+
+<th>House</th>
+
+<th>Address</th>
+
+<th>Population</th>
+
+<th>Fatalities</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td class="fragment highlight-current-bg-info-white" data-fragment-index=1>House #1</td>
+
+<td>45 Lexington St</td>
+
+<td class="fragment highlight-current-bg-success" data-fragment-index=2>8</td>
+
+<td class="fragment highlight-current-bg-danger" data-fragment-index="3">5</td>
+
+</tr>
+
+<tr>
+
+<td class="fragment highlight-current-bg-info-white" data-fragment-index=1>House #2</td>
+
+<td>15 Broadwick St</td>
+
+<td class="fragment highlight-current-bg-success" data-fragment-index=2>21</td>
+
+<td class="fragment highlight-current-bg-danger" data-fragment-index="3">7</td>
+
+</tr>
+
+<tr>
+
+<td class="fragment highlight-current-bg-info-white" data-fragment-index=1>House #3</td>
+
+<td>61 Poland St</td>
+
+<td class="fragment highlight-current-bg-success" data-fragment-index=2>4</td>
+
+<td class="fragment highlight-current-bg-danger" data-fragment-index="3">1</td>
+
+</tr>
+
+<tr>
+
+<td class="fragment highlight-current-bg-info-white" data-fragment-index=1>House #4</td>
+
+<td>37 Broad St</td>
+
+<td class="fragment highlight-current-bg-success" data-fragment-index=2>27</td>
+
+<td class="fragment highlight-current-bg-danger" data-fragment-index="3">16</td>
+
+</tr>
+
+<tr>
+
+<td class="fragment highlight-current-bg-info-white" data-fragment-index=1>House #5</td>
+
+<td>48 Carnaby St</td>
+
+<td class="fragment highlight-current-bg-success" data-fragment-index=2>11</td>
+
+<td class="fragment highlight-current-bg-danger" data-fragment-index="3">3</td>
+
+</tr>
+
+<tr>
+
+<td class="fragment highlight-current-bg-info-white" data-fragment-index=1>House #6</td>
+
+<td>46 Beak St</td>
+
+<td class="fragment highlight-current-bg-success" data-fragment-index=2>8</td>
+
+<td class="fragment highlight-current-bg-danger" data-fragment-index="3">0</td>
+
+</tr>
+
+<tr>
+
+<td class="fragment highlight-current-bg-info-white" data-fragment-index=1>House #7</td>
+
+<td>43 Broad St</td>
+
+<td class="fragment highlight-current-bg-success" data-fragment-index=2>44</td>
+
+<td class="fragment highlight-current-bg-danger" data-fragment-index="3">9</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Each house was an observational unit, from which he could collect data.</p>
+
+<p>The ids, or addresses, function as categorical metrics, also called variables, generally.</p>
+
+<p>The other metrics were the population and the fatalities from cholera.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Data to Admin Action -->
+
+
+
+<section data-background-color="#fcf8e3">
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>From Data To Administrative Action</h2>
+
+</div>
+
+<div class="content">
+
+<div class="broad-2-col-r">
+
+<div style="justify-self:end;object-fit:contain;display:flex;height:100%;">
+
+<img src="lib/img/cholera-deathdays.svg">
+
+</div>
+
+<div style="justify-self:start;">
+
+<p class="framed border-danger">Still, the scientific community was reluctant to
+
+believe his theory</p>
+
+<div class="fragment border-info">
+
+<h4>Snow needed <span class="pop em strong">stronger</span> evidence!</h4>
+
+<h4 class="fragment">Snow's "Grand Experiment"</h4>
+
+<ul>
+
+<li class="fragment emoji-question" style="padding-left:2em;">Is there a causal relationship between water supply and cholera?</li>
+
+<li class="fragment emoji-check strong success" style="padding-left:2em;">Get more data!</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<aside class="notes">
+
+<p>Despite the success of Snow's theory in stemming the cholera epidemic in Soho, public officials still thought his hypothesis was nonsense.</p>
+
+<p>The refused to do anything to clean up the cesspools and sewers</p>
+
+<p>The board of health said, "We see no reason to adopt this belief,... Thanks for the suggestion"</p>
+
+<p>What would be alternative explanations for the decrease in cholera fatal attacks?</p>
+
+<p>Snows Grand: What is his scientific hypothesis?</p>
+
+<p>He thought hard, and realized what he needed was more data.</p>
+
+</aside>
+
+</section>
+        </section>
+        <section>
+          <style>
+
+.statlingo-auto-row {
+
+display:grid !important;
+
+grid-auto-columns:1fr;
+
+grid-auto-flow:row;
+
+align-items: start;
+
+justify-items: center;
+
+}
+
+/* Table styles */
+
+.statlingo-auto-row table {
+
+width: 100%;
+
+border-collapse: collapse;
+
+}
+
+
+
+/* Header styles */
+
+.statlingo-auto-row table th {
+
+border-bottom: 2px solid black;
+
+padding: 8px;
+
+text-align: left;
+
+}
+
+
+
+/* Row styles */
+
+.statlingo-auto-row table td {
+
+padding: 8px;
+
+text-align: left;
+
+}
+
+
+
+/* Banded rows */
+
+.statlingo-auto-row table tr:nth-child(even) {
+
+background-color: lightgray;
+
+}
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Statistical Vocabulary</h2>
+
+</div>
+
+<div class="content statlingo-auto-row">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Category</th>
+
+<th>Term</th>
+
+<th>Definition</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>Study Type</td>
+
+<td>Experimental Study</td>
+
+<td>A study where the researcher <span class="em info">actively controls one or more <span class="strong">explanatory</span> variables</span>.</td>
+
+</tr>
+
+<tr>
+
+<td>Study Type</td>
+
+<td>Observational Study</td>
+
+<td>A study where the researcher <span class="em orange">records observations as they <span class="strong">naturally exist</span></span>.</td>
+
+</tr>
+
+<tr>
+
+<td>Study Component</td>
+
+<td>Observational Unit</td>
+
+<td>An individual entity of interest about which data are recorded. The recorded characteristics of the observational unit are the <span class="info">variables</span> of interest.</td>
+
+</tr>
+
+<tr>
+
+<td>Variable Type</td>
+
+<td>Categorical Variable</td>
+
+<td>Divides the observational units into <span class="em info">groups</span> for higher-level analysis.</td>
+
+</tr>
+
+<tr>
+
+<td>Variable Type</td>
+
+<td>Quantitative Variable</td>
+
+<td>Measures a value for each observational unit as a <span class="em orange">numerical quantity</span>.</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+
+<aside class="notes">
+
+<p>Let's take a minute to review some language I've used.</p>
+
+</aside>
+        </section>
+        <section data-background-color="#fcf8e3">
+          <!-- Snow's grand experiment breakdown -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Snow's "Grand Experiment"</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="sided down-2">
+
+<span class="u">Research question:</span><br>
+
+Is there a causal relationship between water supply and cholera?
+
+</p>
+
+<p class="sided border-danger fragment" data-fragment-index=1>
+
+<span class="u-danger">Type of study:</span><br>
+
+<span class="fragment" data-fragment-index=2>Observational study</span><br>
+
+<span class="em fragment small" data-fragment-index=2>Snow compared different exposure groups, but did not assign the exposure (contaminated water or not).</span>
+
+</p>
+
+<p class="sided border-info fragment" data-fragment-index=3>
+
+<span class="u-info">Observational units:</span><br>
+
+<span class="fragment" data-fragment-index=4>People</span>
+
+</p>
+
+<p class="sided border-orange fragment" data-fragment-index=5>
+
+<span class="u-orange">Variables:</span><br>
+
+<span class="fragment" data-fragment-index=6>
+
+- Occurrence of cholera fatalities <span class="fragment highlight-current-bg-orange" data-fragment-index=7>(outcome)</span><br>
+
+- Exposure, i.e., water source <span class="fragment highlight-bg-orange" data-fragment-index=8>(explains difference in outcome)</span>
+
+</span>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+Snow was still eager to prove his theory.
+
+<br>
+
+Went back to work at a bigger scale.
+
+</aside>
+        </section>
+        <section>
+          <style>
+
+#revars p.quoted {
+
+font-size: 120%;
+
+}
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Types of Variables</h2>
+
+</div>
+
+<div id="revars" class="content" style="display: grid;grid-template-rows: 1fr 1fr 1fr auto;align-items:start;grid-row-gap:1vmin;justify-items:center;">
+
+<p class="quoted fragment">
+
+A <span class="u-orange">Response Variable</span> is the metric <span class="orange">about which questions are asked</span>, it measures the <span class="strong">outcome</span> of the study.
+
+</p>
+
+<p class="quoted fragment">
+
+An <span class="u-info">Explanatory Variable</span> is any metric that can <span class="info">influence, explain, or predict</span> the <span class="orange">response</span> variable.
+
+</p>
+
+<p class="fragment">
+
+<span class="emoji" role="img" style="transform:scale(-1,1);">&#x1F4CC;</span> The response variable is usually called the <span class="orange">dependent</span> variable, and the explanatory variable is usually called the <span class="info">independent</span> variable.
+
+</p>
+
+</div>
+
+</div>
+        </section>
+        <section data-background-color="#fcf8e3">
+          <!-- Snow's collection -->
+
+<style>
+
+.ww-grid {
+
+display: grid !important;
+
+grid-template-columns: 6.5fr 3.5fr;
+
+align-items: start !important;
+
+justify-items: stretch;
+
+}
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>London Waterworks:</h2>
+
+</div>
+
+<div class="content ww-grid">
+
+<!-- <div
+
+class="fig-container"
+
+data-file="lib/interactive/cholera-london-waterworks.html"
+
+style="height: 640px; align-self: center"
+
+data-style="height:100%;width:100%;"
+
+></div> -->
+
+<vizzy data-src="lib/interactive/cholera-london-waterworks.html"></vizzy>
+
+<div style="align-items: start; justify-items: start">
+
+<p>2 major water supply companies</p>
+
+<table class="fragment" data-fragment-index="1">
+
+<thead>
+
+<tr>
+
+<th></th>
+
+<th>1849<br />epidemics</th>
+
+<th>1853-1854<br />epidemics</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="vertical-align: middle" class="strong">
+
+Lambeth Waterworks
+
+</td>
+
+<td
+
+style="vertical-align: middle"
+
+class="fragment highlight-bg-warning"
+
+data-fragment-index="1"
+
+>
+
+London intake
+
+</td>
+
+<td
+
+style="vertical-align: middle"
+
+class="fragment highlight-bg-info"
+
+data-fragment-index="1"
+
+>
+
+Seething wells intake
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="vertical-align: middle" class="strong">
+
+Southwark Vauxhall
+
+</td>
+
+<td
+
+style="vertical-align: middle"
+
+class="fragment highlight-bg-warning"
+
+data-fragment-index="1"
+
+>
+
+London intake
+
+</td>
+
+<td
+
+style="vertical-align: middle"
+
+class="fragment highlight-bg-warning"
+
+data-fragment-index="1"
+
+>
+
+London intake
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Snow's explanatory variables became the water companies themselves. Or, more
+
+precisely, the geographical location of the water source.
+
+</p>
+
+<p>
+
+As London grew, and more pollution entered the river, cholera returned with
+
+a vengence in 1854 after abating for several years before.
+
+</p>
+
+<p>
+
+There was an important change in 1852, The Lambeth Waterworks move their
+
+operations to Seething Wells (a cleaner water source).
+
+</p>
+
+<p>
+
+Snow's grand experiment split 300,000 randomly chosen people of all age,
+
+sex, social status, etc., into 2 groups: drinking London Water, or Lambeth's
+
+clean water.
+
+</p>
+
+<p><em>Yes, be outraged and disgusted.</em></p>
+
+<p>
+
+There were 3 groups, the third being a control, or baseline, of a mixed
+
+water source.
+
+</p>
+
+<p>
+
+<b>Can you think of another control group??</b> Negative control, where
+
+there's little or no cholera.
+
+</p>
+
+<p>These shaded areas remind you of something??</p>
+
+</aside>
+        </section>
+        <section>
+          <style>
+
+#coldata p.quoted {
+
+font-size: 120%;
+
+}
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Data Collection</h2>
+
+</div>
+
+<div id="coldata" class="content" style="display: grid;grid-template-rows: 1fr 1fr 3fr auto;align-items:start;grid-row-gap:1vmin;justify-items:center;">
+
+<p class="quoted no-margin">
+
+The <span class="info">population</span> is the <span class="u-info">entire collection</span> of observational units we are interested in.
+
+A <span class="danger">sample</span> is a <span class="u-danger">subset of the population</span> on which we record data.
+
+</p>
+
+<p class="quoted no-margin fragment">
+
+Numerical summaries about a population are called <span class="info">parameters</span>, and numerical summaries calculated from a sample are called <span class="danger">statistics</span>.
+
+</p>
+
+<div width="100%" height="100%" style="justify-self:stretch;align-self:stretch;">
+
+<img src="lib/img/distribution-sample.svg" class="graphic">
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Once we have our requirements, and we have an idea about what to measure,
+
+we go out into the world, and we get data.
+
+</p>
+
+<p>
+
+Now, we can't collect all the data, so we collect a sample of the data.
+
+</p>
+
+<p class="em">
+
+If this population was Normal distributed, with parameters mu and sigma, what
+
+test would we use to ask if our sample might have come from that population? Z-test
+
+</p>
+
+<p>
+
+The size of the sample is important. <br>
+
+The bigger the sample size, the more likely the data we collect can be generalized to
+
+the full population.
+
+</p>
+
+</aside>
+        </section>
+        <section data-background-color="#fcf8e3">
+          <!-- Snow's Original Data -->
+
+<style>
+
+/* CSS */
+
+.snow-grid-container {
+
+display: grid;
+
+grid-template-rows: auto 1fr;
+
+grid-template-columns: auto 1fr auto 1fr;
+
+grid-column-gap: 10px;
+
+align-items: start;
+
+justify-content: center;
+
+width: 900px !important;
+
+}
+
+
+
+.snow-data-label, .snow-analysis-label {
+
+z-index: 100;
+
+transform: rotate(-45deg);
+
+align-self: start;
+
+margin-top: 5vmin;
+
+font-size: 150%;
+
+}
+
+
+
+.snow-data-label {
+
+grid-row: 1 / 2;
+
+grid-column: 1 / 2;
+
+}
+
+
+
+.snow-analysis-label {
+
+grid-row: 1 / 2;
+
+grid-column: 3 / 4;
+
+}
+
+
+
+.snow-data-image, .snow-analysis-image {
+
+width: auto;
+
+height: 700px;
+
+margin: 0;
+
+align-self: start;
+
+}
+
+
+
+.snow-data-image {
+
+grid-row: 1 / 3;
+
+grid-column: 1 / 3;
+
+}
+
+
+
+.snow-analysis-image {
+
+grid-row: 1 / 3;
+
+grid-column: 3 / 5;
+
+}
+
+.snow-data-center {
+
+grid-row: 3 / 4;
+
+grid-column: 2 / 3;
+
+justify-self: start;
+
+align-self: start;
+
+font-size: 95%;
+
+}
+
+.snow-data-center thead tr th,
+
+.snow-data-center tbody tr td {
+
+text-align: center;
+
+}
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Snow's Original Data & Analysis</h2>
+
+</div>
+
+<div class="content">
+
+<div class="snow-grid-container">
+
+<div class="snow-data-label danger">Data</div>
+
+<img class="snow-data-image" src="lib/img/cholera-deaths-newspaper.jpg" alt="Cholera Deaths Newspaper">
+
+<img class="snow-analysis-image" src="lib/img/cholera-deaths-analysis-snow.jpg" alt="Cholera Deaths Analysis by Snow">
+
+<div class="snow-analysis-label info">Analysis</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Data from London Registrar office.
+
+<br>
+
+Gathered all the weekly deaths data by district.
+
+</p>
+
+</aside>
+
+
+
+</section>
+
+
+
+<!-- Cholera Death Animation -->
+
+
+
+<section data-background-color="#fcf8e3">
+
+
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2 class="r-fit-text">Following The Data: A Road To Understanding</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-template-rows:auto 1fr;">
+
+<div class="grid-generic" style="grid-template-columns: 1fr auto">
+
+<div class="framed">
+
+<table class="snow-data-center" style="font-size:70%;">
+
+<thead>
+
+<tr>
+
+<th> </th>
+
+<th><span class="fragment" data-fragment-index=2>Number of houses</span></th>
+
+<th>Deaths from cholera</th>
+
+<th><span class="fragment" data-fragment-index=2>Deaths per 10,000 houses</span></th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td class="strong">Southwark & Vauxhall</td>
+
+<td ><span class="fragment" data-fragment-index=2>40,046</span></td>
+
+<td>1,263</td>
+
+<td>
+
+<div class="fragment" data-fragment-index=2>
+
+<div class="fragment highlight-bg-danger center" data-fragment-index=4>
+
+315
+
+</div>
+
+</div>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="strong">Lambeth Waterworks</td>
+
+<td><span class="fragment" data-fragment-index=2>26,107</span></td>
+
+<td>98</td>
+
+<td><span class="fragment" data-fragment-index=2>38</span></td>
+
+</tr>
+
+<tr>
+
+<td class="strong">Rest of London</td>
+
+<td><span class="fragment" data-fragment-index=2>256,423</span></td>
+
+<td>1,422</td>
+
+<td><span  class="fragment" data-fragment-index=2>55</span></td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div>
+
+<p class="fragment danger" data-fragment-index=4>
+
+<span class="emoji">&#x2757;</span>8 times more likely to die
+
+</p>
+
+</div>
+
+</div> <!-- first row -->
+
+<div class="grid-generic" style="grid-template-columns: 1fr 1fr">
+
+<div style="height: 100%;">
+
+<p>
+
+On the basis of these figures, <span class="em strong">which company is more likely to be transmitting "morbid matter" causing cholera?</span>
+
+</p>
+
+<p class="fragment danger framed border-danger" data-fragment-index=1>
+
+Cannot tell! <br>
+
+<i class="fas fa-arrow-circle-right danger"></i> we need to <span class="u">normalize</span> the data
+
+</p>
+
+</div>
+
+<vizzy style="height:450px;" data-src="lib/interactive/cholera-death-analysis.html"></vizzy>
+
+<!-- <div>
+
+<div class="fig-container"  data-file="lib/interactive/cholera-death-analysis.html" style="height:400px;"></div>
+
+</div> -->
+
+</div> <!-- second row -->
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<aside class="notes">
+
+<p>Rest of London is negative control.</p>
+
+<p>
+
+On the basis...? Cannot tell: Correct.
+
+</p>
+
+<p>Although more deaths in SV, do we know how many people were in their service area? In the others? <b>Need scale for comparison, right?</b></p>
+
+<p>How to scale? Well, Snow decided to use the total number of houses in the service areas as the scaling factor.</p>
+
+<p>
+
+Are there are problems with using a general total of houses supplied by each
+
+company as a denominator?
+
+</p>
+
+<ul>
+
+<li>Ideally, the denominator should be all people supplied by water from each company, not houses. Different houses may contain different numbers of people. If, for example, the Lambeth company supplied an area where there were consistently more people per house than the area supplied by the Southwark and Vauxhall company, then we might be misled by using the number of houses as a denominator. </li>
+
+<li>Ideally, the denominator should be houses in the areas of mixed supply only, not all households supplied by the companies, because the patrons could differ substantially over the larger area.</li>
+
+</ul>
+
+</aside>
+
+</section>
+
+
+
+<!-- Cholera Summary -->
+
+<section data-background-color="#fcf8e3">
+
+
+
+<style>
+
+.shrinktext {
+
+font-size:70%;
+
+margin-top: 3px !important;
+
+margin-bottom: 3px !important;
+
+}
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>From Understanding To Action</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:3fr 2fr;gap:5px;">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-flow:row;align-items:center;gap:5px;"> <!-- left -->
+
+<div style="width:100%">
+
+<p class="sided shrinktext">
+
+Less people started to question the relevance of the germ theory to cholera.
+
+</p>
+
+</div>
+
+<div style="width:100%">
+
+<p class="sided border-danger shrinktext">
+
+New prevention and control measures developed to prevent cholera outbreaks
+
+</p>
+
+</div>
+
+<div style="width:100%;text-align:justify">
+
+<p class="shrinktext">
+
+<span class="emoji">&#x2192;</span> Boiling water enforced.<br>
+
+<span class="emoji">&#x2192;</span> The S&V company was forced by the Metropolitan Water Act to move its intake to a location far upriver near Hampton.
+
+</p>
+
+</div>
+
+<div style="width:100%">
+
+<img class="framed graphic" src="lib/img/cholera-cruikshank_southwark.jpg" style="margin:auto;padding:0;object-fit:fill;width:85%">
+
+</div>
+
+</div>
+
+<div> <!-- right -->
+
+<img src="lib/img/cholera-public-notice.jpg" class="framed graphic" style="margin:auto;padding:0;object-fit:contain;height:90vh;">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<aside class="notes">
+
+<p>
+
+Data lead to concrete actions/decisions
+
+<br>
+
+Germ theory started to be taken seriously.
+
+<br>
+
+Preventive measures were developed.
+
+<br>
+
+Cartoon presents John Edwards, owner of the Southwark Water Company.
+
+<br>
+
+He is seen crowned with a chamber-pot, seated on a stool on top of a cesspool which doubles as the water-intake for the Southwark Water Company customers in south London.
+
+</p>
+
+</aside>
+
+
+
+</section>
+
+
+
+<!-- Statistical Steps: Cholera Example -->
+
+
+
+<section data-background-color="#fcf8e3">
+
+
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2 class="r-fit-text">6 Stages Of A Statistical Investigation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2.4fr 7.5fr;gap:5px;">
+
+<div>
+
+<svg width="100%" viewBox="7 3.5 66 147">
+
+<use class="fragment" data-fragment-index="1" xlink:href="lib/img/statistical-investigation-steps.svg#Layer_1_1_"></use>
+
+<use class="fragment" data-fragment-index="2" xlink:href="lib/img/statistical-investigation-steps.svg#Layer_2"></use>
+
+<use class="fragment" data-fragment-index="3" xlink:href="lib/img/statistical-investigation-steps.svg#Layer_3"></use>
+
+<use class="fragment" data-fragment-index="4" xlink:href="lib/img/statistical-investigation-steps.svg#Layer_4"></use>
+
+<use class="fragment" data-fragment-index="5" xlink:href="lib/img/statistical-investigation-steps.svg#Layer_5"></use>
+
+<use class="fragment" data-fragment-index="6" xlink:href="lib/img/statistical-investigation-steps.svg#Layer_6"></use>
+
+</svg>
+
+</div>
+
+<div class="grid-generic left-justify" style="grid-template-columns:1fr;grid-auto-rows:1fr;height:95%;">
+
+<div class="framed border-orange fragment" data-fragment-index="1">
+
+Could water supplied to South London residents by private companies be a principal vector for the transmission of cholera?
+
+</div>
+
+<div class="fragment" data-fragment-index="2">
+
+Large scale study of cholera fatal attacks in South London (water supply randomly "assigned")
+
+</div>
+
+<div class="fragment" data-fragment-index="3">
+
+Looking for patterns by comparing the occurrence of cholera fatal attacks in the different population groups
+
+</div>
+
+<div class="fragment" data-fragment-index="4">
+
+People served by sewage-contaminated water seem more affected
+
+by fatal cholera attacks
+
+</div>
+
+<div class="fragment" data-fragment-index="5">
+
+Contaminated water is most likely a source of cholera infection. <span class="orange">Cholera is a waterborne disease!</span>
+
+</div>
+
+<div class="fragment framed border-danger" data-fragment-index="6">
+
+Need for analyzing water samples (identify "germ"). <br>
+
+Boiling water mandatory during cholera epidemics.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<aside class="notes">
+
+<p style="font-size:90%;">
+
+Why Cholera in Engineering?
+
+<ol>
+
+<li>Improvement in Water Supply and Sanitation Systems:
+
+<ul>
+
+<li>Development of Modern Sewer Systems: Overhaul of sanitation infrastructure, leading to extensive sewer systems to reduce waterborne diseases.</li>
+
+<li>Separation of Drinking Water and Sewage: Separation of sewage from drinking water supplies to reduce cholera and other waterborne diseases.</li>
+
+</ul>
+
+</li>
+
+<li>Advances in Public Health Policies:
+
+<ul>
+
+<li>Introduction of Water Filtration and Treatment: Filtration and chlorination became standard to ensure safe drinking water.</li>
+
+<li>Establishment of Public Health Boards: Creation of public health institutions to monitor and manage health risks, with a focus on preventive measures.</li>
+
+</ul>
+
+</li>
+
+<li>Urban Planning and Zoning:
+
+<ul>
+
+<li>Zoning Regulations for Water and Sewage Systems: Regulations introduced to protect water sources from contamination, influencing urban planning.</li>
+
+</ul>
+
+</li>
+
+<li>Mapping and Geographic Information Systems (GIS):
+
+<ul>
+
+<li>Use of Mapping in Public Health: Snow's use of maps for cholera cases laid the groundwork for modern GIS, essential in public health and urban planning.</li>
+
+</ul>
+
+</li>
+
+<li>Influence on the Germ Theory of Disease:
+
+<ul>
+
+<li>Snow's work supported the shift away from miasma theory to germ theory, advancing public health practices.</li>
+
+</ul>
+
+</li>
+
+</ol>
+
+</p>
+
+</aside>
+        </section>
+        <section data-background-image="lib/img/statistics_2.png" id="section-title-3">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-3">
+              <div class="section-number">
+                <span class="large-number">
+                  3
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Statistical Investigation
+                </h2>
+                <h3>
+                  The Why And The How
+                </h3>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <!-- Goal of Statistics -->
+
+
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Statistical Purpose</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:5px;justify-items:center;">
+
+<div>
+
+<p>
+
+<i class="arrowr"></i> To answer a question about a population (of data).
+
+</p>
+
+<div class="bordered rounded border-dashed fragment" data-fragment-index="1">
+
+<p style="text-align:justify;text-justify:inter-word;" class="small">
+
+In a perfect world, we would have access to the full
+
+<span class="info">population</span> so we would be able to answer the question
+
+based on data collected on all the <span class="u">observational units</span>
+
+of the population. We would know the value of the
+
+<span class="info">true parameter</span> we are interested in.
+
+</p>
+
+</div>
+
+<p class="fragment">
+
+But usually we just have <span class="danger">one sample</span>.
+
+</p>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:1fr 2fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<p class="fragment left-justify" data-fragment-index="2">
+
+Statistics is about using a <span class="danger">sample</span>, or many samples,
+
+</p>
+
+<p class="fragment left-justify" data-fragment-index="3">
+
+to make <span class="warning">inferences</span> about the <span class="info">population</span> parameters.
+
+</p>
+
+</div>
+
+<div style="justify-content:center;">
+
+<svg viewBox="0 0 864 432" class="graphic" style="height:55vh;">
+
+<use class="fragment" data-fragment-index="1" xlink:href="lib/img/inferences.svg#figure_1"></use>
+
+<use class="fragment" data-fragment-index="2" xlink:href="lib/img/inferences.svg#figure_2"></use>
+
+<use class="fragment" data-fragment-index="2" xlink:href="lib/img/inferences.svg#figure_3"></use>
+
+<use class="fragment" data-fragment-index="3" xlink:href="lib/img/inferences.svg#figure_4"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>note here</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- 6 steps summary -->
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2 class="r-fit-text">6 Stages Of A Statistical Investigation</h2>
+
+</div>
+
+<div class="content">
+
+<svg width="75%" viewBox="0 0 381.6 244.75" style="margin-top: 0; margin-bottom: 0;">
+
+<use xlink:href="lib/img/summary-lec1.svg#investigation"></use>
+
+<use class="fragment" xlink:href="lib/img/summary-lec1.svg#population"></use>
+
+<use class="fragment" xlink:href="lib/img/summary-lec1.svg#datasample"></use>
+
+<use class="fragment" xlink:href="lib/img/summary-lec1.svg#variables"></use>
+
+<use class="fragment" xlink:href="lib/img/summary-lec1.svg#type1"></use>
+
+<use class="fragment" xlink:href="lib/img/summary-lec1.svg#type2"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+
+
+</section>
+
+
+
+<!-- Statistical Inference -->
+
+
+
+<section>
+
+
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Statistical Inference</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:3.5fr 6.5fr;grid-template-rows:1fr 1fr;gap:5px;">
+
+<div style="grid-row: 1/2;grid-column:1/2">
+
+<p>
+
+There are 4 main types of inferences that
+
+we can draw from data:
+
+</p>
+
+<ul>
+
+<li>Significance</li>
+
+<li>Estimation</li>
+
+<li>Generalization</li>
+
+<li>Causation</li>
+
+</ul>
+
+</div>
+
+<div style="grid-row: 1/2;grid-column:2/3">
+
+<img src="lib/img/inferences.svg" width="100%">
+
+</div>
+
+<div style="grid-row: 2/3;grid-column:1/3">
+
+<p class="sided-no-bg">
+
+Statistics is all about <span class="warning">gaining knowledge</span> (drawing conclusions) about a
+
+<span class="info">population data</span> by only using
+
+a <span class="u-danger">piece of this population</span> (<span class="danger">sample</span>).
+
+</p>
+
+<p class="fragment" data-fragment-index=1>
+
+<i class="fas fa-arrow-circle-right warning"></i> This process is called <span class="u-warning">drawing inferences</span>.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- </section> -->
+        </section>
+      </div>
+      <footer class="main-footer">
+        <span>
+          Lecture 01
+        </span>
+        <span style="text-align:center;">
+        </span>
+        <span style="text-align:right;">
+          <a href="https:\\khrisgriffis.com" target="_blank" rel="noopener noreferrer">Khris Griffis &#169;2025</a>
+        </span>
+      </footer>
+    </div>
+    <script src="./src/reveal.js">
+    </script>
+    <script src="./src/plugin/notes/notes.js">
+    </script>
+    <script src="./src/plugin/highlight/highlight.js">
+    </script>
+    <script src="./src/plugin/math/math.js">
+    </script>
+    <script src="./src/plugin/reveal-splash/reveal-splash.js">
+    </script>
+    <script src="./src/plugin/vizzy-reveal/vizzy.js">
+    </script>
+    <script>
+      Reveal.initialize({
+autoSlide: 0,
+center: true,
+controls: true,
+controlsBackArrows: "faded",
+controlsLayout: "bottom-right",
+display: "block",
+fragments: true,
+fragmentInURL: true,
+hash: true,
+hideCursorTime: 5000,
+keyboard: true,
+mobileViewDistance: 3,
+mouseWheel: false,
+navigationMode: "linear",
+overview: true,
+pdfMaxPagesPerSlide: 1,
+pdfSeparateFragments: false,
+preloadIframes: null,
+progress: false,
+showNotes: false,
+showSlideNumber: "print",
+sortFragmentsOnSync: true,
+touch: true,
+transition: "fade",
+transitionSpeed: "default",
+viewDistance: 3,
+backgroundTransition: "fade",
+controlsTutorial: false,
+embedded: false,
+help: true,
+hideInactiveCursor: true,
+history: false,
+loop: false,
+previewLinks: false,
+rtl: false,
+shuffle: false,
+slideNumber: false,
+width: 1920,
+height: 1080,
+margin: 0.081,
+minScale: 0.08,
+maxScale: 1.67,
+mathjax3: {
+mathjax: "https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-mml-chtml.js",
+loader: {
+load: [
+"[tex]/html",
+],
+},
+tex: {
+packages: {
+'[+]': [
+"html",
+],
+},
+inlineMath: [
+["$", "$"],
+["\\(", "\\)"],
+],
+processEscapes: true,
+processEnvironments: true,
+},
+options: {
+skipHtmlTags: [
+"script",
+"noscript",
+"style",
+"textarea",
+"pre",
+],
+},
+chtml: {
+scale: 0.8,
+linebreaks: {
+automatic: true,
+},
+},
+Safe: {
+sizeMin: 0.4,
+sizeMax: 1.25,
+},
+},
+notes: {
+
+},
+highlight: {
+
+},
+vizzy: {
+autoRunTransitions: true,
+autoTransitionDelay: 100,
+devMode: false,
+onSlideChangedDelay: 0,
+},
+splash: {
+splashImage: "lib/img/ME3040_splash.png",
+text: "Welcome to ME3040!",
+minimumDisplay: 2,
+},
+plugins: [RevealNotes, RevealHighlight, RevealMath.MathJax3, Splash, Vizzy]
+});
+    </script>
+  </body>
+</html>
