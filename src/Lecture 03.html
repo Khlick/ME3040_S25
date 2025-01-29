@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="notranslate" name="google"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>
+      Probability 2 Independent and Dependent Probabilities
+    </title>
+    <link href="lib\favicon.png" rel="icon" type="image/x-icon"/>
+    <link href="./src/css/reset.css" rel="stylesheet"/>
+    <link href="./src/css/reveal.css" rel="stylesheet"/>
+    <link href="./src/css/revealpack.css" rel="stylesheet"/>
+    <link href="./src/theme/drG.css" id="theme" rel="stylesheet"/>
+    <!-- highlight.js theme -->
+    <link href="./src/theme/vs.css" id="highlight-theme" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <!-- Custom Scripts -->
+    <!-- Print PDF script -->
+    <script>
+      var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match(/print-pdf/gi) ? './src/css/print/pdf.css' : './src/css/print/paper.css';
+document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!-- Deck CSS Injections -->
+    <!-- Deck Script Injections -->
+    <!-- Deck Raw Injections -->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-image="lib/img/micesci_3.png" id="deck-title-slide">
+          <div class="title-slide background">
+            <div class="headline">
+              <h2 class="r-fit-text">
+                Probability 2
+              </h2>
+              <h3>
+                Independent and Dependent Probabilities
+              </h3>
+            </div>
+            <div class="sub-header">
+              <p class="by">
+                Khris Griffis, Ph.D.
+              </p>
+            </div>
+            <div class="byline">
+              <p class="byinfo">
+                Lecture 03
+              </p>
+              <p class="byinfo">
+                CSULA: ME3040
+              </p>
+            </div>
+          </div>
+          <aside class="notes">
+            <p>
+              Welcome to a world where chance, order, and calculation converge to unlock the mysteries of the universe.
+            </p>
+            <p>
+              These concepts are the keys to understanding complex systems, predicting outcomes, and solving problems that once seemed insurmountable.
+            </p>
+          </aside>
+        </section>
+        <section>
+          <!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Learning Objectives</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic"style="grid-template-columns: 1fr; grid-auto-rows: auto; gap: 1vmin">
+
+<div class="border-bottom fragment" data-fragment-index="1">
+
+<p><i class="target"></i> Wrap-up Set Theory</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="2">
+
+<p><i class="target"></i> Introduce Combinatorics (Counting Theory)</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="3">
+
+<p><i class="target"></i> Introduction To Probability Distributions</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section data-background-gradient="radial-gradient(circle, #ff0000, #ff4500, #ff8c00, #ffd700)" id="section-title-1">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-1">
+              <div class="section-number">
+                <span class="large-number">
+                  1
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Last Time:
+                </h2>
+                <h3>
+                  Probability And Set Theory
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-1.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Recall, we covered several definitions, today we will dive in deeper.</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- Probability Types -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Approaches</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="small">
+
+Probability theory is a fundamental part of mathematics and statistics that
+
+deals with the likelihood of different outcomes in various scenarios. There are
+
+three primary approaches to understanding and calculating probability:
+
+</p>
+
+<div>
+
+<table class="latex-style-table-row-labels">
+
+<thead>
+
+<tr>
+
+<th>Approach</th>
+
+<th>Description</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>Subjective</td>
+
+<td class="small">
+
+Based on personal judgment and available information. It is often
+
+used in scenarios where hard data is scarce, and decisions are made
+
+based on <span class="em">beliefs</span> or <span class="info">expert knowledge</span>.
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Classical</td>
+
+<td class="small">
+
+Assumes that all outcomes in a sample space are <span class="info">equally likely</span>.
+
+It is best suited for situations where you can clearly define all
+
+possible outcomes, and each outcome has the same chance of occurring, i.e., symmetrical weight.
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Empirical</td>
+
+<td class="small">
+
+Relies on <span class="info">actual data collected from experiments or observations</span>.
+
+Empirical probability is calculated by dividing the number of times
+
+an event occurs by the total number of trials or observations.
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<p class="sided-bg-info">
+
+Each approach offers a unique
+
+perspective and methodology for determining the likelihood of events.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+There are three primary approaches to understanding and calculating probability:
+
+</p>
+
+<ul>
+
+<li>Subjective: a doctor might use subjective probability to estimate the likelihood of a patient's recovery based on their experience and the patient's symptoms. Useful when thinking about how to test or experiment something.</li>
+
+<li>Classical: An example is tossing a fair coin, where the chances of landing heads or tails are both 50%.</li>
+
+<li>Empirical: It is particularly useful in situations where historical data is available, such as calculating the probability of rain based on weather records.</li>
+
+</ul>
+
+</aside>
+
+</section>
+
+
+
+<!-- Introduction to Sets and Conditional Probability -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Intersection of Set Theory and Probability</h2>
+
+<p>
+
+Set theory and probability form the mathematical backbone of analyzing and
+
+predicting outcomes in various fields, providing tools to
+
+<span class="success">quantify uncertainty</span> and make <span class="success">informed decisions</span>.
+
+</p>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:5fr 2.5fr;grid-auto-rows:1fr;gap:1vmin;">
+
+<div id="setTheoryProbabilityContent">
+
+<ul>
+
+<li class="emoji-star fragment">
+
+<span class="strong">Set Theory:</span> A fundamental branch of mathematics focused on the study of <span class="info">sets</span>, collections of distinct objects. Set theory underpins <span class="info">probability</span> by defining <span class="info">events</span> as sets and exploring relationships through operations like <span class="info">union</span>, <span class="info">intersection</span>, and <span class="info">complement</span>.
+
+</li>
+
+<li class="emoji-star fragment">
+
+<span class="strong">Combinatorics:</span> In the context of probability, combinatorics involves the study of <span class="info">counting</span>, <span class="info">arrangement</span>, and <span class="info">combination</span> of elements, crucial for calculating the likelihood of various events and understanding the structure of different outcomes.
+
+</li>
+
+</ul>
+
+</div>
+
+<div>
+
+<img src="lib/img/set_theory_2.png" style="width:100%;height:auto;">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>We also went over some rules of probabilities, which we called set theory. Today, we'll delve in deeper.</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- Special Rules -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Rules In Detail: Union</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:7fr 6fr;grid-auto-rows:1fr;gap:1vmin;">
+
+<div class="smaller left-justify">
+
+<p class="quoted">
+
+The union of two events $A$ and $B$ ($A \cup B$) represents the event that
+
+<span class="em">either</span> event or both events occur.
+
+</p>
+
+<p class="fragment" data-fragment-index="0">
+
+<span class="em">For <span class="strong">Non-Mutually exclusive</span> events:</span>
+
+$P(X \cup Y) = P(X) + P(Y) - \class{info}{A \cap B}$.
+
+</p>
+
+<p class="fragment" data-fragment-index="1">
+
+<span class="danger em">
+
+For mutually exclusive events:
+
+</span> $P(X \cup Y) = P(X) + P(Y)$.
+
+</p>
+
+<h4 class="fragment" data-fragment-index="2">Example:</h4>
+
+<p class="em fragment small" data-fragment-index="2">Consider rolling a single 6-sided die twice:</p>
+
+<ul class="fragment small" data-fragment-index="3">
+
+<li>Let $A$ be the event the <span class="em">first</span> roll shows a 2</li>
+
+<li>Let $B$ be the event the <span class="em">second</span> roll shows a 5</li>
+
+</ul>
+
+<p class="small fragment" data-fragment-index="4">
+
+Since the one die cannot show both a 2 and 5 <span class="em info">simultaneously</span>,
+
+$A$ and $B$ are <span class="em">mutually exclusive</span>: $P(A\cup B) = P(A) + P(B) = \frac{1}{6}+\frac{1}{6} = \frac{1}{3}$.
+
+</p>
+
+<p class="em fragment small" data-fragment-index="5">Consider rolling two 6-sided dice:</p>
+
+<ul class="fragment small" data-fragment-index="6">
+
+<li>Let $A$ be the event the <span class="em">sum</span> of the roll is 7</li>
+
+<li>Let $B$ be the event <span class="em">at least one</span> face shows a 4</li>
+
+</ul>
+
+<p class="small fragment" data-fragment-index="7">
+
+This is more complex, $P(A)$ is the union of all possible ways the 2 dice
+
+can add up to 7, while $P(B)$ is the <span class="em">marginal probability</span>
+
+of one die showing a 4.
+
+</p>
+
+</div>
+
+<vizzy data-src="lib/interactive/vennSets_notrans.html" style="width:100%;">
+
+[
+
+{
+
+activate: () => window.setRadioButton("unionXY"),
+
+reverse: () => window.setRadioButton("none"),
+
+index:0
+
+},
+
+{
+
+activate: () => window.setRadioButton("exclusiveOr"),
+
+reverse: () => window.setRadioButton("none"),
+
+index:1
+
+}
+
+]
+
+</vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>The union comprises all possible outcomes that belong to either event.</p>
+
+<p>Non-mutually exclusive events may occur simultaneously!</p>
+
+<p>These rules will help us conduct our experiment and decides how to analyze our chosen metric.</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- Multiple Events -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Multiple <span class="danger">Independent</span> Events</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic small" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+
+
+<!-- Union of Independent Events Example -->
+
+<div class="framed small no-hang" style="height:100%;">
+
+<h4 class="u">Union of Independent Events</h4>
+
+<p class="quoted small">If two events, $A$ and $B$, are independent, the probability that either event occurs is the <span class="em">union</span> of their individual probabilities.</p>
+
+<ul class="small">
+
+<li>Formula: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$</li>
+
+<li>Simply, the probability of either event occurring is the sum of their probabilities, minus the probability of both occurring.</li>
+
+</ul>
+
+<p class="em">Example: Rolling a six-sided die</p>
+
+<ul class="small">
+
+<li>Let $A$ be the event of rolling a 3, and</li>
+
+<li>$B$ be the event of rolling a 5</li>
+
+</ul>
+
+<p>
+
+The probability of rolling a 3 is $P(A) = \frac{1}{6}$.
+
+</p>
+
+<p>The probability of rolling a 5 is $P(B) = \frac{1}{6}$.</p>
+
+<p class="left-justify">
+
+Since these events are mutually exclusive (you can't roll a 3 and a 5 at the same time), the union is simply:
+
+$$P(A \cup B) = P(A) + P(B) = \frac{1}{6} + \frac{1}{6} = \frac{1}{3}$$
+
+</p>
+
+</div>
+
+
+
+<!-- Intersection of Independent Events Example -->
+
+<div class="framed small fragment no-hang" data-fragment-index="1" style="height:100%;">
+
+<h4 class="u">Intersection of Independent Events</h4>
+
+<p class="quoted small">If two events, $A$ and $B$, are independent, the probability of both events occurring is the <span class="em">intersection</span> of their individual probabilities.</p>
+
+<ul class="small">
+
+<li>Formula: $P(A \cap B) = P(A) \times P(B)$</li>
+
+<li>Simply, the probability of both events occurring together is the product of their individual probabilities.</li>
+
+</ul>
+
+<p class="em">Example: Rolling two six-sided dice</p>
+
+<ul class="small">
+
+<li>Let $A$ be the event that the <span class="em">first die</span> shows a 4, and</li>
+
+<li>$B$ be the event that the <span class="em">second die</span> shows a 6.</li>
+
+</ul>
+
+<p>Each roll is independent of the other.</p>
+
+<p>The probability of rolling a 4 on the first die is $P(A) = \frac{1}{6}$.</p>
+
+<p>The probability of rolling a 6 on the second die is $P(B) = \frac{1}{6}$.</p>
+
+<p>
+
+The probability of both events happening together is:
+
+$$P(A \cap B) = P(A) \times P(B) = \frac{1}{6} \times \frac{1}{6} = \frac{1}{36}$$
+
+</p>
+
+</div>
+
+
+
+<!-- Joint Probability -->
+
+<div style="grid-column:1/3;" class="fragment" data-fragment-index="2">
+
+<p class="quoted small">
+
+The probability of two (or more) <span class="danger">independent</span> events occurring together is called <span class="info">Joint Probability.</span>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>The union of events is used when we want to find the probability that at least one of the events occurs.</p>
+
+<p>The intersection of events is used when we want to find the probability that both events occur simultaneously.</p>
+
+<p>Joint probability helps us understand the likelihood of multiple independent events happening together, which can be crucial in complex probability scenarios.</p>
+
+<p>Let's revisit the sum of 2 dice question.</p>
+
+</aside>
+
+</section>
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Rules In Detail: Intersection</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:7fr 6fr;grid-auto-rows:1fr;gap:1vmin;">
+
+<div class="smaller left-justify">
+
+<p class="quoted">
+
+The intersection of two events $A$ and $B$ ($A \cap B$) represents the probability that
+
+<span class="em">both</span> events occur simultaneously.
+
+</p>
+
+<p class="fragment" data-fragment-index="0">
+
+<span class="em">For <span class="strong">Independent</span> events:</span>
+
+$P(A \cap B) = P(A) \times P(B)$.
+
+</p>
+
+<p class="fragment" data-fragment-index="1">
+
+<span class="danger em">
+
+For dependent events:
+
+</span> $P(A \cap B) = P(A) \times P(B \mid A)$.
+
+</p>
+
+<h4 class="fragment" data-fragment-index="3">Example:</h4>
+
+<p class="em fragment small" data-fragment-index="3">Consider rolling two 6-sided dice:</p>
+
+<ul class="fragment small" data-fragment-index="3">
+
+<li>Let $A$ be the event that the <span class="em">first</span> die shows a 4</li>
+
+<li>Let $B$ be the event that the <span class="em">second</span> die shows a 6</li>
+
+</ul>
+
+<p class="small fragment" data-fragment-index="4">
+
+Since the outcome of one die does not affect the other, $A$ and $B$ are <span class="em">independent</span>:
+
+$P(A \cap B) = P(A) \times P(B) = \frac{1}{6} \times \frac{1}{6} = \frac{1}{36}$.
+
+</p>
+
+<p class="em fragment small" data-fragment-index="5">Consider drawing cards without replacement:</p>
+
+<ul class="fragment small" data-fragment-index="5">
+
+<li>Let $A$ be the event of drawing a King on the <span class="em">first</span> draw</li>
+
+<li>Let $B$ be the event of drawing a Queen on the <span class="em">second</span> draw</li>
+
+</ul>
+
+<p class="small fragment" data-fragment-index="6">
+
+These events are <span class="em">dependent</span>, as drawing a King affects the probability of drawing a Queen next:
+
+$P(A \cap B) = P(A) \times P(B \mid A) = \frac{4}{52} \times \frac{4}{51}$.
+
+</p>
+
+</div>
+
+<vizzy data-src="lib/interactive/vennSets_notrans.html" style="width:100%;">
+
+[
+
+{
+
+activate: () => window.setRadioButton("intersectionXY"),
+
+reverse: () => window.setRadioButton("none"),
+
+index:2
+
+}
+
+]
+
+</vizzy>
+
+<div class="fragment framed border-info small left-justify" data-fragment-index="7" style="grid-column: 1/3;">
+
+<p>
+
+When events are dependent, the intersection is directly tied to conditional probability:
+
+$P(B \mid A) = \frac{P(A \cap B)}{P(A)}$.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>The intersection is the probability that both events happen at the same time.</p>
+
+<p>For independent events, simply multiply the probabilities.</p>
+
+<p>For dependent events, you need to use conditional probability.</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- Conditional Probability -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Conditional Probability</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column:1/3;">
+
+<p class="quoted big">
+
+Conditional probability measures the likelihood of an event occurring, given that another event has already occurred.
+
+</p>
+
+</div>
+
+<!-- Slide Content -->
+
+<div class="left-justify">
+
+<p class="fragment left-justify small" data-fragment-index="1">
+
+<i class="star"></i> It allows us to adjust our probability estimates based on new information.
+
+</p>
+
+<p class="fragment no-hang" data-fragment-index="2">
+
+The probability of event \(A\) given event \(B\) is:
+
+$$P(A \mid B) = \frac{P(A \cap B)}{P(B)},$$
+
+where \(P(B) > 0\) is the probability of event B.
+
+</p>
+
+</div>
+
+<div class="border-muted framed small fragment" data-fragment-index="3" style="align-self: center;height:100%;">
+
+<p class="em left-justify">
+
+Suppose we roll two dice. Let \(A\) be the event the sum of the
+
+dice is <span class="strong">7</span>, and let \(B\) be the event the first die shows a <span class="strong info">3</span>.
+
+</p>
+
+<p class="fragment question small  left-justify" data-fragment-index="4">
+
+What is the probability the sum of the dice is 7 given the first die is showing 3
+
+</p>
+
+<div class="grid-generic smallest no-hang" style="grid-template-columns:1.2fr 1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="fragment" data-fragment-index="5">
+
+$$P(A \mid B) = \frac{P(A \cap B)}{P(B)}$$
+
+</div>
+
+<div class="fragment" data-fragment-index="6">
+
+$$\phantom{}= \frac{P(A) \times P(B)}{P(B)}$$
+
+</div>
+
+<div class="fragment" data-fragment-index="7">
+
+$$\phantom{}= \frac{(1/6)(1/6)}{1/6}$$
+
+</div>
+
+</div>
+
+<p class="fragment no-hang smaller" data-fragment-index="8">
+
+$$P(A \mid B) = \frac{1}{6}$$
+
+</p>
+
+</div>
+
+<div class="framed border-accent left-justify fragment" style="grid-column:1/3;" data-fragment-index="9">
+
+<ul class="accent">
+
+<li class="emoji-target">
+
+Conditional probability reflects how the probability of \(A\) changes in the context of \(B\) having happened.
+
+</li>
+
+<li class="emoji-lightbulb">
+
+<span class="em">Reduction of Sample Space: The occurrence of \(B\) reduces the sample space to only those outcomes where \(B\) happens.</span>
+
+</li>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Application:</p>
+
+<p>Conditional probability is fundamental in scenarios such as:</p>
+
+<ul>
+
+<li>Medical Testing: Estimating the probability of having a disease given a positive test result.</li>
+
+<li>Reliability Engineering: Calculating the likelihood of system failure given that a component has failed.</li>
+
+<li>Finance: Assessing the probability of a market event given recent economic indicators.</li>
+
+<li>Visual: A probability tree diagram showing how conditional probabilities are calculated or a Venn diagram highlighting the relationship between events \(A\) and \(B\).</li>
+
+</ul>
+
+</aside>
+
+</section>
+
+
+
+<!-- Chain Rule: General Product Rule -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>"Chain Rule" of Probability</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column:1/3;">
+
+<p class="quoted big">
+
+A tool that calculates the probability of the <span class="info">intersection</span>
+
+of events <span class="strong warning">or</span> the
+
+<span class="info">joint distribution</span> of random variables using
+
+<span class="success">conditional probabilities</span>.
+
+</p>
+
+</div>
+
+<!-- Slide Content -->
+
+<div class="left-justify">
+
+<p class="fragment left-justify small" data-fragment-index="1">
+
+<i class="star"></i> It enables the calculation of joint probabilities by sequentially considering the probability of each event in the context of previous events.
+
+</p>
+
+<p class="fragment no-hang" data-fragment-index="2">
+
+For two events \(A\) and \(B\), the chain rule states:
+
+$$P(A \cap B) = P(A) \cdot P(B \mid A)$$
+
+</p>
+
+<ul class="accent fragment" data-fragment-index="3">
+
+<li class="emoji-target">
+
+The chain rule breaks down complex problems into simpler steps by leveraging conditional probabilities.
+
+</li>
+
+</ul>
+
+</div>
+
+<div class="border-muted framed small fragment" data-fragment-index="4" style="align-content: center;height:100%;">
+
+<img src="lib/img/prob_chain_rule.svg" alt="Chain Rule of Probability Illustration" style="width:100%;height:auto;" class="no-margin" />
+
+</div>
+
+<div class="framed border-accent left-justify fragment" style="grid-column:1/3;" data-fragment-index="5">
+
+<ul class="accent">
+
+<li class="emoji-lightbulb">
+
+<span class="em">Sequential Analysis: The probability of each event is calculated based on the occurrence of previous events.</span>
+
+</li>
+
+<li class="emoji-warning fragment danger" data-fragment-index="6">
+
+Be cautious when applying the chain rule to ensure the correct order of conditional probabilities.
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Application:</p>
+
+<p>The chain rule is essential for:</p>
+
+<ul>
+
+<li>Bayesian Inference: Updating the probability of a hypothesis as more evidence or data becomes available.</li>
+
+<li>Risk Assessment: Calculating the likelihood of a sequence of events leading to a system failure.</li>
+
+<li>Machine Learning: Decomposing complex joint distributions in probabilistic models.</li>
+
+<li>Visual: The image shows how the chain rule applies to a sequence of events, making it easier to understand the dependencies among events.</li>
+
+</ul>
+
+</aside>
+
+</section>
+
+
+
+<!-- Law of total probability -->
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Law of Total Probability</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:3fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column:1/3;">
+
+<p class="quoted big">
+
+The law of total probability allows us to calculate the probability of an event by considering all possible ways that the event can occur, taking into account different conditions.
+
+</p>
+
+</div>
+
+<!-- Slide Content -->
+
+<div class="left-justify">
+
+<p class="fragment left-justify small" data-fragment-index="1">
+
+<i class="star"></i> It provides a way to compute probabilities when the event can be triggered by multiple distinct scenarios.
+
+</p>
+
+<p class="fragment no-hang" data-fragment-index="2">
+
+Let \(B_1, B_2, \dots, B_n\) be a partition of the sample space, meaning that the \(B_i\)s are mutually exclusive and exhaustive. For any event \(A\), the law states:
+
+$$P(A) = \sum_{i=1}^{n} P(A \mid B_i) \cdot P(B_i)$$
+
+</p>
+
+<div class="framed border-accent left-justify fragment small" data-fragment-index="5">
+
+<ul class="accent">
+
+<li class="emoji-target">
+
+The law of total probability is essential when events can occur due to several distinct, mutually exclusive conditions.
+
+</li>
+
+<li class="emoji-lightbulb">
+
+<span class="em">Comprehensive Analysis: This law helps in breaking down complex probability problems into manageable parts.</span>
+
+</li>
+
+<li class="emoji-warning fragment danger" data-fragment-index="6">
+
+Ensure that the events \(B_i\) form a complete partition of the sample space; otherwise, the law of total probability does not apply.
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<div class="fragment" data-fragment-index="4" style="align-content: center;height:100%;">
+
+<img src="lib/img/prob_total_law.svg" alt="Law of Total Probability Visualization" style="width:100%;height:auto;" class="no-margin" />
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Application:</p>
+
+<p>The law of total probability is particularly useful for:</p>
+
+<ul>
+
+<li>Medical Diagnosis: Estimating the overall probability of a disease considering different symptoms.</li>
+
+<li>Reliability Engineering: Determining the probability of system success by considering the success of individual components.</li>
+
+<li>Risk Management: Calculating the probability of a risk materializing from various sources or causes.</li>
+
+<li>Visual: The image illustrates how different scenarios contribute to the total probability of an event occurring.</li>
+
+</ul>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/combinatorics_bg.webp" id="section-title-2">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-2">
+              <div class="section-number">
+                <span class="large-number">
+                  2
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Combinatorics
+                </h2>
+                <h3>
+                  Unlocking Infinite Possibilities
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-2.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Section Notes</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- Combinatorics -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Combinatorics</h2>
+
+<p class="strong">The study of counting, arrangement, and combination of objects.</p>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 3fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="left-justify">
+
+<p class="quoted fragment small">In combinatorics, the Multiplication Principle states that if there are $n_1$ ways to perform one action, $n_2$ ways to perform a second action, and so forth up to $n_k$ ways to perform the $k^{th}$ action, then the total number of ways to perform all actions in sequence is $n_1 \cdot n_2 \cdot \ldots \cdot n_k$.</p>
+
+<ul class="smaller">
+
+<li class="fragment">It's crucial in fields like computer science, mathematics, and engineering, helping to solve complex problems involving discrete elements.</li>
+
+<li class="fragment">Combinatorics principles are used to calculate probabilities, optimize solutions, and understand the structure of complex systems.</li>
+
+</ul>
+
+</div>
+
+<div class="framed small bg-muted border-muted left-justify fragment" style="height:100%;">
+
+<p><span class="strong">Example:</span> In a biomechanical lab, three sets of components are tested: Joints ($A_1$), Sensors ($A_2$), and Actuators ($A_3$).</p>
+
+<p>Sets $A_1$, $A_2$, and $A_3$ contain, respectively, $n_1 = 3$, $n_2 = 4$, and $n_3 = 5$ elements.</p>
+
+<p>To test all possible combinations of Joints, Sensors, and Actuators, there are $$n_1 \cdot n_2 \cdot n_3 = 3 \cdot 4 \cdot 5 = 60$$ unique configurations.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>We use combinatorics to determine the size of an experiment. For example...</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Determining The Size Of An Experiment -->
+
+<section>
+
+<style>
+
+.emoji-list {
+
+list-style: none !important; /* Remove default list bullets */
+
+padding-left: 0 !important; /* Align with the parent list */
+
+}
+
+
+
+.emoji-list-item {
+
+margin-left: 20px !important; /* Indent items */
+
+text-indent: -20px !important; /* Align text with parent list items */
+
+}
+
+
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Determining The Size Of An Experiment</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:1.5fr 1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<div style="height:100%;">
+
+<div class="bg-muted-alpha-01">
+
+<p class="left-justify small">
+
+<span class="em">Scenario</span>:
+
+A manufacturer faces inconsistent tensile strength readings across <span class="fragment highlight-danger">three machines</span> in different plant locations. To address this, they plan an experiment.
+
+</p>
+
+<p class="left-justify small">
+
+<span class="fragment highlight-danger">Four technicians</span> will test <span class="fragment highlight-info">each machine</span>, ensuring a thorough evaluation of all operator-machine combinations.
+
+</p>
+
+</div>
+
+<div>
+
+<p class="question fragment big">How many <span class="danger">operator-machine pairs</span> must be made
+
+</p>
+
+<div class="fragment">
+
+<p class="left-justify">The manufacturer further requires each operator-machine pair to process <span class="strong em">8</span> specimens.</p>
+
+<p class="question big">
+
+How many specimens are required</span> for the entire experiment
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="framed smaller bg-info-alpha-08 border-info white fragment" style="height:100%;">
+
+<p class="u">Scenario Analysis</p>
+
+<ol>
+
+<li class="fragment">
+
+<span class="strong">Number of Operator-Machine Pairs:</span>
+
+<ul class="emoji-list">
+
+<li class="emoji-list-item">&#x1F916; $n_1 = 3$ Machines</li> <!-- Factory emoji -->
+
+<li class="emoji-list-item">&#x1F468;&#x200D;&#x1F527; $n_2 = 4$ Technicians</li> <!-- Man Mechanic emoji -->
+
+<li class="emoji-list-item">(&#x1F468;&#x200D;&#x1F527;&#x1F916;) = &#x1F468;&#x200D;&#x1F527;$\phantom{ }\times\phantom{ }$&#x1F916;</li>
+
+<li class="emoji-list-item">$\therefore \text{Total Pairs} = 3 \times 4 = 12 $</li>
+
+</ul>
+
+</li>
+
+<li class="fragment">
+
+<span class="strong">Number of Specimens Required:</span>
+
+<ul class="emoji-list">
+
+<li class="emoji-list-item">&#x1F4E6; $n_3=8$ Specimens per (&#x1F468;&#x200D;&#x1F527;&#x1F916;)</li> <!-- Package emoji -->
+
+<li class="emoji-list-item">(&#x1F4E6;&#x1F468;&#x200D;&#x1F527;&#x1F916;) Total Specimens = (&#x1F468;&#x200D;&#x1F527;&#x1F916;)$\phantom{ }\times\phantom{}$&#x1F4E6;</li>
+
+<li class="emoji-list-item">$$\begin{aligned} &\therefore n_1\cdot n_2\cdot n_3 \\ &= 3\cdot 4\cdot 8 \\ &= 12 \cdot 8 = \class{danger}{96} \end{aligned}$$</li>
+
+</ul>
+
+</li>
+
+</ol>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Permutations -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Permutations</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column:1/3;height:100%">
+
+<p class="quoted bg-success">Permutations refer to the different ways in which a set of objects can be arranged or ordered.</p>
+
+</div>
+
+<div class="framed small bg-info-alpha-02 border-info dim fragment left-justify" data-fragment-index="2" style="height:100%;">
+
+<p class="fragment" data-fragment-index="2">
+
+<span class="strong">Example:</span> <br />
+
+Consider a set of three letters $\{A, B, C\}$,
+
+the possible permutations of the <span class="muted">whole set</span> are
+
+<span class="fragment highlight-current-black" data-fragment-index="3">ABC</span>,
+
+<span class="fragment highlight-current-black" data-fragment-index="4">ACB</span>,
+
+<span class="fragment highlight-current-black" data-fragment-index="5">BAC</span>,
+
+<span class="fragment highlight-current-black" data-fragment-index="6">BCA</span>,
+
+<span class="fragment highlight-current-black" data-fragment-index="7">CAB</span>, and
+
+<span class="fragment highlight-current-black" data-fragment-index="8">CBA</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index="9">
+
+<span class="strong">Formula:</span><br />
+
+The number of permutations of $n$ objects is given by $n!$,
+
+where $n! = n \times (n-1) \times (n-2) \times \ldots \times 1$.<br />
+
+So, for our example, $n! = 3! = 3\cdot 2\cdot 1 = \class{black}{6}$
+
+</p>
+
+</div>
+
+<div class="framed smaller fragment left-justify bg-success-alpha-01" data-fragment-index="10" style="height:100%;">
+
+<p class="fragment" data-fragment-index="10">
+
+When arranging a subset of $r$ elements from a set of $n$ elements,
+
+the number of permutations is given by $^n\!P_r = \frac{n!}{(n-r)!}$.
+
+</p>
+
+<p class="em fragment success" data-fragment-index="11">
+
+Notice, this is the total ($n!$) scaled by the number of permutations of the groups ($(n-r)!$).
+
+</p>
+
+<p class="fragment" data-fragment-index="12">
+
+<span class="strong">
+
+Example:<br />
+
+</span>
+
+From a group of 5 different books, the number of ways to arrange any 3
+
+books is calculated as $$\require{cancel}\phantom{}^5\!P_3 = \frac{5!}{(5-3)!} = \frac{5 \times 4 \times 3 \times \cancel{2 \times 1}}{\cancel{2 \times 1}} = 60\text{ ways}.$$
+
+</p>
+
+</div>
+
+<p class="fragment framed border-success" style="grid-column:1/3;">
+
+Understanding permutations is essential in experimental design, allowing researchers to systematically explore all possible arrangements of variables or conditions.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Combinations -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Combinations</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column:1/3;height:100%">
+
+<p class="quoted bg-info-alpha-05">Combinations refer to the selection of objects from a set where the order of selection does not matter.</p>
+
+</div>
+
+<div class="framed small border-info left-justify fragment" data-fragment-index="0" style="height:100%;">
+
+<p class="strong">Combinations:</p>
+
+<p>
+
+The sequence in which the elements are selected does not affect the outcome.
+
+<span class="fragment highlight-info" data-fragment-index="1">
+
+In other words, when you select a group of items, all arrangements of those items <span class="warning">are considered the same combination</span>.
+
+</span>
+
+</p>
+
+<p class="fragment" data-fragment-index="2">
+
+Selecting $r$ objects from $n$ distinct objects:<br />
+
+<span class="strong">Formula:</span> $^nC_r = \frac{n!}{r!(n-r)!}$<br />
+
+<span class="strong">Example:</span> Choosing 3 of 20 lab assistants: $$^{20}C_3 = \frac{20!}{3!(20-3)!} = 1,140\text{ ways.}$$
+
+</p>
+
+</div>
+
+<div class="framed smaller left-justify bg-orange-alpha-01 fragment" data-fragment-index="3" style="height:100%;">
+
+<p class="fragment" data-fragment-index="3">
+
+<span class="strong">Combination of Combinations:</span> This concept involves calculating combinations for multiple independent selections within a single experiment or scenario.
+
+</p>
+
+<p class="fragment" data-fragment-index="4">
+
+<span class="strong">Example:</span> In a research lab, the director needs to select team members for a project.
+
+</p>
+
+<p class="fragment" data-fragment-index="5">
+
+<span class="strong">Chemists:</span> From seven chemist applicants, two must be chosen. The number of ways to select 2 chemists from 7 is $^{7}C_2 = 21$ ways.
+
+</p>
+
+<p class="fragment" data-fragment-index="6">
+
+<span class="strong">Physicists:</span> From nine physicist applicants, three must be chosen. The number of ways to select 3 physicists from 9 is $^{9}C_3 = 84$ ways.
+
+</p>
+
+<p class="fragment" data-fragment-index="7">
+
+<span class="strong">Total Selections:</span> To determine the total number of ways to choose both the chemists and the physicists, multiply their individual combinations: $21 \times 84 = 1,764$ ways.
+
+</p>
+
+</div>
+
+<p class="framed border-success fragment" data-fragment-index="8" style="grid-column:1/3;">
+
+Combinations are fundamental in statistical analysis and probability theory, enabling the understanding of different groupings without considering the order of elements.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/faded_orbital.png" id="section-title-3">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-3">
+              <div class="section-number">
+                <span class="large-number">
+                  3
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Probability Distributions
+                </h2>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-3.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Now we've covered the basics of probability, let's start using some of these principles in the field of statistics.</p>
+
+<p>From here on out, we will be strictly sticking to the realm of statistics and statistical analysis as a means to collect, analyze, interpret, and communicate data.</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- Random Variables -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Random Variables</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column:1/3;">
+
+<p class="bg-success-alpha-02 em small quoted">
+
+A <span class="strong">random variable $X$</span> is a function that maps outcomes from
+
+a sample space $\Omega$ to real numbers.
+
+</p>
+
+<div class="no-hang">
+
+<p>
+
+Mathematically, we write this as:
+
+</p>
+
+$$X: \Omega \rightarrow \mathbb{R}$$
+
+</div>
+
+<p class="fragment">There are two types:</p>
+
+</div>
+
+<div class="fragment framed"> <!-- Left: Discrete Random Variables -->
+
+<h4>Discrete Random Variables</h4>
+
+<p>Discrete random variables measure outcomes at distinct or finite points.</p>
+
+<p>Examples include the count of defects in a product or errors in data transmission.</p>
+
+</div>
+
+<div class="fragment framed"> <!-- Right: Continuous Random Variables -->
+
+<h4>Continuous Random Variables</h4>
+
+<p>Continuous random variables can assume any value within a range of real numbers.</p>
+
+<p>Examples include temperature readings, electrical current, or elapsed time.</p>
+
+</div>
+
+<p class="fragment small sided bg-info-alpha-03 border-info" style="grid-column:1/3;">Understanding random variables is crucial for analyzing data and making predictions in various fields.</p>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>In probability theory, a random variable is a fundamental concept that helps us quantify uncertain outcomes. A random variable is essentially a function that assigns numerical values to each outcome in a sample space. This allows us to work mathematically with probabilities and outcomes, converting qualitative events into quantitative analysis.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Random Variables -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Random Variables</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid: auto rows 1fr;gap:1vmin;">
+
+<div style="height:100%;">
+
+<div class="framed left-justify small">
+
+<p>
+
+The <span class="info">expectation</span> (or expected value) of a random variable is a measure of the <span class="strong">central tendency</span> of its distribution.
+
+</p>
+
+<p class="small">For a random variable \( X \) with discrete outcomes \( x_i \) and corresponding probabilities \( P(X = x_i) \), the expectation is given by:</p>
+
+<div class="no-hang small">
+
+$$E[X] = \sum_{i=1} x_i \cdot P(X = x_i)$$
+
+<span class="fragment" data-fragment-index="1"></span>
+
+</div>
+
+<div class="fragment small" data-fragment-index="2">
+
+<p>
+
+Consider a random variable with 2 equal bins: Bin $1\rightarrow 0$, Bin $2 \rightarrow 1$.
+
+</p>
+
+<div class="no-hang small">
+
+\( E[X] = 0 \cdot \frac{1}{2} + 1 \cdot \frac{1}{2} = 0 + \frac{1}{2} = \frac{1}{2} \)
+
+</div>
+
+</div>
+
+<div class="fragment small no-hang" data-fragment-index="3">
+
+<p>
+
+Now consider a scenario with 7 bins: <span class="small em">mapped to 0 through 6 values</span>
+
+</p>
+
+<div class="smaller">
+
+\( E[X] = 0 \cdot \frac{1}{7} + 1 \cdot \frac{1}{7} + 2 \cdot \frac{1}{7} + 3 \cdot \frac{1}{7} + 4 \cdot \frac{1}{7} + 5 \cdot \frac{1}{7} + 6 \cdot \frac{1}{7} \)
+
+<p>
+
+Simplifying:
+
+</p>
+
+\( E[X] = \frac{1}{7} (0 + 1 + 2 + 3 + 4 + 5 + 6) = \frac{1}{7} \cdot 21 = 3 \)
+
+</div>
+
+</div>
+
+</div>
+
+<div class="fragment" data-fragment-index="5">
+
+<p class="question smaller">How would the expectation change if the bins were unequal sizes</p>
+
+</div>
+
+</div>
+
+<vizzy data-src="lib/interactive/random-variables.html" style="height:650px;align-self:center;"></vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Expectation is defined as the weighted sum of all possible values, where the weights are the probabilities of those values occurring.</p>
+
+<p>To illustrate, let's consider splitting our sample space into bins and calculating the expectation as we increase the number of bins.</p>
+
+<p>Describe hexagon bins as sample space and imagine partitions, show the single bin and state what expected value in bin 1 maps to 0? Correct, 0.</p>
+
+<p>For 2 bins, this is like a coin flip. Each bin has an equal probability of 1/2.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Random Variables -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Random Variables</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 720px;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="left-justify no-hang small">
+
+<p class="small">
+
+<span class="em">Scenario:</span> You suspect a turbine in your power generation plant is faulty.
+
+You decide to run a test that puts it under a reduced load that has an acceptable failure rate of 60%,
+
+and you record the failures.
+
+</p>
+
+<p class="small question fragment" data-fragment-index="0">
+
+What is our <span class="pop">statistical hypothesis</span>, and how could we test it
+
+</p>
+
+<ul class="fragment" data-fragment-index="1">
+
+<li>We can model it:</li>
+
+<li>$p= 1-0.6=0.4$ <span class="em info">The probability of success</span></li>
+
+<li>$(1-p)=0.6$ <span class="em danger">The probability of failure</span></li>
+
+</ul>
+
+<p class="small fragment" data-fragment-index="2">
+
+Recall: $E[X] = \sum_{i=1} x_i \cdot P(X = x_i)$,<br />
+
+Thus, $E[X]=0\cdot(1-p)+1\cdot p$ <span class="fragment info" data-fragment-index="3">$=0.4$ expected success rate</span>
+
+</p>
+
+<p class="fragment smaller" data-fragment-index="4">
+
+If I conduct 10 trails, how many success and failures should I expect? <span class="fragment" data-fragment-index="5"><span class="info">4</span> & <span class="danger">6</span></span>
+
+</p>
+
+<p class="fragment smaller" data-fragment-index="6">
+
+After 10 tests, what is the observed probability?
+
+</p>
+
+<p class="fragment smaller" data-fragment-index="7">
+
+After 500 tests, what is the observed probability?
+
+</p>
+
+<p class="fragment smaller" data-fragment-index="8">
+
+And after 1000 tests, what can we say the expected value is? <span class="info fragment" data-fragment-index="9">$\approx 14\%$ success</span>
+
+</p>
+
+</div>
+
+<vizzy data-src="lib/interactive/turbine-failure.html" style="min-height:600px;">
+
+[
+
+{
+
+activate: () => {window.simulate(10, 1000)},
+
+reverse: () => {window.undoSimulate(10, 20)},
+
+index: 6,
+
+},
+
+{
+
+activate: () => {window.simulate(490, 2500)},
+
+reverse: () => {window.undoSimulate(490, 100)},
+
+index: 7,
+
+},
+
+{
+
+activate: () => {window.simulate(500, 2500)},
+
+reverse: () => {window.undoSimulate(500, 100)},
+
+index: 8,
+
+},
+
+]
+
+</vizzy>
+
+<div style="grid-column: 1/3;" class="fragment" data-fragment-index="10">
+
+<p class="small question">
+
+What can we say about our theoretical testing model
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<aside class="notes">
+
+<p>Lead students to decide a metric and the construction of the metric</p>
+
+<p>Pause for the calculation fragment 4. What real numbers we map to don't matter so much, so long as they are distinct.</p>
+
+<p>These tests are called Bernoulli Trials, they have an outcome of fail = 0 or true = 1</p>
+
+<p>
+
+We should be questioning, always, where did the model come from and does it represent reality?
+
+</p>
+
+<p>
+
+What about the functionality of the turbine? This might be enough evidence for
+
+you to replace the part, maybe it's expensive and this is evidence you should
+
+conduct "further" tests.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Probability Distributions -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Probability Distributions</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="small" style="grid-column:1/3;">
+
+<p class="sided border-info left-justify">A probability distribution is a mathematical function that describes the <span class="info">likelihood</span> of various outcomes in an experiment.</p>
+
+</div>
+
+<div class="framed fragment"  style="height:100%;">
+
+<h4 class="u">Discrete Distributions</h4>
+
+<p class="small">Discrete distributions are used when the set of possible outcomes is countable.</p>
+
+<img src="lib/img/binom_dist.svg" style="width:50%;margin-left:auto;margin-right:auto;" alt="binom dist">
+
+<p class="em small">Individual probabilities are calculated with a PMF</p>
+
+</div>
+
+<div class="framed fragment" style="height:100%;">
+
+<h4 class="u">Continuous Distributions</h4>
+
+<p class="small">Continuous distributions apply when outcomes come from a continuous random variable.</p>
+
+<img src="lib/img/norm_pdf.svg" style="width:50%;margin-left:auto;margin-right:auto;" alt="norm pdf">
+
+<p class="em small">Outcome probability is calculated by integration (PDF)</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>We will continue with probability distributions next lecture.</p>
+
+<p>pop quiz: continuous variable or discrete?</p>
+
+<ul>
+
+<li>
+
+<strong>The time until a projectile returns to earth</strong> - Continuous
+
+</li>
+
+<li>
+
+<strong>The number of times a transistor in a computer memory changes state in one operation</strong> - Discrete
+
+</li>
+
+<li>
+
+<strong>The outside diameter of a machined shaft</strong> - Continuous
+
+</li>
+
+</ul>
+
+<p>Let's look at the 2 most encountered distributions in most experimental analyses, and how we can relate them to data</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+      </div>
+      <footer class="main-footer">
+        <span>
+          Lecture 03
+        </span>
+        <span style="text-align:center;">
+        </span>
+        <span style="text-align:right;">
+          <a href="https:\\khrisgriffis.com" target="_blank" rel="noopener noreferrer">Khris Griffis &#169;2025</a>
+        </span>
+      </footer>
+    </div>
+    <script src="./src/reveal.js">
+    </script>
+    <script src="./src/plugin/notes/notes.js">
+    </script>
+    <script src="./src/plugin/highlight/highlight.js">
+    </script>
+    <script src="./src/plugin/math/math.js">
+    </script>
+    <script src="./src/plugin/reveal-splash/reveal-splash.js">
+    </script>
+    <script src="./src/plugin/vizzy-reveal/vizzy.js">
+    </script>
+    <script>
+      Reveal.initialize({
+autoSlide: 0,
+center: true,
+controls: true,
+controlsBackArrows: "faded",
+controlsLayout: "bottom-right",
+display: "block",
+fragments: true,
+fragmentInURL: true,
+hash: true,
+hideCursorTime: 5000,
+keyboard: true,
+mobileViewDistance: 3,
+mouseWheel: false,
+navigationMode: "linear",
+overview: true,
+pdfMaxPagesPerSlide: 1,
+pdfSeparateFragments: false,
+preloadIframes: null,
+progress: false,
+showNotes: false,
+showSlideNumber: "print",
+sortFragmentsOnSync: true,
+touch: true,
+transition: "fade",
+transitionSpeed: "default",
+viewDistance: 3,
+backgroundTransition: "fade",
+controlsTutorial: false,
+embedded: false,
+help: true,
+hideInactiveCursor: true,
+history: false,
+loop: false,
+previewLinks: false,
+rtl: false,
+shuffle: false,
+slideNumber: false,
+width: 1920,
+height: 1080,
+margin: 0.081,
+minScale: 0.08,
+maxScale: 1.67,
+mathjax3: {
+mathjax: "https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-mml-chtml.js",
+loader: {
+load: [
+"[tex]/html",
+],
+},
+tex: {
+packages: {
+'[+]': [
+"html",
+],
+},
+inlineMath: [
+["$", "$"],
+["\\(", "\\)"],
+],
+processEscapes: true,
+processEnvironments: true,
+},
+options: {
+skipHtmlTags: [
+"script",
+"noscript",
+"style",
+"textarea",
+"pre",
+],
+},
+chtml: {
+scale: 0.8,
+minScale: 0.4,
+},
+Safe: {
+sizeMin: 0.4,
+sizeMax: 1.25,
+},
+output: {
+displayOverflow: "linebreak",
+linebreaks: {
+inline: true,
+width: "100%",
+lineleading: 0.2,
+LinebreakVisitor: null,
+},
+},
+},
+notes: {
+
+},
+highlight: {
+
+},
+vizzy: {
+autoRunTransitions: true,
+autoTransitionDelay: 100,
+devMode: false,
+onSlideChangedDelay: 0,
+},
+splash: {
+splashImage: "lib/img/ME3040_splash.png",
+text: "Welcome to ME3040!",
+minimumDisplay: 2,
+},
+plugins: [RevealNotes, RevealHighlight, RevealMath.MathJax3, Splash, Vizzy]
+});
+    </script>
+  </body>
+</html>

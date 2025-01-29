@@ -310,9 +310,7 @@ html.print-pdf .reveal img {
 html.print-pdf .reveal content {
   max-height: 900px !important; }
 
-.reveal section .section-title-content .headlines h2,
-.reveal section .section-title-content .headlines h3,
-.reveal section .section-title-content .headlines h4 {
+.reveal section .section-title-content .headlines h2, .reveal section .section-title-content .headlines h3, .reveal section .section-title-content .headlines h4 {
   text-shadow: 0.2rem 0.2rem 0.4rem rgba(0, 0, 0, 0.4); }
 
 .reveal section ul.two-column-list,
@@ -467,34 +465,6 @@ html.print-pdf .reveal content {
     text-align: left; }
   .reveal section table.gpt-table-styled tr:hover {
     background-color: #f1f1f1; }
-
-.reveal section table.schedule-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 1rem;
-  text-align: left; }
-  .reveal section table.schedule-table-caption {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-align: center; }
-  .reveal section table.schedule-table thead.special-header {
-    background-color: #f8f8f8; }
-    .reveal section table.schedule-table thead.special-header th {
-      color: #333; }
-  .reveal section table.schedule-table thead th {
-    background-color: #e8f0fe;
-    font-weight: bold;
-    border: 1px solid #d0d0d0;
-    padding: 8px; }
-  .reveal section table.schedule-table tbody tr.schedule-row:nth-child(even) {
-    background-color: #f3f3f3; }
-  .reveal section table.schedule-table tbody tr:hover {
-    background-color: #eaf5ff; }
-  .reveal section table.schedule-table tbody tr td {
-    border: 1px solid #d0d0d0;
-    padding: 8px; }
 
 .reveal section .icon-left {
   display: grid;
@@ -881,7 +851,7 @@ hr {
   margin-bottom: 0 !important; }
 
 .reveal section pre {
-  overflow: visible;
+  overflow: hidden;
   max-height: 100%;
   width: 100%;
   word-wrap: normal;
@@ -890,7 +860,7 @@ hr {
 
 .reveal section pre code {
   display: block;
-  overflow: visible;
+  overflow: hidden;
   max-height: 100%;
   width: 100%; }
 
@@ -898,17 +868,6 @@ hr {
   max-width: 100%;
   height: auto;
   width: auto; }
-
-.reveal section .framed,
-.reveal section .boxed {
-  border: 2px solid black;
-  padding-left: 10px;
-  padding-right: 10px; }
-
-.reveal section .framed {
-  border-radius: 15px;
-  padding: 0;
-  margin: 0; }
 
 .reveal section .padded,
 .reveal section .sided,
@@ -3995,6 +3954,1686 @@ span[role=img][aria-label]:hover::after {
     text-decoration: line-through wavy #367075;
     -webkit-text-decoration: line-through wavy #367075; }
 
+.reveal .slides section .fragment.highlight-yellow {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-yellow.visible {
+    color: #ffd100; }
+
+.reveal .slides section .fragment.highlight-current-yellow {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-yellow.current-fragment {
+    color: #ffd100; }
+
+.reveal .slides section .fragment.highlight-bg-yellow {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-yellow.visible {
+    background-color: #ffd100; }
+
+.reveal .slides section .fragment.highlight-bg-yellow-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-yellow-white.visible {
+    color: white;
+    background-color: #ffd100; }
+
+.reveal .slides section .fragment.highlight-bg-yellow-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-yellow-light.visible {
+    background-color: #ffdf4d;
+    color: #665400; }
+
+.reveal .slides section .fragment.highlight-current-bg-yellow {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-yellow.current-fragment {
+    background-color: #ffd100; }
+
+.reveal .slides section .fragment.highlight-current-bg-yellow-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-yellow-white.current-fragment {
+    color: white;
+    background-color: #ffd100; }
+
+.reveal .slides section .fragment.highlight-current-bg-yellow-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-yellow-light.current-fragment {
+    background-color: #ffdf4d;
+    color: #665400; }
+
+.reveal .slides section .fragment.highlight-current-bg-yellow-dark {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-yellow-dark.current-fragment {
+    background-color: #665400;
+    color: #ffdf4d; }
+
+.reveal .slides section .fragment.highlight-current-bg-yellow-dark-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-yellow-dark-white.current-fragment {
+    background-color: #665400;
+    color: white; }
+
+.reveal .slides section .fragment.underline-yellow {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-yellow.visible {
+    text-decoration: underline #ffd100;
+    -webkit-text-decoration: underline #ffd100; }
+
+.reveal .slides section .fragment.underline-current-yellow {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-current-yellow.current-fragment {
+    text-decoration: underline #ffd100;
+    -webkit-text-decoration: underline #ffd100; }
+
+.reveal .slides section .fragment.strike-yellow {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-yellow.visible {
+    text-decoration: line-through #ffd100;
+    -webkit-text-decoration: line-through #ffd100; }
+
+.reveal .slides section .fragment.strike-current-yellow {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-current-yellow.current-fragment {
+    text-decoration: line-through #ffd100;
+    -webkit-text-decoration: line-through #ffd100; }
+
+.reveal .slides section .fragment.wavy-strike-yellow {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-yellow.visible {
+    text-decoration: line-through wavy #ffd100;
+    -webkit-text-decoration: linethrough wavy #ffd100; }
+
+.reveal .slides section .fragment.wavy-strike-current-yellow {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-current-yellow.current-fragment {
+    text-decoration: line-through wavy #ffd100;
+    -webkit-text-decoration: line-through wavy #ffd100; }
+
+.reveal .slides section .fragment.highlight-ucla-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-ucla-blue.visible {
+    color: #2774ae; }
+
+.reveal .slides section .fragment.highlight-current-ucla-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-ucla-blue.current-fragment {
+    color: #2774ae; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-blue.visible {
+    background-color: #2774ae; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-blue-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-blue-white.visible {
+    color: white;
+    background-color: #2774ae; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-blue-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-blue-light.visible {
+    background-color: #4b9bd7;
+    color: #0b2131; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-blue.current-fragment {
+    background-color: #2774ae; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-blue-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-blue-white.current-fragment {
+    color: white;
+    background-color: #2774ae; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-blue-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-blue-light.current-fragment {
+    background-color: #4b9bd7;
+    color: #0b2131; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-blue-dark {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-blue-dark.current-fragment {
+    background-color: #0b2131;
+    color: #4b9bd7; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-blue-dark-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-blue-dark-white.current-fragment {
+    background-color: #0b2131;
+    color: white; }
+
+.reveal .slides section .fragment.underline-ucla-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-ucla-blue.visible {
+    text-decoration: underline #2774ae;
+    -webkit-text-decoration: underline #2774ae; }
+
+.reveal .slides section .fragment.underline-current-ucla-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-current-ucla-blue.current-fragment {
+    text-decoration: underline #2774ae;
+    -webkit-text-decoration: underline #2774ae; }
+
+.reveal .slides section .fragment.strike-ucla-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-ucla-blue.visible {
+    text-decoration: line-through #2774ae;
+    -webkit-text-decoration: line-through #2774ae; }
+
+.reveal .slides section .fragment.strike-current-ucla-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-current-ucla-blue.current-fragment {
+    text-decoration: line-through #2774ae;
+    -webkit-text-decoration: line-through #2774ae; }
+
+.reveal .slides section .fragment.wavy-strike-ucla-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-ucla-blue.visible {
+    text-decoration: line-through wavy #2774ae;
+    -webkit-text-decoration: linethrough wavy #2774ae; }
+
+.reveal .slides section .fragment.wavy-strike-current-ucla-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-current-ucla-blue.current-fragment {
+    text-decoration: line-through wavy #2774ae;
+    -webkit-text-decoration: line-through wavy #2774ae; }
+
+.reveal .slides section .fragment.highlight-ucla-gold {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-ucla-gold.visible {
+    color: #ffd100; }
+
+.reveal .slides section .fragment.highlight-current-ucla-gold {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-ucla-gold.current-fragment {
+    color: #ffd100; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-gold {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-gold.visible {
+    background-color: #ffd100; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-gold-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-gold-white.visible {
+    color: white;
+    background-color: #ffd100; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-gold-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-gold-light.visible {
+    background-color: #ffdf4d;
+    color: #665400; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-gold {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-gold.current-fragment {
+    background-color: #ffd100; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-gold-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-gold-white.current-fragment {
+    color: white;
+    background-color: #ffd100; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-gold-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-gold-light.current-fragment {
+    background-color: #ffdf4d;
+    color: #665400; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-gold-dark {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-gold-dark.current-fragment {
+    background-color: #665400;
+    color: #ffdf4d; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-gold-dark-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-gold-dark-white.current-fragment {
+    background-color: #665400;
+    color: white; }
+
+.reveal .slides section .fragment.underline-ucla-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-ucla-gold.visible {
+    text-decoration: underline #ffd100;
+    -webkit-text-decoration: underline #ffd100; }
+
+.reveal .slides section .fragment.underline-current-ucla-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-current-ucla-gold.current-fragment {
+    text-decoration: underline #ffd100;
+    -webkit-text-decoration: underline #ffd100; }
+
+.reveal .slides section .fragment.strike-ucla-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-ucla-gold.visible {
+    text-decoration: line-through #ffd100;
+    -webkit-text-decoration: line-through #ffd100; }
+
+.reveal .slides section .fragment.strike-current-ucla-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-current-ucla-gold.current-fragment {
+    text-decoration: line-through #ffd100;
+    -webkit-text-decoration: line-through #ffd100; }
+
+.reveal .slides section .fragment.wavy-strike-ucla-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-ucla-gold.visible {
+    text-decoration: line-through wavy #ffd100;
+    -webkit-text-decoration: linethrough wavy #ffd100; }
+
+.reveal .slides section .fragment.wavy-strike-current-ucla-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-current-ucla-gold.current-fragment {
+    text-decoration: line-through wavy #ffd100;
+    -webkit-text-decoration: line-through wavy #ffd100; }
+
+.reveal .slides section .fragment.highlight-ucla-darkest-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-ucla-darkest-blue.visible {
+    color: #003b5c; }
+
+.reveal .slides section .fragment.highlight-current-ucla-darkest-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-ucla-darkest-blue.current-fragment {
+    color: #003b5c; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-darkest-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-darkest-blue.visible {
+    background-color: #003b5c; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-darkest-blue-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-darkest-blue-white.visible {
+    color: white;
+    background-color: #003b5c; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-darkest-blue-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-darkest-blue-light.visible {
+    background-color: #006ca9;
+    color: black; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darkest-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darkest-blue.current-fragment {
+    background-color: #003b5c; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darkest-blue-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darkest-blue-white.current-fragment {
+    color: white;
+    background-color: #003b5c; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darkest-blue-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darkest-blue-light.current-fragment {
+    background-color: #006ca9;
+    color: black; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darkest-blue-dark {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darkest-blue-dark.current-fragment {
+    background-color: black;
+    color: #006ca9; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darkest-blue-dark-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darkest-blue-dark-white.current-fragment {
+    background-color: black;
+    color: white; }
+
+.reveal .slides section .fragment.underline-ucla-darkest-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-ucla-darkest-blue.visible {
+    text-decoration: underline #003b5c;
+    -webkit-text-decoration: underline #003b5c; }
+
+.reveal .slides section .fragment.underline-current-ucla-darkest-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-current-ucla-darkest-blue.current-fragment {
+    text-decoration: underline #003b5c;
+    -webkit-text-decoration: underline #003b5c; }
+
+.reveal .slides section .fragment.strike-ucla-darkest-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-ucla-darkest-blue.visible {
+    text-decoration: line-through #003b5c;
+    -webkit-text-decoration: line-through #003b5c; }
+
+.reveal .slides section .fragment.strike-current-ucla-darkest-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-current-ucla-darkest-blue.current-fragment {
+    text-decoration: line-through #003b5c;
+    -webkit-text-decoration: line-through #003b5c; }
+
+.reveal .slides section .fragment.wavy-strike-ucla-darkest-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-ucla-darkest-blue.visible {
+    text-decoration: line-through wavy #003b5c;
+    -webkit-text-decoration: linethrough wavy #003b5c; }
+
+.reveal .slides section .fragment.wavy-strike-current-ucla-darkest-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-current-ucla-darkest-blue.current-fragment {
+    text-decoration: line-through wavy #003b5c;
+    -webkit-text-decoration: line-through wavy #003b5c; }
+
+.reveal .slides section .fragment.highlight-ucla-darker-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-ucla-darker-blue.visible {
+    color: #005587; }
+
+.reveal .slides section .fragment.highlight-current-ucla-darker-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-ucla-darker-blue.current-fragment {
+    color: #005587; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-darker-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-darker-blue.visible {
+    background-color: #005587; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-darker-blue-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-darker-blue-white.visible {
+    color: white;
+    background-color: #005587; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-darker-blue-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-darker-blue-light.visible {
+    background-color: #0085d4;
+    color: black; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darker-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darker-blue.current-fragment {
+    background-color: #005587; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darker-blue-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darker-blue-white.current-fragment {
+    color: white;
+    background-color: #005587; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darker-blue-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darker-blue-light.current-fragment {
+    background-color: #0085d4;
+    color: black; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darker-blue-dark {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darker-blue-dark.current-fragment {
+    background-color: black;
+    color: #0085d4; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darker-blue-dark-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darker-blue-dark-white.current-fragment {
+    background-color: black;
+    color: white; }
+
+.reveal .slides section .fragment.underline-ucla-darker-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-ucla-darker-blue.visible {
+    text-decoration: underline #005587;
+    -webkit-text-decoration: underline #005587; }
+
+.reveal .slides section .fragment.underline-current-ucla-darker-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-current-ucla-darker-blue.current-fragment {
+    text-decoration: underline #005587;
+    -webkit-text-decoration: underline #005587; }
+
+.reveal .slides section .fragment.strike-ucla-darker-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-ucla-darker-blue.visible {
+    text-decoration: line-through #005587;
+    -webkit-text-decoration: line-through #005587; }
+
+.reveal .slides section .fragment.strike-current-ucla-darker-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-current-ucla-darker-blue.current-fragment {
+    text-decoration: line-through #005587;
+    -webkit-text-decoration: line-through #005587; }
+
+.reveal .slides section .fragment.wavy-strike-ucla-darker-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-ucla-darker-blue.visible {
+    text-decoration: line-through wavy #005587;
+    -webkit-text-decoration: linethrough wavy #005587; }
+
+.reveal .slides section .fragment.wavy-strike-current-ucla-darker-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-current-ucla-darker-blue.current-fragment {
+    text-decoration: line-through wavy #005587;
+    -webkit-text-decoration: line-through wavy #005587; }
+
+.reveal .slides section .fragment.highlight-ucla-lighter-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-ucla-lighter-blue.visible {
+    color: #8bb8e8; }
+
+.reveal .slides section .fragment.highlight-current-ucla-lighter-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-ucla-lighter-blue.current-fragment {
+    color: #8bb8e8; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-lighter-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-lighter-blue.visible {
+    background-color: #8bb8e8; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-lighter-blue-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-lighter-blue-white.visible {
+    color: white;
+    background-color: #8bb8e8; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-lighter-blue-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-lighter-blue-light.visible {
+    background-color: #cbdff5;
+    color: #246bb6; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-lighter-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-lighter-blue.current-fragment {
+    background-color: #8bb8e8; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-lighter-blue-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-lighter-blue-white.current-fragment {
+    color: white;
+    background-color: #8bb8e8; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-lighter-blue-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-lighter-blue-light.current-fragment {
+    background-color: #cbdff5;
+    color: #246bb6; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-lighter-blue-dark {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-lighter-blue-dark.current-fragment {
+    background-color: #246bb6;
+    color: #cbdff5; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-lighter-blue-dark-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-lighter-blue-dark-white.current-fragment {
+    background-color: #246bb6;
+    color: white; }
+
+.reveal .slides section .fragment.underline-ucla-lighter-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-ucla-lighter-blue.visible {
+    text-decoration: underline #8bb8e8;
+    -webkit-text-decoration: underline #8bb8e8; }
+
+.reveal .slides section .fragment.underline-current-ucla-lighter-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-current-ucla-lighter-blue.current-fragment {
+    text-decoration: underline #8bb8e8;
+    -webkit-text-decoration: underline #8bb8e8; }
+
+.reveal .slides section .fragment.strike-ucla-lighter-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-ucla-lighter-blue.visible {
+    text-decoration: line-through #8bb8e8;
+    -webkit-text-decoration: line-through #8bb8e8; }
+
+.reveal .slides section .fragment.strike-current-ucla-lighter-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-current-ucla-lighter-blue.current-fragment {
+    text-decoration: line-through #8bb8e8;
+    -webkit-text-decoration: line-through #8bb8e8; }
+
+.reveal .slides section .fragment.wavy-strike-ucla-lighter-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-ucla-lighter-blue.visible {
+    text-decoration: line-through wavy #8bb8e8;
+    -webkit-text-decoration: linethrough wavy #8bb8e8; }
+
+.reveal .slides section .fragment.wavy-strike-current-ucla-lighter-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-current-ucla-lighter-blue.current-fragment {
+    text-decoration: line-through wavy #8bb8e8;
+    -webkit-text-decoration: line-through wavy #8bb8e8; }
+
+.reveal .slides section .fragment.highlight-ucla-lightest-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-ucla-lightest-blue.visible {
+    color: #daebfe; }
+
+.reveal .slides section .fragment.highlight-current-ucla-lightest-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-ucla-lightest-blue.current-fragment {
+    color: #daebfe; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-lightest-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-lightest-blue.visible {
+    background-color: #daebfe; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-lightest-blue-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-lightest-blue-white.visible {
+    color: white;
+    background-color: #daebfe; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-lightest-blue-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-lightest-blue-light.visible {
+    background-color: white;
+    color: #459afa; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-lightest-blue {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-lightest-blue.current-fragment {
+    background-color: #daebfe; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-lightest-blue-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-lightest-blue-white.current-fragment {
+    color: white;
+    background-color: #daebfe; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-lightest-blue-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-lightest-blue-light.current-fragment {
+    background-color: white;
+    color: #459afa; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-lightest-blue-dark {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-lightest-blue-dark.current-fragment {
+    background-color: #459afa;
+    color: white; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-lightest-blue-dark-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-lightest-blue-dark-white.current-fragment {
+    background-color: #459afa;
+    color: white; }
+
+.reveal .slides section .fragment.underline-ucla-lightest-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-ucla-lightest-blue.visible {
+    text-decoration: underline #daebfe;
+    -webkit-text-decoration: underline #daebfe; }
+
+.reveal .slides section .fragment.underline-current-ucla-lightest-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-current-ucla-lightest-blue.current-fragment {
+    text-decoration: underline #daebfe;
+    -webkit-text-decoration: underline #daebfe; }
+
+.reveal .slides section .fragment.strike-ucla-lightest-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-ucla-lightest-blue.visible {
+    text-decoration: line-through #daebfe;
+    -webkit-text-decoration: line-through #daebfe; }
+
+.reveal .slides section .fragment.strike-current-ucla-lightest-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-current-ucla-lightest-blue.current-fragment {
+    text-decoration: line-through #daebfe;
+    -webkit-text-decoration: line-through #daebfe; }
+
+.reveal .slides section .fragment.wavy-strike-ucla-lightest-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-ucla-lightest-blue.visible {
+    text-decoration: line-through wavy #daebfe;
+    -webkit-text-decoration: linethrough wavy #daebfe; }
+
+.reveal .slides section .fragment.wavy-strike-current-ucla-lightest-blue {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-current-ucla-lightest-blue.current-fragment {
+    text-decoration: line-through wavy #daebfe;
+    -webkit-text-decoration: line-through wavy #daebfe; }
+
+.reveal .slides section .fragment.highlight-ucla-darkest-gold {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-ucla-darkest-gold.visible {
+    color: #ffb81c; }
+
+.reveal .slides section .fragment.highlight-current-ucla-darkest-gold {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-ucla-darkest-gold.current-fragment {
+    color: #ffb81c; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-darkest-gold {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-darkest-gold.visible {
+    background-color: #ffb81c; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-darkest-gold-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-darkest-gold-white.visible {
+    color: white;
+    background-color: #ffb81c; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-darkest-gold-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-darkest-gold-light.visible {
+    background-color: #ffd069;
+    color: #825900; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darkest-gold {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darkest-gold.current-fragment {
+    background-color: #ffb81c; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darkest-gold-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darkest-gold-white.current-fragment {
+    color: white;
+    background-color: #ffb81c; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darkest-gold-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darkest-gold-light.current-fragment {
+    background-color: #ffd069;
+    color: #825900; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darkest-gold-dark {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darkest-gold-dark.current-fragment {
+    background-color: #825900;
+    color: #ffd069; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darkest-gold-dark-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darkest-gold-dark-white.current-fragment {
+    background-color: #825900;
+    color: white; }
+
+.reveal .slides section .fragment.underline-ucla-darkest-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-ucla-darkest-gold.visible {
+    text-decoration: underline #ffb81c;
+    -webkit-text-decoration: underline #ffb81c; }
+
+.reveal .slides section .fragment.underline-current-ucla-darkest-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-current-ucla-darkest-gold.current-fragment {
+    text-decoration: underline #ffb81c;
+    -webkit-text-decoration: underline #ffb81c; }
+
+.reveal .slides section .fragment.strike-ucla-darkest-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-ucla-darkest-gold.visible {
+    text-decoration: line-through #ffb81c;
+    -webkit-text-decoration: line-through #ffb81c; }
+
+.reveal .slides section .fragment.strike-current-ucla-darkest-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-current-ucla-darkest-gold.current-fragment {
+    text-decoration: line-through #ffb81c;
+    -webkit-text-decoration: line-through #ffb81c; }
+
+.reveal .slides section .fragment.wavy-strike-ucla-darkest-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-ucla-darkest-gold.visible {
+    text-decoration: line-through wavy #ffb81c;
+    -webkit-text-decoration: linethrough wavy #ffb81c; }
+
+.reveal .slides section .fragment.wavy-strike-current-ucla-darkest-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-current-ucla-darkest-gold.current-fragment {
+    text-decoration: line-through wavy #ffb81c;
+    -webkit-text-decoration: line-through wavy #ffb81c; }
+
+.reveal .slides section .fragment.highlight-ucla-darker-gold {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-ucla-darker-gold.visible {
+    color: #ffc72c; }
+
+.reveal .slides section .fragment.highlight-current-ucla-darker-gold {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-ucla-darker-gold.current-fragment {
+    color: #ffc72c; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-darker-gold {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-darker-gold.visible {
+    background-color: #ffc72c; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-darker-gold-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-darker-gold-white.visible {
+    color: white;
+    background-color: #ffc72c; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-darker-gold-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-darker-gold-light.visible {
+    background-color: #ffdb79;
+    color: #926b00; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darker-gold {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darker-gold.current-fragment {
+    background-color: #ffc72c; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darker-gold-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darker-gold-white.current-fragment {
+    color: white;
+    background-color: #ffc72c; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darker-gold-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darker-gold-light.current-fragment {
+    background-color: #ffdb79;
+    color: #926b00; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darker-gold-dark {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darker-gold-dark.current-fragment {
+    background-color: #926b00;
+    color: #ffdb79; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-darker-gold-dark-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-darker-gold-dark-white.current-fragment {
+    background-color: #926b00;
+    color: white; }
+
+.reveal .slides section .fragment.underline-ucla-darker-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-ucla-darker-gold.visible {
+    text-decoration: underline #ffc72c;
+    -webkit-text-decoration: underline #ffc72c; }
+
+.reveal .slides section .fragment.underline-current-ucla-darker-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-current-ucla-darker-gold.current-fragment {
+    text-decoration: underline #ffc72c;
+    -webkit-text-decoration: underline #ffc72c; }
+
+.reveal .slides section .fragment.strike-ucla-darker-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-ucla-darker-gold.visible {
+    text-decoration: line-through #ffc72c;
+    -webkit-text-decoration: line-through #ffc72c; }
+
+.reveal .slides section .fragment.strike-current-ucla-darker-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-current-ucla-darker-gold.current-fragment {
+    text-decoration: line-through #ffc72c;
+    -webkit-text-decoration: line-through #ffc72c; }
+
+.reveal .slides section .fragment.wavy-strike-ucla-darker-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-ucla-darker-gold.visible {
+    text-decoration: line-through wavy #ffc72c;
+    -webkit-text-decoration: linethrough wavy #ffc72c; }
+
+.reveal .slides section .fragment.wavy-strike-current-ucla-darker-gold {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-current-ucla-darker-gold.current-fragment {
+    text-decoration: line-through wavy #ffc72c;
+    -webkit-text-decoration: line-through wavy #ffc72c; }
+
+.reveal .slides section .fragment.highlight-ucla-yellow {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-ucla-yellow.visible {
+    color: yellow; }
+
+.reveal .slides section .fragment.highlight-current-ucla-yellow {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-ucla-yellow.current-fragment {
+    color: yellow; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-yellow {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-yellow.visible {
+    background-color: yellow; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-yellow-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-yellow-white.visible {
+    color: white;
+    background-color: yellow; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-yellow-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-yellow-light.visible {
+    background-color: #ffff4d;
+    color: #666600; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-yellow {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-yellow.current-fragment {
+    background-color: yellow; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-yellow-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-yellow-white.current-fragment {
+    color: white;
+    background-color: yellow; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-yellow-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-yellow-light.current-fragment {
+    background-color: #ffff4d;
+    color: #666600; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-yellow-dark {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-yellow-dark.current-fragment {
+    background-color: #666600;
+    color: #ffff4d; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-yellow-dark-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-yellow-dark-white.current-fragment {
+    background-color: #666600;
+    color: white; }
+
+.reveal .slides section .fragment.underline-ucla-yellow {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-ucla-yellow.visible {
+    text-decoration: underline yellow;
+    -webkit-text-decoration: underline yellow; }
+
+.reveal .slides section .fragment.underline-current-ucla-yellow {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-current-ucla-yellow.current-fragment {
+    text-decoration: underline yellow;
+    -webkit-text-decoration: underline yellow; }
+
+.reveal .slides section .fragment.strike-ucla-yellow {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-ucla-yellow.visible {
+    text-decoration: line-through yellow;
+    -webkit-text-decoration: line-through yellow; }
+
+.reveal .slides section .fragment.strike-current-ucla-yellow {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-current-ucla-yellow.current-fragment {
+    text-decoration: line-through yellow;
+    -webkit-text-decoration: line-through yellow; }
+
+.reveal .slides section .fragment.wavy-strike-ucla-yellow {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-ucla-yellow.visible {
+    text-decoration: line-through wavy yellow;
+    -webkit-text-decoration: linethrough wavy yellow; }
+
+.reveal .slides section .fragment.wavy-strike-current-ucla-yellow {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-current-ucla-yellow.current-fragment {
+    text-decoration: line-through wavy yellow;
+    -webkit-text-decoration: line-through wavy yellow; }
+
+.reveal .slides section .fragment.highlight-ucla-green {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-ucla-green.visible {
+    color: #00ff87; }
+
+.reveal .slides section .fragment.highlight-current-ucla-green {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-ucla-green.current-fragment {
+    color: #00ff87; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-green {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-green.visible {
+    background-color: #00ff87; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-green-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-green-white.visible {
+    color: white;
+    background-color: #00ff87; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-green-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-green-light.visible {
+    background-color: #4dffab;
+    color: #006636; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-green {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-green.current-fragment {
+    background-color: #00ff87; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-green-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-green-white.current-fragment {
+    color: white;
+    background-color: #00ff87; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-green-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-green-light.current-fragment {
+    background-color: #4dffab;
+    color: #006636; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-green-dark {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-green-dark.current-fragment {
+    background-color: #006636;
+    color: #4dffab; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-green-dark-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-green-dark-white.current-fragment {
+    background-color: #006636;
+    color: white; }
+
+.reveal .slides section .fragment.underline-ucla-green {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-ucla-green.visible {
+    text-decoration: underline #00ff87;
+    -webkit-text-decoration: underline #00ff87; }
+
+.reveal .slides section .fragment.underline-current-ucla-green {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-current-ucla-green.current-fragment {
+    text-decoration: underline #00ff87;
+    -webkit-text-decoration: underline #00ff87; }
+
+.reveal .slides section .fragment.strike-ucla-green {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-ucla-green.visible {
+    text-decoration: line-through #00ff87;
+    -webkit-text-decoration: line-through #00ff87; }
+
+.reveal .slides section .fragment.strike-current-ucla-green {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-current-ucla-green.current-fragment {
+    text-decoration: line-through #00ff87;
+    -webkit-text-decoration: line-through #00ff87; }
+
+.reveal .slides section .fragment.wavy-strike-ucla-green {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-ucla-green.visible {
+    text-decoration: line-through wavy #00ff87;
+    -webkit-text-decoration: linethrough wavy #00ff87; }
+
+.reveal .slides section .fragment.wavy-strike-current-ucla-green {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-current-ucla-green.current-fragment {
+    text-decoration: line-through wavy #00ff87;
+    -webkit-text-decoration: line-through wavy #00ff87; }
+
+.reveal .slides section .fragment.highlight-ucla-magenta {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-ucla-magenta.visible {
+    color: #ff00a5; }
+
+.reveal .slides section .fragment.highlight-current-ucla-magenta {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-ucla-magenta.current-fragment {
+    color: #ff00a5; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-magenta {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-magenta.visible {
+    background-color: #ff00a5; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-magenta-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-magenta-white.visible {
+    color: white;
+    background-color: #ff00a5; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-magenta-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-magenta-light.visible {
+    background-color: #ff4dc0;
+    color: #660042; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-magenta {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-magenta.current-fragment {
+    background-color: #ff00a5; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-magenta-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-magenta-white.current-fragment {
+    color: white;
+    background-color: #ff00a5; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-magenta-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-magenta-light.current-fragment {
+    background-color: #ff4dc0;
+    color: #660042; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-magenta-dark {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-magenta-dark.current-fragment {
+    background-color: #660042;
+    color: #ff4dc0; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-magenta-dark-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-magenta-dark-white.current-fragment {
+    background-color: #660042;
+    color: white; }
+
+.reveal .slides section .fragment.underline-ucla-magenta {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-ucla-magenta.visible {
+    text-decoration: underline #ff00a5;
+    -webkit-text-decoration: underline #ff00a5; }
+
+.reveal .slides section .fragment.underline-current-ucla-magenta {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-current-ucla-magenta.current-fragment {
+    text-decoration: underline #ff00a5;
+    -webkit-text-decoration: underline #ff00a5; }
+
+.reveal .slides section .fragment.strike-ucla-magenta {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-ucla-magenta.visible {
+    text-decoration: line-through #ff00a5;
+    -webkit-text-decoration: line-through #ff00a5; }
+
+.reveal .slides section .fragment.strike-current-ucla-magenta {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-current-ucla-magenta.current-fragment {
+    text-decoration: line-through #ff00a5;
+    -webkit-text-decoration: line-through #ff00a5; }
+
+.reveal .slides section .fragment.wavy-strike-ucla-magenta {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-ucla-magenta.visible {
+    text-decoration: line-through wavy #ff00a5;
+    -webkit-text-decoration: linethrough wavy #ff00a5; }
+
+.reveal .slides section .fragment.wavy-strike-current-ucla-magenta {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-current-ucla-magenta.current-fragment {
+    text-decoration: line-through wavy #ff00a5;
+    -webkit-text-decoration: line-through wavy #ff00a5; }
+
+.reveal .slides section .fragment.highlight-ucla-cyan {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-ucla-cyan.visible {
+    color: cyan; }
+
+.reveal .slides section .fragment.highlight-current-ucla-cyan {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-ucla-cyan.current-fragment {
+    color: cyan; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-cyan {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-cyan.visible {
+    background-color: cyan; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-cyan-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-cyan-white.visible {
+    color: white;
+    background-color: cyan; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-cyan-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-cyan-light.visible {
+    background-color: #4dffff;
+    color: #006666; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-cyan {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-cyan.current-fragment {
+    background-color: cyan; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-cyan-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-cyan-white.current-fragment {
+    color: white;
+    background-color: cyan; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-cyan-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-cyan-light.current-fragment {
+    background-color: #4dffff;
+    color: #006666; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-cyan-dark {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-cyan-dark.current-fragment {
+    background-color: #006666;
+    color: #4dffff; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-cyan-dark-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-cyan-dark-white.current-fragment {
+    background-color: #006666;
+    color: white; }
+
+.reveal .slides section .fragment.underline-ucla-cyan {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-ucla-cyan.visible {
+    text-decoration: underline cyan;
+    -webkit-text-decoration: underline cyan; }
+
+.reveal .slides section .fragment.underline-current-ucla-cyan {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-current-ucla-cyan.current-fragment {
+    text-decoration: underline cyan;
+    -webkit-text-decoration: underline cyan; }
+
+.reveal .slides section .fragment.strike-ucla-cyan {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-ucla-cyan.visible {
+    text-decoration: line-through cyan;
+    -webkit-text-decoration: line-through cyan; }
+
+.reveal .slides section .fragment.strike-current-ucla-cyan {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-current-ucla-cyan.current-fragment {
+    text-decoration: line-through cyan;
+    -webkit-text-decoration: line-through cyan; }
+
+.reveal .slides section .fragment.wavy-strike-ucla-cyan {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-ucla-cyan.visible {
+    text-decoration: line-through wavy cyan;
+    -webkit-text-decoration: linethrough wavy cyan; }
+
+.reveal .slides section .fragment.wavy-strike-current-ucla-cyan {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-current-ucla-cyan.current-fragment {
+    text-decoration: line-through wavy cyan;
+    -webkit-text-decoration: line-through wavy cyan; }
+
+.reveal .slides section .fragment.highlight-ucla-purple {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-ucla-purple.visible {
+    color: #8237ff; }
+
+.reveal .slides section .fragment.highlight-current-ucla-purple {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-ucla-purple.current-fragment {
+    color: #8237ff; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-purple {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-purple.visible {
+    background-color: #8237ff; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-purple-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-purple-white.visible {
+    color: white;
+    background-color: #8237ff; }
+
+.reveal .slides section .fragment.highlight-bg-ucla-purple-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-bg-ucla-purple-light.visible {
+    background-color: #b284ff;
+    color: #3b009d; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-purple {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-purple.current-fragment {
+    background-color: #8237ff; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-purple-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-purple-white.current-fragment {
+    color: white;
+    background-color: #8237ff; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-purple-light {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-purple-light.current-fragment {
+    background-color: #b284ff;
+    color: #3b009d; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-purple-dark {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-purple-dark.current-fragment {
+    background-color: #3b009d;
+    color: #b284ff; }
+
+.reveal .slides section .fragment.highlight-current-bg-ucla-purple-dark-white {
+  opacity: 1;
+  visibility: inherit; }
+  .reveal .slides section .fragment.highlight-current-bg-ucla-purple-dark-white.current-fragment {
+    background-color: #3b009d;
+    color: white; }
+
+.reveal .slides section .fragment.underline-ucla-purple {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-ucla-purple.visible {
+    text-decoration: underline #8237ff;
+    -webkit-text-decoration: underline #8237ff; }
+
+.reveal .slides section .fragment.underline-current-ucla-purple {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.underline-current-ucla-purple.current-fragment {
+    text-decoration: underline #8237ff;
+    -webkit-text-decoration: underline #8237ff; }
+
+.reveal .slides section .fragment.strike-ucla-purple {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-ucla-purple.visible {
+    text-decoration: line-through #8237ff;
+    -webkit-text-decoration: line-through #8237ff; }
+
+.reveal .slides section .fragment.strike-current-ucla-purple {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.strike-current-ucla-purple.current-fragment {
+    text-decoration: line-through #8237ff;
+    -webkit-text-decoration: line-through #8237ff; }
+
+.reveal .slides section .fragment.wavy-strike-ucla-purple {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-ucla-purple.visible {
+    text-decoration: line-through wavy #8237ff;
+    -webkit-text-decoration: linethrough wavy #8237ff; }
+
+.reveal .slides section .fragment.wavy-strike-current-ucla-purple {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: none;
+  -webkit-text-decoration: none; }
+  .reveal .slides section .fragment.wavy-strike-current-ucla-purple.current-fragment {
+    text-decoration: line-through wavy #8237ff;
+    -webkit-text-decoration: line-through wavy #8237ff; }
+
 .reveal .slides section .fragment.highlight-midnightblue {
   opacity: 1;
   visibility: inherit; }
@@ -5938,6 +7577,22 @@ span[role=img][aria-label]:hover::after {
   .reveal .slides section .fragment.replace-in-out.current-fragment {
     opacity: 1;
     display: inline; }
+
+.reveal .slides section .fragment.framed-in {
+  padding-left: 10px;
+  padding-right: 10px; }
+  .reveal .slides section .fragment.framed-in.visible {
+    border: 2px solid black;
+    border-radius: 15px; }
+
+.reveal .slides section .fragment.framed-out {
+  border: 2px solid black;
+  border-radius: 15px;
+  padding-left: 10px;
+  padding-right: 10px; }
+  .reveal .slides section .fragment.framed-out.current-fragment {
+    border: none;
+    border-radius: 0; }
 
 .reveal .slides section .muted {
   color: #aab8be !important; }
@@ -8473,6 +10128,2736 @@ span[role=img][aria-label]:hover::after {
   background: #367075;
   /* The Fallback */
   background: rgba(54, 112, 117, 0.9); }
+
+.reveal .slides section .yellow {
+  color: #ffd100 !important; }
+
+.reveal .slides section .yellow-dark {
+  color: #806900 !important; }
+
+.reveal .slides section .yellow-muted {
+  color: #d9b926 !important; }
+
+.reveal .slides section .yellow-before::before {
+  color: #ffd100; }
+
+.reveal .slides section .u-yellow {
+  text-decoration: underline;
+  text-decoration-color: #ffd100;
+  -webkit-text-decoration-color: #ffd100; }
+
+.reveal .slides section .strike-yellow {
+  text-decoration: line-through;
+  text-decoration-color: #ffd100;
+  -webkit-text-decoration-color: #ffd100; }
+
+.reveal .slides section a.yellow {
+  color: #ffd100; }
+  .reveal .slides section a.yellow:hover {
+    color: #997d00; }
+
+.reveal .slides section .bg-yellow-light {
+  background-color: #ffdf4d;
+  color: #665400; }
+
+.reveal .slides section .bg-yellow-dark {
+  background-color: #806900; }
+
+.reveal .slides section .bg-yellow {
+  background-color: #ffd100; }
+
+.reveal .slides section .bg-yellow-white {
+  background-color: #ffd100;
+  color: white; }
+
+.reveal .slides section .bg-yellow-muted {
+  background-color: #ffd100;
+  color: #d9b926; }
+
+.reveal .slides section .border-yellow {
+  border-color: #ffd100 !important; }
+
+.reveal .slides section .bg-yellow-alpha-01 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.1); }
+
+.reveal .slides section .bg-yellow-alpha-02 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.2); }
+
+.reveal .slides section .bg-yellow-alpha-03 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.3); }
+
+.reveal .slides section .bg-yellow-alpha-04 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.4); }
+
+.reveal .slides section .bg-yellow-alpha-05 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.5); }
+
+.reveal .slides section .bg-yellow-alpha-06 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.6); }
+
+.reveal .slides section .bg-yellow-alpha-07 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.7); }
+
+.reveal .slides section .bg-yellow-alpha-08 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.8); }
+
+.reveal .slides section .bg-yellow-alpha-09 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.9); }
+
+.reveal .slides section span.circled-bg-yellow {
+  background: #ffd100;
+  border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  color: #333333;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center !important;
+  width: 1.2em; }
+
+.reveal .slides section span.circled-bg-yellow-white {
+  background: #ffd100;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center;
+  text-justify: center;
+  width: 1.2em; }
+
+.reveal .slides section .sided-bg-yellow {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99; }
+
+.reveal .slides section .sided-bg-yellow-alpha-01 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.1); }
+
+.reveal .slides section .sided-bg-yellow-alpha-02 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.2); }
+
+.reveal .slides section .sided-bg-yellow-alpha-03 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.3); }
+
+.reveal .slides section .sided-bg-yellow-alpha-04 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.4); }
+
+.reveal .slides section .sided-bg-yellow-alpha-05 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.5); }
+
+.reveal .slides section .sided-bg-yellow-alpha-06 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.6); }
+
+.reveal .slides section .sided-bg-yellow-alpha-07 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.7); }
+
+.reveal .slides section .sided-bg-yellow-alpha-08 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.8); }
+
+.reveal .slides section .sided-bg-yellow-alpha-09 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.9); }
+
+.reveal .slides section .ucla-blue {
+  color: #2774ae !important; }
+
+.reveal .slides section .ucla-blue-dark {
+  color: #102f46 !important; }
+
+.reveal .slides section .ucla-blue-muted {
+  color: #47708e !important; }
+
+.reveal .slides section .ucla-blue-before::before {
+  color: #2774ae; }
+
+.reveal .slides section .u-ucla-blue {
+  text-decoration: underline;
+  text-decoration-color: #2774ae;
+  -webkit-text-decoration-color: #2774ae; }
+
+.reveal .slides section .strike-ucla-blue {
+  text-decoration: line-through;
+  text-decoration-color: #2774ae;
+  -webkit-text-decoration-color: #2774ae; }
+
+.reveal .slides section a.ucla-blue {
+  color: #2774ae; }
+  .reveal .slides section a.ucla-blue:hover {
+    color: #143c5b; }
+
+.reveal .slides section .bg-ucla-blue-light {
+  background-color: #4b9bd7;
+  color: #0b2131; }
+
+.reveal .slides section .bg-ucla-blue-dark {
+  background-color: #102f46; }
+
+.reveal .slides section .bg-ucla-blue {
+  background-color: #2774ae; }
+
+.reveal .slides section .bg-ucla-blue-white {
+  background-color: #2774ae;
+  color: white; }
+
+.reveal .slides section .bg-ucla-blue-muted {
+  background-color: #2774ae;
+  color: #47708e; }
+
+.reveal .slides section .border-ucla-blue {
+  border-color: #2774ae !important; }
+
+.reveal .slides section .bg-ucla-blue-alpha-01 {
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.1); }
+
+.reveal .slides section .bg-ucla-blue-alpha-02 {
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.2); }
+
+.reveal .slides section .bg-ucla-blue-alpha-03 {
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.3); }
+
+.reveal .slides section .bg-ucla-blue-alpha-04 {
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.4); }
+
+.reveal .slides section .bg-ucla-blue-alpha-05 {
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.5); }
+
+.reveal .slides section .bg-ucla-blue-alpha-06 {
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.6); }
+
+.reveal .slides section .bg-ucla-blue-alpha-07 {
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.7); }
+
+.reveal .slides section .bg-ucla-blue-alpha-08 {
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.8); }
+
+.reveal .slides section .bg-ucla-blue-alpha-09 {
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.9); }
+
+.reveal .slides section span.circled-bg-ucla-blue {
+  background: #2774ae;
+  border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  color: #333333;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center !important;
+  width: 1.2em; }
+
+.reveal .slides section span.circled-bg-ucla-blue-white {
+  background: #2774ae;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center;
+  text-justify: center;
+  width: 1.2em; }
+
+.reveal .slides section .sided-bg-ucla-blue {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #89bde5; }
+
+.reveal .slides section .sided-bg-ucla-blue-alpha-01 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #89bde5;
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.1); }
+
+.reveal .slides section .sided-bg-ucla-blue-alpha-02 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #89bde5;
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.2); }
+
+.reveal .slides section .sided-bg-ucla-blue-alpha-03 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #89bde5;
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.3); }
+
+.reveal .slides section .sided-bg-ucla-blue-alpha-04 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #89bde5;
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.4); }
+
+.reveal .slides section .sided-bg-ucla-blue-alpha-05 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #89bde5;
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.5); }
+
+.reveal .slides section .sided-bg-ucla-blue-alpha-06 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #89bde5;
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.6); }
+
+.reveal .slides section .sided-bg-ucla-blue-alpha-07 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #89bde5;
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.7); }
+
+.reveal .slides section .sided-bg-ucla-blue-alpha-08 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #89bde5;
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.8); }
+
+.reveal .slides section .sided-bg-ucla-blue-alpha-09 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #89bde5;
+  background: #2774ae;
+  /* The Fallback */
+  background: rgba(39, 116, 174, 0.9); }
+
+.reveal .slides section .ucla-gold {
+  color: #ffd100 !important; }
+
+.reveal .slides section .ucla-gold-dark {
+  color: #806900 !important; }
+
+.reveal .slides section .ucla-gold-muted {
+  color: #d9b926 !important; }
+
+.reveal .slides section .ucla-gold-before::before {
+  color: #ffd100; }
+
+.reveal .slides section .u-ucla-gold {
+  text-decoration: underline;
+  text-decoration-color: #ffd100;
+  -webkit-text-decoration-color: #ffd100; }
+
+.reveal .slides section .strike-ucla-gold {
+  text-decoration: line-through;
+  text-decoration-color: #ffd100;
+  -webkit-text-decoration-color: #ffd100; }
+
+.reveal .slides section a.ucla-gold {
+  color: #ffd100; }
+  .reveal .slides section a.ucla-gold:hover {
+    color: #997d00; }
+
+.reveal .slides section .bg-ucla-gold-light {
+  background-color: #ffdf4d;
+  color: #665400; }
+
+.reveal .slides section .bg-ucla-gold-dark {
+  background-color: #806900; }
+
+.reveal .slides section .bg-ucla-gold {
+  background-color: #ffd100; }
+
+.reveal .slides section .bg-ucla-gold-white {
+  background-color: #ffd100;
+  color: white; }
+
+.reveal .slides section .bg-ucla-gold-muted {
+  background-color: #ffd100;
+  color: #d9b926; }
+
+.reveal .slides section .border-ucla-gold {
+  border-color: #ffd100 !important; }
+
+.reveal .slides section .bg-ucla-gold-alpha-01 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.1); }
+
+.reveal .slides section .bg-ucla-gold-alpha-02 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.2); }
+
+.reveal .slides section .bg-ucla-gold-alpha-03 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.3); }
+
+.reveal .slides section .bg-ucla-gold-alpha-04 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.4); }
+
+.reveal .slides section .bg-ucla-gold-alpha-05 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.5); }
+
+.reveal .slides section .bg-ucla-gold-alpha-06 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.6); }
+
+.reveal .slides section .bg-ucla-gold-alpha-07 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.7); }
+
+.reveal .slides section .bg-ucla-gold-alpha-08 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.8); }
+
+.reveal .slides section .bg-ucla-gold-alpha-09 {
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.9); }
+
+.reveal .slides section span.circled-bg-ucla-gold {
+  background: #ffd100;
+  border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  color: #333333;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center !important;
+  width: 1.2em; }
+
+.reveal .slides section span.circled-bg-ucla-gold-white {
+  background: #ffd100;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center;
+  text-justify: center;
+  width: 1.2em; }
+
+.reveal .slides section .sided-bg-ucla-gold {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99; }
+
+.reveal .slides section .sided-bg-ucla-gold-alpha-01 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.1); }
+
+.reveal .slides section .sided-bg-ucla-gold-alpha-02 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.2); }
+
+.reveal .slides section .sided-bg-ucla-gold-alpha-03 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.3); }
+
+.reveal .slides section .sided-bg-ucla-gold-alpha-04 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.4); }
+
+.reveal .slides section .sided-bg-ucla-gold-alpha-05 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.5); }
+
+.reveal .slides section .sided-bg-ucla-gold-alpha-06 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.6); }
+
+.reveal .slides section .sided-bg-ucla-gold-alpha-07 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.7); }
+
+.reveal .slides section .sided-bg-ucla-gold-alpha-08 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.8); }
+
+.reveal .slides section .sided-bg-ucla-gold-alpha-09 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffed99;
+  background: #ffd100;
+  /* The Fallback */
+  background: rgba(255, 209, 0, 0.9); }
+
+.reveal .slides section .ucla-darkest-blue {
+  color: #003b5c !important; }
+
+.reveal .slides section .ucla-darkest-blue-dark {
+  color: black !important; }
+
+.reveal .slides section .ucla-darkest-blue-muted {
+  color: #0e374e !important; }
+
+.reveal .slides section .ucla-darkest-blue-before::before {
+  color: #003b5c; }
+
+.reveal .slides section .u-ucla-darkest-blue {
+  text-decoration: underline;
+  text-decoration-color: #003b5c;
+  -webkit-text-decoration-color: #003b5c; }
+
+.reveal .slides section .strike-ucla-darkest-blue {
+  text-decoration: line-through;
+  text-decoration-color: #003b5c;
+  -webkit-text-decoration-color: #003b5c; }
+
+.reveal .slides section a.ucla-darkest-blue {
+  color: #003b5c; }
+  .reveal .slides section a.ucla-darkest-blue:hover {
+    color: black; }
+
+.reveal .slides section .bg-ucla-darkest-blue-light {
+  background-color: #006ca9;
+  color: black; }
+
+.reveal .slides section .bg-ucla-darkest-blue-dark {
+  background-color: black; }
+
+.reveal .slides section .bg-ucla-darkest-blue {
+  background-color: #003b5c; }
+
+.reveal .slides section .bg-ucla-darkest-blue-white {
+  background-color: #003b5c;
+  color: white; }
+
+.reveal .slides section .bg-ucla-darkest-blue-muted {
+  background-color: #003b5c;
+  color: #0e374e; }
+
+.reveal .slides section .border-ucla-darkest-blue {
+  border-color: #003b5c !important; }
+
+.reveal .slides section .bg-ucla-darkest-blue-alpha-01 {
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.1); }
+
+.reveal .slides section .bg-ucla-darkest-blue-alpha-02 {
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.2); }
+
+.reveal .slides section .bg-ucla-darkest-blue-alpha-03 {
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.3); }
+
+.reveal .slides section .bg-ucla-darkest-blue-alpha-04 {
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.4); }
+
+.reveal .slides section .bg-ucla-darkest-blue-alpha-05 {
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.5); }
+
+.reveal .slides section .bg-ucla-darkest-blue-alpha-06 {
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.6); }
+
+.reveal .slides section .bg-ucla-darkest-blue-alpha-07 {
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.7); }
+
+.reveal .slides section .bg-ucla-darkest-blue-alpha-08 {
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.8); }
+
+.reveal .slides section .bg-ucla-darkest-blue-alpha-09 {
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.9); }
+
+.reveal .slides section span.circled-bg-ucla-darkest-blue {
+  background: #003b5c;
+  border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  color: #333333;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center !important;
+  width: 1.2em; }
+
+.reveal .slides section span.circled-bg-ucla-darkest-blue-white {
+  background: #003b5c;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center;
+  text-justify: center;
+  width: 1.2em; }
+
+.reveal .slides section .sided-bg-ucla-darkest-blue {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #009df5; }
+
+.reveal .slides section .sided-bg-ucla-darkest-blue-alpha-01 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #009df5;
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.1); }
+
+.reveal .slides section .sided-bg-ucla-darkest-blue-alpha-02 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #009df5;
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.2); }
+
+.reveal .slides section .sided-bg-ucla-darkest-blue-alpha-03 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #009df5;
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.3); }
+
+.reveal .slides section .sided-bg-ucla-darkest-blue-alpha-04 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #009df5;
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.4); }
+
+.reveal .slides section .sided-bg-ucla-darkest-blue-alpha-05 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #009df5;
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.5); }
+
+.reveal .slides section .sided-bg-ucla-darkest-blue-alpha-06 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #009df5;
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.6); }
+
+.reveal .slides section .sided-bg-ucla-darkest-blue-alpha-07 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #009df5;
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.7); }
+
+.reveal .slides section .sided-bg-ucla-darkest-blue-alpha-08 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #009df5;
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.8); }
+
+.reveal .slides section .sided-bg-ucla-darkest-blue-alpha-09 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #009df5;
+  background: #003b5c;
+  /* The Fallback */
+  background: rgba(0, 59, 92, 0.9); }
+
+.reveal .slides section .ucla-darker-blue {
+  color: #005587 !important; }
+
+.reveal .slides section .ucla-darker-blue-dark {
+  color: #000508 !important; }
+
+.reveal .slides section .ucla-darker-blue-muted {
+  color: #145073 !important; }
+
+.reveal .slides section .ucla-darker-blue-before::before {
+  color: #005587; }
+
+.reveal .slides section .u-ucla-darker-blue {
+  text-decoration: underline;
+  text-decoration-color: #005587;
+  -webkit-text-decoration-color: #005587; }
+
+.reveal .slides section .strike-ucla-darker-blue {
+  text-decoration: line-through;
+  text-decoration-color: #005587;
+  -webkit-text-decoration-color: #005587; }
+
+.reveal .slides section a.ucla-darker-blue {
+  color: #005587; }
+  .reveal .slides section a.ucla-darker-blue:hover {
+    color: #001521; }
+
+.reveal .slides section .bg-ucla-darker-blue-light {
+  background-color: #0085d4;
+  color: black; }
+
+.reveal .slides section .bg-ucla-darker-blue-dark {
+  background-color: #000508; }
+
+.reveal .slides section .bg-ucla-darker-blue {
+  background-color: #005587; }
+
+.reveal .slides section .bg-ucla-darker-blue-white {
+  background-color: #005587;
+  color: white; }
+
+.reveal .slides section .bg-ucla-darker-blue-muted {
+  background-color: #005587;
+  color: #145073; }
+
+.reveal .slides section .border-ucla-darker-blue {
+  border-color: #005587 !important; }
+
+.reveal .slides section .bg-ucla-darker-blue-alpha-01 {
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.1); }
+
+.reveal .slides section .bg-ucla-darker-blue-alpha-02 {
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.2); }
+
+.reveal .slides section .bg-ucla-darker-blue-alpha-03 {
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.3); }
+
+.reveal .slides section .bg-ucla-darker-blue-alpha-04 {
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.4); }
+
+.reveal .slides section .bg-ucla-darker-blue-alpha-05 {
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.5); }
+
+.reveal .slides section .bg-ucla-darker-blue-alpha-06 {
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.6); }
+
+.reveal .slides section .bg-ucla-darker-blue-alpha-07 {
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.7); }
+
+.reveal .slides section .bg-ucla-darker-blue-alpha-08 {
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.8); }
+
+.reveal .slides section .bg-ucla-darker-blue-alpha-09 {
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.9); }
+
+.reveal .slides section span.circled-bg-ucla-darker-blue {
+  background: #005587;
+  border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  color: #333333;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center !important;
+  width: 1.2em; }
+
+.reveal .slides section span.circled-bg-ucla-darker-blue-white {
+  background: #005587;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center;
+  text-justify: center;
+  width: 1.2em; }
+
+.reveal .slides section .sided-bg-ucla-darker-blue {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #21adff; }
+
+.reveal .slides section .sided-bg-ucla-darker-blue-alpha-01 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #21adff;
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.1); }
+
+.reveal .slides section .sided-bg-ucla-darker-blue-alpha-02 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #21adff;
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.2); }
+
+.reveal .slides section .sided-bg-ucla-darker-blue-alpha-03 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #21adff;
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.3); }
+
+.reveal .slides section .sided-bg-ucla-darker-blue-alpha-04 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #21adff;
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.4); }
+
+.reveal .slides section .sided-bg-ucla-darker-blue-alpha-05 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #21adff;
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.5); }
+
+.reveal .slides section .sided-bg-ucla-darker-blue-alpha-06 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #21adff;
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.6); }
+
+.reveal .slides section .sided-bg-ucla-darker-blue-alpha-07 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #21adff;
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.7); }
+
+.reveal .slides section .sided-bg-ucla-darker-blue-alpha-08 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #21adff;
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.8); }
+
+.reveal .slides section .sided-bg-ucla-darker-blue-alpha-09 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #21adff;
+  background: #005587;
+  /* The Fallback */
+  background: rgba(0, 85, 135, 0.9); }
+
+.reveal .slides section .ucla-lighter-blue {
+  color: #8bb8e8 !important; }
+
+.reveal .slides section .ucla-lighter-blue-dark {
+  color: #2877cb !important; }
+
+.reveal .slides section .ucla-lighter-blue-muted {
+  color: #a0b9d3 !important; }
+
+.reveal .slides section .ucla-lighter-blue-before::before {
+  color: #8bb8e8; }
+
+.reveal .slides section .u-ucla-lighter-blue {
+  text-decoration: underline;
+  text-decoration-color: #8bb8e8;
+  -webkit-text-decoration-color: #8bb8e8; }
+
+.reveal .slides section .strike-ucla-lighter-blue {
+  text-decoration: line-through;
+  text-decoration-color: #8bb8e8;
+  -webkit-text-decoration-color: #8bb8e8; }
+
+.reveal .slides section a.ucla-lighter-blue {
+  color: #8bb8e8; }
+  .reveal .slides section a.ucla-lighter-blue:hover {
+    color: #3684d7; }
+
+.reveal .slides section .bg-ucla-lighter-blue-light {
+  background-color: #cbdff5;
+  color: #246bb6; }
+
+.reveal .slides section .bg-ucla-lighter-blue-dark {
+  background-color: #2877cb; }
+
+.reveal .slides section .bg-ucla-lighter-blue {
+  background-color: #8bb8e8; }
+
+.reveal .slides section .bg-ucla-lighter-blue-white {
+  background-color: #8bb8e8;
+  color: white; }
+
+.reveal .slides section .bg-ucla-lighter-blue-muted {
+  background-color: #8bb8e8;
+  color: #a0b9d3; }
+
+.reveal .slides section .border-ucla-lighter-blue {
+  border-color: #8bb8e8 !important; }
+
+.reveal .slides section .bg-ucla-lighter-blue-alpha-01 {
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.1); }
+
+.reveal .slides section .bg-ucla-lighter-blue-alpha-02 {
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.2); }
+
+.reveal .slides section .bg-ucla-lighter-blue-alpha-03 {
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.3); }
+
+.reveal .slides section .bg-ucla-lighter-blue-alpha-04 {
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.4); }
+
+.reveal .slides section .bg-ucla-lighter-blue-alpha-05 {
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.5); }
+
+.reveal .slides section .bg-ucla-lighter-blue-alpha-06 {
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.6); }
+
+.reveal .slides section .bg-ucla-lighter-blue-alpha-07 {
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.7); }
+
+.reveal .slides section .bg-ucla-lighter-blue-alpha-08 {
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.8); }
+
+.reveal .slides section .bg-ucla-lighter-blue-alpha-09 {
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.9); }
+
+.reveal .slides section span.circled-bg-ucla-lighter-blue {
+  background: #8bb8e8;
+  border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  color: #333333;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center !important;
+  width: 1.2em; }
+
+.reveal .slides section span.circled-bg-ucla-lighter-blue-white {
+  background: #8bb8e8;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center;
+  text-justify: center;
+  width: 1.2em; }
+
+.reveal .slides section .sided-bg-ucla-lighter-blue {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white; }
+
+.reveal .slides section .sided-bg-ucla-lighter-blue-alpha-01 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.1); }
+
+.reveal .slides section .sided-bg-ucla-lighter-blue-alpha-02 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.2); }
+
+.reveal .slides section .sided-bg-ucla-lighter-blue-alpha-03 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.3); }
+
+.reveal .slides section .sided-bg-ucla-lighter-blue-alpha-04 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.4); }
+
+.reveal .slides section .sided-bg-ucla-lighter-blue-alpha-05 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.5); }
+
+.reveal .slides section .sided-bg-ucla-lighter-blue-alpha-06 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.6); }
+
+.reveal .slides section .sided-bg-ucla-lighter-blue-alpha-07 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.7); }
+
+.reveal .slides section .sided-bg-ucla-lighter-blue-alpha-08 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.8); }
+
+.reveal .slides section .sided-bg-ucla-lighter-blue-alpha-09 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #8bb8e8;
+  /* The Fallback */
+  background: rgba(139, 184, 232, 0.9); }
+
+.reveal .slides section .ucla-lightest-blue {
+  color: #daebfe !important; }
+
+.reveal .slides section .ucla-lightest-blue-dark {
+  color: #5ea8fb !important; }
+
+.reveal .slides section .ucla-lightest-blue-muted {
+  color: #e0ebf8 !important; }
+
+.reveal .slides section .ucla-lightest-blue-before::before {
+  color: #daebfe; }
+
+.reveal .slides section .u-ucla-lightest-blue {
+  text-decoration: underline;
+  text-decoration-color: #daebfe;
+  -webkit-text-decoration-color: #daebfe; }
+
+.reveal .slides section .strike-ucla-lightest-blue {
+  text-decoration: line-through;
+  text-decoration-color: #daebfe;
+  -webkit-text-decoration-color: #daebfe; }
+
+.reveal .slides section a.ucla-lightest-blue {
+  color: #daebfe; }
+  .reveal .slides section a.ucla-lightest-blue:hover {
+    color: #77b5fb; }
+
+.reveal .slides section .bg-ucla-lightest-blue-light {
+  background-color: white;
+  color: #459afa; }
+
+.reveal .slides section .bg-ucla-lightest-blue-dark {
+  background-color: #5ea8fb; }
+
+.reveal .slides section .bg-ucla-lightest-blue {
+  background-color: #daebfe; }
+
+.reveal .slides section .bg-ucla-lightest-blue-white {
+  background-color: #daebfe;
+  color: white; }
+
+.reveal .slides section .bg-ucla-lightest-blue-muted {
+  background-color: #daebfe;
+  color: #e0ebf8; }
+
+.reveal .slides section .border-ucla-lightest-blue {
+  border-color: #daebfe !important; }
+
+.reveal .slides section .bg-ucla-lightest-blue-alpha-01 {
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.1); }
+
+.reveal .slides section .bg-ucla-lightest-blue-alpha-02 {
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.2); }
+
+.reveal .slides section .bg-ucla-lightest-blue-alpha-03 {
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.3); }
+
+.reveal .slides section .bg-ucla-lightest-blue-alpha-04 {
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.4); }
+
+.reveal .slides section .bg-ucla-lightest-blue-alpha-05 {
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.5); }
+
+.reveal .slides section .bg-ucla-lightest-blue-alpha-06 {
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.6); }
+
+.reveal .slides section .bg-ucla-lightest-blue-alpha-07 {
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.7); }
+
+.reveal .slides section .bg-ucla-lightest-blue-alpha-08 {
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.8); }
+
+.reveal .slides section .bg-ucla-lightest-blue-alpha-09 {
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.9); }
+
+.reveal .slides section span.circled-bg-ucla-lightest-blue {
+  background: #daebfe;
+  border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  color: #333333;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center !important;
+  width: 1.2em; }
+
+.reveal .slides section span.circled-bg-ucla-lightest-blue-white {
+  background: #daebfe;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center;
+  text-justify: center;
+  width: 1.2em; }
+
+.reveal .slides section .sided-bg-ucla-lightest-blue {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white; }
+
+.reveal .slides section .sided-bg-ucla-lightest-blue-alpha-01 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.1); }
+
+.reveal .slides section .sided-bg-ucla-lightest-blue-alpha-02 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.2); }
+
+.reveal .slides section .sided-bg-ucla-lightest-blue-alpha-03 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.3); }
+
+.reveal .slides section .sided-bg-ucla-lightest-blue-alpha-04 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.4); }
+
+.reveal .slides section .sided-bg-ucla-lightest-blue-alpha-05 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.5); }
+
+.reveal .slides section .sided-bg-ucla-lightest-blue-alpha-06 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.6); }
+
+.reveal .slides section .sided-bg-ucla-lightest-blue-alpha-07 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.7); }
+
+.reveal .slides section .sided-bg-ucla-lightest-blue-alpha-08 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.8); }
+
+.reveal .slides section .sided-bg-ucla-lightest-blue-alpha-09 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: white;
+  background: #daebfe;
+  /* The Fallback */
+  background: rgba(218, 235, 254, 0.9); }
+
+.reveal .slides section .ucla-darkest-gold {
+  color: #ffb81c !important; }
+
+.reveal .slides section .ucla-darkest-gold-dark {
+  color: #9c6b00 !important; }
+
+.reveal .slides section .ucla-darkest-gold-muted {
+  color: #ddab3e !important; }
+
+.reveal .slides section .ucla-darkest-gold-before::before {
+  color: #ffb81c; }
+
+.reveal .slides section .u-ucla-darkest-gold {
+  text-decoration: underline;
+  text-decoration-color: #ffb81c;
+  -webkit-text-decoration-color: #ffb81c; }
+
+.reveal .slides section .strike-ucla-darkest-gold {
+  text-decoration: line-through;
+  text-decoration-color: #ffb81c;
+  -webkit-text-decoration-color: #ffb81c; }
+
+.reveal .slides section a.ucla-darkest-gold {
+  color: #ffb81c; }
+  .reveal .slides section a.ucla-darkest-gold:hover {
+    color: #b57c00; }
+
+.reveal .slides section .bg-ucla-darkest-gold-light {
+  background-color: #ffd069;
+  color: #825900; }
+
+.reveal .slides section .bg-ucla-darkest-gold-dark {
+  background-color: #9c6b00; }
+
+.reveal .slides section .bg-ucla-darkest-gold {
+  background-color: #ffb81c; }
+
+.reveal .slides section .bg-ucla-darkest-gold-white {
+  background-color: #ffb81c;
+  color: white; }
+
+.reveal .slides section .bg-ucla-darkest-gold-muted {
+  background-color: #ffb81c;
+  color: #ddab3e; }
+
+.reveal .slides section .border-ucla-darkest-gold {
+  border-color: #ffb81c !important; }
+
+.reveal .slides section .bg-ucla-darkest-gold-alpha-01 {
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.1); }
+
+.reveal .slides section .bg-ucla-darkest-gold-alpha-02 {
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.2); }
+
+.reveal .slides section .bg-ucla-darkest-gold-alpha-03 {
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.3); }
+
+.reveal .slides section .bg-ucla-darkest-gold-alpha-04 {
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.4); }
+
+.reveal .slides section .bg-ucla-darkest-gold-alpha-05 {
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.5); }
+
+.reveal .slides section .bg-ucla-darkest-gold-alpha-06 {
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.6); }
+
+.reveal .slides section .bg-ucla-darkest-gold-alpha-07 {
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.7); }
+
+.reveal .slides section .bg-ucla-darkest-gold-alpha-08 {
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.8); }
+
+.reveal .slides section .bg-ucla-darkest-gold-alpha-09 {
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.9); }
+
+.reveal .slides section span.circled-bg-ucla-darkest-gold {
+  background: #ffb81c;
+  border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  color: #333333;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center !important;
+  width: 1.2em; }
+
+.reveal .slides section span.circled-bg-ucla-darkest-gold-white {
+  background: #ffb81c;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center;
+  text-justify: center;
+  width: 1.2em; }
+
+.reveal .slides section .sided-bg-ucla-darkest-gold {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffe8b5; }
+
+.reveal .slides section .sided-bg-ucla-darkest-gold-alpha-01 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffe8b5;
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.1); }
+
+.reveal .slides section .sided-bg-ucla-darkest-gold-alpha-02 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffe8b5;
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.2); }
+
+.reveal .slides section .sided-bg-ucla-darkest-gold-alpha-03 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffe8b5;
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.3); }
+
+.reveal .slides section .sided-bg-ucla-darkest-gold-alpha-04 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffe8b5;
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.4); }
+
+.reveal .slides section .sided-bg-ucla-darkest-gold-alpha-05 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffe8b5;
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.5); }
+
+.reveal .slides section .sided-bg-ucla-darkest-gold-alpha-06 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffe8b5;
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.6); }
+
+.reveal .slides section .sided-bg-ucla-darkest-gold-alpha-07 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffe8b5;
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.7); }
+
+.reveal .slides section .sided-bg-ucla-darkest-gold-alpha-08 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffe8b5;
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.8); }
+
+.reveal .slides section .sided-bg-ucla-darkest-gold-alpha-09 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffe8b5;
+  background: #ffb81c;
+  /* The Fallback */
+  background: rgba(255, 184, 28, 0.9); }
+
+.reveal .slides section .ucla-darker-gold {
+  color: #ffc72c !important; }
+
+.reveal .slides section .ucla-darker-gold-dark {
+  color: #ac7e00 !important; }
+
+.reveal .slides section .ucla-darker-gold-muted {
+  color: #dfb84c !important; }
+
+.reveal .slides section .ucla-darker-gold-before::before {
+  color: #ffc72c; }
+
+.reveal .slides section .u-ucla-darker-gold {
+  text-decoration: underline;
+  text-decoration-color: #ffc72c;
+  -webkit-text-decoration-color: #ffc72c; }
+
+.reveal .slides section .strike-ucla-darker-gold {
+  text-decoration: line-through;
+  text-decoration-color: #ffc72c;
+  -webkit-text-decoration-color: #ffc72c; }
+
+.reveal .slides section a.ucla-darker-gold {
+  color: #ffc72c; }
+  .reveal .slides section a.ucla-darker-gold:hover {
+    color: #c59100; }
+
+.reveal .slides section .bg-ucla-darker-gold-light {
+  background-color: #ffdb79;
+  color: #926b00; }
+
+.reveal .slides section .bg-ucla-darker-gold-dark {
+  background-color: #ac7e00; }
+
+.reveal .slides section .bg-ucla-darker-gold {
+  background-color: #ffc72c; }
+
+.reveal .slides section .bg-ucla-darker-gold-white {
+  background-color: #ffc72c;
+  color: white; }
+
+.reveal .slides section .bg-ucla-darker-gold-muted {
+  background-color: #ffc72c;
+  color: #dfb84c; }
+
+.reveal .slides section .border-ucla-darker-gold {
+  border-color: #ffc72c !important; }
+
+.reveal .slides section .bg-ucla-darker-gold-alpha-01 {
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.1); }
+
+.reveal .slides section .bg-ucla-darker-gold-alpha-02 {
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.2); }
+
+.reveal .slides section .bg-ucla-darker-gold-alpha-03 {
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.3); }
+
+.reveal .slides section .bg-ucla-darker-gold-alpha-04 {
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.4); }
+
+.reveal .slides section .bg-ucla-darker-gold-alpha-05 {
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.5); }
+
+.reveal .slides section .bg-ucla-darker-gold-alpha-06 {
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.6); }
+
+.reveal .slides section .bg-ucla-darker-gold-alpha-07 {
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.7); }
+
+.reveal .slides section .bg-ucla-darker-gold-alpha-08 {
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.8); }
+
+.reveal .slides section .bg-ucla-darker-gold-alpha-09 {
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.9); }
+
+.reveal .slides section span.circled-bg-ucla-darker-gold {
+  background: #ffc72c;
+  border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  color: #333333;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center !important;
+  width: 1.2em; }
+
+.reveal .slides section span.circled-bg-ucla-darker-gold-white {
+  background: #ffc72c;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center;
+  text-justify: center;
+  width: 1.2em; }
+
+.reveal .slides section .sided-bg-ucla-darker-gold {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #fff0c5; }
+
+.reveal .slides section .sided-bg-ucla-darker-gold-alpha-01 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #fff0c5;
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.1); }
+
+.reveal .slides section .sided-bg-ucla-darker-gold-alpha-02 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #fff0c5;
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.2); }
+
+.reveal .slides section .sided-bg-ucla-darker-gold-alpha-03 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #fff0c5;
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.3); }
+
+.reveal .slides section .sided-bg-ucla-darker-gold-alpha-04 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #fff0c5;
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.4); }
+
+.reveal .slides section .sided-bg-ucla-darker-gold-alpha-05 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #fff0c5;
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.5); }
+
+.reveal .slides section .sided-bg-ucla-darker-gold-alpha-06 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #fff0c5;
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.6); }
+
+.reveal .slides section .sided-bg-ucla-darker-gold-alpha-07 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #fff0c5;
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.7); }
+
+.reveal .slides section .sided-bg-ucla-darker-gold-alpha-08 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #fff0c5;
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.8); }
+
+.reveal .slides section .sided-bg-ucla-darker-gold-alpha-09 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #fff0c5;
+  background: #ffc72c;
+  /* The Fallback */
+  background: rgba(255, 199, 44, 0.9); }
+
+.reveal .slides section .ucla-yellow {
+  color: yellow !important; }
+
+.reveal .slides section .ucla-yellow-dark {
+  color: olive !important; }
+
+.reveal .slides section .ucla-yellow-muted {
+  color: #d9d926 !important; }
+
+.reveal .slides section .ucla-yellow-before::before {
+  color: yellow; }
+
+.reveal .slides section .u-ucla-yellow {
+  text-decoration: underline;
+  text-decoration-color: yellow;
+  -webkit-text-decoration-color: yellow; }
+
+.reveal .slides section .strike-ucla-yellow {
+  text-decoration: line-through;
+  text-decoration-color: yellow;
+  -webkit-text-decoration-color: yellow; }
+
+.reveal .slides section a.ucla-yellow {
+  color: yellow; }
+  .reveal .slides section a.ucla-yellow:hover {
+    color: #999900; }
+
+.reveal .slides section .bg-ucla-yellow-light {
+  background-color: #ffff4d;
+  color: #666600; }
+
+.reveal .slides section .bg-ucla-yellow-dark {
+  background-color: olive; }
+
+.reveal .slides section .bg-ucla-yellow {
+  background-color: yellow; }
+
+.reveal .slides section .bg-ucla-yellow-white {
+  background-color: yellow;
+  color: white; }
+
+.reveal .slides section .bg-ucla-yellow-muted {
+  background-color: yellow;
+  color: #d9d926; }
+
+.reveal .slides section .border-ucla-yellow {
+  border-color: yellow !important; }
+
+.reveal .slides section .bg-ucla-yellow-alpha-01 {
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.1); }
+
+.reveal .slides section .bg-ucla-yellow-alpha-02 {
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.2); }
+
+.reveal .slides section .bg-ucla-yellow-alpha-03 {
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.3); }
+
+.reveal .slides section .bg-ucla-yellow-alpha-04 {
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.4); }
+
+.reveal .slides section .bg-ucla-yellow-alpha-05 {
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.5); }
+
+.reveal .slides section .bg-ucla-yellow-alpha-06 {
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.6); }
+
+.reveal .slides section .bg-ucla-yellow-alpha-07 {
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.7); }
+
+.reveal .slides section .bg-ucla-yellow-alpha-08 {
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.8); }
+
+.reveal .slides section .bg-ucla-yellow-alpha-09 {
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.9); }
+
+.reveal .slides section span.circled-bg-ucla-yellow {
+  background: yellow;
+  border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  color: #333333;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center !important;
+  width: 1.2em; }
+
+.reveal .slides section span.circled-bg-ucla-yellow-white {
+  background: yellow;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center;
+  text-justify: center;
+  width: 1.2em; }
+
+.reveal .slides section .sided-bg-ucla-yellow {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffff99; }
+
+.reveal .slides section .sided-bg-ucla-yellow-alpha-01 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffff99;
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.1); }
+
+.reveal .slides section .sided-bg-ucla-yellow-alpha-02 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffff99;
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.2); }
+
+.reveal .slides section .sided-bg-ucla-yellow-alpha-03 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffff99;
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.3); }
+
+.reveal .slides section .sided-bg-ucla-yellow-alpha-04 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffff99;
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.4); }
+
+.reveal .slides section .sided-bg-ucla-yellow-alpha-05 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffff99;
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.5); }
+
+.reveal .slides section .sided-bg-ucla-yellow-alpha-06 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffff99;
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.6); }
+
+.reveal .slides section .sided-bg-ucla-yellow-alpha-07 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffff99;
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.7); }
+
+.reveal .slides section .sided-bg-ucla-yellow-alpha-08 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffff99;
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.8); }
+
+.reveal .slides section .sided-bg-ucla-yellow-alpha-09 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ffff99;
+  background: yellow;
+  /* The Fallback */
+  background: rgba(255, 255, 0, 0.9); }
+
+.reveal .slides section .ucla-green {
+  color: #00ff87 !important; }
+
+.reveal .slides section .ucla-green-dark {
+  color: #008044 !important; }
+
+.reveal .slides section .ucla-green-muted {
+  color: #26d985 !important; }
+
+.reveal .slides section .ucla-green-before::before {
+  color: #00ff87; }
+
+.reveal .slides section .u-ucla-green {
+  text-decoration: underline;
+  text-decoration-color: #00ff87;
+  -webkit-text-decoration-color: #00ff87; }
+
+.reveal .slides section .strike-ucla-green {
+  text-decoration: line-through;
+  text-decoration-color: #00ff87;
+  -webkit-text-decoration-color: #00ff87; }
+
+.reveal .slides section a.ucla-green {
+  color: #00ff87; }
+  .reveal .slides section a.ucla-green:hover {
+    color: #009951; }
+
+.reveal .slides section .bg-ucla-green-light {
+  background-color: #4dffab;
+  color: #006636; }
+
+.reveal .slides section .bg-ucla-green-dark {
+  background-color: #008044; }
+
+.reveal .slides section .bg-ucla-green {
+  background-color: #00ff87; }
+
+.reveal .slides section .bg-ucla-green-white {
+  background-color: #00ff87;
+  color: white; }
+
+.reveal .slides section .bg-ucla-green-muted {
+  background-color: #00ff87;
+  color: #26d985; }
+
+.reveal .slides section .border-ucla-green {
+  border-color: #00ff87 !important; }
+
+.reveal .slides section .bg-ucla-green-alpha-01 {
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.1); }
+
+.reveal .slides section .bg-ucla-green-alpha-02 {
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.2); }
+
+.reveal .slides section .bg-ucla-green-alpha-03 {
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.3); }
+
+.reveal .slides section .bg-ucla-green-alpha-04 {
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.4); }
+
+.reveal .slides section .bg-ucla-green-alpha-05 {
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.5); }
+
+.reveal .slides section .bg-ucla-green-alpha-06 {
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.6); }
+
+.reveal .slides section .bg-ucla-green-alpha-07 {
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.7); }
+
+.reveal .slides section .bg-ucla-green-alpha-08 {
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.8); }
+
+.reveal .slides section .bg-ucla-green-alpha-09 {
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.9); }
+
+.reveal .slides section span.circled-bg-ucla-green {
+  background: #00ff87;
+  border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  color: #333333;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center !important;
+  width: 1.2em; }
+
+.reveal .slides section span.circled-bg-ucla-green-white {
+  background: #00ff87;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center;
+  text-justify: center;
+  width: 1.2em; }
+
+.reveal .slides section .sided-bg-ucla-green {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffcf; }
+
+.reveal .slides section .sided-bg-ucla-green-alpha-01 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffcf;
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.1); }
+
+.reveal .slides section .sided-bg-ucla-green-alpha-02 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffcf;
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.2); }
+
+.reveal .slides section .sided-bg-ucla-green-alpha-03 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffcf;
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.3); }
+
+.reveal .slides section .sided-bg-ucla-green-alpha-04 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffcf;
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.4); }
+
+.reveal .slides section .sided-bg-ucla-green-alpha-05 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffcf;
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.5); }
+
+.reveal .slides section .sided-bg-ucla-green-alpha-06 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffcf;
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.6); }
+
+.reveal .slides section .sided-bg-ucla-green-alpha-07 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffcf;
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.7); }
+
+.reveal .slides section .sided-bg-ucla-green-alpha-08 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffcf;
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.8); }
+
+.reveal .slides section .sided-bg-ucla-green-alpha-09 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffcf;
+  background: #00ff87;
+  /* The Fallback */
+  background: rgba(0, 255, 135, 0.9); }
+
+.reveal .slides section .ucla-magenta {
+  color: #ff00a5 !important; }
+
+.reveal .slides section .ucla-magenta-dark {
+  color: #800053 !important; }
+
+.reveal .slides section .ucla-magenta-muted {
+  color: #d9269a !important; }
+
+.reveal .slides section .ucla-magenta-before::before {
+  color: #ff00a5; }
+
+.reveal .slides section .u-ucla-magenta {
+  text-decoration: underline;
+  text-decoration-color: #ff00a5;
+  -webkit-text-decoration-color: #ff00a5; }
+
+.reveal .slides section .strike-ucla-magenta {
+  text-decoration: line-through;
+  text-decoration-color: #ff00a5;
+  -webkit-text-decoration-color: #ff00a5; }
+
+.reveal .slides section a.ucla-magenta {
+  color: #ff00a5; }
+  .reveal .slides section a.ucla-magenta:hover {
+    color: #990063; }
+
+.reveal .slides section .bg-ucla-magenta-light {
+  background-color: #ff4dc0;
+  color: #660042; }
+
+.reveal .slides section .bg-ucla-magenta-dark {
+  background-color: #800053; }
+
+.reveal .slides section .bg-ucla-magenta {
+  background-color: #ff00a5; }
+
+.reveal .slides section .bg-ucla-magenta-white {
+  background-color: #ff00a5;
+  color: white; }
+
+.reveal .slides section .bg-ucla-magenta-muted {
+  background-color: #ff00a5;
+  color: #d9269a; }
+
+.reveal .slides section .border-ucla-magenta {
+  border-color: #ff00a5 !important; }
+
+.reveal .slides section .bg-ucla-magenta-alpha-01 {
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.1); }
+
+.reveal .slides section .bg-ucla-magenta-alpha-02 {
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.2); }
+
+.reveal .slides section .bg-ucla-magenta-alpha-03 {
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.3); }
+
+.reveal .slides section .bg-ucla-magenta-alpha-04 {
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.4); }
+
+.reveal .slides section .bg-ucla-magenta-alpha-05 {
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.5); }
+
+.reveal .slides section .bg-ucla-magenta-alpha-06 {
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.6); }
+
+.reveal .slides section .bg-ucla-magenta-alpha-07 {
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.7); }
+
+.reveal .slides section .bg-ucla-magenta-alpha-08 {
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.8); }
+
+.reveal .slides section .bg-ucla-magenta-alpha-09 {
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.9); }
+
+.reveal .slides section span.circled-bg-ucla-magenta {
+  background: #ff00a5;
+  border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  color: #333333;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center !important;
+  width: 1.2em; }
+
+.reveal .slides section span.circled-bg-ucla-magenta-white {
+  background: #ff00a5;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center;
+  text-justify: center;
+  width: 1.2em; }
+
+.reveal .slides section .sided-bg-ucla-magenta {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ff99db; }
+
+.reveal .slides section .sided-bg-ucla-magenta-alpha-01 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ff99db;
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.1); }
+
+.reveal .slides section .sided-bg-ucla-magenta-alpha-02 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ff99db;
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.2); }
+
+.reveal .slides section .sided-bg-ucla-magenta-alpha-03 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ff99db;
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.3); }
+
+.reveal .slides section .sided-bg-ucla-magenta-alpha-04 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ff99db;
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.4); }
+
+.reveal .slides section .sided-bg-ucla-magenta-alpha-05 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ff99db;
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.5); }
+
+.reveal .slides section .sided-bg-ucla-magenta-alpha-06 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ff99db;
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.6); }
+
+.reveal .slides section .sided-bg-ucla-magenta-alpha-07 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ff99db;
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.7); }
+
+.reveal .slides section .sided-bg-ucla-magenta-alpha-08 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ff99db;
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.8); }
+
+.reveal .slides section .sided-bg-ucla-magenta-alpha-09 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #ff99db;
+  background: #ff00a5;
+  /* The Fallback */
+  background: rgba(255, 0, 165, 0.9); }
+
+.reveal .slides section .ucla-cyan {
+  color: cyan !important; }
+
+.reveal .slides section .ucla-cyan-dark {
+  color: teal !important; }
+
+.reveal .slides section .ucla-cyan-muted {
+  color: #26d9d9 !important; }
+
+.reveal .slides section .ucla-cyan-before::before {
+  color: cyan; }
+
+.reveal .slides section .u-ucla-cyan {
+  text-decoration: underline;
+  text-decoration-color: cyan;
+  -webkit-text-decoration-color: cyan; }
+
+.reveal .slides section .strike-ucla-cyan {
+  text-decoration: line-through;
+  text-decoration-color: cyan;
+  -webkit-text-decoration-color: cyan; }
+
+.reveal .slides section a.ucla-cyan {
+  color: cyan; }
+  .reveal .slides section a.ucla-cyan:hover {
+    color: #009999; }
+
+.reveal .slides section .bg-ucla-cyan-light {
+  background-color: #4dffff;
+  color: #006666; }
+
+.reveal .slides section .bg-ucla-cyan-dark {
+  background-color: teal; }
+
+.reveal .slides section .bg-ucla-cyan {
+  background-color: cyan; }
+
+.reveal .slides section .bg-ucla-cyan-white {
+  background-color: cyan;
+  color: white; }
+
+.reveal .slides section .bg-ucla-cyan-muted {
+  background-color: cyan;
+  color: #26d9d9; }
+
+.reveal .slides section .border-ucla-cyan {
+  border-color: cyan !important; }
+
+.reveal .slides section .bg-ucla-cyan-alpha-01 {
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.1); }
+
+.reveal .slides section .bg-ucla-cyan-alpha-02 {
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.2); }
+
+.reveal .slides section .bg-ucla-cyan-alpha-03 {
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.3); }
+
+.reveal .slides section .bg-ucla-cyan-alpha-04 {
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.4); }
+
+.reveal .slides section .bg-ucla-cyan-alpha-05 {
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.5); }
+
+.reveal .slides section .bg-ucla-cyan-alpha-06 {
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.6); }
+
+.reveal .slides section .bg-ucla-cyan-alpha-07 {
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.7); }
+
+.reveal .slides section .bg-ucla-cyan-alpha-08 {
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.8); }
+
+.reveal .slides section .bg-ucla-cyan-alpha-09 {
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.9); }
+
+.reveal .slides section span.circled-bg-ucla-cyan {
+  background: cyan;
+  border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  color: #333333;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center !important;
+  width: 1.2em; }
+
+.reveal .slides section span.circled-bg-ucla-cyan-white {
+  background: cyan;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center;
+  text-justify: center;
+  width: 1.2em; }
+
+.reveal .slides section .sided-bg-ucla-cyan {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffff; }
+
+.reveal .slides section .sided-bg-ucla-cyan-alpha-01 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffff;
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.1); }
+
+.reveal .slides section .sided-bg-ucla-cyan-alpha-02 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffff;
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.2); }
+
+.reveal .slides section .sided-bg-ucla-cyan-alpha-03 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffff;
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.3); }
+
+.reveal .slides section .sided-bg-ucla-cyan-alpha-04 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffff;
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.4); }
+
+.reveal .slides section .sided-bg-ucla-cyan-alpha-05 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffff;
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.5); }
+
+.reveal .slides section .sided-bg-ucla-cyan-alpha-06 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffff;
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.6); }
+
+.reveal .slides section .sided-bg-ucla-cyan-alpha-07 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffff;
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.7); }
+
+.reveal .slides section .sided-bg-ucla-cyan-alpha-08 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffff;
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.8); }
+
+.reveal .slides section .sided-bg-ucla-cyan-alpha-09 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #99ffff;
+  background: cyan;
+  /* The Fallback */
+  background: rgba(0, 255, 255, 0.9); }
+
+.reveal .slides section .ucla-purple {
+  color: #8237ff !important; }
+
+.reveal .slides section .ucla-purple-dark {
+  color: #4400b7 !important; }
+
+.reveal .slides section .ucla-purple-muted {
+  color: #8a55e1 !important; }
+
+.reveal .slides section .ucla-purple-before::before {
+  color: #8237ff; }
+
+.reveal .slides section .u-ucla-purple {
+  text-decoration: underline;
+  text-decoration-color: #8237ff;
+  -webkit-text-decoration-color: #8237ff; }
+
+.reveal .slides section .strike-ucla-purple {
+  text-decoration: line-through;
+  text-decoration-color: #8237ff;
+  -webkit-text-decoration-color: #8237ff; }
+
+.reveal .slides section a.ucla-purple {
+  color: #8237ff; }
+  .reveal .slides section a.ucla-purple:hover {
+    color: #4e00d0; }
+
+.reveal .slides section .bg-ucla-purple-light {
+  background-color: #b284ff;
+  color: #3b009d; }
+
+.reveal .slides section .bg-ucla-purple-dark {
+  background-color: #4400b7; }
+
+.reveal .slides section .bg-ucla-purple {
+  background-color: #8237ff; }
+
+.reveal .slides section .bg-ucla-purple-white {
+  background-color: #8237ff;
+  color: white; }
+
+.reveal .slides section .bg-ucla-purple-muted {
+  background-color: #8237ff;
+  color: #8a55e1; }
+
+.reveal .slides section .border-ucla-purple {
+  border-color: #8237ff !important; }
+
+.reveal .slides section .bg-ucla-purple-alpha-01 {
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.1); }
+
+.reveal .slides section .bg-ucla-purple-alpha-02 {
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.2); }
+
+.reveal .slides section .bg-ucla-purple-alpha-03 {
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.3); }
+
+.reveal .slides section .bg-ucla-purple-alpha-04 {
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.4); }
+
+.reveal .slides section .bg-ucla-purple-alpha-05 {
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.5); }
+
+.reveal .slides section .bg-ucla-purple-alpha-06 {
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.6); }
+
+.reveal .slides section .bg-ucla-purple-alpha-07 {
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.7); }
+
+.reveal .slides section .bg-ucla-purple-alpha-08 {
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.8); }
+
+.reveal .slides section .bg-ucla-purple-alpha-09 {
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.9); }
+
+.reveal .slides section span.circled-bg-ucla-purple {
+  background: #8237ff;
+  border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+  color: #333333;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center !important;
+  width: 1.2em; }
+
+.reveal .slides section span.circled-bg-ucla-purple-white {
+  background: #8237ff;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  line-height: 1.2em;
+  margin-right: 5px;
+  text-align: center;
+  text-justify: center;
+  width: 1.2em; }
+
+.reveal .slides section .sided-bg-ucla-purple {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #e2d0ff; }
+
+.reveal .slides section .sided-bg-ucla-purple-alpha-01 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #e2d0ff;
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.1); }
+
+.reveal .slides section .sided-bg-ucla-purple-alpha-02 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #e2d0ff;
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.2); }
+
+.reveal .slides section .sided-bg-ucla-purple-alpha-03 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #e2d0ff;
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.3); }
+
+.reveal .slides section .sided-bg-ucla-purple-alpha-04 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #e2d0ff;
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.4); }
+
+.reveal .slides section .sided-bg-ucla-purple-alpha-05 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #e2d0ff;
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.5); }
+
+.reveal .slides section .sided-bg-ucla-purple-alpha-06 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #e2d0ff;
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.6); }
+
+.reveal .slides section .sided-bg-ucla-purple-alpha-07 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #e2d0ff;
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.7); }
+
+.reveal .slides section .sided-bg-ucla-purple-alpha-08 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #e2d0ff;
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.8); }
+
+.reveal .slides section .sided-bg-ucla-purple-alpha-09 {
+  padding: 3px 10px 3px 10px;
+  border-left: 10px solid gray;
+  background-color: #e2d0ff;
+  background: #8237ff;
+  /* The Fallback */
+  background: rgba(130, 55, 255, 0.9); }
 
 .reveal .slides section .midnightblue {
   color: #001526 !important; }
@@ -11965,16 +16350,27 @@ span[role=img][aria-label]:hover::after {
 /*********************************************
 * BORDERS
 *********************************************/
-section .rounded {
+.reveal section .rounded {
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 15px; }
 
-section .bordered {
+.reveal section .bordered {
   border: 2px solid; }
 
-section .circled {
+.reveal section .circled {
   border-radius: 50%; }
+
+.reveal section .framed,
+.reveal section .boxed {
+  border: 2px solid black;
+  padding-left: 10px;
+  padding-right: 10px; }
+
+.reveal section .framed {
+  border-radius: 15px;
+  padding: 0;
+  margin: 0; }
 
 .border-top {
   border-top-style: solid !important;

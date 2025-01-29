@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="notranslate" name="google"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>
+      Introduction To Probability
+    </title>
+    <link href="lib\favicon.png" rel="icon" type="image/x-icon"/>
+    <link href="./src/css/reset.css" rel="stylesheet"/>
+    <link href="./src/css/reveal.css" rel="stylesheet"/>
+    <link href="./src/css/revealpack.css" rel="stylesheet"/>
+    <link href="./src/theme/drG.css" id="theme" rel="stylesheet"/>
+    <!-- highlight.js theme -->
+    <link href="./src/theme/vs.css" id="highlight-theme" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <!-- Custom Scripts -->
+    <!-- Print PDF script -->
+    <script>
+      var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match(/print-pdf/gi) ? './src/css/print/pdf.css' : './src/css/print/paper.css';
+document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!-- Deck CSS Injections -->
+    <!-- Deck Script Injections -->
+    <!-- Deck Raw Injections -->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-image="lib/img/statistics_2.png" data-background-size="cover" id="deck-title-slide">
+          <div class="title-slide background">
+            <div class="headline">
+              <h2 class="r-fit-text">
+                Introduction To Probability
+              </h2>
+            </div>
+            <div class="sub-header">
+              <p class="by">
+                Khris Griffis, Ph.D.
+              </p>
+            </div>
+            <div class="byline">
+              <p class="byinfo">
+                Lecture 02
+              </p>
+              <p class="byinfo">
+                CSULA: ME3040
+              </p>
+            </div>
+          </div>
+          <aside class="notes">
+            <p>
+              Welcome to a world where chance, order, and calculation converge to unlock the mysteries of the universe. Today, we embark on an exciting journey through probability, set theory, and combinatorics—the foundational pillars that underpin much of engineering and science. In this lecture, we're not just learning theories; we're exploring the language of uncertainty, the structure of logic, and the art of precise counting.
+            </p>
+            <p>
+              These concepts are the keys to understanding complex systems, predicting outcomes, and solving problems that once seemed insurmountable. Whether we're designing cutting-edge technologies or unraveling the fabric of biological phenomena, these mathematical tools empower us to see the world through a lens of possibility and precision. Let's dive into this fascinating exploration and discover how the seemingly abstract becomes profoundly impactful in engineering and beyond.
+            </p>
+          </aside>
+        </section>
+        <section data-background-gradient="radial-gradient(#ffeb3b, #ff9800)" id="section-title-1">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-1">
+              <div class="section-number">
+                <span class="large-number">
+                  1
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Last Time
+                </h2>
+              </div>
+            </div>
+          </div>
+          </section>
+
+
+
+
+
+<!-- Statistical Steps: Cholera Example -->
+
+
+
+<section data-background-color="#fcf8e3">
+
+
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2 class="r-fit-text">6 Stages Of A Statistical Investigation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2.4fr 7.5fr;gap:5px;">
+
+<div>
+
+<svg width="100%" viewBox="7 3.5 66 147">
+
+<use xlink:href="lib/img/statistical-investigation-steps.svg#Layer_1_1_"></use>
+
+<use xlink:href="lib/img/statistical-investigation-steps.svg#Layer_2"></use>
+
+<use xlink:href="lib/img/statistical-investigation-steps.svg#Layer_3"></use>
+
+<use xlink:href="lib/img/statistical-investigation-steps.svg#Layer_4"></use>
+
+<use xlink:href="lib/img/statistical-investigation-steps.svg#Layer_5"></use>
+
+<use xlink:href="lib/img/statistical-investigation-steps.svg#Layer_6"></use>
+
+</svg>
+
+</div>
+
+<div class="grid-generic left-justify" style="grid-template-columns:1fr;grid-auto-rows:1fr;height:95%;">
+
+<div class="framed border-orange">
+
+Could water supplied to South London residents by private companies be a principal vector for the transmission of cholera?
+
+</div>
+
+<div>
+
+Large scale study of cholera fatal attacks in South London (water supply randomly "assigned")
+
+</div>
+
+<div>
+
+Looking for patterns by comparing the occurrence of cholera fatal attacks in the different population groups
+
+</div>
+
+<div>
+
+People served by sewage-contaminated water seem more affected
+
+by fatal cholera attacks
+
+</div>
+
+<div>
+
+Contaminated water is most likely a source of cholera infection. <span class="orange">Cholera is a waterborne disease!</span>
+
+</div>
+
+<div>
+
+Need for analyzing water samples (identify "germ"). <br>
+
+Boiling water mandatory during cholera epidemics.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<aside class="notes">
+
+<p style="font-size:90%;">
+
+Why Cholera in Engineering?
+
+<ol>
+
+<li>Improvement in Water Supply and Sanitation Systems:
+
+<ul>
+
+<li>Development of Modern Sewer Systems: Overhaul of sanitation infrastructure, leading to extensive sewer systems to reduce waterborne diseases.</li>
+
+<li>Separation of Drinking Water and Sewage: Separation of sewage from drinking water supplies to reduce cholera and other waterborne diseases.</li>
+
+</ul>
+
+</li>
+
+<li>Advances in Public Health Policies:
+
+<ul>
+
+<li>Introduction of Water Filtration and Treatment: Filtration and chlorination became standard to ensure safe drinking water.</li>
+
+<li>Establishment of Public Health Boards: Creation of public health institutions to monitor and manage health risks, with a focus on preventive measures.</li>
+
+</ul>
+
+</li>
+
+<li>Urban Planning and Zoning:
+
+<ul>
+
+<li>Zoning Regulations for Water and Sewage Systems: Regulations introduced to protect water sources from contamination, influencing urban planning.</li>
+
+</ul>
+
+</li>
+
+<li>Mapping and Geographic Information Systems (GIS):
+
+<ul>
+
+<li>Use of Mapping in Public Health: Snow's use of maps for cholera cases laid the groundwork for modern GIS, essential in public health and urban planning.</li>
+
+</ul>
+
+</li>
+
+<li>Influence on the Germ Theory of Disease:
+
+<ul>
+
+<li>Snow's work supported the shift away from miasma theory to germ theory, advancing public health practices.</li>
+
+</ul>
+
+</li>
+
+</ol>
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- 6 steps summary -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2 class="r-fit-text">6 Stages Of A Statistical Investigation</h2>
+
+</div>
+
+<div class="content">
+
+<svg width="75%" viewBox="0 0 381.6 244.75" style="margin-top: 0; margin-bottom: 0;">
+
+<use xlink:href="lib/img/summary-lec1.svg#investigation"></use>
+
+<use class="fragment" xlink:href="lib/img/summary-lec1.svg#population"></use>
+
+<use class="fragment" xlink:href="lib/img/summary-lec1.svg#datasample"></use>
+
+<use class="fragment" xlink:href="lib/img/summary-lec1.svg#variables"></use>
+
+<use class="fragment" xlink:href="lib/img/summary-lec1.svg#type1"></use>
+
+<use class="fragment" xlink:href="lib/img/summary-lec1.svg#type2"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+
+
+</section>
+
+
+
+<!-- Goal of Statistics -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Statistical Purpose</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:5px;justify-items:center;">
+
+<div>
+
+<p>
+
+<i class="arrowr"></i> To answer a question about a population (of data).
+
+</p>
+
+<div class="bordered rounded border-dashed fragment" data-fragment-index="1">
+
+<p style="text-align:justify;text-justify:inter-word;" class="small">
+
+In a perfect world, we would have access to the full
+
+<span class="info">population</span> so we would be able to answer the question
+
+based on data collected on all the <span class="u">observational units</span>
+
+of the population. We would know the value of the
+
+<span class="info">true parameter</span> we are interested in.
+
+</p>
+
+</div>
+
+<p class="fragment">
+
+But usually we just have <span class="danger">one sample</span>.
+
+</p>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:1fr 2fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<p class="fragment left-justify" data-fragment-index="2">
+
+Statistics is about using a <span class="danger">sample</span>, or many samples,
+
+</p>
+
+<p class="fragment left-justify" data-fragment-index="3">
+
+to make <span class="warning">inferences</span> about the <span class="info">population</span> parameters.
+
+</p>
+
+</div>
+
+<div style="justify-content:center;">
+
+<svg viewBox="0 0 864 432" class="graphic" style="height:55vh;">
+
+<use class="fragment" data-fragment-index="1" xlink:href="lib/img/inferences.svg#figure_1"></use>
+
+<use class="fragment" data-fragment-index="2" xlink:href="lib/img/inferences.svg#figure_2"></use>
+
+<use class="fragment" data-fragment-index="2" xlink:href="lib/img/inferences.svg#figure_3"></use>
+
+<use class="fragment" data-fragment-index="3" xlink:href="lib/img/inferences.svg#figure_4"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Imagine each blue point is the peak, outdoors, daytime temperature, in Celsius,
+
+of the geographic location of this building from the holocene epoch (11,700 years ago).
+
+And I want to know what the average temperature was over the epoch.
+
+</p>
+
+<p>
+
+Obviously I can't know all those temps, The holocene started way before
+
+recorded history. So here is a sampling, over the last 100 years:
+
+</p>
+
+<p>
+
+If we look at fossils, bones, plants, and rocks, we can get an idea that temps
+
+were similar to today, once the ice age ended. With these assumptions, we calculate
+
+the average temperature of our sample and make an inference about the average
+
+temperature since the start of the holocene.
+
+</p>
+
+<p>
+
+Silly example, but you already do this in your every day life. You make predictions
+
+based on limited evidence!
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Definitions recap -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Definitions</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic box-width left-justify" style="grid-template-columns:3.5fr 6.5fr;grid-auto-rows:auto;row-gap:1vmin;column-gap:0;">
+
+<div class="small border-bottom" style="height:100%;"><p><i class="far fa-check-square"></i> Statistics</p></div>
+
+<div class="small border-bottom" style="height:100%;"><p>Science of gathering, analyzing, interpreting, communicating <span class="danger">data</span></p></div>
+
+
+
+<div class="small border-bottom" style="height:100%;"><p><i class="far fa-check-square"></i> Statistical Hypothesis</p></div>
+
+<div class="small border-bottom" style="height:100%;"><p>Statement about a <span class="danger">parameter</span> of the data</p></div>
+
+
+
+<div class="small border-bottom" style="height:100%;"><p><i class="far fa-check-square"></i> Dataset</p></div>
+
+<div class="small border-bottom" style="height:100%;"><p><span class="danger">Collection</span> of measurements from multiple Observational Units</p></div>
+
+
+
+<div class="small border-bottom" style="height:100%;"><p><i class="far fa-check-square"></i> Observational unit</p></div>
+
+<div class="small border-bottom" style="height:100%;"><p>Entity from which data was collected</p></div>
+
+
+
+<div class="small border-bottom" style="height:100%;"><p><i class="far fa-check-square"></i> Variable</p></div>
+
+<div class="small border-bottom" style="height:100%;"><p>Come in types <span class="orange">categorical</span> or <span class="info">quantitative</span></p></div>
+
+
+
+<div class="small border-bottom" style="height:100%;"><p><i class="far fa-check-square"></i> Variable relationships</p></div>
+
+<div class="small border-bottom" style="height:100%;"><p><span class="danger">Response</span> variable depend on <span class="info">explanatory</span> variable</p></div>
+
+
+
+<div class="small border-bottom" style="height:100%;"><p><i class="far fa-check-square"></i> Outlier</p></div>
+
+<div class="small border-bottom" style="height:100%;"><p><span class="danger">Markedly different</span> from the rest</p></div>
+
+
+
+<div class="small border-bottom" style="height:100%;"><p><i class="far fa-check-square"></i> Population</p></div>
+
+<div class="small border-bottom" style="height:100%;"><p>All observational units, ever</p></div>
+
+
+
+<div class="small" style="height:100%;"><p><i class="far fa-check-square"></i> Sample</p></div>
+
+<div class="small" style="height:100%;"><p>A subset of a population we use to make inferences about the population</p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/mouse_probabilities.png" id="section-title-2">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-2">
+              <div class="section-number">
+                <span class="large-number">
+                  2
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Introduction To Probability
+                </h2>
+                <h3>
+                  Frequentism, Bayesianism, Set Theory And Combinatorics
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-3.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>This lecture will be heavy on simple calculations and full of complex ideas.</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- Frequentist and Bayes -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Frequentism and Bayesian Probability</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:1vmin;">
+
+<div class="fragment framed" style="height:100%;">
+
+<h3>The Frequentist's Approach</h3>
+
+<p>The frequentist's perspective emphasizes the importance of repeated trials in understanding probability.</p>
+
+<ul>
+
+<li>Views probability as long-term event frequency.</li>
+
+<li>Based on repeated, identical trials.</li>
+
+</ul>
+
+</div>
+
+<div class="fragment framed" style="height:100%;">
+
+<h3>The Bayesian Approach</h3>
+
+<p>Bayesian probability focuses on subjective belief rather than objective data.</p>
+
+<ul>
+
+<li>Defines probability as a measure of belief, 0 to 1 scale.</li>
+
+<li>Subjective, based on opinion rather than inherent system traits.</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<style>
+
+.speaker-controls-notes .value p {
+
+font-size: larger; /* Adjust the font size as needed */
+
+}
+
+</style>
+
+<p>2 major approaches, while they treat probabilities similarly, they differ in their interpretations.</p>
+
+<p>
+
+Real-world: breast cancer. Prevalence (13%, death 2.6%) of women.
+
+Mammograms are good, but not great, meaning it can miss some cancers, and misdiagnose non-cancers, all of which lead to poor prognosis for the patient.
+
+So how do we decide how often and who should get tested?
+
+</p>
+
+<p>
+
+Freq.  probabilities are interpreted as the long-run frequency of events.
+
+They analyze the probability of a positive test result in terms of the
+
+relative frequencies observed in large numbers of similar patients. They use
+
+sensitivity (true pos) and specificity (true neg) of the test, along with prev.
+
+of that cancer to calculate the probability of having cancer given a + test result.
+
+</p>
+
+<p>
+
+Bayes: Probabilities are degrees of belief, subjective probability, base on prior knowledge.
+
+Bayesian would start with a prior probability of having breast cancer
+
+(based on factors like age, family history, and population prevalence).
+
+Upon receiving a test result (positive or negative), the Bayesian updates this probability,
+
+also  incorporating the sensitivity and specificity of the test. Bayesian approach
+
+is to update prior belief (probability) with additional data, in this case to produce
+
+the posterior probability of having cancer given the test.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- What is Probability -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>What is Probability?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:1fr;gap:1vmin;">
+
+<div>
+
+<p class="fragment" data-fragment-index="0">
+
+Probability is the measure of the likelihood that an event will occur.
+
+It quantifies uncertainty and is expressed as a number between 0 and 1,
+
+where <span class="fragment highlight-danger" data-fragment-index="1">0 indicates impossibility</span>
+
+and <span class="fragment highlight-pop" data-fragment-index="2">1 indicates certainty</span>.
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:auto 1fr;grid-auto-rows:auto;gap:1vmin;align-items:center;">
+
+<p class="fragment" data-fragment-index="3"><span class="strong em u">Terminology</span></p>
+
+<p class="fragment" data-fragment-index="3"><span class="strong em u">Meaning</span></p>
+
+<p class="fragment" data-fragment-index="4">Sample Space ($S$):</p>
+
+<p class="fragment sided-bg-info" data-fragment-index="4">The set of all possible outcomes of a probabilistic experiment. For example, in a quality test of a car engine, the sample space might include outcomes like 'Pass' and 'Fail'.</p>
+
+<p class="fragment" data-fragment-index="5">Event:</p>
+
+<p class="fragment sided-bg-success" data-fragment-index="5">A subset of the sample space. An event can consist of one or more outcomes. For instance, the event 'Engine Fails' includes all outcomes where the engine fails the quality test.</p>
+
+<p class="fragment" data-fragment-index="6">Probability of an Event ($P(A)$):</p>
+
+<p class="fragment sided-bg-orange" data-fragment-index="6">The likelihood of an event occurring, which is a number between 0 and 1. If $P(A) = 1$, the event is certain to happen, and if $P(A) = 0$, the event is impossible. For example, if the probability of an engine passing the quality test is 0.95, it can be written as $P(\text{Engine Passes}) = 0.95$.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>I keep using this term "probability", but we need to give it a formal definition.</p>
+
+<p>For event, this isn't quite a straight forward as you might think. We'll explore this more shortly.</p>
+
+<p>In this pass/fail paradigm, the sample space is binary, the event is one of those categories.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Probability Types -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Approaches</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="small">
+
+Probability theory is a fundamental part of mathematics and statistics that
+
+deals with the likelihood of different outcomes in various scenarios. There are
+
+three primary approaches to understanding and calculating probability:
+
+</p>
+
+<div class="fragment" data-fragment-index="1">
+
+<table class="latex-style-table-row-labels">
+
+<thead>
+
+<tr class="fragment" data-fragment-index="1">
+
+<th>Approach</th>
+
+<th>Description</th>
+
+</tr>
+
+</thead>
+
+<tbody class="fragment" data-fragment-index="1">
+
+<tr class="fragment" data-fragment-index="1">
+
+<td>Subjective</td>
+
+<td class="small">
+
+Based on personal judgment and available information. It is often
+
+used in scenarios where hard data is scarce, and decisions are made
+
+based on <span class="em">beliefs</span> or <span class="info">expert knowledge</span>.
+
+</td>
+
+</tr>
+
+<tr class="fragment" data-fragment-index="2">
+
+<td>Classical</td>
+
+<td class="small">
+
+Assumes that all outcomes in a sample space are <span class="info">equally likely</span>.
+
+It is best suited for situations where you can clearly define all
+
+possible outcomes, and each outcome has the same chance of occurring, i.e., symmetrical weight.
+
+</td>
+
+</tr>
+
+<tr class="fragment" data-fragment-index="3">
+
+<td>Empirical</td>
+
+<td class="small">
+
+Relies on <span class="info">actual data collected from experiments or observations</span>.
+
+Empirical probability is calculated by dividing the number of times
+
+an event occurs by the total number of trials or observations.
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<p class="fragment sided-bg-info" data-fragment-index="4">
+
+Each approach offers a unique
+
+perspective and methodology for determining the likelihood of events.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+There are three primary approaches to understanding and calculating probability:
+
+</p>
+
+<ul>
+
+<li>Subjective: a doctor might use subjective probability to estimate the likelihood of a patient's recovery based on their experience and the patient's symptoms. Useful when thinking about how to test or experiment something.</li>
+
+<li>Classical: An example is tossing a fair coin, where the chances of landing heads or tails are both 50%.</li>
+
+<li>Empirical: It is particularly useful in situations where historical data is available, such as calculating the probability of rain based on weather records.</li>
+
+</ul>
+
+</aside>
+
+</section>
+
+
+
+<!-- Classical Probability - Intro -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Classical Probability</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<p class="fragment">
+
+Probability is a measure of the likelihood that an event will occur.
+
+$$
+
+P(A) = \frac{\text{Number of outcomes in event}}{\text{Number of outcomes in sample space}}
+
+$$
+
+</p>
+
+<p class="fragment">
+
+In the context of mechanical engineering, probability can be used to assess the reliability of systems and components.
+
+</p>
+
+<p class="sided-bg-info fragment">
+
+For example, if a gear in a transmission system has a 1 in 100 chance of failing under certain conditions, its probability of failure is 0.01.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Note that "favorable" is a bit a misnomer. We really want to know the number of interesting events.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Classical Probability - Examples -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Classical Probability</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="framed fragment" style="height:100%;">
+
+<h3 class="u">Coin Flip</h3>
+
+<ul class="small">
+
+<li>A fair coin has two equally likely outcomes: <br />Heads or Tails.</li>
+
+<li>The probability of getting Heads (H) is:
+
+<p>$$ P(H) = \frac{1}{2} $$</p>
+
+</li>
+
+<li>The probability of getting Tails (T) is:
+
+<p>$$ P(T) = \frac{1}{2} $$</p>
+
+</li>
+
+</ul>
+
+</div>
+
+<div class="framed fragment" style="height:100%;">
+
+<h3 class="u">Six-Sided Die</h3>
+
+<ul class="small">
+
+<li>A fair six-sided die has six outcomes: 1, 2, 3, 4, 5, 6.</li>
+
+<li>The probability of rolling a specific number (e.g., 4) is:
+
+<p>$$ P(4) = \frac{1}{6} $$</p>
+
+</li>
+
+<li>The probability of rolling an even number (2, 4, or 6) is:
+
+<p>
+
+$$\begin{aligned}
+
+P(\text{Even}) &= P(2) + P(4) + P(6) \\
+
+&= \frac{1}{6} + \frac{1}{6} + \frac{1}{6} = \frac{3}{6} \\
+
+&= \frac{1}{2}
+
+\end{aligned}
+
+$$
+
+</p>
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Point out the Sample Space, Event, and Probability.</p>
+
+<p>What is the sample space of a 6-sided die?</p>
+
+<p>Notice here I haven't thrown the die, I'm just purely assuming each face has equal likelihood of landing face up and calculating from there.</p>
+
+<p>Q: In a deck of standard playing cards, what the probability of randomly drawing an Ace? explain.</p>
+
+<p>Q: What about rolling 2 six-sided dice? What is the sample space? What is the event?</p>
+
+<p>Before we can move on to more complex probabilities we'll need for our purposes, we need to interlude to set theory.</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Empirical Probability</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p>
+
+Empirical probability is calculated based on observed data or past
+
+experiences. It measures the likelihood of an event by dividing the
+
+number of observed occurrences by the total number of observations.
+
+</p>
+
+<p class="fragment quoted" data-fragment-index="1">
+
+Relative frequency, the ratio of an event's occurrences to total trials, forms the empirical basis for calculating an event's probability.
+
+</p>
+
+<p class="fragment" data-fragment-index="2">
+
+$$
+
+\text{Relative Frequency} = \frac{\text{Frequency of the event occurring}}{\text{Total number of trials}}
+
+$$
+
+</p>
+
+<div class="framed full-width fragment small" data-fragment-index="3">
+
+<p>
+
+Example: Consider a biomechanical experiment where a prosthetic knee is subjected to repeated stress tests. Out of 500 tests, the knee joint fails 5 times. The relative frequency of failure is calculated as:
+
+$$
+
+\text{Relative Frequency of Failure} = \frac{5}{500} = 0.01
+
+$$
+
+This means that the probability of failure in a single stress test, based on past data, is 1%.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Empirical Probability: Examples</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="fragment framed smaller" style="height:100%;">
+
+<h3 class="u">Space Shuttle Mission Failures</h3>
+
+<p>Following the Columbia disaster on February 1, 2003, NASA's second in 113 missions, we estimate the probability of future mission success.</p>
+
+<p>Defining P as probability and P(A) as success probability:</p>
+
+<p>$$ P(A) = \frac{111}{113} = 0.98 $$</p>
+
+<p>This suggests a 0.98 probability of successful completion for future space shuttle missions.</p>
+
+</div>
+
+<div class="fragment framed smaller" style="height:100%;">
+
+<h3 class="u">Bolt Production</h3>
+
+<p>Example: In a factory, a machine produces bolts. After producing 10,000 bolts, it is observed that 20 are defective. The relative frequency of producing a defective bolt is:
+
+<p>$$ \text{Relative Frequency} = \frac{20}{10,000} = 0.002 $$</p>
+
+This indicates that, based on past production, there is a 0.2% probability of the machine producing a defective bolt.</p>
+
+</div>
+
+<div class="fragment framed bg-info-dark white" style="grid-column:1/3;">
+
+<p>The Law of Large Numbers states that as the number of trials increases, the relative frequency of an event gets closer to the true probability of the event.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>If the possible outcomes are "works" and "fails", under classical probability</p>
+
+<p>Note that the space shuttle condition is grossly oversimplified. We tend to think of this rate as a prior belief, which is term we will not discuss.</p>
+
+</aside>
+
+
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/set_theory.png" id="section-title-3">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-3">
+              <div class="section-number">
+                <span class="large-number">
+                  3
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Set Theory
+                </h2>
+                <h3>
+                  An Introduction To Belonging
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-2.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+
+
+<aside class="notes">
+
+<p>
+
+Set theory is a fundamental branch of mathematics that deals with the study of sets,
+
+which are collections of distinct objects. It forms the basis for much of modern
+
+mathematical analysis and provides a framework for understanding concepts such as
+
+numbers, relations, functions, and probability. Set theory introduces notions like
+
+union, intersection, and complement of sets, as well as the idea of subsets and
+
+the universal set. It is used to formalize and clarify the structure of mathematical
+
+logic and is essential for understanding more advanced mathematical concepts.
+
+In set theory, objects within a set are called elements or members,
+
+and the study of how these sets interact and relate to each other is a key
+
+focus of the field.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Introduction to Sets and Conditional Probability -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Intersection of Set Theory and Probability</h2>
+
+<p>
+
+Set theory and probability form the mathematical backbone of analyzing and
+
+predicting outcomes in various fields, providing tools to
+
+<span class="success">quantify uncertainty</span> and make <span class="success">informed decisions</span>.
+
+</p>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:5fr 2.5fr;grid-auto-rows:1fr;gap:1vmin;">
+
+<div id="setTheoryProbabilityContent">
+
+<ul>
+
+<li class="emoji-star fragment">
+
+<span class="strong">Set Theory:</span> A fundamental branch of mathematics focused on the study of <span class="info">sets</span>, collections of distinct objects. Set theory underpins <span class="info">probability</span> by defining <span class="info">events</span> as sets and exploring relationships through operations like <span class="info">union</span>, <span class="info">intersection</span>, and <span class="info">complement</span>.
+
+</li>
+
+<li class="emoji-star fragment">
+
+<span class="strong">Combinatorics:</span> In the context of probability, combinatorics involves the study of <span class="info">counting</span>, <span class="info">arrangement</span>, and <span class="info">combination</span> of elements, crucial for calculating the likelihood of various events and understanding the structure of different outcomes.
+
+</li>
+
+</ul>
+
+</div>
+
+<div>
+
+<img src="lib/img/set_theory_2.png" style="height:100%;">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<!-- Interactive Demo -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Rules For Calculations</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<vizzy data-src="lib/interactive/vennSets.html" style="width:100%;height:90vh;"></vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>For our purposes, consider Xi (xeye) as the Sample Space, and outcomes X and Y have probabilities relative to that sample space.</p>
+
+<p>The Sample Space xi encompasses all outcomes and so has a total probability of 1.</p>
+
+<p>That is, if there are N outcomes, xi contains all N outcomes and thus has a relative frequency of N/N, or 1. Empirically.</p>
+
+<p>Explain <strong>COMPLIMENT RULE</strong> as we need it for p-values.</p>
+
+<p>Note a diagram like this will be on the quiz and likely on the midterm!</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Special Rules -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Rules In Detail: Special Rule of Addition</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:7fr 6fr;grid-auto-rows:1fr;gap:1vmin;">
+
+<div class="smaller left-justify no-hang">
+
+<p class="quoted">
+
+The probability of either of two <span class="danger">mutually exclusive</span>
+
+events occurring is the sum of their individual probabilities.
+
+</p>
+
+<p><span class="strong">Formula:</span> $P(X \cup Y) = P(X) + P(Y)$<br />
+
+<span class="highlight-danger fragment em" data-fragment-index="1">
+
+Only for mutually exclusive events</span>.
+
+</p>
+
+<p><span class="strong">Generalization:</span><br />
+
+For multiple mutually exclusive events X1, X2, ..., Xn: $P(X1 \cup \ldots \cup Xn) = P(X1) + \ldots + P(Xn)$.</p>
+
+</p>
+
+<h4 class="fragment" data-fragment-index="2">Example:</h4>
+
+<p class="em fragment small" data-fragment-index="2">Consider three mutually exclusive failure scenarios of a machine part:</p>
+
+<ul class="fragment small" data-fragment-index="3">
+
+<li>Failure due to overheating (X1) with a probability of 0.1.</li>
+
+<li>Failure due to excessive vibration (X2) with a probability of 0.05.</li>
+
+<li>Failure due to material degradation by UV exposure (X3) with a probability of 0.08.</li>
+
+</ul>
+
+<p class="small fragment" data-fragment-index="4">Assuming the causes are completely independent of each other, the probability of the part failing due to any of these causes is
+
+$$\begin{aligned}P(X1 \cup X2 \cup X3) &= P(X1) + P(X2) + P(X3) \\ &= 0.1 + 0.05 + 0.08 \\ &= 0.23
+
+\end{aligned}$$</p>
+
+</div>
+
+<vizzy data-src="lib/interactive/vennSets_notrans.html" style="width:100%;height:90vh;">
+
+[
+
+{
+
+activate: () => window.setRadioButton("exclusiveOr"),
+
+reverse: () => window.setRadioButton("none"),
+
+index:1
+
+}
+
+]
+
+</vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>This is like the single 6-sided die situation, right? But each component is weighted differently.</p>
+
+<p>These different weights are much more like the sum of the 2 6-sided dice faces, where each sum is weighted differently based on the number of combinations.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- General Rule of Addition -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Rules In Detail: General Rule of Addition</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:8fr 6fr;grid-auto-rows:1fr;gap:1vmin;">
+
+<div class="smaller left-justify">
+
+<p>The general rule of addition helps us calculate the probability of either of
+
+two events, X and Y, occurring. This rule is especially important when the
+
+events are <span class="info">not mutually exclusive</span>, meaning
+
+they can happen together. It adjusts for any overlap between the events.</p>
+
+<div class="fragment" data-fragment-index="1">
+
+<p><span class="strong">Formula:</span> $P(X \cup Y) = P(X) + P(Y) - P(X \cap Y)$</p>
+
+<p><span class="strong">Generalization:</span> This formula can be extended to more than two events by considering all their intersections.</p>
+
+</div>
+
+<div class="fragment" data-fragment-index="2">
+
+<p class="em small">Let's apply this to a practical situation in a mechanical system:</p>
+
+<ul class="smaller">
+
+<li>Event X: A component fails due to wear and tear with a probability of 0.3.</li>
+
+<li>Event Y: The same component fails due to a lubrication issue with a probability of 0.2.</li>
+
+<li>It's known that 5% of failures are caused by both wear and tear and lubrication issues.</li>
+
+</ul>
+
+</div>
+
+<div class="fragment" data-fragment-index="3">
+
+<p class="question">
+
+What is overall probability of a failure due to either cause
+
+</p>
+
+<p class="fragment" data-fragment-index="4">A. <span class="fragment highlight-danger" data-fragment-index="6">$P(X \cup Y) = P(X) + P(Y)$</span> $\phantom{}=0.3 + 0.2 = 0.50$</p>
+
+<p class="fragment" data-fragment-index="5">B. <span class="fragment highlight-success" data-fragment-index="6">$P(X \cup Y) = P(X) + P(Y) - P(X \cap Y)$</span> $\phantom{}=0.3 + 0.2 - 0.05 = 0.45$</p>
+
+</div>
+
+</div>
+
+<vizzy data-src="lib/interactive/vennSets_notrans.html" style="width:100%;height:90vh;">
+
+[
+
+{
+
+activate: () => window.setRadioButton("unionXY"),
+
+reverse: () => window.setRadioButton("none"),
+
+index:1
+
+},
+
+{
+
+activate: () => window.setRadioButton("exclusiveOr"),
+
+reverse: () => window.setRadioButton("unionXY"),
+
+index:4
+
+},
+
+{
+
+activate: () => window.setRadioButton("unionXY"),
+
+reverse: () => window.setRadioButton("exclusiveOr"),
+
+index:5
+
+}
+
+]
+
+</vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<ul>
+
+<li>The mutually exclusive approach <strong>overestimates</strong> the probability because it double-counts the cases where both issues occur.</li>
+
+<li>The general approach accounts for the overlap, giving us the true probability of a failure due to either wear and tear or lubrication issues.</li>
+
+</ul>
+
+<p>Conclusion: The general rule of addition prevents overestimation by correctly accounting for the overlap between events, providing a more accurate measure of risk or probability in complex systems.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Special Rule -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Rules In Detail: Multiplication</h2>
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<p class="center-justify">Special</p><p class="center-justify">General</p>
+
+</div>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:2vmin;">
+
+<div class="framed smaller left-justify fragment no-hang" data-fragment-index="1" style="height:85%;">
+
+<p>
+
+This rule calculates the probability of
+
+<span class="success">two independent events</span> X and Y
+
+occurring together. It's the product of their individual probabilities.
+
+</p>
+
+<p><span class="strong">Formula:</span> $P(X \cap Y) = P(X) \times P(Y)$ for independent events X and Y.</p>
+
+<p class="em">Consider two independent events in a mechanical system:</p>
+
+<ul>
+
+<li>Event X: A sensor operates nominally with $P(X) = 0.9$.</li>
+
+<li>Event Y: A valve operates nominally with $P(Y) = 0.8$.</li>
+
+</ul>
+
+<p>The probability of both the sensor activating and the valve opening successfully is:</p>
+
+<p>$P(X \cap Y) = P(X) \times P(Y) = 0.9 \times 0.8 = \class{info}{0.72}$.</p>
+
+</div>
+
+<div class="framed smaller left-justify fragment" data-fragment-index="2" style="height:85%;">
+
+<p>
+
+This rule calculates the probability of two events X and Y occurring together,
+
+<span class="success">accounting for the possibility of dependence between them</span>.
+
+</p>
+
+<p class="fragment highlight-pop" data-fragment-index="3"><span class="strong">Formula:</span> $P(X \cap Y) = P(X) \times P(Y|X)$, where Y is conditional on X.</p>
+
+<p class="em">Consider two events in a mechanical system with a dependent relationship:</p>
+
+<ul class="small">
+
+<li>Event X: A machine starts successfully with $P(X) = 0.85$.</li>
+
+<li>Event Y: The cooling system engages with $P(Y|X) = 0.9$, i.e., it starts 90% of the time <span class="em">after</span> the machine starts.</li>
+
+</ul>
+
+<p>The probability of both the machine starting and the cooling system engaging is:</p>
+
+<p>$P(X \cap Y) = P(X) \times P(Y|X) = 0.85 \times 0.9 = \class{info}{0.765}$.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Think about what P(X) is: P(X) all X events / all xi events, includes the overlap region with P(Y). Use graphic to show.</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- Multiple Events -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Multiple <span class="danger">Independent</span> Events</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="framed small" style="height:100%;">
+
+<h4 class="u">Independent Events</h4>
+
+<p class="quoted small">If two events, $A$ and $B$, are independent, the probability of both events occurring is the <span class="em">intersection</span> of their individual probabilities.</p>
+
+<ul class="small">
+
+<li>Formula: $P(A \cap B) = P(A) \times P(B)$</li>
+
+<li>Simply, the probability of both events occurring is the product of their individual probabilities.</li>
+
+</ul>
+
+<p class="em">Example: Flipping a coin twice</p>
+
+<ul class="small">
+
+<li>Each flip is independent of the last.</li>
+
+<li>The probability of getting heads on each flip is $P(H) = \frac{1}{2}$.</li>
+
+<li>Since the two flips are independent, the probability of getting heads both times is:</li>
+
+<li>$$P(H_1 \cap H_2) = P(H_1) \times P(H_2) = \frac{1}{2} \times \frac{1}{2} = \frac{1}{4}$$</li>
+
+</ul>
+
+</div>
+
+<div class="framed small" style="height:100%;">
+
+<h4 class="u">Multiple Independent Events</h4>
+
+<ul class="small">
+
+<li>If you have more than 2 independent events, say $A$, $B$, and $C$, and you want the probability that all these events occur, you multiply the probabilities of each event.</li>
+
+<li>Formula: $P(A \cap B \cap C) = P(A) \times P(B) \times P(C)$</li>
+
+</ul>
+
+<p class="em">Example: Rolling 3 six-sided dice</p>
+
+<ul class="small">
+
+<li>For a specific outcome, say the dice land on 3,5,4 <span class="warning">in no specific order</span>, the process is the same.</li>
+
+<li>The probability of rolling a specific number is: $P(\#) = \frac{1}{6}$</li>
+
+<li>The probability of rolling 3 dice and getting<br />(3, 5, 4) is:
+
+<p>
+
+$$\begin{aligned}
+
+P(\text{3,5,4}) &= P(3) \times P(5) \times P(4) \\
+
+&= \frac{1}{6} \times \frac{1}{6} \times \frac{1}{6} = \frac{1}{216}
+
+\end{aligned}
+
+$$
+
+</p>
+
+</li>
+
+</ul>
+
+</div>
+
+<div style="grid-column:1/3;" class="fragment" data-fragment-index="1">
+
+<p class="quoted small">
+
+The probability of two (or more) <span class="danger">independent</span> events occurring together is called <span class="info">Joint Probability.</span>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>The key thing here is "no particular order", meaning what is the expected probability for multiple events happening totally independent of each other.</p>
+
+<p>We can use the joint probability to determine more complex probabilities.</p>
+
+<p>On the note of "no particular order", we can construct a new sample space from rolling 2 dice, for example... next slide.</p>
+
+</aside>
+
+</section>
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Marginal Probabilities</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="height:100%">
+
+<p class="question no-hang small">What are Marginal Probabilities</p>
+
+<p class="fragment quoted bg-info-alpha-02" data-fragment-index="1">
+
+Marginal probability is the probability of a single event occurring,
+
+summed over all possible outcomes of another variable.
+
+</p>
+
+<p class="fragment" data-fragment-index="2">
+
+For example, in the context of rolling two dice, the marginal probability
+
+of a die throw can be found by summing the probabilities
+
+of one die face across all outcomes of the other die.
+
+</p>
+
+<p class="fragment question no-hang smaller" data-fragment-index="3">
+
+How do we calculate Marginal Probabilities for throwing 2 dice
+
+</p>
+
+<p class="fragment sided border-info left-justify" data-fragment-index="9">
+
+The sum of the marginals is equal to <span class="success">1</span>!
+
+</p>
+
+</div>
+
+<!-- end LEFT -->
+
+<div style="width: 100%;height:100%;" class="fragment" data-fragment-index="3">
+
+<table class="full-grid-table square-grid-8x8" style="border-collapse: collapse;">
+
+<tr>
+
+<th>$\cap$</th>
+
+<th><i class="fa-solid fa-dice-one big"></i></th>
+
+<th><i class="fa-solid fa-dice-two big"></i></th>
+
+<th><i class="fa-solid fa-dice-three big"></i></th>
+
+<th><i class="fa-solid fa-dice-four big"></i></th>
+
+<th><i class="fa-solid fa-dice-five big"></i></th>
+
+<th><i class="fa-solid fa-dice-six big"></i></th>
+
+<th class="fragment" data-fragment-index="6">\(\sum \)</th>
+
+</tr>
+
+<tr>
+
+<th><i class="fa-solid fa-dice-one big"></i></th>
+
+<td class="fragment smaller" data-fragment-index="4">$\frac{1}{6}\times\frac{1}{6}$</td>
+
+<td class="fragment" data-fragment-index="5">1/36</td>
+
+<td class="fragment" data-fragment-index="5">1/36</td>
+
+<td class="fragment" data-fragment-index="5">1/36</td>
+
+<td class="fragment" data-fragment-index="5">1/36</td>
+
+<td class="fragment" data-fragment-index="5">1/36</td>
+
+<td class="fragment" data-fragment-index="6">6/36</td>
+
+</tr>
+
+<tr>
+
+<th><i class="fa-solid fa-dice-two big"></i></th>
+
+<td class="fragment" data-fragment-index="7">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">6/36</td>
+
+</tr>
+
+<tr>
+
+<th><i class="fa-solid fa-dice-three big"></i></th>
+
+<td class="fragment" data-fragment-index="7">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">6/36</td>
+
+</tr>
+
+<tr>
+
+<th><i class="fa-solid fa-dice-four big"></i></th>
+
+<td class="fragment" data-fragment-index="7">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">6/36</td>
+
+</tr>
+
+<tr>
+
+<th><i class="fa-solid fa-dice-five big"></i></th>
+
+<td class="fragment" data-fragment-index="7">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">6/36</td>
+
+</tr>
+
+<tr>
+
+<th><i class="fa-solid fa-dice-six big"></i></th>
+
+<td class="fragment" data-fragment-index="7">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">1/36</td>
+
+<td class="fragment" data-fragment-index="8">6/36</td>
+
+</tr>
+
+<tr>
+
+<th class="fragment" data-fragment-index="7">\(\sum \)</th>
+
+<td class="fragment" data-fragment-index="7">6/36</td>
+
+<td class="fragment" data-fragment-index="8">6/36</td>
+
+<td class="fragment" data-fragment-index="8">6/36</td>
+
+<td class="fragment" data-fragment-index="8">6/36</td>
+
+<td class="fragment" data-fragment-index="8">6/36</td>
+
+<td class="fragment" data-fragment-index="8">6/36</td>
+
+<td class="fragment info" data-fragment-index="9">36/36</td>
+
+</tr>
+
+</table>
+
+</div> <!-- RIGHT -->
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Relate to join probability.
+
+</p>
+
+<p>
+
+Here, the values in the table represent the joint probabilities of rolling each pair of dice outcomes, which is 1/36 for each cell, since each outcome is equally likely. The row and column sums represent the marginal probabilities for each die.
+
+</p>
+
+<p>
+
+Note how the sum of the marginal probabilities equals 1, confirming that they cover all possible outcomes.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Solution to union of sum of 7 and at least one as 4 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Marginal Probabilities</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="height:100%;" class="small no-hang">
+
+<p class="em small">Consider rolling two 6-sided dice:</p>
+
+<ul class="small">
+
+<li>Let $A$ be the event the <span class="em">sum</span> of the roll is 7.</li>
+
+<li>Let $B$ be the event <span class="em">at least one</span> face shows a 4.</li>
+
+</ul>
+
+<p class="fragment" data-fragment-index="2">
+
+The probability of $A$ (sum equals 7) is:
+
+$P(A) = \frac{6}{36} = \frac{1}{6} \approx 0.167$
+
+</p>
+
+<p class="fragment" data-fragment-index="3">
+
+The probability of $B$ (at least one die shows a 4) is:
+
+$P(B) = \frac{11}{36} \approx 0.306$
+
+</p>
+
+<p class="fragment" data-fragment-index="4">
+
+The probability of both $A$ and $B$ occurring (sum equals 7 and at least one die shows a 4) is:
+
+$P(A \cap B) = \frac{2}{36} = \frac{1}{18} \approx 0.056$
+
+</p>
+
+<p class="fragment" data-fragment-index="5">
+
+The probability of <span class="info">$A$ or $B$ occurring</span> (sum equals 7 or at least one die shows a 4) is calculated as:
+
+$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+
+$$P(A \cup B) = 0.167 + 0.306 - 0.056 \approx 0.417$$
+
+</p>
+
+</div>
+
+<!-- end LEFT -->
+
+<div class="small" style="width: 100%;height:100%;">
+
+<table class="full-grid-table square-grid-8x8" style="border-collapse: collapse;">
+
+<tr>
+
+<th>$\cap$</th>
+
+<th><i class="fa-solid fa-dice-one big"></i></th>
+
+<th><i class="fa-solid fa-dice-two big"></i></th>
+
+<th><i class="fa-solid fa-dice-three big"></i></th>
+
+<th><i class="fa-solid fa-dice-four big"></i></th>
+
+<th><i class="fa-solid fa-dice-five big"></i></th>
+
+<th><i class="fa-solid fa-dice-six big"></i></th>
+
+<th>\(\sum \)</th>
+
+</tr>
+
+<tr>
+
+<th><i class="fa-solid fa-dice-one big"></i></th>
+
+<td>1/36</td>
+
+<td>1/36</td>
+
+<td>1/36</td>
+
+<td class="fragment highlight-current-bg-pop-white" data-fragment-index="3">1/36</td>
+
+<td>1/36</td>
+
+<td class="fragment highlight-current-bg-info-white" data-fragment-index="2">1/36</td>
+
+<td>6/36</td>
+
+</tr>
+
+<tr>
+
+<th><i class="fa-solid fa-dice-two big"></i></th>
+
+<td>1/36</td>
+
+<td>1/36</td>
+
+<td>1/36</td>
+
+<td class="fragment highlight-current-bg-pop-white" data-fragment-index="3">1/36</td>
+
+<td class="fragment highlight-current-bg-info-white" data-fragment-index="2">1/36</td>
+
+<td>1/36</td>
+
+<td>6/36</td>
+
+</tr>
+
+<tr>
+
+<th><i class="fa-solid fa-dice-three big"></i></th>
+
+<td>1/36</td>
+
+<td>1/36</td>
+
+<td>1/36</td>
+
+<td class="fragment highlight-current-bg-info-white" data-fragment-index="2"><span class="no-margin fragment highlight-current-bg-pop-white" data-fragment-index="3"><span class="no-margin fragment highlight-current-bg-success-white" data-fragment-index="4">1/36</span></span></td>
+
+<td>1/36</td>
+
+<td>1/36</td>
+
+<td>6/36</td>
+
+</tr>
+
+<tr>
+
+<th><i class="fa-solid fa-dice-four big"></i></th>
+
+<td class="fragment highlight-current-bg-pop-white" data-fragment-index="3">1/36</td>
+
+<td class="fragment highlight-current-bg-pop-white" data-fragment-index="3">1/36</td>
+
+<td class="fragment highlight-current-bg-info-white" data-fragment-index="2"><span class="no-margin fragment highlight-current-bg-pop-white" data-fragment-index="3"><span class="no-margin fragment highlight-current-bg-success-white" data-fragment-index="4">1/36</span></span></td>
+
+<td class="fragment highlight-current-bg-pop-white" data-fragment-index="3">1/16</td>
+
+<td class="fragment highlight-current-bg-pop-white" data-fragment-index="3">1/36</td>
+
+<td class="fragment highlight-current-bg-pop-white" data-fragment-index="3">1/36</td>
+
+<td>6/36</td>
+
+</tr>
+
+<tr>
+
+<th><i class="fa-solid fa-dice-five big"></i></th>
+
+<td>1/36</td>
+
+<td class="fragment highlight-current-bg-info-white" data-fragment-index="2">1/36</td>
+
+<td>1/36</td>
+
+<td class="fragment highlight-current-bg-pop-white" data-fragment-index="3">1/36</td>
+
+<td>1/36</td>
+
+<td>1/36</td>
+
+<td>6/36</td>
+
+</tr>
+
+<tr>
+
+<th><i class="fa-solid fa-dice-six big"></i></th>
+
+<td class="fragment highlight-current-bg-info-white" data-fragment-index="2">1/36</td>
+
+<td>1/36</td>
+
+<td>1/36</td>
+
+<td class="fragment highlight-current-bg-pop-white" data-fragment-index="3">1/36</td>
+
+<td>1/36</td>
+
+<td>1/36</td>
+
+<td>6/36</td>
+
+</tr>
+
+<tr>
+
+<th>\(\sum \)</th>
+
+<td>6/36</td>
+
+<td>6/36</td>
+
+<td>6/36</td>
+
+<td>6/36</td>
+
+<td>6/36</td>
+
+<td>6/36</td>
+
+<td class="info">36/36</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<!-- RIGHT -->
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>The union of these events gives us the overall probability of either event $A$ or $B$, or both occurring.</p>
+
+<p>The cells highlighted in blue correspond to the individual probabilities $P(A)$ and $P(B)$.</p>
+
+<p>The cells highlighted in green correspond to the intersection $P(A \cap B)$.</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- Definitions -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Probabilty (Definitions)</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width left-justify small" style="
+
+grid-template-columns: 2.5fr 7.5fr;
+
+grid-auto-rows: auto;
+
+row-gap: 1vmin;
+
+column-gap: 0;
+
+">
+
+<div class="small border-bottom fragment" data-fragment-index="1" style="height: 100%; align-items: center">
+
+<p>
+
+<i class="fa-solid fa-file-contract"></i> Probability
+
+</p>
+
+</div>
+
+<div class="small border-bottom fragment" data-fragment-index="1" style="height: 100%; align-items: center">
+
+<p>
+
+The measure of the likelihood that an event will occur. Probability is quantified as a number between \(0\) and \(1\), where \(0\) indicates impossibility and \(1\) indicates certainty.
+
+</p>
+
+</div>
+
+
+
+<div class="small border-bottom fragment" data-fragment-index="2" style="height: 100%; align-items: center">
+
+<p>
+
+<i class="fa-solid fa-file-contract"></i> Sample Space (\(S\))
+
+</p>
+
+</div>
+
+<div class="small border-bottom fragment" data-fragment-index="2" style="height: 100%; align-items: center">
+
+<p>
+
+The set of all possible outcomes of a probabilistic experiment. For example, in a quality test of a car engine, the sample space might include outcomes like 'Pass' and 'Fail'.
+
+</p>
+
+</div>
+
+
+
+<div class="small border-bottom fragment" data-fragment-index="3" style="height: 100%; align-items: center">
+
+<p>
+
+<i class="fa-solid fa-file-contract"></i> Event
+
+</p>
+
+</div>
+
+<div class="small border-bottom fragment" data-fragment-index="3" style="height: 100%; align-items: center">
+
+<p>
+
+A subset of the sample space (\(S\)) that consists of one or more outcomes. An event can be something like 'Engine Fails' in a quality test.
+
+</p>
+
+</div>
+
+
+
+<div class="small border-bottom fragment" data-fragment-index="4" style="height: 100%; align-items: center">
+
+<p>
+
+<i class="fa-solid fa-file-contract"></i> Classical Probability
+
+</p>
+
+</div>
+
+<div class="small border-bottom fragment" data-fragment-index="4" style="height: 100%; align-items: center">
+
+<p>
+
+A probability approach where all outcomes in the sample space are assumed to be equally likely. The probability of an event \(A\) is calculated as:
+
+\[
+
+P(A) = \frac{\text{Number of outcomes in event}}{\text{Number of outcomes in sample space}}
+
+\]
+
+</p>
+
+</div>
+
+<div class="small border-bottom fragment" data-fragment-index="5" style="height: 100%; align-items: center">
+
+<p>
+
+<i class="fa-solid fa-file-contract"></i> Empirical Probability
+
+</p>
+
+</div>
+
+<div class="small border-bottom fragment" data-fragment-index="5" style="height: 100%; align-items: center">
+
+<p>
+
+Probability based on observed data or past experiences, calculated by dividing the number of observed occurrences by the total number of observations.
+
+</p>
+
+</div>
+
+
+
+<div class="small border-bottom fragment" data-fragment-index="6" style="height: 100%; align-items: center">
+
+<p>
+
+<i class="fa-solid fa-file-contract"></i> Set Theory
+
+</p>
+
+</div>
+
+<div class="small border-bottom fragment" data-fragment-index="6" style="height: 100%; align-items: center">
+
+<p>
+
+A branch of mathematics focused on the study of sets, collections of distinct objects. Set theory underpins probability by defining events as sets and exploring relationships through operations like union, intersection, and complement.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+      </div>
+      <footer class="main-footer">
+        <span>
+          Lecture 02
+        </span>
+        <span style="text-align:center;">
+        </span>
+        <span style="text-align:right;">
+          <a href="https:\\khrisgriffis.com" target="_blank" rel="noopener noreferrer">Khris Griffis &#169;2025</a>
+        </span>
+      </footer>
+    </div>
+    <script src="./src/reveal.js">
+    </script>
+    <script src="./src/plugin/notes/notes.js">
+    </script>
+    <script src="./src/plugin/highlight/highlight.js">
+    </script>
+    <script src="./src/plugin/math/math.js">
+    </script>
+    <script src="./src/plugin/reveal-splash/reveal-splash.js">
+    </script>
+    <script src="./src/plugin/vizzy-reveal/vizzy.js">
+    </script>
+    <script>
+      Reveal.initialize({
+autoSlide: 0,
+center: true,
+controls: true,
+controlsBackArrows: "faded",
+controlsLayout: "bottom-right",
+display: "block",
+fragments: true,
+fragmentInURL: true,
+hash: true,
+hideCursorTime: 5000,
+keyboard: true,
+mobileViewDistance: 3,
+mouseWheel: false,
+navigationMode: "linear",
+overview: true,
+pdfMaxPagesPerSlide: 1,
+pdfSeparateFragments: false,
+preloadIframes: null,
+progress: false,
+showNotes: false,
+showSlideNumber: "print",
+sortFragmentsOnSync: true,
+touch: true,
+transition: "fade",
+transitionSpeed: "default",
+viewDistance: 3,
+backgroundTransition: "fade",
+controlsTutorial: false,
+embedded: false,
+help: true,
+hideInactiveCursor: true,
+history: false,
+loop: false,
+previewLinks: false,
+rtl: false,
+shuffle: false,
+slideNumber: false,
+width: 1920,
+height: 1080,
+margin: 0.081,
+minScale: 0.08,
+maxScale: 1.67,
+mathjax3: {
+mathjax: "https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-mml-chtml.js",
+loader: {
+load: [
+"[tex]/html",
+],
+},
+tex: {
+packages: {
+'[+]': [
+"html",
+],
+},
+inlineMath: [
+["$", "$"],
+["\\(", "\\)"],
+],
+processEscapes: true,
+processEnvironments: true,
+},
+options: {
+skipHtmlTags: [
+"script",
+"noscript",
+"style",
+"textarea",
+"pre",
+],
+},
+chtml: {
+scale: 0.8,
+minScale: 0.4,
+},
+Safe: {
+sizeMin: 0.4,
+sizeMax: 1.25,
+},
+output: {
+displayOverflow: "linebreak",
+linebreaks: {
+inline: true,
+width: "100%",
+lineleading: 0.2,
+LinebreakVisitor: null,
+},
+},
+},
+notes: {
+
+},
+highlight: {
+
+},
+vizzy: {
+autoRunTransitions: true,
+autoTransitionDelay: 100,
+devMode: false,
+onSlideChangedDelay: 0,
+},
+splash: {
+splashImage: "lib/img/ME3040_splash.png",
+text: "Welcome to ME3040!",
+minimumDisplay: 2,
+},
+plugins: [RevealNotes, RevealHighlight, RevealMath.MathJax3, Splash, Vizzy]
+});
+    </script>
+  </body>
+</html>

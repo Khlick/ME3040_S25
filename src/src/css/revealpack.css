@@ -157,8 +157,22 @@
     .reveal .grid-wrapper .header {
       grid-area: header;
       align-self: center;
-      align-content: center; }
-    .reveal .grid-wrapper h2 {
+      align-content: center;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-top: 0;
+      margin-bottom: 0; }
+      .reveal .grid-wrapper .header > * {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0; }
+      .reveal .grid-wrapper .header .MathJax_Display {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important; }
+    .reveal .grid-wrapper > h2 {
       grid-area: header;
       align-self: center;
       align-content: center; }
@@ -281,20 +295,17 @@
 .box-width {
   width: 80% !important; }
 
-.center-justify, .center-justify * {
-  text-align: center !important; }
+.left-justify, .left-justify p, .left-justify div {
+  text-align: left; }
 
-.left-justify, .left-justify * {
-  text-align: left !important; }
+.right-justify, .right-justify p, .right-justify div {
+  text-align: right; }
 
-.right-justify, .right-justify * {
-  text-align: right !important; }
-
-.just-justify, .just-justify * {
-  text-align: justify !important;
-  text-justify: inter-word !important;
-  padding-right: 5px !important;
-  padding-left: 5px !important; }
+.just-justify, .just-justify p, .just-justify div {
+  text-align: justify;
+  text-justify: inter-word;
+  padding-right: 5px;
+  padding-left: 5px; }
 
 .no-hang > * {
   margin-top: 0 !important;
@@ -308,10 +319,10 @@
   margin-bottom: 0 !important; }
 
 .pdf-page .grid-wrapper .section-title-content .headlines {
-  max-width: 100% !important; }
+  max-width: 100vw !important; }
   .pdf-page .grid-wrapper .section-title-content .headlines h2 {
     display: block !important;
-    font-size: 1.3rem !important; }
+    font-size: 1.5rem !important; }
 
 /*********************************************
 * EMOJIS

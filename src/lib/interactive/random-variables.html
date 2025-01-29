@@ -67,7 +67,7 @@
     let simulationRunning = false; // Tracks if simulation is running
     let bins = Array(7).fill(0); // Array to hold counts for each group
     let totalSimulations = 0; // Total number of simulations to track points
-    let dropSpeed = 500; // Initial speed set to 500ms
+    let dropSpeed = 250; // Initial speed set to 250ms
     let displayMode = 'counts'; // Track current display mode: 'counts' or 'probability'
 
     // Initialize the two SVG elements
@@ -158,7 +158,7 @@
     // Function to divide hexagons into groups and update IDs
     function divideHexagonsIntoGroups(numGroups) {
       if (numGroups < 1) {
-        hexagons.transition().duration(500).attr('fill', 'white').attr('id', 'group0');
+        hexagons.transition().duration(250).attr('fill', 'white').attr('id', 'group0');
         bins = [0]; // Set bins to one for the entire hex grid
         numBins = 1; // Set the histogram to one bin
         totalSimulations = 0; // Reset the total count when bin count changes
@@ -181,7 +181,7 @@
         d3.select(this)
           .attr('id', groupId)
           .transition()
-          .duration(500)
+          .duration(250)
           .attr('fill', possibleColors[groupIndex] || 'white'); // Use the color or default to white
       });
 
@@ -226,7 +226,7 @@
             .style('fill', 'black')
             .style('opacity', 1)
             .transition()
-            .duration(1000)
+            .duration(400)
             .style('opacity', 0)
             .remove();
         }
@@ -262,7 +262,7 @@
         .style('fill', (d, i) => possibleColors[i % possibleColors.length])
         .merge(bars) // Merge enter and update selections
         .transition()
-        .duration(300)
+        .duration(100)
         .attr('x', (d, i) => xScale(i))
         .attr('width', xScale.bandwidth())
         .attr('y', d => displayMode === 'counts' ? yScale(d) : yScale(d / (totalSimulations || 1)))
@@ -277,7 +277,7 @@
       // Update the x-axis to reflect the current bin count
       histogramSVG.g.select('.x-axis')
         .transition()
-        .duration(300)
+        .duration(100)
         .call(d3.axisBottom(xScale).tickFormat((d, i) => `${i}`));
 
       // Adjust the y-axis ticks to avoid duplicates and ensure pretty values
@@ -285,7 +285,7 @@
 
       histogramSVG.g.select('.y-axis')
         .transition()
-        .duration(300)
+        .duration(100)
         .call(
           d3.axisLeft(yScale)
           .ticks(displayMode === 'counts' ? 5 : 5) // Set a reasonable number of ticks
@@ -458,7 +458,7 @@
           setTimeout(() => {
             adjustDropSpeed(50); // Set default drop speed
             startSimulation(); // Start the simulation
-          }, 350);
+          }, 150);
         },
         reverse: () => {
           // Stop the animation without clearing
@@ -476,7 +476,7 @@
           setTimeout(() => {
             adjustDropSpeed(80); // Set drop speed
             startSimulation(); // Start the simulation
-          }, 350);
+          }, 150);
         },
         reverse: () => {
           // Slow the simulation down to slider value 40
@@ -497,7 +497,7 @@
           setTimeout(() => {
             adjustDropSpeed(90); // Set drop speed
             startSimulation(); // Start the simulation
-          }, 350);
+          }, 150);
         },
         reverse: () => {
           // Update to 3 bins, slow down slider to 70, and reset
@@ -508,7 +508,7 @@
           setTimeout(() => {
             adjustDropSpeed(70); // Set drop speed
             startSimulation(); // Start the simulation
-          }, 350);
+          }, 150);
         },
       },
       {
@@ -529,7 +529,7 @@
             if (simulationRunning) {
               restartSimulationInterval(); // Restart with the new speed
             }
-          }, 350);
+          }, 150);
         },
       }
     ];
