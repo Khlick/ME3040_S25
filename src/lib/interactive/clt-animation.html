@@ -33,12 +33,25 @@
 
     canvas {
       border: none;
-      margin-left: 50px;
-      margin-right: 70px;
+    }
+
+    #samplingCanvas {
+      margin-left: 55px;
+      margin-right: 20px;
     }
 
     svg {
       border: none;
+    }
+
+    .theoretical-line {
+      fill: none;
+      stroke: rgb(255,199,44);
+      stroke-width: 4px;
+    }
+
+    #N {
+      width: 50px;
     }
   </style>
 </head>
@@ -67,6 +80,14 @@
 
       <button id="sampleBtn">Take Sample</button>
       <button id="manyBtn">Many</button>
+
+      <label for="theoretical">
+        <input type="checkbox" id="theoretical" disabled /> Theoretical
+      </label>
+      <select id="theoreticalDist" disabled>
+        <option value="gaussian">Gaussian</option>
+        <option value="student-t">Student's t</option>
+      </select>
     </div>
     <div id="canvasContainer">
       <!-- CANVAS element for sampling and animations -->
@@ -85,7 +106,9 @@
     window.changeSampleSize = changeSampleSize;
     window.changeStatistic = changeStatistic;
     window.changeDistribution = changeDistribution;
-
+    window.updateTheoreticalCurve = updateTheoreticalCurve;
+    window.toggleTheoretical = toggleTheoretical;
+    
     window._fragments = [{
         activate: () => runSimulation(1),
         reverse: () => resetVisualization(),
@@ -105,10 +128,25 @@
         activate: () => {
           changeDistribution("RightSkewed").then(() => runSimulation(1000));
         },
+        reverse: () => runSimulation(1),
+        index: 6,
+      },
+      {
+        activate: () => {
+          changeDistribution("LeftSkewed")
+            .then(() => changeStatistic("median"))
+            .then(() => runSimulation(2000));
+        },
         reverse: () => changeDistribution("Normal"),
-        index: 5,
+        index: 8,
       }
     ];
+
+    // Add theoretical curve toggle handler
+    document.getElementById("theoretical").addEventListener("change", function(e) {
+      showTheoretical = e.target.checked;
+      updateTheoreticalCurve();
+    });
   </script>
 </body>
 

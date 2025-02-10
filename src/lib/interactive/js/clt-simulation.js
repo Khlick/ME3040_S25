@@ -2,7 +2,14 @@
 let globalSpeed = 1; // Default speed
 let circleRadius = 10;
 
-let animations = []; // To track ongoing animations
+let currentController = null;
+
+// Add these animation control variables at the top with other globals
+const ANIMATION_SETTINGS = {
+  maxTotalPoints: 200,    // Maximum total points to show in animation
+  sampleDuration: 320,    // Duration for samples to appear and move
+  histogramDuration: 250  // Duration for histogram bars to grow
+};
 
 // Use the CANVAS class for the sampling animation
 const canvas = new CANVAS({
@@ -26,15 +33,27 @@ const blobHeight = 50;
 let selectedDistribution = 'Uniform';
 let previousDistribution = 'Uniform';
 
+// Add after other global variables
+let showTheoretical = false;
+let theoreticalLine;
+
+// Add after other global variables at the top of the file
+let x = d3.scaleLinear().domain([0, 1]).range([0, svg.width]);
+let y = d3.scaleLinear().range([svg.height, 0]);
+const minNumBins = 41; // Minimum number of bins for the histogram
+
+// Add to global variables
+let selectedTheoretical = 'gaussian';
+
 // Function to adjust animation speeds relative to globalSpeed
 function getSpeedMultiplier() {
   return globalSpeed;
 }
 
 // Histogram setup with X and Y labels
-let numBins = 41; // Fixed number of bins for the histogram
-x = d3.scaleLinear().domain([0, 1]).range([0, svg.width]);
-y = d3.scaleLinear().range([svg.height, 0]);
+// let numBins = 41; // Fixed number of bins for the histogram
+// x = d3.scaleLinear().domain([0, 1]).range([0, svg.width]);
+// y = d3.scaleLinear().range([svg.height, 0]);
 
 const xAxis = svg.g.append("g")
   .attr("transform", `translate(0,${svg.height})`)
@@ -44,13 +63,14 @@ const yAxis = svg.g.append("g").call(d3.axisLeft(y).ticks());
 
 // Initial setup for the X and Y labels and axes
 svg.g.append("text")
+  .attr("class", "x-axis-label")
   .attr("transform", `translate(${svg.width / 2},${svg.height + svg.margin.bottom - 10})`)
   .style("text-anchor", "middle")
-  .text("Sample Mean");
+  .text(getStatisticLabel('mean')); // Default to mean
 
 svg.g.append("text")
   .attr("transform", "rotate(-90)")
-  .attr("y", 0 - svg.margin.left + 10)
+  .attr("y", 0 - svg.margin.left + 1)
   .attr("x", 0 - (svg.height / 2))
   .attr("dy", "1em")
   .style("text-anchor", "middle")
@@ -67,6 +87,13 @@ sampleSizeInput.addEventListener("change", () => resetVisualization());
 const statSelect = document.getElementById("statistic");
 statSelect.addEventListener("change", () => {
   statType = statSelect.value;
+  
+  // Update x-axis label
+  svg.g.select(".x-axis-label") // Add this class to the x-axis label
+    .transition()
+    .duration(300)
+    .text(getStatisticLabel(statType));
+    
   resetVisualization();
 });
 
@@ -195,17 +222,17 @@ function drawBlobShape(blobShape) {
 // Define the PDFs for the different distributions
 function pdfNormal(x) {
   const mean = 0.5;
-  const variance = 0.05;
-  return (1 / Math.sqrt(2 * Math.PI * variance)) * Math.exp(-Math.pow(x - mean, 2) / (2 * variance));
+  const std = 0.15;
+  return (1 / (std * Math.sqrt(2 * Math.PI))) * Math.exp(-Math.pow(x - mean, 2) / (2 * std * std));
 }
 
-function pdfLeftSkewed(x) {
+function pdfRightSkewed(x) {
   const alpha = 2;
   const beta = 5;
   return Math.pow(x, alpha - 1) * Math.pow(1 - x, beta - 1);
 }
 
-function pdfRightSkewed(x) {
+function pdfLeftSkewed(x) {
   const alpha = 5;
   const beta = 2;
   return Math.pow(x, alpha - 1) * Math.pow(1 - x, beta - 1);
@@ -217,21 +244,22 @@ function generateRandomUniform() {
 }
 
 function generateRandomNormal() {
-  let u = 0,
-    v = 0;
-  while (u === 0) u = Math.random(); // Avoid zero
+  let u = 0, v = 0;
+  while (u === 0) u = Math.random();
   while (v === 0) v = Math.random();
-  return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v) * 0.1 + 0.5; // Normal around 0.5 with small variance
+  
+  // Fixed std regardless of sample size
+  return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v) * 0.15 + 0.5;
 }
 
-function generateRandomLeftSkewed() {
+function generateRandomRightSkewed() {
   // Use a Beta distribution to generate left-skewed data (alpha < beta)
   const alpha = 2;
   const beta = 5;
   return jStat.beta.sample(alpha, beta); // Using a library like jStat for Beta distribution
 }
 
-function generateRandomRightSkewed() {
+function generateRandomLeftSkewed() {
   // Use a Beta distribution to generate right-skewed data (alpha > beta)
   const alpha = 5;
   const beta = 2;
@@ -240,6 +268,7 @@ function generateRandomRightSkewed() {
 
 // Draw the population blob based on the currently selected distribution
 function drawPopulationBlob() {
+  
   const ctx = canvas.ctx;
   const width = canvas.width;
   const height = canvas.height;
@@ -281,50 +310,362 @@ function generateSamples(sampleSize) {
   return samples;
 }
 
+// Simplified runSimulation function
+function runSimulation(b = 1) {
+  if (currentController) {
+    currentController.abort();
+  }
+  currentController = new AbortController();
 
-// Animate the samples
-function animateSamples(sampleCircles) {
-  return new Promise((resolve) => {
-    let progress = 0;
-    const animationSpeed = 0.05 * getSpeedMultiplier();
+  const sampleSize = parseInt(sampleSizeInput.value);
+  // Calculate visible simulations to keep under maxTotalPoints
+  const maxVisibleSimulations = Math.floor(ANIMATION_SETTINGS.maxTotalPoints / sampleSize);
+  const visibleSimulations = Math.min(b, maxVisibleSimulations);
+  
+  // Generate all samples and calculate statistics upfront
+  const allStats = [];
+  for (let i = 0; i < b; i++) {
+    const samples = generateSamples(sampleSize);
+    allStats.push({
+      samples,
+      statistic: calculateStatistic(samples)
+    });
+  }
 
-    function drawAndUpdate() {
+  // Split into visible and hidden statistics
+  const visibleStats = allStats.slice(0, visibleSimulations);
+  const hiddenStats = allStats.slice(visibleSimulations);
+
+  // Create initial positions for visible samples
+  const samplePoints = visibleStats.map(stat => 
+    stat.samples.map(value => ({
+      value,
+      x: (x(value) / svg.width) * canvas.width,
+      y: -20,
+      targetY: canvas.height / 2,
+      color: colorScale(value)
+    }))
+  );
+
+  // Animate visible samples
+  return animateSamples(samplePoints, visibleStats, currentController.signal)
+    .then(() => {
+      // Update histogram with all statistics at once
+      const allStatistics = [...visibleStats, ...hiddenStats].map(s => s.statistic);
+      updateHistogramBatch(allStatistics);
+    })
+    .catch(error => {
+      if (error.name === 'AbortError') {
+        console.log('Animation cancelled');
+      } else {
+        console.error('Simulation error:', error);
+      }
+    });
+}
+
+// Add helper function to constrain visualization values, but only if outside bounds
+function constrainToCanvas(value, min = 0, max = 1) {
+  if (value < min) return min;
+  if (value > max) return max;
+  return value;
+}
+
+// Modify animateSamples to properly handle out-of-bounds points
+function animateSamples(samplePoints, stats, signal) {
+  return new Promise((resolve, reject) => {
+    if (signal.aborted) {
+      reject(new DOMException('Animation aborted', 'AbortError'));
+      return;
+    }
+
+    const startTime = performance.now();
+    const meanPositions = stats.map(stat => ({
+      x: (x(constrainToCanvas(stat.statistic)) / svg.width) * canvas.width,
+      y: canvas.height + 20
+    }));
+    
+    function animate(currentTime) {
+      if (signal.aborted) {
+        reject(new DOMException('Animation aborted', 'AbortError'));
+        return;
+      }
+
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / ANIMATION_SETTINGS.sampleDuration, 1);
+
       const ctx = canvas.ctx;
-      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-      drawPopulationBlob(); // Redraw the population blob
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawPopulationBlob();
 
-      progress += animationSpeed;
+      // Ease function for smooth animation
+      const ease = d3.easeCubicInOut;
+      const easedProgress = ease(progress);
 
-      // Update positions and draw circles
-      sampleCircles.forEach(circle => {
-        circle.y = progress * (canvas.height / 2 - 10); // Fall to the midline
-        drawSampleCircle(circle);
+      samplePoints.forEach((points, groupIndex) => {
+        const meanX = meanPositions[groupIndex].x;
+        const meanY = meanPositions[groupIndex].y;
+
+        points.forEach(point => {
+          // Only constrain points that are outside the canvas bounds
+          const constrainedX = constrainToCanvas(point.value);
+          const xPos = (x(constrainedX) / svg.width) * canvas.width;
+          
+          const currentX = progress < 0.5 
+            ? xPos
+            : xPos + (meanX - xPos) * ((progress - 0.5) * 2);
+          
+          const currentY = progress < 0.5
+            ? -20 + (point.targetY + 20) * (progress * 2)
+            : point.targetY + (meanY - point.targetY) * ((progress - 0.5) * 2);
+
+          // Draw point
+          ctx.beginPath();
+          ctx.arc(currentX, currentY, circleRadius, 0, 2 * Math.PI);
+          ctx.fillStyle = point.color;
+          ctx.fill();
+        });
       });
 
       if (progress < 1) {
-        requestAnimationFrame(drawAndUpdate);
+        requestAnimationFrame(animate);
       } else {
-        resolve(); // Resolve when all circles have reached the midline
+        resolve();
       }
     }
 
-    requestAnimationFrame(drawAndUpdate); // Start the animation
+    requestAnimationFrame(animate);
   });
 }
 
-
-// Draw a sample circle
-function drawSampleCircle(circle) {
-  const ctx = canvas.ctx;
-  ctx.beginPath();
-  ctx.arc(circle.x, circle.y, circleRadius, 0, 2 * Math.PI);
-  ctx.fillStyle = circle.color;
-  ctx.fill();
+// Add function to calculate theoretical distributions
+function calculateTheoretical(x, mean, std, type) {
+  if (type === 'gaussian') {
+    // Calculate theoretical height based on histogram bin counts
+    const zScore = (x - mean) / std;
+    const height = (1 / (std * Math.sqrt(2 * Math.PI))) * 
+                  Math.exp(-0.5 * zScore * zScore);
+    
+    // Scale to match histogram counts
+    const totalSamples = bins.length;
+    const binWidth = 1 / calculateNumBins(bins.length);
+    return height * totalSamples * binWidth;
+  } else { // student-t
+    const df = 5;
+    const t = (x - mean) / std;
+    
+    // Scale t distribution similarly
+    const height = jStat.studentt.pdf(t, df) / std;
+    const totalSamples = bins.length;
+    const binWidth = 1 / calculateNumBins(bins.length);
+    return height * totalSamples * binWidth;
+  }
 }
+
+// Add function to calculate optimal number of bins
+function calculateNumBins(sampleCount) {
+  if (sampleCount < 2) return minNumBins;
+  
+  // Sort the data for quantile calculations
+  const sortedData = [...bins].sort((a, b) => a - b);
+  
+  // Calculate IQR
+  const q1 = d3.quantile(sortedData, 0.25);
+  const q3 = d3.quantile(sortedData, 0.75);
+  const iqr = q3 - q1;
+  
+  // Freedman-Diaconis rule for bin width: 2 * IQR * n^(-1/3)
+  const binWidth = 2 * iqr * Math.pow(sampleCount, -1/3);
+  
+  // Calculate number of bins for the full [0,1] range
+  const suggestedBins = Math.ceil(1 / binWidth);
+  
+  // Return max of minimum bins and suggested bins
+  return Math.max(minNumBins, suggestedBins);
+}
+
+// Modify updateHistogramBatch to constrain only out-of-bounds values
+function updateHistogramBatch(statistics) {
+  // Constrain only out-of-bounds statistics for histogram display
+  const constrainedStats = statistics.map(stat => constrainToCanvas(stat));
+  
+  // Add constrained statistics to bins
+  constrainedStats.forEach(stat => bins.push(stat));
+
+  // Calculate number of bins based on sample size
+  const numBins = calculateNumBins(bins.length);
+  
+  // Update color scale for new number of bins
+  const binColorScale = d3.scaleSequential()
+    .domain([0, 1])
+    .interpolator(t => d3.interpolateBlues(0.3 + t * 0.7));
+  
+  // Create uniform thresholds from 0 to 1
+  const thresholds = Array.from({length: numBins + 1}, (_, i) => i / numBins);
+  
+  // Calculate new histogram data with dynamic bins
+  const histogram = d3.histogram()
+    .domain([0, 1])  // Explicitly set domain to [0,1]
+    .thresholds(thresholds);
+    
+  const binData = histogram(bins);
+
+  // Update y scale
+  const maxBinCount = d3.max(binData, d => d.length);
+  y.domain([0, maxBinCount]);
+
+  // Animate histogram bars with updated colors
+  const bars = svg.g.selectAll(".bar")
+    .data(binData);
+
+  bars.join(
+    enter => enter.append("rect")
+      .attr("class", "bar")
+      .attr("x", d => x(d.x0))
+      .attr("width", d => x(d.x1) - x(d.x0))
+      .attr("y", svg.height)
+      .attr("height", 0)
+      .attr("fill", d => binColorScale((d.x0 + d.x1) / 2)) // Use midpoint for color
+      .call(enter => enter.transition()
+        .duration(ANIMATION_SETTINGS.histogramDuration)
+        .attr("y", d => y(d.length))
+        .attr("height", d => svg.height - y(d.length))),
+    update => update.call(update => update.transition()
+      .duration(ANIMATION_SETTINGS.histogramDuration)
+      .attr("x", d => x(d.x0))
+      .attr("width", d => x(d.x1) - x(d.x0))
+      .attr("y", d => y(d.length))
+      .attr("height", d => svg.height - y(d.length))
+      .attr("fill", d => binColorScale((d.x0 + d.x1) / 2))),
+    exit => exit.remove()
+  );
+
+  // Update axes
+  yAxis.transition()
+    .duration(ANIMATION_SETTINGS.histogramDuration)
+    .call(d3.axisLeft(y));
+
+  // Update theoretical curve
+  updateTheoreticalCurve();
+}
+
+// Update calculateTheoreticalCurve to fit the histogram data
+function calculateTheoreticalCurve() {
+  const points = 200;
+  const data = [];
+  
+  if (bins.length >= 2) {
+    // Calculate mean and std from the actual sampling distribution
+    const binValues = bins.filter(x => !isNaN(x) && x !== null);
+    
+    if (binValues.length < 2) return [];
+    
+    // Calculate mean and std from the sampling distribution
+    const mean = d3.mean(binValues);
+    const std = Math.sqrt(d3.variance(binValues));
+    
+    if (isNaN(mean) || isNaN(std)) return [];
+    
+    // Use the actual std from the sampling distribution
+    // Only set minimum to prevent division by zero
+    const effectiveStd = std < 0.00001 ? 0.00001 : std;
+    
+    // Generate points using selected theoretical distribution
+    for (let i = 0; i < points; i++) {
+      const xVal = i / (points - 1);
+      const yVal = calculateTheoretical(xVal, mean, effectiveStd, selectedTheoretical);
+      
+      if (!isNaN(yVal) && isFinite(yVal)) {
+        data.push({x: xVal, y: yVal});
+      }
+    }
+    
+    if (data.length > 0) {
+      return data;
+    }
+  }
+  
+  return [];
+}
+
+function updateTheoreticalCurve() {
+  const theoreticalCheckbox = document.getElementById("theoretical");
+  const theoreticalSelect = document.getElementById("theoreticalDist");
+  
+  if (bins.length < 2) {
+    theoreticalCheckbox.disabled = true;
+    theoreticalSelect.disabled = true;
+    theoreticalCheckbox.checked = false;
+    showTheoretical = false;
+    if (theoreticalLine) {
+      theoreticalLine.attr("opacity", 0);
+    }
+    return;
+  }
+  
+  const curveData = calculateTheoreticalCurve();
+  
+  theoreticalCheckbox.disabled = curveData.length === 0;
+  theoreticalSelect.disabled = curveData.length === 0;
+  
+  if (curveData.length === 0) {
+    theoreticalCheckbox.checked = false;
+    showTheoretical = false;
+    if (theoreticalLine) {
+      theoreticalLine.attr("opacity", 0);
+    }
+    return;
+  } else {
+    theoreticalCheckbox.disabled = false;
+    theoreticalSelect.disabled = false;
+  }
+
+  if (!theoreticalLine) {
+    theoreticalLine = svg.g.append("path")
+      .attr("class", "theoretical-line")
+      .attr("opacity", 0);
+  }
+
+  theoreticalLine
+    .raise()
+    .transition()
+    .duration(ANIMATION_SETTINGS.histogramDuration)
+    .attr("d", d3.line()
+      .x(d => x(d.x))
+      .y(d => y(d.y))
+      .curve(d3.curveBasis)(curveData))
+    .attr("opacity", showTheoretical ? 0.8 : 0);
+}
+
+function toggleTheoretical(bool=null) {
+  if (bins.length < 2) {
+    return;
+  }
+  if (bool === null) {
+    showTheoretical = !showTheoretical;
+  } else {
+    showTheoretical = bool;
+  }
+  
+  // Update the checkbox input element
+  const theoreticalCheckbox = document.getElementById("theoretical");
+  theoreticalCheckbox.checked = showTheoretical;
+  
+  if (showTheoretical) {
+    selectedTheoretical = document.getElementById("theoreticalDist").value;
+    updateTheoreticalCurve();
+  }
+}
+
+// Add event listener for theoretical distribution change
+document.getElementById("theoreticalDist").addEventListener("change", function(e) {
+  selectedTheoretical = e.target.value;
+  if (showTheoretical) {
+    updateTheoreticalCurve();
+  }
+});
 
 // Helper function to calculate the statistic based on statType
 function calculateStatistic(samples) {
-  // Ensure that we're only working with numeric values
   const values = samples.map(sample => typeof sample === 'object' ? sample.value : sample);
 
   let statistic;
@@ -346,227 +687,9 @@ function calculateStatistic(samples) {
       statistic = (min + max) / 2;
       break;
     default:
-      statistic = d3.mean(values); // Default to mean if no statType is selected
+      statistic = d3.mean(values);
   }
-  return statistic;
-}
-
-// Coalesce samples over the selected statistic
-function coalesceSamples(sampleCircles, allSamples) {
-  return new Promise((resolve) => {
-    const ctx = canvas.ctx;
-    const animationSpeed = 0.08 * getSpeedMultiplier();
-    let progress = 0;
-
-    // Calculate the target x positions for each sample group
-    const targetXMap = new Map();
-    allSamples.forEach((sampleArray, index) => {
-      const statistic = calculateStatistic(sampleArray);
-      const targetX = statistic * canvas.width; // The target x-coordinate for this sample's statistic
-      targetXMap.set(index, targetX); // Map the index to the target x position
-    });
-
-    // Assign the target x positions to the circles based on their id (sample group)
-    sampleCircles.forEach((circle, idx) => {
-      const sampleIndex = Math.floor(idx / allSamples[0].length); // Determine which sample the circle belongs to
-      circle.targetX = targetXMap.get(sampleIndex); // Assign the target x position based on the sample's statistic
-    });
-
-    function moveToStatistic() {
-      progress += animationSpeed;
-
-      // Only clear the area where the circles are being drawn, not the whole canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawPopulationBlob(); // Keep the population blob visible
-
-      // Move each circle to its calculated target x-coordinate
-      sampleCircles.forEach(circle => {
-        circle.x = circle.x + (circle.targetX - circle.x) * progress;
-        drawSampleCircle(circle);
-      });
-
-      // Continue the animation until progress reaches 1 (animation complete)
-      if (progress < 1) {
-        requestAnimationFrame(moveToStatistic);
-      } else {
-        dropSamples(sampleCircles).then(resolve); // Resolve when the dropping is complete
-      }
-    }
-
-    requestAnimationFrame(moveToStatistic);
-  });
-}
-
-// Drop the samples and make them disappear (no fade, just drop out of view)
-function dropSamples(sampleCircles) {
-  return new Promise((resolve) => {
-    let progress = 0;
-    const animationSpeed = 0.15 * getSpeedMultiplier();
-    const ctx = canvas.ctx;
-
-    function drop() {
-      progress += animationSpeed;
-
-      // Clear only the area where the circles are being drawn, not the entire canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawPopulationBlob(); // Keep the population blob visible
-
-      // Move each circle down without fading them out
-      sampleCircles.forEach(circle => {
-        // Move the circle down based on progress
-        circle.y = (canvas.height / 2 - 10) + progress * (canvas.height / 2); // Drop the circles
-        drawSampleCircle(circle); // Redraw each circle with updated position
-      });
-
-      // Continue the animation until all circles have dropped out of view
-      if (progress < 1) {
-        requestAnimationFrame(drop);
-      } else {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawPopulationBlob(); // Keep the population blob visible
-        resolve(); // Resolve the promise when the dropping is complete
-      }
-    }
-
-    requestAnimationFrame(drop);
-  });
-}
-
-// Update the histogram with the new statistic
-function updateHistogram(statistic) {
-  bins.push(statistic);
-
-  // Fixed number of bins (21)
-  const binData = d3.histogram()
-    .domain(x.domain())
-    .thresholds(numBins)(bins);
-
-  // Set y-axis domain based on maximum bin count
-  const maxBinCount = d3.max(binData, d => d.length);
-  y.domain([0, maxBinCount]);
-
-  // Set custom ticks for the y-axis based on the maximum bin count
-  const tickCount = 5; // You can adjust this number based on the desired appearance
-  const tickValues = d3.ticks(0, maxBinCount, tickCount); // Generate nicely spaced ticks
-
-  // Format large tick values
-  const formatTicks = d3.format(".2s"); // Use SI units (e.g., 1k for 1000)
-
-  const bars = svg.g.selectAll(".bar")
-    .data(binData);
-
-  // Use the `.join()` method to handle enter, update, and exit selections
-  bars.join(
-    enter => enter.append("rect")
-    .attr("class", "bar")
-    .attr("x", d => x(d.x0))
-    .attr("width", d => x(d.x1) - x(d.x0))
-    .attr("y", svg.height) // Start at the bottom of the chart
-    .attr("height", 0) // Start with height 0
-    .call(enter => enter.transition().duration(400) // Transition for entering bars
-      .attr("y", d => y(d.length)) // Move to the correct y position based on data
-      .attr("height", d => svg.height - y(d.length)) // Set height based on data
-      .attr("fill", d => colorScale(d.x0)) // Use the adjusted color scale
-    ),
-    update => update.call(update => update.transition().duration(400) // Transition for updated bars
-      .attr("x", d => x(d.x0))
-      .attr("width", d => x(d.x1) - x(d.x0))
-      .attr("y", d => y(d.length)) // Move to new y position
-      .attr("height", d => svg.height - y(d.length)) // Update height based on data
-      .attr("fill", d => colorScale(d.x0)) // Update color based on data
-    ),
-    exit => exit.call(exit => exit.transition().duration(400) // Transition for exiting bars
-      .attr("y", svg.height) // Move to the bottom
-      .attr("height", 0) // Set height to 0
-      .remove() // Remove the element after transition
-    )
-  );
-
-  // Update the Y-axis with nicely spaced ticks and formatted large numbers
-  yAxis.transition().duration(200)
-    .call(d3.axisLeft(y)
-      .ticks(tickCount) // Set the number of ticks
-      .tickValues(tickValues) // Use custom tick values
-      .tickFormat(formatTicks)); // Format large tick values (e.g., 1k for 1000)
-
-  // Update X-axis
-  xAxis.transition().duration(200)
-    .call(d3.axisBottom(x));
-}
-
-
-function runSimulation(b = 1) {
-  const sampleSize = parseInt(sampleSizeInput.value); // Get the sample size from the dropdown
-  const allSamples = []; // Array to hold all sample arrays (each sample array is a batch of N values)
-
-  // Generate samples for all b simulations (each simulation generates a batch of sampleSize)
-  for (let i = 0; i < b; i++) {
-    const sampleValues = generateSamples(sampleSize); // Generate an array of N samples
-    allSamples.push(sampleValues); // Store each sample array in the allSamples array
-  }
-
-  // Split the samples into visual (first 30) and batch processing (remaining)
-  const visibleSamples = allSamples.slice(0, 30); // First 30 simulations to be animated
-  const hiddenSamples = allSamples.slice(30); // Remaining simulations to be processed without animation
-
-  // Animate the first 30 simulations
-  if (visibleSamples.length > 0) {
-    const allSampleCircles = visibleSamples.flat().map((value, idx) => ({
-      id: `circle-${idx}`, // Assign a unique ID to each circle
-      value: value, // Store the sample value
-      x: value * canvas.width, // Initial x based on the value
-      y: 0, // Start at the top
-      color: colorScale(value) // Color based on value
-    }));
-
-    return animateSamples(allSampleCircles) // Animate the generated circles
-      .then(() => coalesceSamples(allSampleCircles, visibleSamples)) // Coalesce the circles to their statistic
-      .then(() => {
-        // Recalculate statistics for all visible samples and update the histogram
-        visibleSamples.forEach((sampleArray) => {
-          const statistic = calculateStatistic(sampleArray); // Calculate statistic for each sample array
-          updateHistogram(statistic); // Update the histogram with the batch's statistic
-        });
-
-        // Now process the remaining hidden samples in chunks
-        processRemainingSamples(hiddenSamples, 50); // Process in chunks of 50
-      })
-      .catch((error) => {
-        console.error('Error during simulation:', error);
-      });
-  } else {
-    // If there are no visible samples, process all samples without animation
-    processRemainingSamples(hiddenSamples, 50);
-  }
-}
-
-
-// Function to process the remaining samples in small chunks and update the histogram
-function processRemainingSamples(hiddenSamples, chunkSize = 50) {
-  console.log(`Processing ${hiddenSamples.length} samples without animation in chunks`);
-
-  let index = 0; // Keep track of the current index of samples being processed
-
-  function processChunk() {
-    const endIndex = Math.min(index + chunkSize, hiddenSamples.length); // Define the chunk size
-    for (let i = index; i < endIndex; i++) {
-      const sampleArray = hiddenSamples[i];
-      const statistic = calculateStatistic(sampleArray); // Calculate statistic for each sample array
-      updateHistogram(statistic); // Update the histogram with the batch's statistic
-    }
-
-    index = endIndex; // Move the index forward
-
-    if (index < hiddenSamples.length) {
-      // If there are more samples to process, schedule the next chunk
-      setTimeout(processChunk, 0); // Use setTimeout to yield control back to the browser
-    } else {
-      console.log('All remaining samples processed and histogram updated');
-    }
-  }
-
-  // Start processing the first chunk
-  processChunk();
+  return statistic; // Return unconstrained statistic
 }
 
 // Reset visualization
@@ -577,19 +700,6 @@ function resetVisualization() {
   // Reset histogram bars to 0 height
   const bars = svg.g.selectAll(".bar").data([]);
 
-  // bars.enter().append("rect")
-  // .attr("class", "bar")
-  // .attr("x", d => x(d.x0))
-  // .attr("width", d => x(d.x1) - x(d.x0))
-  // .attr("y", svg.height)
-  // .attr("height", 0)
-  // .merge(bars)
-  // .transition()
-  // .duration(500)
-  // .attr("y", svg.height)
-  // .attr("height", 0);
-
-  // bars.exit().remove();
   bars.join(
     enter => {
       enter.append("rect")
@@ -600,7 +710,7 @@ function resetVisualization() {
         .attr("height", 0)
         .call(enter => {
           enter.transition()
-            .duration(500)
+            .duration(ANIMATION_SETTINGS.histogramDuration)
             .attr("y", svg.height)
             .attr("height", 0);
         });
@@ -609,12 +719,22 @@ function resetVisualization() {
     exit => {
       exit.call(exit => {
         exit.transition()
-          .duration(500)
+          .duration(ANIMATION_SETTINGS.histogramDuration)
           .attr("y", svg.height)
           .attr("height", 0);
       }).remove();
     }
   );
+
+  // Reset theoretical curve and checkbox
+  const theoreticalCheckbox = document.getElementById("theoretical");
+  theoreticalCheckbox.checked = false;
+  theoreticalCheckbox.disabled = true;
+  showTheoretical = false;
+  
+  if (theoreticalLine) {
+    theoreticalLine.attr("opacity", 0);
+  }
 }
 
 // Helper function to change the sample size input and trigger its change listener
@@ -682,6 +802,22 @@ function changeDistribution(newValue) {
       reject(`Invalid distribution value: ${newValue}`); // Reject the promise in case of invalid value
     }
   });
+}
+
+// Add a function to get the appropriate axis label
+function getStatisticLabel(stat) {
+  switch (stat) {
+    case 'mean':
+      return 'Sample Mean';
+    case 'median':
+      return 'Sample Median';
+    case 'q1q3':
+      return 'Sample IQR Midpoint ((Q1+Q3)/2)';
+    case 'range':
+      return 'Sample Range Midpoint ((min+max)/2)';
+    default:
+      return 'Sample Mean';
+  }
 }
 
 // INITIALIZE

@@ -955,11 +955,14 @@ hr {
 .reveal section .pad-bottom {
   padding-bottom: 2vmin; }
 
-.pdf-page .grid-wrapper .section-title-content .headlines {
+.reveal .slides .pdf-page section .title-slide {
+  max-height: 90vh; }
+
+.reveal .slides .pdf-page section .grid-wrapper .section-title-content .headlines {
   max-width: 100% !important; }
-  .pdf-page .grid-wrapper .section-title-content .headlines h2 {
+  .reveal .slides .pdf-page section .grid-wrapper .section-title-content .headlines h2 {
     display: block !important;
-    font-size: 1.3rem !important; }
+    font-size: 1.5rem !important; }
 
 /*********************************************
 * EMOJIS
