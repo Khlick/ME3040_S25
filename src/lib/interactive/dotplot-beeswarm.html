@@ -1,0 +1,425 @@
+<html>
+
+<head>
+  <script src="js/d3.v7.8.5.js"></script>
+  <script src="js/d3-beeswarm.js"></script>
+  <script src="js/jstat.v1.9.6.js"></script>
+  <!-- Add MathJax configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <!-- Load local MathJax -->
+  <script type="text/javascript" src="js/mathjax.v3.2.2/es5/tex-svg.js"></script>
+
+  <style>
+    .interactive-container {
+      display: grid;
+      gap: 1rem;
+      padding: 1rem;
+      max-width: 100%;
+      margin: 0 auto;
+      height: fit-content;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+      gap: 1rem;
+      align-items: center;
+      font: 18px serif;
+    }
+
+    .input-group {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .input-group-text {
+      padding: 0.5rem;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 0.25rem;
+    }
+
+    .form-control {
+      padding: 0.5rem;
+      border: 1px solid #dee2e6;
+      border-radius: 0.25rem;
+      width: 100%;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #2774AE;
+      color: white;
+    }
+
+    .svg-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    div.tooltip {
+      position: absolute;
+      text-align: center;
+      min-width: 2rem;
+      height: auto;
+      padding: 5px;
+      font: 0.7rem sans-serif;
+      background: #003B5C;
+      color: white;
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    .tick text {
+      font-size: 18px;
+    }
+
+    .axis path,
+    .axis line {
+      stroke: #000;
+      shape-rendering: crispEdges
+    }
+
+    .axis text {
+      font: 1rem sans-serif
+    }
+
+    .thinRedLine {
+      fill: none;
+      stroke: #2774AE;
+      stroke-width: 1px;
+      shape-rendering: crispEdges
+    }
+
+    .line {
+      stroke-width: 1px;
+      shape-rendering: crispEdges
+    }
+
+    .progressArcText {
+      font: 1.5rem sans-serif;
+      fill: black
+    }
+
+    .hline path,
+    .hline line {
+      fill: none;
+      stroke: #ddd;
+      stroke-width: 8px;
+      shape-rendering: crispEdges
+    }
+
+    .hline text {
+      font: bold 1.2rem monospace
+    }
+
+    circle {
+      fill: black;
+      opacity: 0.5;
+      stroke: none;
+    }
+
+    circle:hover {
+      fill: #003B5C;
+      opacity: 1;
+      stroke: #003B5C;
+      stroke-width: 2px;
+    }
+
+    .jitter-bounds {
+      fill: #FFD100;
+      opacity: 0.1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="interactive-container">
+    <div class="controls">
+      <div class="input-group">
+        <input id="dotplot2BeeswarmLength" type="number" class="form-control" value="10" />
+        <span class="input-group-text">random points</span>
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">\(\mu\)=</span>
+        <input id="dotplot2BeeswarmMu" type="number" class="form-control" value="50" />
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">\(\sigma\)=</span>
+        <input id="dotplot2BeeswarmSigma" type="number" class="form-control" value="5" />
+      </div>
+
+      <button type="button" class="btn btn-primary" onclick="dotplot2Beeswarm()">Generate</button>
+    </div>
+
+    <div class="svg-container">
+      <svg id="dotplot2Beeswarm" viewBox="0 0 1000 500" preserveAspectRatio="xMinYMin meet"></svg>
+    </div>
+  </div>
+
+  <script>
+    function updateLength(newLength) {
+      document.getElementById('dotplot2BeeswarmLength').value = newLength;
+      dotplot2Beeswarm();
+    }
+
+    var container, containerWidth, containerHeight;
+
+    function updateSvgSize() {
+      container = document.querySelector('.svg-container');
+      containerWidth = container.clientWidth * 0.99;
+      containerHeight = 550;
+      
+      // Update SVG with fixed dimensions
+      const svg = d3.select("#dotplot2Beeswarm");
+      svg.attr("viewBox", `0 0 ${containerWidth} ${containerHeight}`);
+      svg.attr("height", containerHeight);
+      svg.attr("width", "100%");
+    }
+
+    // Add window resize listener
+    window.addEventListener('resize', updateSvgSize);
+
+    function dotplot2Beeswarm() {
+      // Call updateSvgSize at the start of the function
+      updateSvgSize();
+
+      // Remove any existing tooltips
+      d3.selectAll('.tooltip').remove();
+
+      // Create new tooltip
+      const tooltip = d3.select('body')
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+      const svg = d3.select("#dotplot2Beeswarm");
+      const margin = { top: 30, right: 20, bottom: 40, left: 120 };
+      const width = containerWidth - margin.left - margin.right;
+      const height = containerHeight - margin.top - margin.bottom;
+
+      svg.selectAll("*").remove();
+
+      const g = svg.append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      // Constants
+      const jitterH = 35;
+      const radius = 8;
+      const n = 3;
+      const text = ['Dotplot', "Jitter", 'Beeswarm'];
+      const ys = [0.1, 0.7, 1.85].map(d => d3.scaleLinear()
+        .range([jitterH, height - jitterH - 20])
+        .domain([0, n - 1])(d));
+
+      // Draw horizontal lines
+      g.append('g').selectAll('path')
+        .data(ys)
+        .join('path')
+        .attr('d', d => `M0,${d}H${width}`)
+        .attr('class', 'thinRedLine');
+
+      // Draw jitter area rectangle
+      g.append('g').selectAll('rect')
+        .data(ys.slice(1, 2))
+        .join('rect')
+        .attr('class', 'jitter-bounds')
+        .attr('width', width + 2 * radius)
+        .attr('height', 2 * jitterH + 2 * radius)
+        .attr('x', -radius)
+        .attr('y', d => d - jitterH - radius);
+
+      // Add labels
+      g.append('g')
+        .attr('class', 'hline')
+        .selectAll('text')
+        .data(ys)
+        .join('text')
+        .attr("x", -0.5 * margin.left)
+        .attr("y", d => d)
+        .attr("dominant-baseline", "middle")
+        .attr("text-anchor", 'middle')
+        .text((d, i) => text[i]);
+
+      // Generate data
+      const mu = +document.getElementById("dotplot2BeeswarmMu").value;
+      const sigma = +document.getElementById("dotplot2BeeswarmSigma").value;
+      const length = +document.getElementById("dotplot2BeeswarmLength").value;
+
+      const data = Array.from({ length }, () =>
+        ({ value: jStat.normal.sample(mu, sigma) }));
+
+      // Create scales with padding
+      const extent = d3.extent(data, d => d.value);
+      const range = extent[1] - extent[0];
+      const padding = range * 0.15;
+
+      const x = d3.scaleLinear()
+        .range([0, width])
+        .domain([extent[0] - padding, extent[1] + padding]);
+
+      // Add x-axis at the top
+      const xAxis = d3.axisTop(x)
+        .tickSizeOuter(0);
+
+      g.append("g")
+        .attr("class", "x-axis")
+        .call(xAxis);
+
+      // Create beeswarm layout
+      const swarm = d3.beeswarm()
+        .data(data)
+        .distributeOn(d => x(d.value))
+        .radius(radius)
+        .orientation("horizontal")
+        .side("symmetric");
+
+      const bees = swarm.arrange();
+
+      // Create groups for points
+      const points = g.selectAll('.bee-group')
+        .data(bees)
+        .join('g')
+        .attr('class', 'bee-group');
+
+      // Helper function for mouseover
+      const handleMouseOver = (event, d) => {
+        tooltip
+          .style('top', `${event.pageY - 30}px`)
+          .style('left', `${event.pageX + 10}px`)
+          .text(`value: ${d.datum.value.toFixed(2)}`)
+          .style('opacity', 1);
+      };
+
+      // Helper function for mouseout
+      const handleMouseOut = () => {
+        tooltip.style('opacity', 0);
+      };
+
+      // Create and position circles
+      const createCircle = (yPos) => {
+        return points.append('circle')
+          .attr('class', 'bee-circle')
+          .attr('cx', d => d.x)
+          .attr('cy', yPos)
+          .attr('r', radius)
+          .on('mouseover', function (event, d) {
+            d3.selectAll('circle')
+              .filter(circle => circle === d)
+              .attr('r', radius * 1.2);
+            handleMouseOver(event, d);
+          })
+          .on('mouseout', function (event, d) {
+            d3.selectAll('circle')
+              .filter(circle => circle === d)
+              .attr('r', radius);
+            handleMouseOut();
+          });
+      };
+
+      // Create three sets of circles
+      const p1 = createCircle(ys[0]);
+      const p2 = createCircle(ys[0]);
+      const p3 = createCircle(ys[0]);
+
+      // Animate second set (jittered)
+      p2.transition()
+        .duration(300)
+        .attr('cy', ys[1])
+        .end()
+        .then(() => {
+          return p2.transition()
+            .duration(300)
+            .attr('cy', d => ys[1] + jitterH - Math.random() * 2 * jitterH)
+            .end();
+        });
+
+      // Animate third set (beeswarm)
+      p3.transition()
+        .delay(650)
+        .duration(200)
+        .attr('cy', ys[2])
+        .end()
+        .then(() => {
+          return p3.transition()
+            .duration(300)
+            .attr('cy', d => ys[2] - d.y)
+            .end();
+        });
+    }
+
+    // Add event listeners for inputs
+    ['Length', 'Mu', 'Sigma'].forEach(id => {
+      document.getElementById(`dotplot2Beeswarm${id}`)
+        .addEventListener('keyup', event => {
+          if (event.key === 'Enter') dotplot2Beeswarm();
+        });
+    });
+
+    // Initial render
+    dotplot2Beeswarm();
+
+    // fragments
+    var _fragments = [
+      {
+        activate: () => {
+          updateLength(20);
+        },
+        reverse: () => {
+          updateLength(10);
+        },
+        index: 1
+      },
+      {
+        activate: () => {
+          updateLength(50);
+        },
+        reverse: () => {
+          updateLength(20);
+        },
+        index: 2
+      },
+      {
+        activate: () => {
+          updateLength(100);
+        },
+        reverse: () => {
+          updateLength(50);
+        },
+        index: 3
+      },
+      {
+        activate: () => {
+          updateLength(200);
+        },
+        reverse: () => {
+          updateLength(100);
+        },
+        index: 4
+      }
+    ]
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bivariate Gaussian Visualization</title>
+    <script src="https://cdn.plot.ly/plotly-2.25.2.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #control-panel {
+            position: absolute;
+            top: 35px;
+            left: 5px;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            z-index: 10;
+        }
+        .slider-container {
+            margin-bottom: 10px;
+        }
+        .plot-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 120px;
+        }
+        .button-container {
+            margin-top: 15px;
+        }
+        #equalize-variance {
+            padding: 8px 16px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #equalize-variance.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- 3-bar menu to toggle sliders -->
+    <button id="menu-toggle" style="position: absolute; top: 5px; left: 5px;">☰</button>
+
+    <div id="control-panel" style="display: none;">
+        <h3>Control Panel</h3>
+        <div class="slider-container">
+            <label for="r">Pearson's Correlation (\(r\)): <span id="r-value">0</span></label>
+            <input id="r" type="range" min="-0.99" max="0.99" step="0.01" value="0">
+        </div>
+        <div class="slider-container">
+            <label for="mu-x">Mean of X (\(\mu_x\)): <span id="mu-x-value">0</span></label>
+            <input id="mu-x" type="range" min="-2" max="2" step="0.1" value="0">
+        </div>
+        <div class="slider-container">
+            <label for="sigma-x">Std Dev of X (\(\sigma_x\)): <span id="sigma-x-value">1</span></label>
+            <input id="sigma-x" type="range" min="0.1" max="2" step="0.1" value="1">
+        </div>
+        <div class="slider-container">
+            <label for="mu-y">Mean of Y (\(\mu_y\)): <span id="mu-y-value">0</span></label>
+            <input id="mu-y" type="range" min="-2" max="2" step="0.1" value="0">
+        </div>
+        <div class="slider-container">
+            <label for="sigma-y">Std Dev of Y (\(\sigma_y\)): <span id="sigma-y-value">1</span></label>
+            <input id="sigma-y" type="range" min="0.1" max="2" step="0.1" value="1">
+        </div>
+        <div class="button-container">
+            <button id="equalize-variance">Equalize Variance</button>
+        </div>
+    </div>
+
+    <div class="plot-container">
+        <div id="3d-plot" style="width: 50%; height: 700px;"></div>
+        <div id="2d-plot" style="width: 50%; height: 700px;"></div>
+    </div>
+
+    <script>
+        // Toggle control panel visibility
+        const menuToggle = document.getElementById('menu-toggle');
+        const controlPanel = document.getElementById('control-panel');
+        menuToggle.addEventListener('click', () => {
+            controlPanel.style.display = controlPanel.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Gaussian function
+        function gaussian2D(x, y, muX, muY, sigmaX, sigmaY, rho) {
+            const z = [];
+            for (let i = 0; i < x.length; i++) {
+                const row = [];
+                for (let j = 0; j < y.length; j++) {
+                    const xTerm = Math.pow((x[i] - muX) / sigmaX, 2);
+                    const yTerm = Math.pow((y[j] - muY) / sigmaY, 2);
+                    const xyTerm = 2 * rho * ((x[i] - muX) * (y[j] - muY)) / (sigmaX * sigmaY);
+                    const exponent = -0.5 * (xTerm + yTerm - xyTerm) / (1 - rho * rho);
+                    const coeff = 1 / (2 * Math.PI * sigmaX * sigmaY * Math.sqrt(1 - rho * rho));
+                    row.push(coeff * Math.exp(exponent));
+                }
+                z.push(row);
+            }
+            return z;
+        }
+
+        // Create mesh grid
+        function createMeshGrid(range, step) {
+            const values = [];
+            for (let i = range[0]; i <= range[1]; i += step) {
+                values.push(i);
+            }
+            return values;
+        }
+
+        const x = createMeshGrid([-3, 3], 0.1);
+        const y = createMeshGrid([-3, 3], 0.1);
+
+        // Initial plot data
+        let muX = 0, muY = 0, sigmaX = 1, sigmaY = 1, r = 0;
+
+        // Box-Muller transform to generate normal random variables
+        function generateGaussianSample() {
+            const u1 = Math.random();
+            const u2 = Math.random();
+            const z1 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+            const z2 = Math.sqrt(-2 * Math.log(u1)) * Math.sin(2 * Math.PI * u2);
+            return [z1, z2];
+        }
+
+        // Generate bivariate Gaussian samples
+        function generateBivariateGaussianSamples(n, muX, muY, sigmaX, sigmaY, rho) {
+            const samples = [];
+            for (let i = 0; i < n; i++) {
+                const [z1, z2] = generateGaussianSample();
+                const x = muX + sigmaX * z1;
+                const y = muY + sigmaY * (rho * z1 + Math.sqrt(1 - rho * rho) * z2);
+                const z = gaussian2D([x], [y], muX, muY, sigmaX, sigmaY, rho)[0][0];
+                samples.push([x, y, z]);
+            }
+            return samples;
+        }
+
+        function updatePlots() {
+            const z = gaussian2D(x, y, muX, muY, sigmaX, sigmaY, r);
+            
+            // Calculate aspect ratio based on variances
+            const equalizeAspect = document.getElementById('equalize-variance').classList.contains('active');
+            const aspectRatio = equalizeAspect ? sigmaY / sigmaX : 1;
+            const scatterAspectRatio = equalizeAspect ? sigmaX / sigmaY : 1;  // Inverse ratio for scatter plot
+
+            // Generate samples for the 2D scatter plot
+            const samples = generateBivariateGaussianSamples(1000, muX, muY, sigmaX, sigmaY, r);
+            const samplesX = samples.map(s => s[0]);
+            const samplesY = samples.map(s => s[1]);
+            const samplesZ = samples.map(s => s[2]);
+
+            // 3D Surface Plot
+            Plotly.react('3d-plot', [{
+                z: z,
+                x: x,
+                y: y,
+                type: 'surface',
+                colorscale: 'Viridis',
+                contours: {
+                    z: { show: true, project: { z: true } }
+                }
+            }], {
+                title: '3D Bivariate Gaussian',
+                scene: {
+                    aspectmode: equalizeAspect ? 'manual' : 'auto',
+                    aspectratio: {
+                        x: 1,
+                        y: aspectRatio,
+                        z: 1
+                    },
+                    camera: { eye: { x: 1.5, y: 1.5, z: 1.5 } }
+                }
+            });
+
+            // 2D Scatter Plot
+            Plotly.react('2d-plot', [{
+                x: samplesX,
+                y: samplesY,
+                type: 'scatter',
+                mode: 'markers',
+                marker: {
+                    size: 6,
+                    color: samplesZ,
+                    colorscale: 'Viridis',
+                    opacity: 0.7,
+                    showscale: true,
+                    colorbar: {
+                        title: 'Probability Density'
+                    }
+                }
+            }], {
+                title: 'Top-down View (Scatter Plot)',
+                xaxis: { title: 'X-axis' },
+                yaxis: { 
+                    title: 'Y-axis',
+                    scaleanchor: equalizeAspect ? 'x' : null,
+                    scaleratio: equalizeAspect ? scatterAspectRatio : null
+                }
+            });
+        }
+
+        // Add event listeners to sliders
+        document.querySelectorAll('input[type="range"]').forEach(slider => {
+            slider.addEventListener('input', (e) => {
+                const id = e.target.id;
+                const value = parseFloat(e.target.value);
+                document.getElementById(`${id}-value`).textContent = value.toFixed(2);
+                if (id === 'r') r = value;
+                if (id === 'mu-x') muX = value;
+                if (id === 'sigma-x') sigmaX = value;
+                if (id === 'mu-y') muY = value;
+                if (id === 'sigma-y') sigmaY = value;
+                updatePlots();
+            });
+        });
+
+        // Initial plot rendering
+        updatePlots();
+
+        // Add event listener for equalize variance button
+        const equalizeVarianceBtn = document.getElementById('equalize-variance');
+        equalizeVarianceBtn.addEventListener('click', () => {
+            equalizeVarianceBtn.classList.toggle('active');
+            updatePlots();
+        });
+    </script>
+</body>
+</html>

@@ -7,6 +7,7 @@
     <script src="js/d3.v7.8.5.js"></script>
     <script src="js/jstat.v1.9.6.js"></script>
     <script src="js/chroma.v2.4.2.min.js"></script>
+    <script src="js/seedrandom3.0.5/seedrandom.min.js"></script>
   </head>
 
   <body>
@@ -101,13 +102,14 @@
           muted: "#B4B4B4",
           pop: "#ce4ad0",
         },
-        radius = 7;
+        radius = 12;
 
       const varWValue = d3.select("#varW-value");
       const varWRange = d3.select("#varW");
       const varBValue = d3.select("#varB-value");
       const varBRange = d3.select("#varB");
       // initial means based on default within variability.
+      setRandomSeed(42);
       let std = +varWRange.node().value;
 
       let initialMeans = [3, 5.5, 3.3];
@@ -173,11 +175,17 @@
       // draw initial chart
       updateChart([data, groupMeans, grandMean], chart);
 
+      // Function to set a random seed
+      function setRandomSeed(seed) {
+        Math.seedrandom(seed);
+      }
+
+      // Modify getData function to use seeded random generator
       function getData(means, ns, std) {
         const data = means
           .map((d, i) =>
             [...new Array(ns[i])].map((k) => {
-              return { group: i, value: jStat.normal.sample(d, std) };
+              return { group: i, value: jStat.normal.sample(d, std, Math.random) };
             })
           )
           .reduce((a, b) => [...a, ...b]);
@@ -599,6 +607,48 @@
         vData = getVariabilityData(data);
         drawSun(vData, sun);
       });
+
+      function updateGraph(betweenVar, withinVar) {
+        // Set the slider values
+        varBRange.node().value = betweenVar;
+        varBValue.text(betweenVar.toFixed(2));
+        updateMeans(betweenVar);
+        // Get current means
+        let grpMu = Array.from(
+          d3.group(data, (d) => d.group),
+          ([group, values]) => ({
+            group: group,
+            value: d3.mean(values, (d) => d.value),
+          })
+        );
+
+        varWRange.node().value = withinVar;
+        varWValue.text(withinVar.toFixed(2));
+        let grpStd = [0, 1, 2].map((v) => {
+          return d3.deviation(
+            data.filter((d) => d.group === v),
+            (d) => d.value
+          );
+        });
+        data.forEach((d) => {
+          d.value *= std / grpStd[d.group];
+        });
+        // update data with new means
+        data.forEach((o, i) => {
+          let mean = grpMu.filter((f) => f.group === o.group)[0].value;
+          let newMean = groupMeans.filter((f) => f.group === o.group)[0].value;
+          o.value += -mean + newMean;
+        });
+        // update grand mean
+        grandMean = d3.mean(data, (d) => d.value);
+        updateChart([data, groupMeans, grandMean], chart);
+        // update radial chart
+        vData = getVariabilityData(data);
+        drawSun(vData, sun);
+      }
+
+      // Make the function available globally
+      window.updateGraph = updateGraph;
     </script>
   </body>
 </html>

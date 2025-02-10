@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Understanding The T distribution</title>
+    <title>Welch T Bootstrap Simulation</title>
     <script src="js/d3.v7.8.5.js"></script>
     <script src="js/jstat.v1.9.6.js"></script>
     <script src="js/chroma.v2.4.2.min.js"></script>
@@ -47,9 +47,7 @@
       }
       body,
       html {
-        margin: 0;
-        margin-top: 5px;
-        margin-bottom: 15px;
+        margin: 5px 0 0 0;
       }
 
       #container {
@@ -57,7 +55,7 @@
         grid-template-columns: 1fr;
         grid-template-rows: auto 6fr 4fr;
         height: 100%;
-        max-height: 80vh;
+        max-height: 90vh;
         align-items: start;
         column-gap: 2vmin;
         justify-items: center;
@@ -68,10 +66,6 @@
         justify-content: space-between;
         align-items: center;
         font-size: 1.5em;
-        padding-bottom: 0;
-        margin-bottom: 0;
-        padding-top: 0;
-        margin-top: 0;
       }
 
       #controls input[type="number"] {
@@ -86,6 +80,12 @@
 
       #controls .spacer {
         flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #controls .spacer p {
+        margin: 0;
       }
       #container > div {
         display: flex;
@@ -116,7 +116,7 @@
 
       /* gc styles to modify later*/
       .bar {
-        fill: #5a058b;
+        fill: #808080;  /* medium gray */
         stroke: white;
       }
 
@@ -124,6 +124,30 @@
         font-family: helvetica;
         font-size: 1.5em;
         text-anchor: middle;
+      }
+
+      /* Reset button styles */
+      .reset-button {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        color: #212529;
+        cursor: pointer;
+        font-family: helvetica;
+        font-size: 0.9em;
+        padding: 4px 12px;
+        transition: all 0.2s ease-in-out;
+        margin-right: 15px;
+      }
+
+      .reset-button:hover {
+        background-color: #e9ecef;
+        border-color: #dee2e6;
+      }
+
+      .reset-button:active {
+        background-color: #dee2e6;
+        transform: translateY(1px);
       }
 
       .textChart {
@@ -142,7 +166,7 @@
         font-family: helvetica;
         font-size: 1.5em;
         text-anchor: beginning;
-        fill: #808080;
+        fill: #b4b4b4;
       }
     </style>
   </head>
@@ -152,86 +176,112 @@
       <div id="controls">
         <!-- Group A Controls -->
         <label for="NA">$N_A $</label>
-        <input type="number" id="NA" min="3" step="1" value="25" />
+        <input type="number" id="NA" min="3" step="1" value="20" />
 
         <label for="barA">$\bar{A} $</label>
         <input type="number" id="barA" step="0.01" value="107.81" />
 
         <label for="sigmaA2">$\sigma^2_{A} $</label>
-        <input type="number" id="sigmaA2" min="0.01" step="0.01" value="2.89" />
+        <input type="number" id="sigmaA2" min="0.01" step="0.01" value="10.89" />
 
         <!-- Spacer -->
         <div class="spacer">
+          <button class="reset-button" onclick="resetAll()">Reset</button>
           <p style="text-align: center">
             B: <span id="bootcount">0</span>. p=<span id="pvalue">-</span>
           </p>
+          <label style="font-size: 0.7em; margin-left: 10px;"></label>
+            <input type="checkbox" id="showEffects" checked /> Effects
+          </label>
         </div>
 
         <!-- Group B Controls -->
         <label for="sigmaB2">$\sigma^2_{B} $</label>
-        <input type="number" id="sigmaB2" min="0.01" step="0.01" value="1.25" />
+        <input type="number" id="sigmaB2" min="0.01" step="0.01" value="4.25" />
 
         <label for="barB">$\bar{B} $</label>
         <input type="number" id="barB" step="0.01" value="108.34" />
 
         <label for="NB">$N_B $</label>
-        <input type="number" id="NB" min="3" step="1" value="25" />
+        <input type="number" id="NB" min="3" step="1" value="15" />
       </div>
       <div id="simulation"></div>
       <div id="histogram"></div>
     </div>
     <!-- JAVASCRIPT INTERACTIVE -->
     <script src="js/dynamicContainers.js"></script>
-    <script src="js/t-simulation.js"></script>
+    <script src="js/t-welch-simulation.js"></script>
     <script>
-      window.gatherGroups = gatherGroups;
-      window.splitGroups = splitGroups;
+      window.toggleEffects = toggleEffects;
       window.bootstrap = bootstrap;
+      window.resetAll = resetAll;
+      window.set_A = set_A;
+      window.set_B = set_B;
       var _fragments = [
         {
-          activate: () => gatherGroups(),
+          activate: () => {
+            toggleEffects(false);
+            setTimeout(() => bootstrap(1), 1200);
+          },
           reverse: () => {
             resetAll();
-          },
-          index: 0,
-        },
-        {
-          activate: () => bootstrap(1),
-          reverse: () => {
-            data = data.filter((d) => d.group <= 2);
-            histData = histData.filter((v, i) => i == 0);
-            updateSimulation(data);
-            updateHistInfo();
-            updateHistogram();
           },
           index: 1,
         },
         {
-          activate: () => bootstrap(9),
+          activate: () => {
+            bootstrap(1999);
+          },
           reverse: () => {
-            data = data.filter((d) => d.group <= 2);
-            histData = histData.filter((v, i) => i < 10);
-            updateSimulation(data);
-            updateHistInfo();
-            updateHistogram();
+            resetAll();
           },
           index: 2,
         },
         {
-          activate: () => bootstrap(90),
+          activate: () => {
+            document.getElementById('NA').value = 25;
+            document.getElementById('NB').value = 25; 
+            document.getElementById('barA').value = 109.34;
+            document.getElementById('sigmaA2').value = 1.5;
+            document.getElementById('sigmaB2').value = 1.5;
+            resetAll();
+          },
           reverse: () => {
-            data = data.filter((d) => d.group <= 2);
-            histData = histData.filter((v, i) => i < 100);
-            updateSimulation(data);
-            updateHistInfo();
-            updateHistogram();
+            document.getElementById('NA').value = 20;
+            document.getElementById('NB').value = 15;
+            document.getElementById('barA').value = 107.81;
+            document.getElementById('sigmaA2').value = 10.89;
+            document.getElementById('sigmaB2').value = 4.25;
+            resetAll();
+            setTimeout(() => bootstrap(1000), 800);
           },
           index: 3,
         },
         {
-          activate: () => bootstrap(1900),
+          activate: () => {
+            bootstrap(2000);
+          },
+          reverse: () => {
+            document.getElementById('NA').value = 25;
+            document.getElementById('NB').value = 25;
+            document.getElementById('barA').value = 109.34;
+            document.getElementById('sigmaA2').value = 1.5;
+            document.getElementById('sigmaB2').value = 1.5;
+            resetAll();
+            setTimeout(() => bootstrap(2000), 800);
+          },
           index: 4,
         },
+        {
+          activate: () => {
+            toggleEffects(true);
+            setTimeout(() => bootstrap(2000), 1100);
+          },
+          reverse: () => {
+            resetAll();
+          },
+          index: 5,
+        }
       ];
     </script>
   </body>

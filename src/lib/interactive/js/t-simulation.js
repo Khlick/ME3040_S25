@@ -9,7 +9,7 @@
 const radius = 10; // radius for simulation
 const w_0 = 960;
 const h_0_d = 250;
-const h_0_h = 200;
+const h_0_h = 180;
 
 // histogram
 const nBins = 25;
@@ -17,6 +17,8 @@ const nBins = 25;
 // initialize variables
 let data;
 let histData = [];
+let isGathered = false;
+let hoveredNode = null;
 
 /**
  * Generate random data for groups A and B based on input values.
@@ -119,10 +121,25 @@ function ticked() {
 
 function drawNode(d) {
   dots.ctx.beginPath();
-  dots.ctx.moveTo(d.x + 3, d.y);
-  dots.ctx.arc(d.x, d.y, radius, 0, 2 * Math.PI);
-  dots.ctx.fillStyle = d.color;
+  if (d.opacity !== undefined) {
+    dots.ctx.globalAlpha = d.opacity;
+  }
+  const r = d.radius || radius;
+  dots.ctx.moveTo(d.x + r, d.y);
+  dots.ctx.arc(d.x, d.y, r, 0, 2 * Math.PI);
+  
+  // Change color if this is the hovered node
+  if (d === hoveredNode) {
+    dots.ctx.fillStyle = '#ff8c00'; // Bright orange for hover
+    dots.ctx.lineWidth = 2;
+    dots.ctx.strokeStyle = '#fff';
+    dots.ctx.stroke();
+  } else {
+    dots.ctx.fillStyle = d.color;
+  }
+  
   dots.ctx.fill();
+  dots.ctx.globalAlpha = 1;
 }
 
 function updateSimulation(nodes) {
@@ -131,17 +148,22 @@ function updateSimulation(nodes) {
 }
 
 function gatherGroups() {
+  if (isGathered) return;
   data.forEach(d => {
     if (d.group > 2) { return }
     d.group = 0
   });
-  updateSimulation(data)
+  isGathered = true;
+  updateSimulation(data);
 }
+
 function splitGroups() {
+  if (!isGathered) return;
   data.forEach(d => {
     if (d.group > 2) { return }
     d.group = d["type"] === "A" ? 1 : 2
   });
+  isGathered = false;
   updateSimulation(data);
 }
 
@@ -158,46 +180,68 @@ let tooltip = null; // Tooltip element
 function initTooltip() {
   tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
-    .style("opacity", 0);
+    .style("opacity", 0)
+    .style("position", "absolute")
+    .style("pointer-events", "none");
 }
 
-// Function to show tooltip
-function showTooltip(d, x, y) {
-  tooltip.transition()
-    .duration(200)
-    .style("opacity", .9);
-  tooltip.html(`ID: ${d.id}<br/>Value: ${d.value}<br/>Type: ${d.type}`)
-    .style("left", (x + 10) + "px")  // Offset by 10 pixels for better visibility
-    .style("top", (y - 10) + "px");  // Offset by -10 pixels to appear slightly above the cursor
-}
-
-// Function to hide tooltip
-function hideTooltip() {
-  tooltip.transition()
-    .duration(500)
-    .style("opacity", 0);
-}
-
-// Function to check if mouse is over a data point
+// Function to handle mouse move events on the canvas
 function handleMouseMove(e) {
   const rect = dots.canvas.getBoundingClientRect();
-  const x = e.clientX - rect.left - dots.width / 2;
-  const y = e.clientY - rect.top - dots.height / 3;
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
   
+  // Convert to simulation coordinates
+  const x = mouseX - dots.width / 2;
+  const y = mouseY - dots.height / 2;
+  
+  // Find if we're hovering over a node
+  let foundNode = null;
   for (let d of data) {
     const dx = x - d.x;
     const dy = y - d.y;
-    if (dx * dx + dy * dy < radius * radius) {
-      showTooltip(d, e.clientX, e.clientY);
-      return;
+    const r = d.radius || radius;
+    if (dx * dx + dy * dy < r * r) {
+      foundNode = d;
+      break;
     }
   }
-  hideTooltip();
+  
+  // Update hover state and tooltip
+  if (foundNode !== hoveredNode) {
+    hoveredNode = foundNode;
+    if (foundNode) {
+      tooltip.transition()
+        .duration(50)
+        .style("opacity", 0.9);
+      tooltip.html(`Type: ${foundNode.type}<br/>Value: ${foundNode.value.toFixed(2)}`)
+        .style("left", (e.clientX + 10) + "px")
+        .style("top", (e.clientY - 10) + "px");
+    } else {
+      tooltip.transition()
+        .duration(100)
+        .style("opacity", 0);
+    }
+    ticked(); // Redraw with new hover state
+  } else if (foundNode) {
+    // Just update tooltip position if still on same node
+    tooltip.style("left", (e.clientX + 10) + "px")
+           .style("top", (e.clientY - 10) + "px");
+  }
 }
 
+// Function to handle mouse leaving canvas
+function handleMouseLeave() {
+  hoveredNode = null;
+  tooltip.transition()
+    .duration(100)
+    .style("opacity", 0);
+  ticked(); // Redraw to remove hover effect
+}
 
-// Listen for mouse move events on the canvas
+// Add event listeners
 dots.canvas.addEventListener('mousemove', handleMouseMove);
+dots.canvas.addEventListener('mouseleave', handleMouseLeave);
 
 // HISTOGRAM
 const hist = new SVG({
@@ -283,15 +327,32 @@ function updateHistInfo() {
     );
 }
 function updateHistogram() {
-  let extent = histData.length ? d3.extent(histData) : [-10, 10];
+  // Get the actual difference for setting minimum range
+  const meanA = parseFloat(document.getElementById('barA').value);
+  const meanB = parseFloat(document.getElementById('barB').value);
+  const actualDiff = meanB - meanA;
+  
+  // Set minimum range to be at least ±2 times the actual difference
+  const minRange = Math.max(4, Math.abs(actualDiff) * 2);
+  
+  // Calculate extent, ensuring it's at least as wide as minRange
+  let extent = histData.length ? d3.extent(histData) : [-minRange/2, minRange/2];
+  extent = [
+    Math.min(extent[0], -minRange/2, -Math.abs(actualDiff)),
+    Math.max(extent[1], minRange/2, Math.abs(actualDiff))
+  ];
+  
   xHistScale.domain(extent);
   xAxis.transition().duration(200).call(d3.axisBottom(xHistScale));
+  
   const h = d3.histogram()
     .domain(xHistScale.domain())
     .thresholds(xHistScale.ticks(nBins));
   const bins = h(histData);
+  
   // update yscale
   yHistScale.domain([0, d3.max(bins, d => d.length)]);
+  
   // update bins
   gHist.selectAll(".bar").data(bins)
     .join(
@@ -359,26 +420,183 @@ function bootstrap(n) {
   const meanB = parseFloat(document.getElementById('barB').value);
   const difAB = meanB - meanA;
   let gA, gB;
-  for (let i = 0; i < n; i++){
-    gA = getRandom(data, NA, replace = true);
-    gB = getRandom(data, NB, replace = true);
-    histData.push(d3.mean(gB.map(d => d.value)) - d3.mean(gA.map(d => d.value)));
+
+  // Calculate all bootstrap samples upfront
+  const allBootstraps = [];
+  for (let i = 0; i < n; i++) {
+    const sampA = getRandom(data, NA, true);
+    const sampB = getRandom(data, NB, true);
+    allBootstraps.push({
+      A: sampA,
+      B: sampB,
+      meanA: d3.mean(sampA.map(d => d.value)),
+      meanB: d3.mean(sampB.map(d => d.value))
+    });
   }
-  
-  // use the last iteration for the visualization
-  gA.forEach(d => {
-    d.group = 3;
-    data.push(d);
+
+  // Create a promise to handle the animation sequence
+  return new Promise(async (resolve) => {
+    // First animation: gather groups only if not already gathered
+    if (!isGathered) {
+      await new Promise(resolve => {
+        gatherGroups();
+        setTimeout(resolve, 500); // Wait for gather animation
+      });
+    }
+
+    // Determine how many animations to show (max 10)
+    const animationCount = Math.min(10, n);
+    
+    // Run quick animations for all but the last sample
+    for (let i = 0; i < animationCount - 1; i++) {
+      const bootstrap = allBootstraps[i];
+      
+      // Add sampled points with new groups
+      const tempA = bootstrap.A.map(d => ({...d, group: 3}));
+      const tempB = bootstrap.B.map(d => ({...d, group: 4}));
+      
+      data = [...data.filter(d => d.group <= 2), ...tempA, ...tempB];
+      updateSimulation(data);
+
+      // Wait for points to spread out briefly
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      // Remove the temporary points
+      data = data.filter(d => d.group <= 2);
+      updateSimulation(data);
+    }
+
+    // For the last animation, do the full sequence
+    const lastBootstrap = allBootstraps[animationCount - 1];
+    gA = lastBootstrap.A;
+    gB = lastBootstrap.B;
+
+    // Add sampled points with new groups
+    gA.forEach(d => {
+      d.group = 3;
+      data.push(d);
+    });
+    gB.forEach(d => {
+      d.group = 4;
+      data.push(d);
+    });
+    updateSimulation(data);
+
+    // Wait for points to spread out
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // Create mean points
+    const meanPointA = {
+      type: 'A',
+      group: 5,
+      value: lastBootstrap.meanA,
+      color: gA[0].color,
+      radius: radius * 1.5
+    };
+    const meanPointB = {
+      type: 'B',
+      group: 6,
+      value: lastBootstrap.meanB,
+      color: gB[0].color,
+      radius: radius * 1.5
+    };
+
+    // Animate coalescence to mean points
+    await new Promise(resolve => {
+      const startPositions = {
+        A: gA.map(d => ({ x: d.x, y: d.y })),
+        B: gB.map(d => ({ x: d.x, y: d.y }))
+      };
+      const startTime = Date.now();
+      const duration = 500;
+
+      function animateCoalescence() {
+        const progress = Math.min(1, (Date.now() - startTime) / duration);
+        const eased = d3.easeCubicInOut(progress);
+
+        // Calculate mean positions
+        const meanAX = d3.mean(startPositions.A, d => d.x);
+        const meanAY = d3.mean(startPositions.A, d => d.y);
+        const meanBX = d3.mean(startPositions.B, d => d.x);
+        const meanBY = d3.mean(startPositions.B, d => d.y);
+
+        // Update positions
+        gA.forEach((d, i) => {
+          d.x = d3.interpolate(startPositions.A[i].x, meanAX)(eased);
+          d.y = d3.interpolate(startPositions.A[i].y, meanAY)(eased);
+          d.radius = d3.interpolate(radius, 0)(eased);
+        });
+        gB.forEach((d, i) => {
+          d.x = d3.interpolate(startPositions.B[i].x, meanBX)(eased);
+          d.y = d3.interpolate(startPositions.B[i].y, meanBY)(eased);
+          d.radius = d3.interpolate(radius, 0)(eased);
+        });
+
+        if (progress === 1) {
+          // Replace sample points with mean points
+          data = [...data.filter(d => d.group <= 2), meanPointA, meanPointB];
+          meanPointA.x = meanAX;
+          meanPointA.y = meanAY;
+          meanPointB.x = meanBX;
+          meanPointB.y = meanBY;
+          updateSimulation(data);
+          resolve();
+        } else {
+          ticked();
+          requestAnimationFrame(animateCoalescence);
+        }
+      }
+      requestAnimationFrame(animateCoalescence);
+    });
+
+    // Animate collision of mean points
+    await new Promise(resolve => {
+      const startTime = Date.now();
+      const duration = 300;
+      const startPositions = {
+        A: { x: meanPointA.x, y: meanPointA.y },
+        B: { x: meanPointB.x, y: meanPointB.y }
+      };
+
+      function animateCollision() {
+        const progress = Math.min(1, (Date.now() - startTime) / duration);
+        const eased = d3.easeCubicIn(progress);
+
+        // Move points toward center
+        meanPointA.x = d3.interpolate(startPositions.A.x, 0)(eased);
+        meanPointA.y = d3.interpolate(startPositions.A.y, 0)(eased);
+        meanPointB.x = d3.interpolate(startPositions.B.x, 0)(eased);
+        meanPointB.y = d3.interpolate(startPositions.B.y, 0)(eased);
+
+        // Fade out points near collision
+        if (progress > 0.8) {
+          meanPointA.opacity = meanPointB.opacity = 1 - ((progress - 0.8) / 0.2);
+        }
+
+        if (progress === 1) {
+          // Remove mean points and update display
+          data = data.filter(d => d.group <= 2);
+          updateSimulation(data);
+          resolve();
+        } else {
+          ticked();
+          requestAnimationFrame(animateCollision);
+        }
+      }
+      requestAnimationFrame(animateCollision);
+    });
+
+    // Add all bootstrap differences to histogram
+    histData.push(...allBootstraps.map(b => b.meanB - b.meanA));
+
+    // Update display elements
+    document.getElementById("bootcount").innerHTML = histData.length;
+    document.getElementById("pvalue").innerHTML = 
+      (d3.sum(histData.map(d => (d >= Math.abs(difAB)) | (d <= -Math.abs(difAB)))) / histData.length).toFixed(3);
+    updateHistogram();
+    updateHistInfo();
+    resolve();
   });
-  gB.forEach(d => {
-    d.group = 4;
-    data.push(d);
-  });
-  document.getElementById("bootcount").innerHTML = histData.length;
-  document.getElementById("pvalue").innerHTML = (d3.sum(histData.map(d => (d >= Math.abs(difAB)) | (d <= -Math.abs(difAB)))) / histData.length).toFixed(3);
-  updateHistogram();
-  updateHistInfo()
-  updateSimulation(data);
 }
 
 
@@ -390,13 +608,55 @@ updateHistogram();
 
 
 // SETUP Event Listeners
+// Parameter setter functions
+function setNA(value, doReset = false) {
+  document.getElementById('NA').value = value;
+  if (doReset) resetAll();
+}
+
+function setNB(value, doReset = false) {
+  document.getElementById('NB').value = value;
+  if (doReset) resetAll();
+}
+
+function setBarA(value, doReset = false) {
+  document.getElementById('barA').value = value;
+  if (doReset) resetAll();
+}
+
+function setBarB(value, doReset = false) {
+  document.getElementById('barB').value = value;
+  if (doReset) resetAll();
+}
+
+function setSigmaA2(value, doReset = false) {
+  document.getElementById('sigmaA2').value = value;
+  if (doReset) resetAll();
+}
+
+function setSigmaB2(value, doReset = false) {
+  document.getElementById('sigmaB2').value = value;
+  if (doReset) resetAll();
+}
+
+// Make functions available globally
+window.setNA = setNA;
+window.setNB = setNB;
+window.setBarA = setBarA;
+window.setBarB = setBarB;
+window.setSigmaA2 = setSigmaA2;
+window.setSigmaB2 = setSigmaB2;
+
 function resetAll() {
+  isGathered = false;
   splitGroups();
   histData = [];
   data = generateData();
   updateSimulation(data);
   updateHistInfo();
   updateHistogram();
+  document.getElementById("bootcount").innerHTML = "0";
+  document.getElementById("pvalue").innerHTML = "-";
 }
 // Attach event listeners to input elements
 document.getElementById('NA').addEventListener('change', resetAll);

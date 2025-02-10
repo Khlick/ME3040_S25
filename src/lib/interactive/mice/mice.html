@@ -1,0 +1,463 @@
+<html>
+<head ></head>
+<body>
+    <!-- load in D3 and Chart constructor scripts -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+        var d4 = d3;
+        window.d3 = null;
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script src="https://d3js.org/d3-timer.v1.min.js"></script>
+    <script src="lib/mouseplots.js"></script>
+    <script src="lib/mouselineup.js"></script>
+    <script src="lib/hist.js"></script>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .strong {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .btn {
+          background: #202020;
+          background-image: -webkit-linear-gradient(top, #202020, #001526);
+          background-image: -moz-linear-gradient(top, #202020, #001526);
+          background-image: -ms-linear-gradient(top, #202020, #001526);
+          background-image: -o-linear-gradient(top, #202020, #001526);
+          background-image: linear-gradient(to bottom, #202020, #001526);
+          -webkit-border-radius: 10;
+          -moz-border-radius: 10;
+          border-radius: 10px;
+          -webkit-box-shadow: 0px 1px 4px #666666;
+          -moz-box-shadow: 0px 1px 4px #666666;
+          box-shadow: 0px 1px 4px #666666;
+          color: #FFF8D0;
+          font-size: 16px;
+          padding: 6px 12px 6px 12px;
+          text-decoration: none;
+          max-width: 100%
+        }
+
+        .btn:hover {
+          background: #404040;
+          background-image: -webkit-linear-gradient(top, #404040, #003c69);
+          background-image: -moz-linear-gradient(top, #404040, #003c69);
+          background-image: -ms-linear-gradient(top, #404040, #003c69);
+          background-image: -o-linear-gradient(top, #404040, #003c69);
+          background-image: linear-gradient(to bottom, #404040, #003c69);
+          text-decoration: none;
+        }
+        .axis path, .tick line {
+            fill: none;
+            stroke: #666;
+        }
+        .y.axis path, .y.axis line {
+            display: none;
+        }
+        .y.axis text {
+            display: none;
+        }
+        .hist-axis text {
+            font: 24px sans-serif;
+        }
+        .bar rect {
+            stroke-width:1px;
+            stroke: #777;
+        }
+        .hist-bar rect {
+          fill: #FF6699;
+        }
+
+        .hist-bar text {
+          fill: #202020;
+          font: 20px sans-serif;
+        }
+        .bCont {
+            padding: none;
+        }
+
+        .girls {
+            color: #FF6699;
+        }
+        .boys {
+            color: #66CCff;
+        }
+        .display-count {
+            display: inline-block;
+            text-align: center;
+            width: 50px;
+        }
+        #count-girls, #count-boys {
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .theProb, .theNum {
+            font-weight: bold;
+        }
+        .pupfield{
+            max-width: 65px;
+        }
+        .probfield {
+            max-width: 65px;
+        }
+        .no-margin {
+            margin: none !important;
+        }
+        .bigger {
+            font-size: 16px;
+            white-space: nowrap;
+        }
+        .prob-text, .theProb, .theNum {
+          font-size: 36px;
+        }
+
+        /* Add new grid layout styles */
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr auto;
+            gap: 0.5rem;
+            width: 100%;
+            height: 100vh;
+            padding: 0.5rem;
+            box-sizing: border-box;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            height: 60px;
+            width: 100%;
+        }
+
+        .controls-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 0 0 auto;
+        }
+
+        .controls-right {
+            flex: 1;
+            height: 100%;
+            min-width: 0; /* Allow flex item to shrink below content size */
+        }
+
+        .plots {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 1rem;
+            min-height: 0;
+            height: 100%;
+        }
+
+        .dot-plot, .hist-plot {
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+        }
+
+        #chart-container, #hist {
+            width: 100%;
+            height: calc(100% - 2rem);
+        }
+
+        /* Position probability text */
+        .hist-plot p {
+            margin: 0.5rem 0 0 0;
+            height: 2rem;
+            line-height: 2rem;
+        }
+
+        /* Update existing button styles */
+        .btn {
+            margin: 0 0.25rem;
+        }
+
+        /* Update input field styles */
+        .pupfield, .probfield {
+          padding: 0.25rem;
+        }
+
+        /* Update the mouse lineup container */
+        #mouse {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Update stats section */
+        .stats {
+            height: 30px;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+
+    <div class="container">
+        <div class="controls">
+            <div class="controls-left">
+                <button class='btn reset'>Reset</button>
+                <button class='btn breedn'>Breed</button>
+                <input class='pupfield' type="number" id="npups" value="5" step="1" onchange="pupChange()">
+                <span id="count-girls" class="display-count girls">0</span>
+                <span id="count-boys" class="display-count boys">0</span>
+            </div>
+            <div id="mouse" class="controls-right"></div>
+        </div>
+
+        <div class="plots">
+            <div id="chart-container" class="dot-plot"></div>
+            <div class="hist-plot">
+                <div id="hist"></div>
+                <p class="prob-text">
+                    The probability of getting <input type="number" class="probfield" id="probCheck" value="4" step="1" onchange="doP()"> or more females out of <span id="pups" class="strong"></span> pups is: <span id="theProb" class="strong bigger"></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="stats">
+            <p class="strong">The total number of <span class="strong">girls</span> is <span id="total-girls" class="display-count girls">0</span> &amp; <span class="strong">boys</span> is <span id="total-boys" class="display-count boys">0</span> in <span id="total-litters" class="display-count">0</span> litters.</p>
+        </div>
+    </div>
+
+    <script>
+        //CONSTANTS
+        var NPUPS = Number(document.getElementById('npups').value);
+
+        // Functions
+        var doReset = function(){
+            updateIndex = 1;
+            theLineup.clearUse();
+            dot_plots.reset();
+            hist.reset();
+            data.reset();
+            //reinit at 0's
+            theLineup.setData(data.current);
+            dot_plots.setData(data.getPlotData());
+            hist.setData(data.getHistData());
+            doP();
+            updateText();
+        }
+        var pupChange = function(){
+            NPUPS = Number(document.getElementById('npups').value);
+            // Clear everything first
+            doReset();
+            
+            // Update histogram settings
+            hist.bins = NPUPS+2;
+            hist.bounds = [0,NPUPS+1];
+            
+            // Reinitialize with new data
+            simulate(1);
+        }
+        var simulate = function(nSims){
+            var up = function(){
+                theLineup.clearUse();
+                theLineup.setData(data.current)
+                dot_plots.setData(data.getPlotData())
+                hist.setData(data.getHistData())
+                doP();
+                updateText();
+            }
+            for (sim=1; sim <= nSims; sim++) {
+                data.update(breedMice(NPUPS));
+            }
+            // update the last time
+            up()
+        }
+        var updateText = function(){
+            d4.select("#pups").text(NPUPS)
+            var litter = data.current;
+            if (litter.length){
+                var mps = 0, fps = 0;
+                litter.forEach(function(p){
+                    mps += Number(p == "Male");
+                    fps += Number(p == "Female");
+                });
+                // Update current counts
+                d4.select('#count-girls').html(fps)
+                d4.select('#count-boys').html(mps)
+            }
+            var collection = data.array;
+            if (collection.length){
+                var males = 0, females = 0;
+                collection.forEach(function(ltr){
+                    ltr.forEach(function(pup){
+                        males += Number(pup == 'Male');
+                        females += Number(pup == 'Female');
+                    });
+                });
+                // update totals
+                d4.select('#total-girls').html(females)
+                d4.select('#total-boys').html(males)
+                d4.select('#total-litters').html(collection.length)
+            }
+        }
+
+        var doP = function(){
+            var len = data.array.length;
+            var prob = 0;
+            var checkVal = document.getElementById('probCheck').value;
+            //console.log("check",checkVal)
+            counts = data.getHistData();
+            counts.forEach(function(a){
+                prob += Number(a >= Number(checkVal));
+            });
+            if (len === 0) {
+                d4.selectAll('#theProb').text('p = ?');
+                return;
+            }
+
+            if (prob === 0) {
+                // Format 1/len in scientific notation
+                var exp = Math.floor(Math.log10(len));
+                d4.selectAll('#theProb').html(`p &lt; 1×10<sup>-${exp}</sup>`);
+                return;
+            }
+
+            prob /= len;
+            if (prob > 10**(-4)){
+                d4.selectAll('#theProb').text(prob.toFixed(4).toString());
+                return;
+            }
+            d4.selectAll('#theProb').html("p &lt; 10<sup>-4</sup>");
+        }
+
+        var breedMice = function(nPups) {
+            var r=[];
+            while(r.length < nPups) {
+                r.push( Math.floor(Math.random() * 2) ? 'Female' : 'Male' );
+            }
+            return r
+        }
+
+        //Define a data object
+        var Data = function(opts){
+            this.current = opts.current || [];
+            this.array = [];
+            this.tracked = opts.tracked;
+            this.plotData = [];
+
+            if (!this.current.length) { return; }
+            this.updateCount();
+        }
+        Data.prototype.update = function(dat){
+            this.current = dat;
+            this.array.push(dat);
+            this.updateCount();
+        }
+        Data.prototype.reset = function(){
+            this.array.length = 0;
+            this.current.length = 0;
+            this.plotData.length = 0;
+        }
+        
+        Data.prototype.updateCount = function(){
+            this.count = this.doCount(this.current)
+            this.updatePlotData();
+            
+        }
+        Data.prototype.updatePlotData = function(){
+            if (!this.current.length){
+                return
+            }
+            var randomNumbers = d4.range(this.current.length).map(d4.randomBates(3));
+            var num, out = [];
+            for (num=0; num < this.current.length; num++){
+                this.plotData.push( {"group": this.current[num], "val": randomNumbers[num]} )
+            }
+        }
+        Data.prototype.getPlotData = function() {
+            if (!this.plotData.length){
+                return [{"group": [], "val": []}]
+            }
+            return this.plotData;
+        }
+        Data.prototype.getHistData = function(){
+            obj = this;
+            dat = []
+            if (this.current.length){
+                this.array.forEach(function(litter){
+                    dat.push(obj.doCount(litter));
+                })
+            }
+            
+            return dat
+        }
+        Data.prototype.doCount = function (dat){
+            return dat.reduce((a,b) => a+(b === this.tracked), 0);
+        }
+
+        // SETUP INITIAL DATA -------------------------------------|
+        var data = new Data({
+            "current": [],
+            "tracked": "Female"
+        });
+        
+        // construct plots
+        var theLineup = new mouseLineup(
+            {
+                'data': data.current,
+                'element': document.querySelector('#mouse'),
+                'marker': 'lib/mouse.svg',
+                'colors': ["#FF6699", "#66CCff"],
+                'possibleGroups': ["Female","Male"],
+                'iconWidth': 40
+            }
+        );
+
+
+        var dot_plots = new Dot_Plots({
+            data: data.getPlotData(),
+            element: document.querySelector('#chart-container'),
+            bins: 36
+        });
+
+        var hist = new Hist({
+            element: document.querySelector('#hist'),
+            data: data.getHistData(),
+            bins: NPUPS+2,
+            bounds: [0,17],
+            margin: {top: 10, right: 10, bottom: 60, left: 10}
+        });
+
+        var updateIndex = 1
+
+        
+        // CALLBACKS --------------------------------------------|
+        // change data on click to something randomly-generated
+        d4.selectAll('button.breedn').on('click', function(){
+            console.log(updateIndex)
+            simulate(1);
+            updateIndex++
+        });
+
+        d4.select('button.reset').on('click', doReset);
+
+        // redraw chart on each resize
+        d4.select(window).on('resize', function(){
+            dot_plots.resize();
+            hist.resize();
+        });
+
+        //Initialize some stuff in the DOM
+        doP();
+        updateText();
+
+        // Add transitions for vizzy
+        window.simulate = simulate;
+        window.doRest = doReset;
+    </script>
+</body>
+</html>
