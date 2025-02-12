@@ -1,0 +1,2004 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="notranslate" name="google"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>
+      Uncertainty And The Confidence Interval
+    </title>
+    <link href="lib\favicon.png" rel="icon" type="image/x-icon"/>
+    <link href="./src/css/reset.css" rel="stylesheet"/>
+    <link href="./src/css/reveal.css" rel="stylesheet"/>
+    <link href="./src/css/revealpack.css" rel="stylesheet"/>
+    <link href="./src/theme/drG.css" id="theme" rel="stylesheet"/>
+    <!-- highlight.js theme -->
+    <link href="./src/theme/vs.css" id="highlight-theme" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <!-- Custom Scripts -->
+    <!-- Print PDF script -->
+    <script>
+      var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match(/print-pdf/gi) ? './src/css/print/pdf.css' : './src/css/print/paper.css';
+document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!-- Deck CSS Injections -->
+    <!-- Deck Script Injections -->
+    <!-- Deck Raw Injections -->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-image="lib/img/normality_bg.webp" id="deck-title-slide">
+          <div class="title-slide background">
+            <div class="headline">
+              <h2 class="r-fit-text">
+                Uncertainty
+              </h2>
+              <h3>
+                And The Confidence Interval
+              </h3>
+            </div>
+            <div class="sub-header">
+              <p class="by">
+                Khris Griffis, Ph.D.
+              </p>
+            </div>
+            <div class="byline">
+              <p class="byinfo">
+                Lecture 07
+              </p>
+              <p class="byinfo">
+                CSULA: ME3040
+              </p>
+            </div>
+          </div>
+          <aside class="notes">
+            <p>
+              We are going to expand upon this notion of ranges in data.
+            </p>
+          </aside>
+        </section>
+        <section>
+          <div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Today's Objectives</h2>
+
+</div>
+
+<div class="content">
+
+<div
+
+class="grid-generic full-width left-justify"
+
+style="grid-template-columns: 1fr; grid-auto-rows: 1fr; row-gap: 5vmin; align-content:center;"
+
+>
+
+<div></div>
+
+<div class="border-bottom fragment" data-fragment-index="1">
+
+<p>
+
+<i class="target"></i> Leverage the Central Limit Theorem to
+
+understand the properties of the sampling distribution of a
+
+statistic.
+
+</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="2">
+
+<p>
+
+<i class="target"></i> Define <span class="s-quote">Uncertainty</span> and
+
+how we quantify it.
+
+</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="3">
+
+<p>
+
+<i class="target"></i> Construct confidence intervals for a statistic.
+
+</p>
+
+</div>
+
+<div></div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Our main goal is to introduce some new concepts around quantifying uncertainty.</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/probability_abstract.png" id="section-title-1">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-1">
+              <div class="section-number">
+                <span class="large-number">
+                  1
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  The Sampling Distribution
+                </h2>
+                <h3>
+                  The Distribution Of Sample Statistics
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-1.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 500px !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>note here</p>
+
+</aside>
+
+</section>
+
+
+
+
+
+<!-- Goal of Statistics -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Statistical Purpose</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic"
+
+style="grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:5px;justify-items:center;">
+
+<div>
+
+<p>
+
+<i class="arrowr"></i> To answer a question about a population (of data).
+
+</p>
+
+<div class="bordered rounded border-dashed">
+
+<p style="text-align:justify;text-justify:inter-word;" class="small">
+
+In a perfect world, we would have access to the full
+
+<span class="info">population</span> so we would be able to answer the question
+
+based on data collected on all the <span class="u">observational units</span>
+
+of the population. We would know the value of the
+
+<span class="info">true parameter</span> we are interested in.
+
+</p>
+
+</div>
+
+<p>
+
+But usually we just have <span class="danger">one sample</span>.
+
+</p>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:1fr 2fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<p class="left-justify">
+
+Statistics is about using a <span class="danger">sample</span>, or many samples,
+
+</p>
+
+<p class="left-justify">
+
+to make <span class="warning">inferences</span> about the <span class="info">population</span> parameters.
+
+</p>
+
+</div>
+
+<div style="justify-content:center;">
+
+<svg viewBox="0 0 864 432" class="graphic" style="height:55vh;">
+
+<use xlink:href="lib/img/inferences.svg#figure_1"></use>
+
+<use xlink:href="lib/img/inferences.svg#figure_2"></use>
+
+<use xlink:href="lib/img/inferences.svg#figure_3"></use>
+
+<use xlink:href="lib/img/inferences.svg#figure_4"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+I keep showing you this slide, because as we get more and more into the weeds with formulas and concepts,
+
+I want you to have the purpose, the big picture, in the back of your mind at all times!
+
+</p>
+
+<p>
+
+In statistics, the process of making inferences results in estimating the sampling distribution.
+
+This is <strong>always</strong> what we are endeavoring to do. NO MATTER THE STATISTIC!
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Normal Distribution -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>The Normal Distribution</h2>
+
+</div>
+
+<div class="content">
+
+<div data-id="cont1" class="grid-generic" style="grid-template-columns:2fr 1.5fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="quoted small" style="grid-column: 1/3;">The Normal distribution's shape indicates values closer to the center are <span class="pop">more <span class="s-quote">likely</span></span>.</p>
+
+<div class="small" style="height:100%;">
+
+<!-- Left Column: Definition and Example -->
+
+<div>
+
+<div class="left-justify small">
+
+<p><strong>Standard Normal Distribution:</strong></p>
+
+<p>
+
+The standard normal distribution is a normal distribution with a
+
+<span class="info">mean of 0</span> and a <span class="success">standard deviation of 1</span>,
+
+denoted as $\mathcal{N}(0, 1)$.
+
+</p>
+
+</div>
+
+<div class="fragment left-justify small" data-fragment-index="1">
+
+<p class="info">
+
+We tend to rely on the properties of the normal distribution,
+
+<span class="warning">but it is not always the best distribution for our data.</span>
+
+</p>
+
+<p>
+
+From the Central Limit Theorem, we expect a large number of repeated samples will have a
+
+descriptive statistic that is (approximately) normally distributed.
+
+</p>
+
+<p class="em framed border-info fragment bigger" data-fragment-index="2">
+
+The distribution of the sample statistic is called the <span class="s-quote">sampling distribution</span>.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div style="height:100%;align-items:start;">
+
+<!-- Right Column: Placeholder for Graphic -->
+
+<div class="full-width no-hang">
+
+<svg width="100%" viewBox="0 0 468 288" style="margin-top: 0; margin-bottom: 0;margin-left:auto;margin-right:auto;">
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#matplotlib.axis_1"></use>
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#patch_3"></use>
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#line2d_8"></use>
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#line2d_9"></use>
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#line2d_10"></use>
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#line2d_11"></use>
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#line2d_12"></use>
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#line2d_13"></use>
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#line2d_14"></use>
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#patch_4"></use>
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#text_9"></use>
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#patch_5"></use>
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#text_10"></use>
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#patch_6"></use>
+
+<use xlink:href="lib/img/normal-distribution-standardized-distances.svg#text_11"></use>
+
+</svg>
+
+</div>
+
+<p class="strong smaller">PDF: <br>$f(\class{warning}{x}; \class{info}{\mu}, \class{info}{\sigma}) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$</p>
+
+<p class="strong smaller">CDF: <br>$P(\class{smaller}{-\infty \leq \class{warning}{x} \leq \infty})\int_{-\infty}^{\infty} f(\class{warning}{x}; \class{info}{\mu}, \class{info}{\sigma})\,dx = 1$</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+The normal distribution stands as a fundamental pillar in statistics. We will cover many other continuous distributions as we go along, but we start with the Gaussian.
+
+</p>
+
+<p>
+
+So you can think about your sample having a distribution,
+
+and then if you repeat that experiment under the same conditions,
+
+every time you calculate the statistic, say the mean, you get a different value.
+
+So you get a distribution of means.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Sampling Distribution -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Sampling Distribution</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="quoted" style="grid-column:1/3;">
+
+A sampling distribution is the <span class="danger">distribution of sample statistics</span> computed for
+
+<span class="u-danger">randomly selected samples</span> from the same underlying population.
+
+</p>
+
+<div class="box-width">
+
+<img width="100%" src="lib/img/population-sampling-distribution-parameters.svg">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>CLT: For most of the parameters we consider, if samples are randomly selected and the sample size is large
+
+enough, the sampling distribution will be generally symmetric and bell-shaped and centered at the value of the
+
+population parameter.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Sampling Distribution -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h3>Sampling Distribution</h3>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.5fr;grid-auto-rows:1fr;gap:1vmin;">
+
+<div class="small left-justify">
+
+<p class="sided border-info small">
+
+From the central limit theorem, we assume that the sampling distribution
+
+of <span class="info">any common statistic</span> should be normally distributed, <span class="fragment highlight-danger" data-fragment-index="1">if a large number of independent, identically distributed samples are taken</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index="2">
+
+Changing the sample size affects the sampling distribution's <span class="info">spread</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index="4">
+
+Changing the underlying distribution has no impact on the shape with <span class="warning">sufficent sample size</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index="5">
+
+Changing the statistic may <span class="warning">change the shape</span> of the sampling distribution.
+
+</p>
+
+<p class="fragment" data-fragment-index="6">
+
+With small sample sizes, the sampling distribution <span class="danger">may not converge</span> to a normal distribution.
+
+</p>
+
+</div>
+
+<vizzy data-src="lib/interactive/clt-animation.html">
+
+[{
+
+activate: () => {
+
+window.runSimulation(1000);
+
+},
+
+index: -1,
+
+},
+
+{
+
+activate: () => window.toggleTheoretical(true),
+
+reverse: () => window.resetVisualization(),
+
+index: 1,
+
+},
+
+{
+
+activate: () => {
+
+window.changeSampleSize(10);
+
+window.runSimulation(1000)
+
+.then(() => window.toggleTheoretical(true));
+
+},
+
+reverse: () => window.resetVisualization(),
+
+index: 2,
+
+},
+
+{
+
+activate: () => {
+
+window.changeSampleSize(50);
+
+window.runSimulation(1000)
+
+.then(() => window.toggleTheoretical(true));
+
+},
+
+reverse: () => window.resetVisualization(),
+
+index: 3,
+
+},
+
+{
+
+activate: () => {
+
+window.changeDistribution("RightSkewed")
+
+.then(() => window.runSimulation(1000))
+
+.then(() => window.toggleTheoretical(true));
+
+},
+
+reverse: () => window.resetVisualization(),
+
+index: 4,
+
+},
+
+{
+
+activate: () => {
+
+window.changeStatistic("median");
+
+window.runSimulation(1000)
+
+.then(() => window.toggleTheoretical(true));
+
+},
+
+reverse: () => window.resetVisualization(),
+
+index: 5,
+
+},
+
+{
+
+activate: () => {
+
+window.changeSampleSize(3);
+
+window.runSimulation(1000)
+
+.then(() => window.toggleTheoretical(true));
+
+},
+
+reverse: () => window.resetVisualization(),
+
+index: 6,
+
+}
+
+]
+
+</vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+The Central Limit Theorem (CLT) states that the distribution of the sum (or average) of a large number of independent, identically distributed random variables, each with a finite mean and variance, will approximate a normal distribution, regardless of the original distribution of the variables. This convergence towards normality occurs as the sample size increases, underscoring the normal distribution's significance in probability and statistics.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+
+
+<!-- Sample Size Effect On Sampling Distribution -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Considering Sample Size</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1.2fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="align-content: center;height:100%;">
+
+<p>
+
+<span class="u">Sample Size Matters!</span> <br>
+
+Increasing <span class="danger">sample size reduces the variability of sample statistics</span>, making them more accurate (narrower sampling distribution).
+
+</p>
+
+<p class="framed border-danger small">
+
+<i class="fas fa-arrow-circle-right"></i> Larger sample sizes lead to <span class="info">reduced uncertainty</span> and <span class="em">narrower spread</span> of the sampling distribution.
+
+</p>
+
+</div>
+
+<div class="full-width">
+
+<img src="lib/img/sampling-distribution-size-matters.svg" style="width:100%;">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>If the sampling distribution in narrower, what also happens to the standard Error? 95% Confidence Interval?</p>
+
+<p>Think about SE and CI calculations. sigma smaller or n larger (both too), then 1.96*se also smaller.</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- Salaries At A Big University -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Salaries At A Big University</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p>From <a href="https://ucannualwage.ucop.edu/wage/" target="_blank" rel="noopener noreferrer">the internet</a>, we have the following data on salaries of employees at <span class="danger as-code smaller">&lt;Institution&gt;</span> in 2023:</p>
+
+<div class="grid-generic" style="grid-template-columns:2fr 1.2fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div class="full-width">
+
+<svg width="100%" viewBox="0 0 713 388">
+
+<use xlink:href="lib/img/ucla_salaries_histogram.svg#axes_1"></use>
+
+<use xlink:href="lib/img/ucla_salaries_histogram.svg#axes_2" class="fragment" data-fragment-index="1"></use>
+
+<use xlink:href="lib/img/ucla_salaries_histogram.svg#axes_3" class="fragment" data-fragment-index="2"></use>
+
+</svg>
+
+</div>
+
+<div>
+
+<p class="fragment" data-fragment-index="0"><span class="strong">Population</span> salary parameters:</p>
+
+<p class="fragment" data-fragment-index="1"><span class="ucla-darkest-gold huge">$\mu=\$94,416$</span>,</p>
+
+<p class="fragment" data-fragment-index="2"><span class="ucla-darkest-blue huge">$m=\$78,922$</span>.</p>
+
+<p class="fragment small left-justify" data-fragment-index="3">Consider you are trying to estimate the median salary of the <span class="em">entire</span> population.</p>
+
+<p class="fragment small left-justify" data-fragment-index="4">You randomly pick 50 people and ask them their salary.</p>
+
+<p class="fragment small left-justify question" data-fragment-index="5">How well can you estimate the <span class="s-quote">true median</span> salary</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>How would you describe this population?</p>
+
+<p>Which central tendency descriptor would be closer to the most frequent salary?</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- The Experiment -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>The Experiment</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="100%"viewBox="0 0 1073 425" xmlns="http://www.w3.org/2000/svg" version="1.1">
+
+<use xlink:href="lib/img/salaries_random_samples_swarm.svg#axes_1"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm.svg#axes_2" class="fragment" data-fragment-index="2"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm.svg#axes_3" class="fragment" data-fragment-index="3"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm.svg#axes_4" class="fragment" data-fragment-index="4"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm.svg#axes_5" class="fragment" data-fragment-index="5"></use>
+
+</svg>
+
+</div>
+
+<div class="small left-justify">
+
+<p>You select 50 people at random and ask them their salary: <span class="burgundy">$m=\$81,093.50$</span>.</p>
+
+<p class="fragment" data-fragment-index="1">You recruit 4 friends who <span class="em">replicate</span> the experiment.</p>
+
+<p class="fragment" data-fragment-index="2">Friend 1: <span class="lavender">$m=\$96,694.50$</span></p>
+
+<p class="fragment" data-fragment-index="3">Friend 2: <span class="skyblue">$m=\$88,316.50$</span></p>
+
+<p class="fragment" data-fragment-index="4">Friend 3: <span class="coral">$m=\$67,109.00$</span></p>
+
+<p class="fragment" data-fragment-index="5">Friend 4: <span class="crimson">$m=\$76,750.00$</span></p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Because you're always told to perform replicates, you recruit 4 friends who perform the same experiment.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Sample Center (Estimates) -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Sample Center (Estimates)</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="full-width">
+
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" viewBox="0 0 711 388" xmlns="http://www.w3.org/2000/svg" version="1.1">
+
+<use xlink:href="lib/img/salaries_random_samples_swarm_with_medians.svg#axes_1"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm_with_medians.svg#axes_2"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm_with_medians.svg#axes_3" class="fragment current-visible" data-fragment-index="1"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm_with_medians.svg#axes_4" class="fragment current-visible" data-fragment-index="2"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm_with_medians.svg#axes_5" class="fragment current-visible" data-fragment-index="3"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm_with_medians.svg#axes_6" class="fragment current-visible" data-fragment-index="4"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm_with_medians.svg#axes_7" class="fragment current-visible" data-fragment-index="5"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm_with_medians.svg#axes_3" class="fragment current-visible" data-fragment-index="6"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm_with_medians.svg#axes_4" class="fragment current-visible" data-fragment-index="6"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm_with_medians.svg#axes_5" class="fragment current-visible" data-fragment-index="6"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm_with_medians.svg#axes_6" class="fragment current-visible" data-fragment-index="6"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm_with_medians.svg#axes_7" class="fragment current-visible" data-fragment-index="6"></use>
+
+<use xlink:href="lib/img/salaries_random_samples_swarm_with_medians.svg#axes_8" class="fragment" data-fragment-index="7"></use>
+
+</svg>
+
+</div>
+
+<div class="small left-justify">
+
+<p>You select 50 people at random and ask them their salary.</p>
+
+<p class="fragment" data-fragment-index="1">You: <span class="burgundy">$m=\$81,093.50$</span></p>
+
+<p class="fragment" data-fragment-index="2">Friend 1: <span class="lavender">$m=\$96,694.50$</span></p>
+
+<p class="fragment" data-fragment-index="3">Friend 2: <span class="skyblue">$m=\$88,316.50$</span></p>
+
+<p class="fragment" data-fragment-index="4">Friend 3: <span class="coral">$m=\$67,109.00$</span></p>
+
+<p class="fragment" data-fragment-index="5">Friend 4: <span class="crimson">$m=\$76,750.00$</span></p>
+
+<p class="fragment smaller" data-fragment-index="6">Each sample is slightly different but similar to the true median.</p>
+
+<p class="fragment smaller" data-fragment-index="7">Imagine you have 10,000 friends and you create a histogram of their medians.</p>
+
+</div>
+
+<p class="fragment smaller info bordered border-info" data-fragment-index="8" style="grid-column:1/3;">
+
+This is the <span class="s-quote">sampling distribution</span> and it would be centered on the true median.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>With 10,000 friends you can create a distribution of medians. Think about how often you'd see a median close to the true median.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Sampling Distribution -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Sampling Distribution</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1.75fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="full-width">
+
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" viewBox="0 0 520 413" xmlns="http://www.w3.org/2000/svg" version="1.1">
+
+<use xlink:href="lib/img/salaries_clt_median_sampling.svg#axes_1"></use>
+
+<use xlink:href="lib/img/salaries_clt_median_sampling.svg#axes_2" class="fragment" data-fragment-index="1"></use>
+
+</svg>
+
+</div>
+
+<div class="small left-justify">
+
+<p>With 10,000 medians from 10,000 identical, random samples, you can estimate the <span class="em">true median</span> salary.</p>
+
+<p class="fragment" data-fragment-index="1">This <span class="info">sampling distribution</span> is centered on the true median.</p>
+
+<p class="fragment" data-fragment-index="2">The <span class="info">spread</span> of the sampling distribution is the <span class="danger">standard error</span> of the median.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>If you replace this with the mean, then you'd have the sampling distribution of the mean.</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/confidence_abstract.png" id="section-title-2">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-2">
+              <div class="section-number">
+                <span class="large-number">
+                  2
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Confidence Intervals
+                </h2>
+                <h3>
+                  The Estimation Of Uncertainty
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-2.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 6rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>We discussed confidence intervals before. </p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- Standard Error -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Standard Error</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1.25fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="quoted smaller" style="grid-column:1/3;">
+
+The standard error may be thought of as a 'typical' distance between the <span class="fragment highlight-bg-warning-light" data-fragment-index="4">sample statistics</span> and the <span class="fragment highlight-bg-danger-light" data-fragment-index="0">population parameter</span>.
+
+</p>
+
+<div class="framed border-muted big fragment" data-fragment-index="1">
+
+<p class="fragment em small left-justify" data-fragment-index="1">
+
+To calculate <span class="pop">standard error of the mean</span>, we fist calculate the <span class="fragment highlight-success" data-fragment-index="2">standard deviation</span> of the sample.
+
+</p>
+
+<p class="fragment em small left-justify" data-fragment-index="3">
+
+Then we divide by $\sqrt{n}$ (where $n$ is our sample size.)
+
+</p>
+
+<div class="smaller no-hnag fragment" data-fragment-index="3">
+
+$$SE=\frac{s}{\sqrt{n}}$$
+
+</div>
+
+<p class="fragment em small left-justify" data-fragment-index="4">
+
+$SE$ <span class="danger">estimates</span> the spread of our <span class="warning">sampling distribution</span>!
+
+</p>
+
+</div>
+
+<div class="full-width">
+
+<!-- <img src="lib/img/standard-error-statistic.svg" style="width:100%;"> -->
+
+<svg width="100%" viewBox="0 0 432 288" style="margin-top: 0; margin-bottom: 0;margin-left:auto;margin-right:auto;">
+
+<use xlink:href="lib/img/standard-error-statistic.svg#data"></use>
+
+<use xlink:href="lib/img/standard-error-statistic.svg#sampling" class="fragment" data-fragment-index="4"></use>
+
+<use xlink:href="lib/img/standard-error-statistic.svg#mu" class="fragment" data-fragment-index="0"></use>
+
+<use xlink:href="lib/img/standard-error-statistic.svg#std" class="fragment" data-fragment-index="2"></use>
+
+<use xlink:href="lib/img/standard-error-statistic.svg#se" class="fragment" data-fragment-index="3"></use>
+
+</svg>
+
+</div>
+
+<p class="fragment small framed full-width" style="grid-column:1/3;" data-fragment-index="5">
+
+<span class="muted u em">Note:</span> The variability of a sample statistic, called the <span class="bg-pop-light">standard error</span> (<span class="pop">SE</span>), is distinct yet related to the <span class="success">standard deviation</span> of sample values.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>We will see this term standard a lot, note that we estimate.</p>
+
+<p>
+
+It turns out, if our sample size (for one experiment) is large enough,
+
+we can estimate how far off we might be, or rather how UNCERTAIN we are
+
+about our sample statistic (mean) representing the population parameter (mu).
+
+</p>
+
+<p>
+
+With this information, we can put a number to how uncertain we are.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Standard Error -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Standard Error</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.5fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<svg width="100%" viewBox="0 0 711 389" style="margin-top: 0; margin-bottom: 0;margin-left:auto;margin-right:auto;">
+
+<use xlink:href="lib/img/salaries_single_sample_with_sampling_distribution.svg#axes_1" class="fragment" data-fragment-index="1"></use>
+
+<use xlink:href="lib/img/salaries_single_sample_with_sampling_distribution.svg#axes_2" class="fragment" data-fragment-index="1"></use>
+
+<use xlink:href="lib/img/salaries_single_sample_with_sampling_distribution.svg#axes_3" class="fragment" data-fragment-index="4"></use>
+
+<use xlink:href="lib/img/salaries_single_sample_with_sampling_distribution.svg#axes_4" class="fragment" data-fragment-index="6"></use>
+
+</svg>
+
+<p class="framed border-info full-width fragment" data-fragment-index="1">
+
+The population parameters are:<br />$\mu = \$94,416.47$ and $m = \$78,922.00$.
+
+</p>
+
+</div>
+
+<div>
+
+<p class="fragment" data-fragment-index="1">For a single sample (<span class="ucla-darkest-gold">$N=50$</span>):</p>
+
+<p class="fragment" data-fragment-index="2">Mean: $\bar{x}=\$102,151.00$</p>
+
+<p class="fragment" data-fragment-index="2">Standard Deviation: $s=\sqrt{\frac{(x_i-\bar{x})^2}{N-1}}=\$73,392.48$</p>
+
+<p class="fragment" data-fragment-index="3">Standard Error: $SE=\frac{s}{\sqrt{N}}=\$10,379.26$</p>
+
+<p class="fragment em smaller" data-fragment-index="4">The sample SE <span class="warning">estimates</span> the spread of the <span class="ucla-darkest-blue">sampling distribution of the mean</span>.</p>
+
+<p class="fragment smallest" data-fragment-index="5">This claims, <span class="em danger">IF the sampling distribution is normal</span>, then <span class="u pink">68% of the time</span> the Population mean will be within <span class="warning strong">$\pm\$10,379.26$</span> of the Sample mean.</p>
+
+<hr style="width:100%; margin: 1rem 0;" class="fragment" data-fragment-index="5">
+
+<p class="fragment smallest" data-fragment-index="6">The resampling distribution of the mean, bootstraped from the sample itself, has a standard deviation ($\widehat{\text{SE}}^{\star}$) of <span class="warning">$\$10,365.00$</span>, and contains the population mean <span class="u">within the central 55%</span> of the distribution!</p>
+
+</div>
+
+<div style="grid-column:1/3;" class="full-width framed border-success bg-success-alpha-02 fragment" data-fragment-index="8">
+
+<p class="smallest">The <span class="danger">standard error</span> was <span class="em">always</span> meant to be a <span class="u">confidence interval</span>!</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>What the fuck is 68%?</p>
+
+<p>The problem here is with coverage. 68% of the time means we guess replicates of this exact experiment will yield a sample mean within this range 68 of 100 times.</p>
+
+<p>Recall, the sampling distribution is the distribution of the sample statistic (mean) across many replicates.</p>
+
+<p>A little bit more than half the time? What we really want to know is how many times will the sample yield a statistic "MOST OF THE TIME" (95% of the time).</p>
+
+</aside>
+
+</section>
+
+
+
+
+
+<!-- Confidence Intervals -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Confidence Intervals</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:9fr 4fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="left-justify">
+
+<p class="framed border-muted">
+
+The <span class="danger">sampling distribution</span> of a statistic tends towards a normal distribution around the population parameter. This allows us to quantify the <span class="success">likelihood</span> of a sample statistic's proximity to the <span class="pop">true population parameter</span>.
+
+</p>
+
+<p class="fragment small">
+
+For normally distributed statistics, the formulaic estimate of the parameter is $\pm 1.96\times SE$ of the statistic. Meaning that 95% of the statistics fall within this interval.
+
+</p>
+
+<p class="fragment">
+
+<i class="fas fa-arrow-circle-right danger"></i> This range is termed a <span class="danger">confidence interval</span>.
+
+</p>
+
+<p class="fragment quoted small">
+
+Confidence intervals quantify the <span class="bg-danger-light">uncertainty</span> associated with estimating the parameter.
+
+</p>
+
+<p class="fragment sided border-success smaller em">
+
+Uncertainty is expressed in "confidence intervals". It acknowledges that the exact value of the parameter (such as the mean or proportion) is unknown and might not be precisely determined from a sample.
+
+</p>
+
+</div>
+
+<div class="full-width">
+
+<img class="no-margin" src="lib/img/sampling-confidence-intervals.svg" style="width:100%;">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Statistics within the interval mean, every time you conduct a new identical experiment, the statistic is expected to be within the interval. Again, you have 1 sample and this method relies on the CLT, normality, and assumes you do not deviate any way and have a huge sample size!</p>
+
+<p>While we typically will use 95% for our confidence intervals, it is common to see other intervals, such as 90 or 99%.</p>
+
+<p>Where does this 1.96 come from?</p>
+
+</aside>
+
+</section>
+
+
+
+
+
+<!-- Confidence Intervals -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Confidence Intervals</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:1fr;gap:1vmin;">
+
+<vizzy data-src="https://seeing-theory.brown.edu/frequentist-inference/index.html#section2" style="width:100%;height:100%;"></vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>But you have to understand that the confidence interval is an estimate, it represents the amount of uncertainty in the estimate. It is not the true value of the parameter, it is the range of values that the parameter is likely to fall within.</p>
+
+<p>We have to be careful about how we calculate the confidence interval, if we just assume normality, we are in danger of making a potentially fatal mistake.</p>
+
+<p>Let's look at how the confidence interval may be constructed.</p>
+
+<p>Then, let's look at the bootstrap method for calculating the confidence interval.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- When The Sampling Distribution is Normal -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h4>When The Sampling Distribution is Normal(<span class="em">ish</span>)</h4>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 2fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<img src="lib/img/salaries_clt_mean_qq.svg" alt="Sampling Distribution of Means" style="width:80%;">
+
+</div>
+
+<div>
+
+<img src="lib/img/salaries_sampling_distributions_mean.svg" alt="Sampling Distribution of Means" style="width:50%;justify-self:center;">
+
+<ul class="small">
+
+<li class="fragment emoji-lightbulb" data-fragment-index="1">Estimate the sampling distribution of the sample statistic (<span class="danger">assume a normally distributed sampling distribution</span>).</li>
+
+<li class="fragment emoji-lightbulb" data-fragment-index="2">Set a coverage percentage, say 95%, 99%, or 99.9%.</li>
+
+<li class="fragment emoji-lightbulb" data-fragment-index="3">Find the central coverage percentage bounds of the estimated sampling distribution.</li>
+
+<li class="fragment emoji-lightbulb" data-fragment-index="4">These are the <span class="em success">confidence interval</span> bounds for the statistic!</li>
+
+<li class="fragment emoji-report" data-fragment-index="5">Report the values as <span class="success">$\bar{x}\, (\text{CI}_{\text{low}},\, \text{CI}_{\text{high}})$</span></li>
+
+<li class="fragment emoji-arrowl danger em small" data-fragment-index="6">Note: This sampling distribution is not <span class="warning">normal</span>, so the theoretical approach would underestimate the uncertainty.</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Generally, unless we use Monte Carlo simulations, we assume normality based on the Central Limit Theorem.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Standardized Statistic -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Standardized Statistic</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: auto; gap: 5vmin;">
+
+
+
+<!-- Text Description -->
+
+<div class="sided border-info left-justify">
+
+<p>The z-score, also known as a standard score, measures the number of standard deviations a data point is from the mean.</p>
+
+</div>
+
+
+
+<!-- Purpose/Overview -->
+
+<div class="fragment">
+
+<p class="em">Z-scores are utilized to identify and describe the position of a data point within a distribution, assess probabilities, and detect outliers.</p>
+
+</div>
+
+
+
+<!-- Normal Distribution Image -->
+
+<div style="width:100%;">
+
+<img src="lib/img/sd-normal.svg" class="unbordered visible" width="100%" style="margin-bottom: 0;">
+
+<p style="font-size: 0.65em; margin-top: 0;" class="em visible" >Normal Distribution</p>
+
+</div>
+
+
+
+<!-- Formula -->
+
+<div>
+
+<p class="framed border-pop small bg-info-alpha-01 fragment">
+
+The <span class="strong">Z Score</span> effectively <span class="em info">standardizes</span> observations, allowing us to make comparisons across different distributions.
+
+</p>
+
+<p class="big fragment">$$z(X) = \frac{x_i - \bar{X}}{s}$$</p>
+
+<p class="small fragment">Where $x_i$ is the data point, $\bar{X}$ is the mean of the sample, and $s$ is the standard deviation.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Calculating Z-Score for 95% Confidence -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Calculating Z-Score for 95% Confidence</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: auto; gap: 5vmin;">
+
+
+
+<!-- Reused Normal Distribution Image -->
+
+<div>
+
+<img src="lib/img/sd-normal.svg" class="unbordered visible" width="100%" style="margin-bottom: 0;">
+
+<p style="font-size: 0.65em; margin-top: 0;" class="em visible">Normal Distribution</p>
+
+</div>
+
+
+
+<!-- Z-Score Formula and Description -->
+
+<div class="fragment">
+
+<p class="framed border-pop small bg-info-alpha-01">
+
+To understand the probability associated with a specific z-score, we calculate <span class="strong">$\Phi(z)$</span>, representing the cumulative probability up to that z-score in a standard normal distribution.
+
+</p>
+
+<p>$$\Phi(z) = F(z \mid 0, 1) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{z} e^{-\frac{t^2}{2}} \, dt, \quad \text{for } z \in \mathbb{R}.
+
+$$</p>
+
+<p class="smaller">Here, $\Phi(z)$ is the cumulative probability from the left tail of the distribution up to a z-score of $z$, $t$ is a variable of integration, and $e$ is the base of the natural logarithm.</p>
+
+</div>
+
+
+
+<!-- Highlighting Z-Score for 95% Confidence Interval -->
+
+<div style="grid-column: 1 / span 2;">
+
+<p class="smaller fragment">The area under the curve from $-\infty$ to $z$ gives us the cumulative probability, the compliment is $1 - \Phi(z)$.</p>
+
+<p class="smaller fragment">For a 95% confidence interval in a standard normal distribution, we use the z-score value of <span class="strong">$\pm 1.96$</span>, which corresponds to the critical value that marks the boundaries of the central 95% of the distribution.</p>
+
+<p class="framed small fragment border-danger bg-danger-alpha-01">This implies that approximately 95% of all <span class="danger">statistics</span> fall within $\pm 1.96$ standard deviations from the mean.</p>
+
+</div>
+
+
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>This is the integral of the normal distribution's probability density function (PDF)</p>
+
+<p>It is actually more complicated than this, you don't just calculate this integral, there is an error function</p>
+
+<p>Here 'all statistics' means the distribution of the sampling statistic if the number of replicates goes to infinity.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Standard Normal Distribution -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header no-hang">
+
+<h2>Standard Normal Distribution</h2>
+
+<p class="small">
+
+For data <span class="danger">assumed</span> to be normally distributed: $z=\frac{x_i - \bar{x}}{s}$.
+
+</p>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:1fr;gap:1vmin;height:70vh;">
+
+<vizzy class="full-width" data-src="lib/interactive/normal-z-scores.html" style="height:100%;"></vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+It turns out these integrals are difficult, especially before computers and computer scientists were invented.
+
+A century ago, you wouldn't just calculate the integrals out for your sample's mean and std dev, instead you would
+
+standardize your data then use a look up table to determine the probability associated with your
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Discrete Example: Coin Flips -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Discrete Example: Coin Flips</h2>
+
+</div>
+
+<div class="content">
+
+<div data-id="cont1" class="grid-generic" style="grid-template-columns:2.3fr 2fr;grid-auto-rows:auto;gap:1vmin;">
+
+<!-- Left Column: Calculation and Lead into "At Least 19 Heads" -->
+
+<div class="framed smallest" style="height:100%;">
+
+<!-- Binomial Analysis Here -->
+
+<p>Estimate the 95% confidence interval for 19 Heads in 28 coin flips.</p>
+
+<p class="fragment small no-hang" data-fragment-index="0">$$\hat{p} = \frac{x}{n} = \frac{19}{28}\,\&\, SE = \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}$$</p>
+
+<p class="small fragment" data-fragment-index="0">Where $\hat{p}$ is the sample <span class="info">expected</span> proportion, $x$ is the number of successes (heads), and $n$ is the total number of trials (coin flips).</p>
+
+<p class="fragment" data-fragment-index="1">For a 95% confidence interval, we use the z-score corresponding to 95% confidence, which is approximately 1.96:</p>
+
+<p class="fragment smaller no-hang" data-fragment-index="2">
+
+$$\begin{aligned}
+
+CI &= \hat{p} \pm z \cdot SE \\
+
+&= \frac{19}{28} \pm 1.96 \cdot \sqrt{\frac{\frac{19}{28}(1 - \frac{19}{28})}{28}} \\
+
+&\approx \frac{19}{28} \pm 0.181 \\
+
+&\approx 19 \pm \sim 5\, \text{Heads}
+
+\end{aligned}$$
+
+</p>
+
+<p class="fragment danger" data-fragment-index="3">This means we are 95% confident that the true proportion of heads in the population from which this sample was drawn falls within this interval.</p>
+
+</div>
+
+<div data-id="danim" style="align-items:center;"> <!-- Right Column: Placeholder for Graphic -->
+
+<div class="small">
+
+<p class="smallest no-margin"><span class="u">Chance-model: Binomial Distribution</span>$$P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}$$ for $k={1,\ldots,28}$:</p>
+
+</div>
+
+<svg width="100%" viewBox="-5 0 460 320" style="margin-top: 0; margin-bottom: 0;margin-left:auto;margin-right:auto;">
+
+<use xlink:href="lib/img/coinflip_binom-19_28_sampling.svg#axes_1"></use>
+
+<use xlink:href="lib/img/coinflip_binom-19_28_sampling.svg#axes_2" class="fragment" data-fragment-index="2"></use>
+
+<use xlink:href="lib/img/coinflip_binom-19_28_sampling.svg#axes_3" class="fragment fade-out" data-fragment-index="3"></use>
+
+<use xlink:href="lib/img/coinflip_binom-19_28_sampling.svg#axes_3" class="fragment" data-fragment-index="4"></use>
+
+<use xlink:href="lib/img/coinflip_binom-19_28_sampling.svg#axes_4" class="fragment" data-fragment-index="0"></use>
+
+</svg>
+
+</div>
+
+<div class="fragment framed border-warning" data-fragment-index="4" style="grid-column:1/3;">
+
+<p class="smallest">
+
+If we <span class="em danger">assume</span> $E[H]=\hat{\pi}=0.5$, then $n\hat{\pi}=14$ is our expected count if the <span class="em info">chance-model</span> is true, <span class="info">does our 95% confidence interval include the by-chance value?</span>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Thinking about values that lie within intervals, this is the statistical evidence. Anyone remember: "If the glove don't fit, you must acquit" OJSimpson's lawyers.</p>
+
+<ul>
+
+<li>The sample proportion of heads is: \( \hat{p} = \frac{19}{28} \approx 0.679 \).</li>
+
+<li>Calculate the Standard Error (SE): \( SE = \sqrt{\frac{\hat{p} (1 - \hat{p})}{n}} = \sqrt{\frac{\frac{19}{28} \left(1 - \frac{19}{28}\right)}{28}} \approx 0.092 \).</li>
+
+<li>Calculate the 95% confidence interval for the proportion: \( CI = \hat{p} \pm z \cdot SE = 0.679 \pm 1.96 \cdot 0.092 \approx 0.679 \pm 0.181 \).</li>
+
+<li>Convert the proportion interval to the count of heads:
+
+<ul>
+
+<li><strong>Lower bound:</strong> \( (0.679 - 0.181) \times 28 \approx 0.498 \times 28 \approx 14 \).</li>
+
+<li><strong>Upper bound:</strong> \( (0.679 + 0.181) \times 28 \approx 0.860 \times 28 \approx 24 \).</li>
+
+</ul>
+
+</li>
+
+<li>Thus, the confidence interval for the number of heads is approximately: \( 19 \pm 5 \text{ heads} \) (from 14 to 24 heads).</li>
+
+</ul>
+
+</aside>
+
+</section>
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Continuous Example: Material Strength</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:4.5fr 5.5fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="framed small left-justify">
+
+<p>
+
+The stress endurance limit of a material is normally distributed with a mean ($\mu$) of 300 MPa and a standard deviation ($\sigma$) of 50 MPa (<span class="info">population parameters</span>).
+
+</p>
+
+<p class="fragment em smaller" data-fragment-index="1">
+
+You collect a sample of 30 pieces ($N=30$), which have a mean of 350 ($\bar{x}=350\, \text{MPa}$) and a standard deviation of 120 ($s=120\, \text{MPa}$). Calculate the 95% confidence interval.
+
+</p>
+
+<p class="fragment strong small" data-fragment-index="2">$CI = 350 \pm 1.96 \cdot (\frac{120}{\sqrt{30}}) = 350 \pm \sim 43$</p>
+
+<p class="fragment" data-fragment-index="3">What is the likelihood the materials (population) distribution contained our sample?</p>
+
+<p class="fragment em" data-fragment-index="4">Does our 95% confidence interval contain $\mu$?</p>
+
+</div>
+
+<div>
+
+<svg width="100%" viewBox="-5 5 432 280" style="margin-top: 0; margin-bottom: 0;margin-left:auto;margin-right:auto;">
+
+<use xlink:href="lib/img/stress_prob_sampling.svg#axes_1" class="fragment" data-fragment-index="0"></use>
+
+<use xlink:href="lib/img/stress_prob_sampling.svg#axes_2" class="fragment" data-fragment-index="1"></use>
+
+<use xlink:href="lib/img/stress_prob_sampling.svg#axes_3" class="fragment" data-fragment-index="2"></use>
+
+<use xlink:href="lib/img/stress_prob_sampling.svg#axes_4" class="fragment" data-fragment-index="3"></use>
+
+<use xlink:href="lib/img/stress_prob_sampling.svg#axes_5" class="fragment" data-fragment-index="3"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+95% ci means that if I consider my sample statistics (mean,std),
+
+and assume my sample came from that distribution, a large number of repeated 30
+
+pieces samples would result in a distribution shaped like the blue curve.
+
+That is, probability of all possible means from the black distribution.
+
+<strong>This is sampling distribution of my sample mean!</strong>
+
+</p>
+
+<p>
+
+But if I have an expected distribution (green), I would expect to have all possible
+
+means of sample size 30 according to the red distribution.
+
+<strong>This is the sampling distribution of my population!</strong>
+
+</p>
+
+<p>Cliffhanger: What is the probability this sample came from the population distribution?</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+      </div>
+      <footer class="main-footer">
+        <span>
+          Lecture 07
+        </span>
+        <span style="text-align:center;">
+        </span>
+        <span style="text-align:right;">
+          <a href="https:\\khrisgriffis.com" target="_blank" rel="noopener noreferrer">Khris Griffis &#169;2024</a>
+        </span>
+      </footer>
+    </div>
+    <script src="./src/reveal.js">
+    </script>
+    <script src="./src/plugin/notes/notes.js">
+    </script>
+    <script src="./src/plugin/highlight/highlight.js">
+    </script>
+    <script src="./src/plugin/math/math.js">
+    </script>
+    <script src="./src/plugin/reveal-splash/reveal-splash.js">
+    </script>
+    <script src="./src/plugin/vizzy-reveal/vizzy.js">
+    </script>
+    <script>
+      Reveal.initialize({
+autoSlide: 0,
+center: true,
+controls: true,
+controlsBackArrows: "faded",
+controlsLayout: "bottom-right",
+display: "block",
+fragments: true,
+fragmentInURL: true,
+hash: true,
+hideCursorTime: 5000,
+keyboard: true,
+mobileViewDistance: 3,
+mouseWheel: false,
+navigationMode: "linear",
+overview: true,
+pdfMaxPagesPerSlide: 1,
+pdfSeparateFragments: false,
+preloadIframes: null,
+progress: false,
+showNotes: false,
+showSlideNumber: "print",
+sortFragmentsOnSync: true,
+touch: true,
+transition: "fade",
+transitionSpeed: "default",
+viewDistance: 3,
+backgroundTransition: "fade",
+controlsTutorial: false,
+embedded: false,
+help: true,
+hideInactiveCursor: true,
+history: false,
+loop: false,
+previewLinks: false,
+rtl: false,
+shuffle: false,
+slideNumber: false,
+width: 1920,
+height: 1080,
+margin: 0.081,
+minScale: 0.08,
+maxScale: 1.67,
+mathjax3: {
+mathjax: "https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-mml-chtml.js",
+loader: {
+load: [
+"[tex]/html",
+],
+},
+tex: {
+packages: {
+'[+]': [
+"html",
+],
+},
+inlineMath: [
+["$", "$"],
+["\\(", "\\)"],
+],
+processEscapes: true,
+processEnvironments: true,
+},
+options: {
+skipHtmlTags: [
+"script",
+"noscript",
+"style",
+"textarea",
+"pre",
+],
+},
+chtml: {
+scale: 0.8,
+minScale: 0.4,
+},
+Safe: {
+sizeMin: 0.4,
+sizeMax: 1.25,
+},
+output: {
+displayOverflow: "linebreak",
+linebreaks: {
+inline: true,
+width: "100%",
+lineleading: 0.2,
+LinebreakVisitor: null,
+},
+},
+},
+notes: {
+
+},
+highlight: {
+
+},
+vizzy: {
+autoRunTransitions: true,
+autoTransitionDelay: 100,
+devMode: false,
+onSlideChangedDelay: 0,
+},
+splash: {
+splashImage: "lib/img/ME3040_splash.png",
+text: "Welcome to ME3040!",
+minimumDisplay: 2,
+},
+plugins: [RevealNotes, RevealHighlight, RevealMath.MathJax3, Splash, Vizzy]
+});
+    </script>
+  </body>
+</html>
