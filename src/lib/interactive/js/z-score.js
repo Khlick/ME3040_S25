@@ -29,6 +29,7 @@ function updateSvgDimensions() {
 
 
 // Build z-score table
+const z_max = 5.5; //3.5
 const tableContainer = document.getElementById('z-table');
 
 // Create table and headers
@@ -39,7 +40,7 @@ for (let i = 0; i <= 9; i++) {
 tableHTML += '</tr></thead><tbody>';
 
 // Create rows
-for (let z = 0; z <= 3.5; z += 0.1) {
+for (let z = 0; z <= z_max; z += 0.1) {
   tableHTML += '<tr>';
   tableHTML += `<td class="row-label">${z.toFixed(1)}</td>`;
   for (let i = 0; i <= 9; i++) {
@@ -76,7 +77,7 @@ const g = graphicContainer.append("g")
 
 
 const x = d3.scaleLinear()
-  .domain([-3.5, 3.5])
+  .domain([-z_max, z_max])
   .range([0, width]);
 
 const y = d3.scaleLinear()
@@ -100,7 +101,7 @@ const line = d3.line()
   .x(d => x(d.x))
   .y(d => y(d.y));
 
-const data = d3.range(-3.5, 3.5, 0.01).map(d => ({x: d, y: normalDistribution(d)}));
+const data = d3.range(-z_max, z_max, 0.01).map(d => ({x: d, y: normalDistribution(d)}));
 
 g.append("path")
   .datum(data)
@@ -124,7 +125,7 @@ const area = g.append("path")
   .attr("fill", "rgba(0, 255, 0, 0.2)");
 
 function updateArea() {
-  const areaData = [{x: -3.5, y: 0}, ...data.filter(d => d.x <= barX), {x: barX, y: 0}];
+  const areaData = [{x: -z_max, y: 0}, ...data.filter(d => d.x <= barX), {x: barX, y: 0}];
   area.attr("d", line(areaData));
 }
 
@@ -154,7 +155,7 @@ function dragged(event) {
   const zProb = normalCDF(+barX.toFixed(2)).toFixed(4); // Using the normalCDF function to get the CDF value
   let pcontainer = document.getElementById("p-value");
   let zcontainer = document.getElementById("z-value");
-  if (barX >= 0 && barX < 3.5) {
+  if (barX >= 0 && barX < z_max) {
     document.getElementById(`z-${zProb}`).classList.add('highlight-green');
     area.attr("fill", "rgba(0, 255, 0, 0.2)");
     bar.attr("fill", "green");
@@ -162,7 +163,7 @@ function dragged(event) {
     pcontainer.classList.add('highlight-green');
     zcontainer.innerHTML = barX.toFixed(2);
     zcontainer.classList.add('highlight-green');
-  } else if (barX < 0 && barX > -3.5) {
+  } else if (barX < 0 && barX > -z_max) {
     document.getElementById(`z-${(1 - zProb).toFixed(4)}`).classList.add('highlight-red');
     area.attr("fill", "rgba(255, 0, 0, 0.2)");
     bar.attr("fill", "red");
@@ -203,7 +204,7 @@ function setZ(z) {
   const zProb = normalCDF(+barX.toFixed(2)).toFixed(4); // Using the normalCDF function to get the CDF value
   let pcontainer = document.getElementById("p-value");
   let zcontainer = document.getElementById("z-value");
-  if (barX >= 0 && barX < 3.5) {
+  if (barX >= 0 && barX < z_max) {
     document.getElementById(`z-${zProb}`).classList.add('highlight-green');
     area.attr("fill", "rgba(0, 255, 0, 0.2)");
     bar.attr("fill", "green");
@@ -211,7 +212,7 @@ function setZ(z) {
     pcontainer.classList.add('highlight-green');
     zcontainer.innerHTML = barX.toFixed(2);
     zcontainer.classList.add('highlight-green');
-  } else if (barX < 0 && barX > -3.5) {
+  } else if (barX < 0 && barX > -z_max) {
     document.getElementById(`z-${(1 - zProb).toFixed(4)}`).classList.add('highlight-red');
     area.attr("fill", "rgba(255, 0, 0, 0.2)");
     bar.attr("fill", "red");

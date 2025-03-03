@@ -967,6 +967,18 @@ hr {
 /*********************************************
 * EMOJIS
 *********************************************/
+i.alien::before {
+  content: "👽";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
 i.angry::before {
   content: "😡";
   font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
@@ -991,6 +1003,18 @@ i.angry_face::before {
   -webkit-font-smoothing: antialiased;
   font-size: 75%; }
 
+i.arrowl::before {
+  content: "←";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
 i.arrowr::before {
   content: "→";
   font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
@@ -1003,8 +1027,8 @@ i.arrowr::before {
   -webkit-font-smoothing: antialiased;
   font-size: 75%; }
 
-i.arrowl::before {
-  content: "←";
+i.atom::before {
+  content: "⚛";
   font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
   speak: none;
   font-style: normal;
@@ -1027,8 +1051,32 @@ i.beaker::before {
   -webkit-font-smoothing: antialiased;
   font-size: 75%; }
 
+i.books::before {
+  content: "📚";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
 i.brain::before {
   content: "🧠";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.bulb::before {
+  content: "💡";
   font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
   speak: none;
   font-style: normal;
@@ -1147,6 +1195,18 @@ i.dna::before {
   -webkit-font-smoothing: antialiased;
   font-size: 75%; }
 
+i.dna_double::before {
+  content: "🧬";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
 i.double_exclamation::before {
   content: "‼";
   font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
@@ -1173,6 +1233,18 @@ i.exclamation::before {
 
 i.exclamation_question::before {
   content: "⁉";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.exploding_head::before {
+  content: "🤯";
   font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
   speak: none;
   font-style: normal;
@@ -1221,6 +1293,30 @@ i.gem_stone::before {
 
 i.goggles::before {
   content: "🥽";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.graduation_cap::before {
+  content: "🎓";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.graph::before {
+  content: "📉";
   font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
   speak: none;
   font-style: normal;
@@ -1303,6 +1399,30 @@ i.loudspeaker::before {
   -webkit-font-smoothing: antialiased;
   font-size: 75%; }
 
+i.magic_wand::before {
+  content: "🪄";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.magnifying_glass::before {
+  content: "🔍";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
 i.medal::before {
   content: "🥇";
   font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
@@ -1351,8 +1471,8 @@ i.mirror::before {
   -webkit-font-smoothing: antialiased;
   font-size: 75%; }
 
-i.no_entry::before {
-  content: "🚫";
+i.nerd_face::before {
+  content: "🤓";
   font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
   speak: none;
   font-style: normal;
@@ -1365,6 +1485,18 @@ i.no_entry::before {
 
 i.no-entry::before {
   content: "⛔";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.no_entry::before {
+  content: "🚫";
   font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
   speak: none;
   font-style: normal;
@@ -1425,6 +1557,30 @@ i.report::before {
 
 i.ribbon::before {
   content: "🎗";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.robot::before {
+  content: "🤖";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.rocket::before {
+  content: "🚀";
   font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
   speak: none;
   font-style: normal;
@@ -1507,6 +1663,18 @@ i.smiley::before {
   -webkit-font-smoothing: antialiased;
   font-size: 75%; }
 
+i.sparkles::before {
+  content: "✨";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
 i.speech_balloon::before {
   content: "🗨";
   font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
@@ -1555,8 +1723,56 @@ i.stop_sign::before {
   -webkit-font-smoothing: antialiased;
   font-size: 75%; }
 
+i.student::before {
+  content: "🧑‍🎓";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.superhero::before {
+  content: "🦸";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
 i.target::before {
   content: "🎯";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.teacher::before {
+  content: "🧑‍🏫";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.telescope::before {
+  content: "🔭";
   font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
   speak: none;
   font-style: normal;
@@ -1593,6 +1809,18 @@ i.thinking::before {
 
 i.thought_balloon::before {
   content: "💭";
+  font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 75%; }
+
+i.trophy::before {
+  content: "🏆";
   font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
   speak: none;
   font-style: normal;
@@ -1640,6 +1868,19 @@ i[role="emoji"] {
     content: attr(data-emoji);
     font-size: 105%; }
 
+li.emoji-alien {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-alien::before {
+    content: "👽";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
 li.emoji-angry {
   list-style-type: none;
   position: relative;
@@ -1666,6 +1907,19 @@ li.emoji-angry_face {
     font-style: normal;
     font-size: 80%; }
 
+li.emoji-arrowl {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-arrowl::before {
+    content: "←";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
 li.emoji-arrowr {
   list-style-type: none;
   position: relative;
@@ -1679,12 +1933,12 @@ li.emoji-arrowr {
     font-style: normal;
     font-size: 80%; }
 
-li.emoji-arrowl {
+li.emoji-atom {
   list-style-type: none;
   position: relative;
   padding-left: 1.5em; }
-  li.emoji-arrowl::before {
-    content: "←";
+  li.emoji-atom::before {
+    content: "⚛";
     position: absolute;
     left: 0;
     top: 0;
@@ -1705,12 +1959,38 @@ li.emoji-beaker {
     font-style: normal;
     font-size: 80%; }
 
+li.emoji-books {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-books::before {
+    content: "📚";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
 li.emoji-brain {
   list-style-type: none;
   position: relative;
   padding-left: 1.5em; }
   li.emoji-brain::before {
     content: "🧠";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-bulb {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-bulb::before {
+    content: "💡";
     position: absolute;
     left: 0;
     top: 0;
@@ -1835,6 +2115,19 @@ li.emoji-dna {
     font-style: normal;
     font-size: 80%; }
 
+li.emoji-dna_double {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-dna_double::before {
+    content: "🧬";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
 li.emoji-double_exclamation {
   list-style-type: none;
   position: relative;
@@ -1867,6 +2160,19 @@ li.emoji-exclamation_question {
   padding-left: 1.5em; }
   li.emoji-exclamation_question::before {
     content: "⁉";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-exploding_head {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-exploding_head::before {
+    content: "🤯";
     position: absolute;
     left: 0;
     top: 0;
@@ -1919,6 +2225,32 @@ li.emoji-goggles {
   padding-left: 1.5em; }
   li.emoji-goggles::before {
     content: "🥽";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-graduation_cap {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-graduation_cap::before {
+    content: "🎓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-graph {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-graph::before {
+    content: "📉";
     position: absolute;
     left: 0;
     top: 0;
@@ -2004,6 +2336,32 @@ li.emoji-loudspeaker {
     font-style: normal;
     font-size: 80%; }
 
+li.emoji-magic_wand {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-magic_wand::before {
+    content: "🪄";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-magnifying_glass {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-magnifying_glass::before {
+    content: "🔍";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
 li.emoji-medal {
   list-style-type: none;
   position: relative;
@@ -2056,12 +2414,12 @@ li.emoji-mirror {
     font-style: normal;
     font-size: 80%; }
 
-li.emoji-no_entry {
+li.emoji-nerd_face {
   list-style-type: none;
   position: relative;
   padding-left: 1.5em; }
-  li.emoji-no_entry::before {
-    content: "🚫";
+  li.emoji-nerd_face::before {
+    content: "🤓";
     position: absolute;
     left: 0;
     top: 0;
@@ -2075,6 +2433,19 @@ li.emoji-no-entry {
   padding-left: 1.5em; }
   li.emoji-no-entry::before {
     content: "⛔";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-no_entry {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-no_entry::before {
+    content: "🚫";
     position: absolute;
     left: 0;
     top: 0;
@@ -2140,6 +2511,32 @@ li.emoji-ribbon {
   padding-left: 1.5em; }
   li.emoji-ribbon::before {
     content: "🎗";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-robot {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-robot::before {
+    content: "🤖";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-rocket {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-rocket::before {
+    content: "🚀";
     position: absolute;
     left: 0;
     top: 0;
@@ -2225,6 +2622,19 @@ li.emoji-smiley {
     font-style: normal;
     font-size: 80%; }
 
+li.emoji-sparkles {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-sparkles::before {
+    content: "✨";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
 li.emoji-speech_balloon {
   list-style-type: none;
   position: relative;
@@ -2277,12 +2687,64 @@ li.emoji-stop_sign {
     font-style: normal;
     font-size: 80%; }
 
+li.emoji-student {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-student::before {
+    content: "🧑‍🎓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-superhero {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-superhero::before {
+    content: "🦸";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
 li.emoji-target {
   list-style-type: none;
   position: relative;
   padding-left: 1.5em; }
   li.emoji-target::before {
     content: "🎯";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-teacher {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-teacher::before {
+    content: "🧑‍🏫";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-telescope {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-telescope::before {
+    content: "🔭";
     position: absolute;
     left: 0;
     top: 0;
@@ -2322,6 +2784,19 @@ li.emoji-thought_balloon {
   padding-left: 1.5em; }
   li.emoji-thought_balloon::before {
     content: "💭";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    font-style: normal;
+    font-size: 80%; }
+
+li.emoji-trophy {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5em; }
+  li.emoji-trophy::before {
+    content: "🏆";
     position: absolute;
     left: 0;
     top: 0;
