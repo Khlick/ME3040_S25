@@ -1,0 +1,3346 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="notranslate" name="google"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>
+      Dependent Variability Quantitative Correlation
+    </title>
+    <link href="lib\favicon.png" rel="icon" type="image/x-icon"/>
+    <link href="./src/css/reset.css" rel="stylesheet"/>
+    <link href="./src/css/reveal.css" rel="stylesheet"/>
+    <link href="./src/css/revealpack.css" rel="stylesheet"/>
+    <link href="./src/theme/drG.css" id="theme" rel="stylesheet"/>
+    <!-- highlight.js theme -->
+    <link href="./src/theme/vs.css" id="highlight-theme" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <!-- Custom Scripts -->
+    <!-- Print PDF script -->
+    <script>
+      var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match(/print-pdf/gi) ? './src/css/print/pdf.css' : './src/css/print/paper.css';
+document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!-- Deck CSS Injections -->
+    <!-- Deck Script Injections -->
+    <!-- Deck Raw Injections -->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-image="lib/img/correlated-signals_bg.png" id="deck-title-slide">
+          <div class="title-slide background">
+            <div class="headline">
+              <h2 class="r-fit-text">
+                Dependent Variability
+              </h2>
+              <h3>
+                Quantitative Correlation
+              </h3>
+            </div>
+            <div class="sub-header">
+              <p class="by">
+                Khris Griffis, Ph.D.
+              </p>
+            </div>
+            <div class="byline">
+              <p class="byinfo">
+                Lecture 12
+              </p>
+              <p class="byinfo">
+                CSULA: ME3040
+              </p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Today's Objectives</h2>
+
+</div>
+
+<div class="content">
+
+<div
+
+class="grid-generic full-width left-justify small"
+
+style="grid-template-columns: 1fr; grid-auto-rows: 1fr; row-gap: 5vmin"
+
+>
+
+<div></div>
+
+<div class="border-bottom fragment" data-fragment-index="1">
+
+<p>
+
+<i class="target"></i> How to visualize relationships between two quantitative variables
+
+</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="2">
+
+<p>
+
+<i class="target"></i> How to quantify the strength of a relationship between two quantitative variables
+
+</p>
+
+</div>
+
+<div></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/wtf_data_2.png" id="section-title-1">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-1">
+              <div class="section-number">
+                <span class="large-number">
+                  1
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Visualizing Relationships
+                </h2>
+                <h3>
+                  Intuition Is Key
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-1.section-title-content {
+
+background-color: rgba(210,200,255,0.7) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(210,200,255,0.7) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>
+
+Your Genuine Intelligence!
+
+</p>
+
+<p>
+
+When we talk about visualizing relationships in data, what we are doing is visually
+
+inspecting data for obvious patterns, or obvious lack of patterns, and we do this
+
+simply with the scatterplot.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Scatter plot AUTO ANIMATE -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>The Scatterplot Shows Relationships</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;width:90%;">
+
+<p class="em">
+
+There are 4 majors characteristics to consider when describing
+
+a scatterplot:
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:4.5fr 5.5fr;grid-auto-rows:auto;gap:1vmin;align-items:center;">
+
+<ul style="justify-self:start;">
+
+<li><span class="info">Direction</span> (positive/negative)</li>
+
+</ul>
+
+<div style="justify-self:end;">
+
+<img src="lib/img/scatterplot.svg" width=100%>
+
+</div>
+
+</div>
+
+<div>
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+A <span class="danger">positive association</span> means that values of one variable tend to be higher when values of the other variable are higher
+
+</p>
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+A <span class="danger">negative association</span> means that values of one variable tend to be lower when values of the other variable are higher
+
+</p>
+
+<p style="font-size:80%;">
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+Two variables are <span class="danger">not associated</span> if knowing the value of one variable does not give you any information about the value of the other variable
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>note here</p>
+
+</aside>
+
+</section>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>The Scatterplot Shows Relationships</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;width:90%;">
+
+<p class="em">
+
+There are 4 majors characteristics to consider when describing
+
+a scatterplot:
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:4.5fr 5.5fr;grid-auto-rows:auto;gap:1vmin;align-items:center;">
+
+<ul style="justify-self:start;">
+
+<li><span class="info">Direction</span> (positive/negative)</li>
+
+<li><span class="info">Form</span> (linear or not)</li>
+
+</ul>
+
+<div style="justify-self:end;">
+
+<img src="lib/img/scatterplot.svg" width=100%>
+
+</div>
+
+</div>
+
+<div>
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+An association is considered <span class="danger">linear</span> if the
+
+overall shape of the data point clouds can be describe as a line.
+
+</p>
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+An association is considered <span class="danger">non-linear</span> if there are obvious non-linearity in the
+
+overall shape of the data points.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>The Scatterplot Shows Relationships</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;width:90%;">
+
+<p class="em">
+
+There are 4 majors characteristics to consider when describing
+
+a scatterplot:
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:4.5fr 5.5fr;grid-auto-rows:auto;gap:1vmin;align-items:center;">
+
+<ul style="justify-self:start;">
+
+<li><span class="info">Direction</span> (positive/negative)</li>
+
+<li><span class="info">Form</span> (linear or not)</li>
+
+<li><span class="info">Strength</span> (strong-moderate-weak, we will let correlation help us decide)</li>
+
+</ul>
+
+<div style="justify-self:end;">
+
+<img src="lib/img/scatterplot.svg" width=100%>
+
+</div>
+
+</div>
+
+<div>
+
+<p>
+
+<i class="fa fa-arrow-circle-right danger"></i>
+
+The <span class="danger">strength</span> of an association is reflected by how close the data points are to each other while describing the overall linear shape.
+
+More local variability in both x and y means less strength.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>The Scatterplot Shows Relationships</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;width:90%;">
+
+<p class="em">
+
+There are 4 majors characteristics to consider when describing
+
+a scatterplot:
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:4.5fr 5.5fr;grid-auto-rows:auto;gap:1vmin;align-items:center;">
+
+<ul style="justify-self:start;">
+
+<li><span class="info">Direction</span> (positive/negative)</li>
+
+<li><span class="info">Form</span> (linear or not)</li>
+
+<li><span class="info">Strength</span> (strong-moderate-weak, we will let correlation help us decide)</li>
+
+<li><span class="info">Unusual observations</span></li>
+
+</ul>
+
+<div style="justify-self:end;">
+
+<img src="lib/img/scatterplot.svg" width=100%>
+
+</div>
+
+</div>
+
+<div>
+
+<p>
+
+<i class="fa fa-arrow-circle-right danger"></i>
+
+<span class="danger">Unusual observations</span>
+
+(<span class="orange">outliers</span>) refer to data points for which one
+
+of the variable is much lower or much greater than the same variable for
+
+the other data points. This data point will appear to be out of place
+
+compared to the other ones.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- END AUTO ANIMATE -->
+
+<!-- Scatterplot 1 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>A Note About The Scatterplot</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:4fr 6fr;grid-auto-rows:auto;gap:5px;">
+
+<div style="grid-column:1/2;grid-row:1/2;">
+
+<p>
+
+A scatterplot is the graph of the <span class="danger">
+
+relationship between two quantitative variables</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index=1>
+
+<span class="em u">If there are explanatory and response variables:</span>
+
+<br>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+Explanatory variable on the x axis
+
+<br>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+Response variable on the y axis
+
+</p>
+
+<p class="fragment" data-fragment-index=2>
+
+The <span class="info">paired data</span> for each case
+
+are plotted as a <span class="info">single point</span> on
+
+the scatterplot.
+
+</p>
+
+</div>
+
+<div style="grid-column:2/3;grid-row:1/2;">
+
+<p>
+
+Houses for sale in Santa Monica. <br>
+
+Zillow search (05/11/2017)
+
+</p>
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/scatter-scatterplot.svg#axes_1"></use>
+
+<use class="fragment" data-fragment-index=2 xlink:href="lib/img/scatter-scatterplot.svg#axes_2"></use>
+
+</svg>
+
+</div>
+
+<div style="grid-column:1/3;grid-row:2/3;">
+
+<p class="fragment">
+
+The numerical scales (and units) are independant,
+
+one for each variable.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Scatterplot 2 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>A Note About The Scatterplot</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:4fr 6fr;grid-auto-rows:auto;gap:5px;">
+
+<div style="grid-column:1/2;grid-row:1/2;">
+
+<p>
+
+<span class="u em">Note:</span> <br>
+
+A scatterplot can have <span class="pop">more than 2 dimensions</span>,
+
+it allows you to build complex visualizations:
+
+<br>
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+Size encoding
+
+<br>
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+Color encoding
+
+<br>
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+Symbol encoding
+
+</p>
+
+<p class="small">
+
+<span class="u em">Ex:</span> <br>
+
+- Point size: Population
+
+<br>
+
+- Color: Number of larcenies
+
+</p>
+
+</div>
+
+<div style="grid-column:2/3;grid-row:1/2;">
+
+<p>
+
+(US data, 2005)
+
+</p>
+
+<svg width="100%" viewBox="0 0 468 288">
+
+<use xlink:href="lib/img/scatter-bubble-chart.svg#axes_1"></use>
+
+<use xlink:href="lib/img/scatter-bubble-chart.svg#axes_2"></use>
+
+<use xlink:href="lib/img/scatter-bubble-chart.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+<div style="grid-column:1/3;grid-row:2/3;">
+
+<p class="small">
+
+<i class="fa fa-arrow-circle-right"></i>
+
+In this case, multiple relationships between the
+
+different variables can be visually appreciated at the same time.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Think about this: If you were to take this data and put it into a spreadsheet,
+
+how many columns of data would you have? 5: burglaries, murders, larcenies, census, and state.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Scatterplot 3 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>A Note About The Scatterplot</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:4fr 6fr;grid-auto-rows:auto;gap:5px;">
+
+<div style="grid-column:1/2;grid-row:1/2;">
+
+<p>
+
+<span class="u em">Note:</span> <br>
+
+<span class="warning">Multiple datasets</span> can be displayed
+
+on the same scatterplot.
+
+<br>
+
+<i class="fa fa-arrow-circle-right warning"></i>
+
+The different datasets can be differentiated by
+
+color/symbol encoding
+
+<br>
+
+<i class="fa fa-arrow-circle-right warning"></i>
+
+All the datasets must have the same variables
+
+(displayed on the same scales)
+
+</p>
+
+<p class="small">
+
+Visual comparisons can be made.
+
+</p>
+
+</div>
+
+<div style="grid-column:2/3;grid-row:1/2;">
+
+<p>
+
+(Teacher salary sample, $n$=100)
+
+</p>
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/scatter-multiple-datasets.svg#axes_1"></use>
+
+<use class="fragment" xlink:href="lib/img/scatter-multiple-datasets.svg#axes_2"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/correlation-bg-4.webp" id="section-title-2">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-2">
+              <div class="section-number">
+                <span class="large-number">
+                  2
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Correlation
+                </h2>
+                <h3>
+                  Identifying 'liney' Relationships
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-2.section-title-content {
+
+background-color: rgba(210,200,255,0.7) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(210,200,255,0.7) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>
+
+To start, we will look at how variance between quantitative variables is related.
+
+Later, we'll start building models.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Correlation Lead-in -->
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>So Far...</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<p class="smaller left-justify framed">
+
+So far, we have dealt with <span class="info">Categorical & Quantitative</span>
+
+variables, whether it was for making inferences from <span class="warning">one sample</span>
+
+or <span class="warning">comparing 2 groups</span>. When
+
+comparing two groups the <span class="pop">explanatory</span> variable
+
+has thus far been <span class="u">categorical</span>.
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;column-gap:0;row-gap:1vmin;">
+
+<!-- Header Row -->
+
+<div class="grid-generic border-bottom bg-muted" style="grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr;gap:10px;align-items:center;">
+
+<div><strong>Sample Groups</strong></div>
+
+<div><strong>Variables Per Group</strong></div>
+
+<div><strong>Variable Types</strong></div>
+
+</div>
+
+
+
+<!-- Row 1: One Sample, One Variable -->
+
+<div class="grid-generic border-bottom" style="grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto;gap:5px;align-items:center;">
+
+<div>One Sample</div>
+
+<div>One Variable</div>
+
+<div>
+
+<p>
+
+Categorical ($\hat{p}$)<br>
+
+Quantitative ($\bar{x}$)
+
+</p>
+
+</div>
+
+</div>
+
+<!-- Row 2: Two Samples, Two Variables -->
+
+<div class="grid-generic border-bottom" style="grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto;gap:5px;align-items:center;">
+
+<div>
+
+Two samples <br>
+
+<span class="fragment info" data-fragment-index=1>(paired design?)</span>
+
+</div>
+
+<div>
+
+Two variables <br>
+
+<span class="em fragment" data-fragment-index="2">(Association?)</span>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:auto 1fr;grid-auto-rows:1fr;">
+
+<div style="font-size:80%;">Explanatory:</div><div><p class="small">Categorical<br><span class="fragment danger" data-fragment-index=3>Quantitative</span></p></div>
+
+<div style="font-size:80%;">Response:</div><div><p class="small">Categorical ($\hat{p}_1-\hat{p}_2$)<br>Quantitative ($\bar{x}_1-\bar{x}_2$)</p></div>
+
+</div>
+
+</div>
+
+<p class="fragment" data-fragment-index=3>
+
+<i class="fas fa-arrow-circle-right danger"></i> Now let's explore the
+
+<span class="danger">relationship between two quantitative variables</span>,
+
+where both the explanatory and response variables are quantitative.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+<!-- Correlation Introduction -->
+
+
+
+<section>
+
+<style>
+
+#cor-left {
+
+width:100%;
+
+align-self:start;
+
+justify-self:end;
+
+}
+
+#cor-left > p {
+
+width:100%;
+
+padding:0;
+
+margin-top: 5px;
+
+margin-bottom: 5px;
+
+text-align:justify;
+
+text-justify: inter-word;
+
+}
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Correlation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:5px;">
+
+<div id="cor-left">
+
+<p>Previously, we measured the association of two samples (variables) by
+
+asking if the two samples were the same (or came from the same underlying
+
+distribution).
+
+</p>
+
+<p class="fragment" data-fragment-index="1">
+
+With 2 quantitative variables, we can measure the <span class="info">degree of association</span>
+
+between them.
+
+</p>
+
+<p class="fragment" data-fragment-index=2>
+
+We call this <span class="fragment highlight-success"  data-fragment-index="3">correlation</span>,
+
+and we can give it a value between $-1$ and $1$ that quantifies its
+
+<span class="em warning">strength</span>.
+
+</p>
+
+<p class="fragment framed" data-fragment-index="4">
+
+The <span class="pop">closer to $\phantom{}\pm1$</span>, the
+
+<span class="em">stronger</span> the <span class="warning">linear</span>
+
+association.
+
+</p>
+
+</div>
+
+<div style="align-self:center;justify-self:center;" class="full-width">
+
+<svg width="100%" viewBox="0 0 720 720">
+
+<use class="fragment" data-fragment-index=4 xlink:href="lib/img/correlation-margin-hist.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/correlation-margin-hist.svg#axes_3"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/correlation-margin-hist.svg#axes_4"></use>
+
+<use class="fragment" data-fragment-index=2 xlink:href="lib/img/correlation-margin-hist.svg#axes_1"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Correlation Definition -->
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Correlation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-template-rows:auto;gap:5px;">
+
+<p class="quoted">
+
+In statistics, <span class="danger">dependence (or association)</span> is any statistical <span class="danger">relationship</span>, whether causal or not, between two (random) variables.
+
+<br>
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+When the association is <span class="pop">linear</span>, we often refer to such an  association as <span class="pop">correlation</span>.
+
+</p>
+
+<p class="down-3 u em">
+
+Statistic of interest:
+
+</p>
+
+<p>
+
+The numerical statistic to measure the <span class="danger">strength</span> and <span class="danger">direction</span> of <span class="u-danger">linear</span> association between two <span class="u-danger">quantitative</span> variables is
+
+the <span class="danger">correlation coefficient</span>.
+
+</p>
+
+<p>
+
+sample correlation coefficient: $r$ <br>
+
+population correlation coefficient: $\rho$ ("rho")
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- What does it mean to be correlated? -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>What does it mean to be correlated?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2.5fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="width:100%;">
+
+<img src="lib/img/correlation_sbp_age_1.png" style="width:100%;" class="graphic">
+
+</div>
+
+<div style="width:100%;" class="smaller left-justify">
+
+<p class="fragment" data-fragment-index="1">A <span class="s-quote info">Positive Correlation</span> is a <span class="s-quote">positive linear relationship</span> means that as one variable increases, the other variable also increases.</p>
+
+<p class="fragment" data-fragment-index="2">A <span class="s-quote pop">Negative Correlation</span> is a <span class="s-quote">negative linear relationship</span> means that as one variable increases, the other variable decreases.</p>
+
+<p class="fragment" data-fragment-index="3"><span class="s-quote danger">No Correlation</span> is a <span class="s-quote">non-linear relationship</span> means that as one variable increases, the other variable does not have a consistent pattern of increase or decrease.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Note the language here. We are not stating there is no relationship, just that no increaasing or decreasing relationship is apparent.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Correlation Formula -->
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Correlation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;grid-auto-flow:row;gap:5px;">
+
+<p class="no-margin-top small">
+
+The <span class="danger">Pearson correlation coefficient</span> formula:
+
+</p>
+
+<p>
+
+$r=\frac{\sum_{n=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{n=1}^{n}(x_i-\bar{x})^2}\sqrt{\sum_{n=1}^{n}(y_i-\bar{y})^2}}$
+
+</p>
+
+<div style="align-items:center;align-self:center;">
+
+<div class="framed border-danger" style="display:grid;align-items:center;">
+
+<p class="u em">
+
+This correlation formula can be expressed as:
+
+</p>
+
+<p class="small">
+
+$r=\frac{1}{n-1}\sum_{n=1}^{n} (\frac{x_i-\bar{x}}{s_x})(\frac{y_i-\bar{y}}{s_y})$
+
+</p>
+
+</div>
+
+<p>
+
+with
+
+<span class="smaller">$s_x=\sqrt{\frac{\sum_{n=1}^{n}(x_i-\bar{x})^2}{n-1}}$</span>
+
+(and similar for $y$)
+
+</p>
+
+</div>
+
+<div style="align-self:center;">
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use class="fragment" data-fragment-index=0 xlink:href="lib/img/correlation-intuition.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/correlation-intuition.svg#axes_3"></use>
+
+<use class="fragment" data-fragment-index=2 xlink:href="lib/img/correlation-intuition.svg#axes_4"></use>
+
+<use xlink:href="lib/img/correlation-intuition.svg#axes_1"></use>
+
+</svg>
+
+</div>
+
+<div style="grid-column:1/3;" class="fragment">
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger" style="font-size:80%;"></i>
+
+Essentially, the correlation calculation involves converting all values for both variables to z-scores,
+
+and can be considered as the <span class="em danger">mean of the products of the standard scores</span>.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Overview of correlation properties -->
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Properties Of $\rho$ (r)</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2.5fr 7.5fr;grid-template-rows:auto repeat(3,1fr);grid-auto-flow:row;gap:5px;">
+
+<p class="u" style="justify-self:start;text-align:left;grid-column:1/3;">The correlation coefficiant</p>
+
+<p style="justify-self:start;text-align:left;">
+
+Reflects the linear <span class="danger">strength</span>
+
+and <span class="danger">direction</span> of a linear relationship
+
+</p>
+
+<div class="fragment">
+
+<svg width="100%" viewBox="0 0 404 60">
+
+<use xlink:href="lib/img/correlation_examples.svg#coeftop"></use>
+
+</svg>
+
+</div>
+
+<p class="fragment" style="justify-self:start;text-align:left;">
+
+Does not reflect the slope of the relationship
+
+</p>
+
+<div class="fragment">
+
+<svg width="100%" viewBox="0 65 404 60">
+
+<use xlink:href="lib/img/correlation_examples.svg#coefmiddle"></use>
+
+</svg>
+
+</div>
+
+<p class="fragment" style="justify-self:start;text-align:left;">
+
+Does not reflect many aspects of nonlinear relationships
+
+</p>
+
+<div class="fragment">
+
+<svg width="100%" viewBox="0 120 404 64">
+
+<use xlink:href="lib/img/correlation_examples.svg#coefbottom"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<!-- Shared Variance -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Shared Variance</h2>
+
+</div>
+
+<div class="content">
+
+<vizzy data-src="lib/interactive/correlation-to-redo/index.html"></vizzy>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<!-- Correlation Formula -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Correlation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;grid-auto-flow:row;gap:5px;">
+
+<p class="no-margin-top small">
+
+The <span class="danger">Pearson correlation coefficient</span> formula:
+
+</p>
+
+<p>
+
+$r=\frac{\sum_{n=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{n=1}^{n}(x_i-\bar{x})^2}\sqrt{\sum_{n=1}^{n}(y_i-\bar{y})^2}}$
+
+</p>
+
+<div style="align-items:center;align-self:center;">
+
+<div class="framed border-danger" style="display:grid;align-items:center;">
+
+<p class="em fragment smaller" data-fragment-index="1">
+
+$r$ is the standardized covariance between samples $X$ and $Y$.
+
+</p>
+
+<p class="fragment" data-fragment-index="2">
+
+<span class="info">$s_x^2 = \frac{\sum (x_i - \bar{x})^2}{n-1}$</span>
+
+<span class="fragment" data-fragment-index="3">$\phantom{}\rightarrow\frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})(x_i - \bar{x})$</span>
+
+<span class="fragment" data-fragment-index="4"> $=s_{xx}$</span>
+
+</p>
+
+<p class="fragment" data-fragment-index="5">
+
+Substitute one $X$ for $Y$ to get covariance:
+
+</p>
+
+<p class="fragment" data-fragment-index="5">
+
+$s_{xy} =\frac{1}{n-1}\sum\phantom{}$
+
+<span class="orange fragment" data-fragment-index="6">$\left( x_i - \bar{x}\right)$</span>
+
+<span class="success fragment" data-fragment-index="7">$\left( y_i - \bar{y}\right)$</span>
+
+</p>
+
+<p class="fragment" data-fragment-index="8">
+
+Standardize $s_{xy}$, to put it on the scale of $\phantom{}\pm 1$ by
+
+the product of the samples <span class="em">standard deviation</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index="8">
+
+$r=\sum \frac{s_{xy}}{s_xs_y}$
+
+</p>
+
+</div>
+
+</div>
+
+<div style="align-self:center;">
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/correlation-intuition.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index="6" xlink:href="lib/img/correlation-intuition.svg#axes_3"></use>
+
+<use class="fragment" data-fragment-index="7" xlink:href="lib/img/correlation-intuition.svg#axes_4"></use>
+
+<use xlink:href="lib/img/correlation-intuition.svg#axes_1"></use>
+
+</svg>
+
+</div>
+
+<div style="grid-column:1/3;">
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger" style="font-size:80%;"></i>
+
+Essentially, the correlation calculation involves converting all values for both variables to z-scores,
+
+and can be considered as the <span class="em danger">mean of the products of the standard scores</span>.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>r is the standardized covariance... but what is covariance?</p>
+
+<p>
+
+Recall variance formula... it can be rewritten as the self product of the
+
+difference between each point and the mean of the sample. We give it the symbols s sub XX.
+
+</p>
+
+<p>
+
+If we have a variable Y, the same size as X, in this form of the equation
+
+for variance, we can substitute one of the X distances for a Y distance.
+
+</p>
+
+<p>
+
+That is, we calculate Xi from X_bar, and Yi from Y_bar. Notice something about this product?
+
+What about the sign of this product? It can be negative or positive, when? Indicate a point and sign.
+
+</p>
+
+<p>
+
+All of the (n-1) quantities cancel out.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Assumptions -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Assumptions</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="left-justify">
+
+<p>Pearson's $r$ assumes that the data is bivariate normal.</p>
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+This is a strong assumption, $r$ is <span class="danger">married to the normal distribution</span>.
+
+</p>
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+If the data is not normal, $r$ is not a good measure of association.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>What can we do if the data are not normal?</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Assumptions -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Assumptions</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="smaller" style="width:100%;height:80vh;">
+
+<vizzy data-src="lib/interactive/bivariate-gaussian.html"></vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>What can we do if the data are not normal?</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Spearman's (Ranked) Correlation -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Spearman's (Ranked) Correlation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2.75fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="smaller left-justify">
+
+<p class="small">Spearman's correlation is used when assessing the strength and direction of a monotonic relationship between two variables. It is particularly useful when:</p>
+
+<ul>
+
+<li><strong>Monotonic Relationship:</strong> Spearman's correlation measures monotonic associations, meaning that as one variable increases, the other consistently increases or decreases.</li>
+
+<li><strong>Ordinal or Ranked Data:</strong> Suitable for ordinal data where numerical values represent a meaningful order but not necessarily equal intervals.</li>
+
+<li><strong>Less Sensitive to Outliers:</strong> Since it is based on ranks rather than raw values, extreme values have a reduced impact.</li>
+
+<li><strong>Non-Normal Distributions:</strong> Unlike Pearson's, Spearman's does not assume data follows a normal distribution.</li>
+
+<li><strong>Handles Nonlinear Associations:</strong> Can detect relationships where Pearson's correlation may fail due to curvature in data trends.</li>
+
+</ul>
+
+<p class="fragment info" data-fragment-index="1">
+
+Rank each variable, then calculate Pearson's $r$ on the ranks.
+
+</p>
+
+<p class="fragment info small" data-fragment-index="2">
+
+For each value in a variable, its rank represents its position when all values are sorted in ascending order. In cases where multiple values are identical (ties), each is assigned the average of their potential ranks.
+
+</p>
+
+</div>
+
+<div>
+
+<img src="lib/img/spearman-example.png" alt="Spearman's Example" class="graphic full-width">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/correlation-bg-2.webp" id="section-title-3">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-3">
+              <div class="section-number">
+                <span class="large-number">
+                  3
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Correlation
+                </h2>
+                <h3>
+                  Guidelines, Limitations, And Cautions
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-3.section-title-content {
+
+background-color: rgba(210,200,255,0.7) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(210,200,255,0.7) !important;
+
+}
+
+</style>
+
+</section>
+
+
+
+<!-- Correlation Guidelines -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Guidelines For Interpreting $r$</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<p>
+
+The commonly accepted ranges for interpreting the correlation coefficient are as follow:
+
+</p>
+
+<div>
+
+<table style="text-align:center;font-size:80%;">
+
+<col width=25%>
+
+<col width=15%>
+
+<col width=60%>
+
+<tbody>
+
+<tr class="bg-muted">
+
+<td>Correlation<br>(absolute value)</td>
+
+<td>Strength of association</td>
+
+<td>What this means</td>
+
+</tr>
+
+<tr class="bg-danger-light">
+
+<td>0.7 to 1.0</td>
+
+<td>Strong</td>
+
+<td>
+
+The points will appear to be nearly<br>a straight line
+
+</td>
+
+</tr>
+
+<tr class="bg-warning-light">
+
+<td>0.3 to 0.7</td>
+
+<td>Moderate</td>
+
+<td>
+
+When looking at the graph the increasing/decreasing pattern will be clear, but it won't be nearly a line
+
+</td>
+
+</tr>
+
+<tr class="bg-info-light">
+
+<td>0.1 to 0.3</td>
+
+<td>Weak</td>
+
+<td>
+
+With some effort you will be able to see a slightly increasing/decreasing pattern
+
+</td>
+
+</tr>
+
+<tr class="bg-success-light">
+
+<td>0 to 0.1</td>
+
+<td>None</td>
+
+<td>
+
+No discernible increasing/decreasing pattern
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Cars Association L11:9 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Can You Guess The Association?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:3.5fr 6.5fr;grid-template-rows:1fr;gap:1vmin;width:90%;">
+
+<div style="align-self:center;">
+
+<p class="fragment pop" data-fragment-index=1>
+
+Correlation coefficient ($r$)
+
+</p>
+
+</div>
+
+<div>
+
+<svg width="100%" viewBox="0 0 720 576">
+
+<use xlink:href="lib/img/correlation-car.svg#axes_1"></use>
+
+<use xlink:href="lib/img/correlation-car.svg#axes_2"></use>
+
+<use xlink:href="lib/img/correlation-car.svg#axes_3"></use>
+
+<use xlink:href="lib/img/correlation-car.svg#axes_4"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/correlation-car.svg#axes_9"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/correlation-car.svg#axes_10"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/correlation-car.svg#axes_11"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/correlation-car.svg#axes_12"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</section>
+
+
+
+<!-- Correlation Cautions 1 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2><i class="fas fa-exclamation-triangle danger"></i>Cautions and Limitation<i class="fas fa-exclamation-triangle danger"></i></h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<p>
+
+A strong positive or negative correlation does not (necessarily) imply a <span class="danger">cause and effect relationship</span> between the two variables.
+
+</p>
+
+<img src="lib/img/correlation-caution1.svg" width=50%>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</section>
+
+
+
+<!-- Correlation Cautions 2 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2><i class="fas fa-exclamation-triangle danger"></i>Cautions and Limitation<i class="fas fa-exclamation-triangle danger"></i></h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<p>
+
+A correlation near zero does not (necessarily) mean that the two variables are not associated, since the correlation measures only the strength of a linear relationship.
+
+</p>
+
+<img src="lib/img/correlation-caution2.svg" width=50%>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</section>
+
+
+
+<!-- Correlation Cautions 3 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2><i class="fas fa-exclamation-triangle danger"></i>Cautions and Limitation<i class="fas fa-exclamation-triangle danger"></i></h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<p>
+
+Correlation can be heavily influenced by outliers. Always plot your data!
+
+</p>
+
+<img src="lib/img/correlation-caution3.svg" width=100%>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</section>
+
+
+
+<!-- Correlation Cautions 4 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2><i class="fas fa-exclamation-triangle danger"></i>Cautions and Limitation<i class="fas fa-exclamation-triangle danger"></i></h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<p>
+
+Pearson correlation doesn't give reliable results if the variables are not normally distributed.
+
+</p>
+
+<p style="font-size:80%;">
+
+We can use the ranks of each of the variables to transform the data into an appropriate-looking space and then use Pearson's correlation on those ranks (<span class="danger">Spearman's Correlation</span>)
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:1fr auto 1fr;grid-template-rows:1fr;gap:5px;">
+
+<div>
+
+<p class="full-width">Pearson's correlation</p>
+
+<img src="lib/img/correlation-pearson-vs-spearman-1.svg">
+
+</div>
+
+<p style="align-self:center;">
+
+Rank <br>
+
+<i class="fas fa-arrow-right"></i>
+
+</p>
+
+<div>
+
+<p class="full-width">Spearman's correlation</p>
+
+<img src="lib/img/correlation-pearson-vs-spearman-2.svg">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</section>
+
+
+
+<!-- Heteroscedasticity -->
+
+<section>
+
+<style>
+
+
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Homoscedasticity/Heteroscedasticity</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-template-rows:1fr auto;gap:2vmin;">
+
+<div class="border-right" style="grid-column:1/2;grid-row:1/2;padding-right:1vmin;">
+
+<div class="bg-info-light full-width">
+
+Homoscedasticity
+
+</div>
+
+<p style="font-size:80%;text-align:justify;text-justify:inter-word;">
+
+A dataset is <span class="info-dark">homoscedastic</span> if the <span class="strong">variance</span> at any given portion is the same as all others, i.e. constant.
+
+</p>
+
+<img class="wull-width" src="lib/img/dataset-distribution-homoscedastic.png">
+
+</div>
+
+<div style="grid-column:2/3;grid-row:1/2;">
+
+<div class="bg-warning-light full-width">
+
+Heteroscedasticity
+
+</div>
+
+<p style="font-size:80%;text-align:justify;text-justify:inter-word;">
+
+A dataset is <span class="orange">heteroscedastic</span> if the <span class="strong">variance</span> at any given portion is different from all others, i.e. variable.
+
+</p>
+
+<img class="wull-width" src="lib/img/dataset-distribution-heteroscedastic.png">
+
+</div>
+
+<div style="grid-column:1/3;grid-row:2/3">
+
+<p>
+
+<i class="fas fa-arrow-circle-right"></i> Because correlation gives an
+
+information about the strength of an association (how close are the data
+
+point to the imaginary line), if the dataset is heteroscedastic then correlation
+
+won't give you a very representative result.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</section>
+
+
+
+<!-- Correlation: Limitations -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Correlation: Limitations</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:3fr 2.1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<div class="small left-justify">
+
+<p class="strong danger">Assumptions</p>
+
+<ul>
+
+<li class="emoji-chart fragment" data-fragment-index="1">Both variables must be continuous (interval/ratio)</li>
+
+<li class="emoji-chart fragment" data-fragment-index="1">Linear relationship between variables</li>
+
+<li class="emoji-chart fragment" data-fragment-index="1">Variables should be normally distributed</li>
+
+<li class="emoji-chart fragment" data-fragment-index="1">Equal spread of data points (homoscedasticity)</li>
+
+<li class="emoji-chart fragment" data-fragment-index="1">Independent observations</li>
+
+</ul>
+
+<p class="strong warning fragment" data-fragment-index="2">Limitations</p>
+
+<ul>
+
+<li class="emoji-warning fragment" data-fragment-index="2">Sensitive to outliers</li>
+
+<li class="emoji-warning fragment" data-fragment-index="2">Only detects linear relationships</li>
+
+<li class="emoji-warning fragment" data-fragment-index="2">Does not imply causation</li>
+
+<li class="emoji-warning fragment" data-fragment-index="2">Assumes consistent spread</li>
+
+<li class="emoji-warning fragment" data-fragment-index="2">Affected by measurement errors</li>
+
+<li class="emoji-warning fragment" data-fragment-index="2">Not suitable for categorical data</li>
+
+</ul>
+
+</div>
+
+<div>
+
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" viewBox="0 0 425 380" xmlns="http://www.w3.org/2000/svg" version="1.1">
+
+<use xlink:href="lib/img/mi_linear_2.svg#axes_1"></use>
+
+<use xlink:href="lib/img/mi_linear_2.svg#axes_2"></use>
+
+<use xlink:href="lib/img/mi_linear_2.svg#axes_3" class="fragment" data-fragment-index="3"></use>
+
+<use xlink:href="lib/img/mi_linear_2.svg#axes_4" class="fragment" data-fragment-index="3"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/correlation-quality-of-service.webp" id="section-title-4">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-4">
+              <div class="section-number">
+                <span class="large-number">
+                  4
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Example Analysis
+                </h2>
+                <h3>
+                  Correlation Between Observers
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-4.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+#patient-table {
+
+font-size: 50%;
+
+border-collapse: collapse;
+
+padding: 0;
+
+margin: 0;
+
+width: 100% !important;
+
+text-align: center;
+
+}
+
+#patient-table th,
+
+#patient-table td {
+
+padding-top: 2px;
+
+padding-bottom: 2px;
+
+padding-left: 5px;
+
+padding-right: 5px;
+
+margin: 0;
+
+text-align: center;
+
+}
+
+</style>
+
+</section>
+
+
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Correlation In Cardiac Patients</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:2.5fr 1fr;grid-template-rows:1fr;gap:5px;">
+
+<div style="text-align:left;font-size:90%;">
+
+<p>
+
+A hospital wanted to conduct a quality of service assessment across two of their
+
+lead cardiologists. To conduct their assessment, they asked the two doctors
+
+to measure the resting cardiac output of 23 of the hospital staff.
+
+</p>
+
+<p class="fragment" data-fragment-index="1">
+
+The two doctors, <span class="info">Observer A</span> and
+
+<span class="warning">Observer B</span> recorded the data shown in the table.
+
+</p>
+
+<p class="fragment" data-fragment-index="2">
+
+The hospital wants to know, is there a statistically significant correlation
+
+between the observers?
+
+</p>
+
+<p class="fragment" data-fragment-index="3">
+
+Management flows down the requirement
+
+that in order to consider them significant, correlation shall be tested at the
+
+$\alpha=0.05$ level<span class="fragment danger" data-fragment-index="4">, i.e. $p(r)<\alpha$.</span>
+
+</p>
+
+<p class="fragment" data-fragment-index="5">
+
+What are our statistical hypotheses?
+
+</p>
+
+<p class="fragment" data-fragment-index="6">
+
+<span class="fragment" data-fragment-index="6">$H_0:\, r = \rho$, <span class="fragment" data-fragment-index="7">$H_a:\, r \neq \rho$</span></span>
+
+</p>
+
+<p class="fragment" data-fragment-index="7">
+
+Where $\rho$ is the population correlation, and the $t$ statistic for $n-2$ DOF is: $$t=\frac{r-\rho}{\sqrt{\frac{1-r^2}{n-2}}}.$$
+
+</p>
+
+</div>
+
+<div class="full-width fragment" data-fragment-index="1">
+
+<table id="patient-table" data-id="ptable">
+
+<!-- Table header -->
+
+<thead>
+
+<tr>
+
+<th class="bg-success">Patient</th>
+
+<th class="bg-success">Observer A</th>
+
+<th class="bg-success">Observer B</th>
+
+</tr>
+
+</thead>
+
+<!-- Table body -->
+
+<tbody>
+
+<tr><td class="bg-success-alpha-02">1</td><td>4.8</td><td>5.8</td></tr>
+
+<tr><td class="bg-success-alpha-02">2</td><td>5.6</td><td>6.1</td></tr>
+
+<tr><td class="bg-success-alpha-02">3</td><td>6</td><td>7.7</td></tr>
+
+<tr><td class="bg-success-alpha-02">4</td><td>6.4</td><td>7.8</td></tr>
+
+<tr><td class="bg-success-alpha-02">5</td><td>6.5</td><td>7.6</td></tr>
+
+<tr><td class="bg-success-alpha-02">6</td><td>6.6</td><td>8.1</td></tr>
+
+<tr><td class="bg-success-alpha-02">7</td><td>6.8</td><td>8</td></tr>
+
+<tr><td class="bg-success-alpha-02">8</td><td>7</td><td>8.1</td></tr>
+
+<tr><td class="bg-success-alpha-02">9</td><td>7</td><td>6.6</td></tr>
+
+<tr><td class="bg-success-alpha-02">10</td><td>7.2</td><td>8.1</td></tr>
+
+<tr><td class="bg-success-alpha-02">11</td><td>7.4</td><td>9.5</td></tr>
+
+<tr><td class="bg-success-alpha-02">12</td><td>7.6</td><td>9.6</td></tr>
+
+<tr><td class="bg-success-alpha-02">13</td><td>7.7</td><td>8.5</td></tr>
+
+<tr><td class="bg-success-alpha-02">14</td><td>7.7</td><td>9.5</td></tr>
+
+<tr><td class="bg-success-alpha-02">15</td><td>8.2</td><td>9.1</td></tr>
+
+<tr><td class="bg-success-alpha-02">16</td><td>8.2</td><td>10</td></tr>
+
+<tr><td class="bg-success-alpha-02">17</td><td>8.3</td><td>9.1</td></tr>
+
+<tr><td class="bg-success-alpha-02">18</td><td>8.5</td><td>10.8</td></tr>
+
+<tr><td class="bg-success-alpha-02">19</td><td>9.3</td><td>11.5</td></tr>
+
+<tr><td class="bg-success-alpha-02">20</td><td>10.2</td><td>11.5</td></tr>
+
+<tr><td class="bg-success-alpha-02">21</td><td>10.4</td><td>11.2</td></tr>
+
+<tr><td class="bg-success-alpha-02">22</td><td>10.6</td><td>11.5</td></tr>
+
+<tr><td class="bg-success-alpha-02">23</td><td>11.4</td><td>12</td></tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Correlation In Cardiac Patients</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:2.5fr 1fr;grid-template-rows:1fr;gap:5px;">
+
+<div style="text-align:left;">
+
+<p>
+
+Step 1: Visualize the data!
+
+</p>
+
+<svg width="95%" viewBox="0 0 720 288">
+
+<use xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_1"></use>
+
+<use class="fragment" data-fragment-index="0" xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_2"></use>
+
+<!-- <use class="fragment" xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_3"></use>
+
+<use class="fragment" xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_4"></use> -->
+
+</svg>
+
+<p class="fragment" data-fragment-index="1">
+
+Step 2: Calculate
+
+<span class="fragment highlight-info" data-fragment-index="2">$s_{A}^2$</span>
+
+and <span class="fragment highlight-warning" data-fragment-index="3">$s_{B}^2$</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index="4">
+
+$\bar{A} = 7.8$ and $\bar{B} = 9.03$
+
+</p>
+
+</div>
+
+<div class="full-width">
+
+<table id="patient-table" data-id="ptable">
+
+<!-- Table header -->
+
+<thead>
+
+<tr>
+
+<th class="bg-success">Patient</th>
+
+<th class="bg-success">Observer A</th>
+
+<th class="bg-success">Observer B</th>
+
+<th class="bg-success fragment" data-fragment-index="2">$(x_i-\bar{x})^2$</th>
+
+<th class="bg-success fragment" data-fragment-index="3">$(y_i-\bar{y})^2$</th>
+
+</tr>
+
+</thead>
+
+<!-- Table body -->
+
+<tbody>
+
+<tr>
+
+<td class="bg-success-alpha-02">1</td>
+
+<td>4.8</td>
+
+<td>5.8</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">9.000</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">10.436</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">2</td>
+
+<td>5.6</td>
+
+<td>6.1</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">4.840</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">8.587</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">3</td>
+
+<td>6</td>
+
+<td>7.7</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">3.240</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">1.770</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">4</td>
+
+<td>6.4</td>
+
+<td>7.8</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">1.960</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">1.514</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">5</td>
+
+<td>6.5</td>
+
+<td>7.6</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">1.690</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">2.046</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">6</td>
+
+<td>6.6</td>
+
+<td>8.1</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">1.440</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.866</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">7</td>
+
+<td>6.8</td>
+
+<td>8</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">1.000</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">1.062</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">8</td>
+
+<td>7</td>
+
+<td>8.1</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.640</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.866</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">9</td>
+
+<td>7</td>
+
+<td>6.6</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.640</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">5.907</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">10</td>
+
+<td>7.2</td>
+
+<td>8.1</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.360</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.866</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">11</td>
+
+<td>7.4</td>
+
+<td>9.5</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.160</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.220</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">12</td>
+
+<td>7.6</td>
+
+<td>9.6</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.040</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.324</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">13</td>
+
+<td>7.7</td>
+
+<td>8.5</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.010</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.281</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">14</td>
+
+<td>7.7</td>
+
+<td>9.5</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.010</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.220</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">15</td>
+
+<td>8.2</td>
+
+<td>9.1</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.160</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.005</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">16</td>
+
+<td>8.2</td>
+
+<td>10</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.160</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.940</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">17</td>
+
+<td>8.3</td>
+
+<td>9.1</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.250</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.005</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">18</td>
+
+<td>8.5</td>
+
+<td>10.8</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.490</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">3.131</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">19</td>
+
+<td>9.3</td>
+
+<td>11.5</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">2.250</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">6.099</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">20</td>
+
+<td>10.2</td>
+
+<td>11.5</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">5.760</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">6.099</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">21</td>
+
+<td>10.4</td>
+
+<td>11.2</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">6.760</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">4.707</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">22</td>
+
+<td>10.6</td>
+
+<td>11.5</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">7.840</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">6.099</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">23</td>
+
+<td>11.4</td>
+
+<td>12</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">12.960</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">8.818</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Notice that we can plot these values either a vs b or b vs a? For correlation, this
+
+principle is critical. If your data are gathered in such a way that you cannot
+
+consider each as a function of the other, then you have to consider a different
+
+statistical approach (later).
+
+</p>
+
+</aside>
+
+</section>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Correlation In Cardiac Patients</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:2.5fr 1fr;grid-template-rows:1fr;gap:5px;">
+
+<div style="text-align:left;">
+
+<svg width="95%" viewBox="0 0 720 288">
+
+<use xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_1"></use>
+
+<use xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index="2" xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_3"></use>
+
+<use class="fragment" data-fragment-index="2" xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_5"></use>
+
+<use class="fragment" data-fragment-index="4" xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_4"></use>
+
+</svg>
+
+<p>
+
+Step 3: Calculate <span class="fragment highlight-pop" data-fragment-index="1">$s_{AB}$</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index="2">
+
+Step 4: Calculate Pearson's correlation coefficient: <span class="info">$r=\frac{s_{AB}}{S_AS_B}=0.935$</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index="3">
+
+Step 5: Calculate $t$: $t=\frac{r-\rho}{\sqrt{\frac{1-r^2}{n-2}}}=\frac{0.935}{\sqrt{\frac{1-0.935^2}{21}}}=12.04$.
+
+</p>
+
+<p class="fragment" data-fragment-index="4">
+
+Step 6: Determine p-value from the $t$-distribution (two-sided!):
+
+$t_{0.025,21}=2.0796 < 12.04 \therefore\phantom{}$
+
+<span class="fragment success" data-fragment-index="5">Reject $H_0$!</span>
+
+</p>
+
+</div>
+
+<div class="full-width">
+
+<table id="patient-table" data-id="ptable">
+
+<!-- Table header -->
+
+<thead>
+
+<tr>
+
+<th class="bg-success">Patient</th>
+
+<th class="bg-success">Observer A</th>
+
+<th class="bg-success">Observer B</th>
+
+<th class="bg-success">$(x_i-\bar{x})^2$</th>
+
+<th class="bg-success">$(y_i-\bar{y})^2$</th>
+
+<th class="bg-success">$(x_i-\bar{x})(y_i-\bar{y})$</th>
+
+</tr>
+
+</thead>
+
+<!-- Table body -->
+
+<tbody>
+
+<tr><td class="bg-success-alpha-02">1</td><td>4.8</td><td>5.8</td><td class="bg-info-alpha-02">9.000</td><td class="bg-warning-alpha-02">10.436</td><td class="bg-pop">9.691</td></tr>
+
+<tr><td class="bg-success-alpha-02">2</td><td>5.6</td><td>6.1</td><td class="bg-info-alpha-02">4.840</td><td class="bg-warning-alpha-02">8.587</td><td class="bg-pop">6.447</td></tr>
+
+<tr><td class="bg-success-alpha-02">3</td><td>6</td><td>7.7</td><td class="bg-info-alpha-02">3.240</td><td class="bg-warning-alpha-02">1.770</td><td class="bg-pop">2.395</td></tr>
+
+<tr><td class="bg-success-alpha-02">4</td><td>6.4</td><td>7.8</td><td class="bg-info-alpha-02">1.960</td><td class="bg-warning-alpha-02">1.514</td><td class="bg-pop">1.723</td></tr>
+
+<tr><td class="bg-success-alpha-02">5</td><td>6.5</td><td>7.6</td><td class="bg-info-alpha-02">1.690</td><td class="bg-warning-alpha-02">2.046</td><td class="bg-pop">1.860</td></tr>
+
+<tr><td class="bg-success-alpha-02">6</td><td>6.6</td><td>8.1</td><td class="bg-info-alpha-02">1.440</td><td class="bg-warning-alpha-02">0.866</td><td class="bg-pop">1.117</td></tr>
+
+<tr><td class="bg-success-alpha-02">7</td><td>6.8</td><td>8</td><td class="bg-info-alpha-02">1.000</td><td class="bg-warning-alpha-02">1.062</td><td class="bg-pop">1.030</td></tr>
+
+<tr><td class="bg-success-alpha-02">8</td><td>7</td><td>8.1</td><td class="bg-info-alpha-02">0.640</td><td class="bg-warning-alpha-02">0.866</td><td class="bg-pop">0.744</td></tr>
+
+<tr><td class="bg-success-alpha-02">9</td><td>7</td><td>6.6</td><td class="bg-info-alpha-02">0.640</td><td class="bg-warning-alpha-02">5.907</td><td class="bg-pop">1.944</td></tr>
+
+<tr><td class="bg-success-alpha-02">10</td><td>7.2</td><td>8.1</td><td class="bg-info-alpha-02">0.360</td><td class="bg-warning-alpha-02">0.866</td><td class="bg-pop">0.558</td></tr>
+
+<tr><td class="bg-success-alpha-02">11</td><td>7.4</td><td>9.5</td><td class="bg-info-alpha-02">0.160</td><td class="bg-warning-alpha-02">0.220</td><td class="bg-pop">-0.188</td></tr>
+
+<tr><td class="bg-success-alpha-02">12</td><td>7.6</td><td>9.6</td><td class="bg-info-alpha-02">0.040</td><td class="bg-warning-alpha-02">0.324</td><td class="bg-pop">-0.114</td></tr>
+
+<tr><td class="bg-success-alpha-02">13</td><td>7.7</td><td>8.5</td><td class="bg-info-alpha-02">0.010</td><td class="bg-warning-alpha-02">0.281</td><td class="bg-pop">0.053</td></tr>
+
+<tr><td class="bg-success-alpha-02">14</td><td>7.7</td><td>9.5</td><td class="bg-info-alpha-02">0.010</td><td class="bg-warning-alpha-02">0.220</td><td class="bg-pop">-0.047</td></tr>
+
+<tr><td class="bg-success-alpha-02">15</td><td>8.2</td><td>9.1</td><td class="bg-info-alpha-02">0.160</td><td class="bg-warning-alpha-02">0.005</td><td class="bg-pop">0.028</td></tr>
+
+<tr><td class="bg-success-alpha-02">16</td><td>8.2</td><td>10</td><td class="bg-info-alpha-02">0.160</td><td class="bg-warning-alpha-02">0.940</td><td class="bg-pop">0.388</td></tr>
+
+<tr><td class="bg-success-alpha-02">17</td><td>8.3</td><td>9.1</td><td class="bg-info-alpha-02">0.250</td><td class="bg-warning-alpha-02">0.005</td><td class="bg-pop">0.035</td></tr>
+
+<tr><td class="bg-success-alpha-02">18</td><td>8.5</td><td>10.8</td><td class="bg-info-alpha-02">0.490</td><td class="bg-warning-alpha-02">3.131</td><td class="bg-pop">1.239</td></tr>
+
+<tr><td class="bg-success-alpha-02">19</td><td>9.3</td><td>11.5</td><td class="bg-info-alpha-02">2.250</td><td class="bg-warning-alpha-02">6.099</td><td class="bg-pop">3.704</td></tr>
+
+<tr><td class="bg-success-alpha-02">20</td><td>10.2</td><td>11.5</td><td class="bg-info-alpha-02">5.760</td><td class="bg-warning-alpha-02">6.099</td><td class="bg-pop">5.927</td></tr>
+
+<tr><td class="bg-success-alpha-02">21</td><td>10.4</td><td>11.2</td><td class="bg-info-alpha-02">6.760</td><td class="bg-warning-alpha-02">4.707</td><td class="bg-pop">5.641</td></tr>
+
+<tr><td class="bg-success-alpha-02">22</td><td>10.6</td><td>11.5</td><td class="bg-info-alpha-02">7.760</td><td class="bg-warning-alpha-02">6.099</td><td class="bg-pop">6.869</td></tr>
+
+<tr><td class="bg-success-alpha-02">23</td><td>11.4</td><td>12</td><td class="bg-info-alpha-02">12.960</td><td class="bg-warning-alpha-02">8.818</td><td class="bg-pop">10.690</td></tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<!-- Why would we want to? -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>What Is The Purpose of Correlation?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1.25fr 8fr;grid-template-rows:auto;gap:5px;justify-content:center;">
+
+<div style="grid-column:1/2;grid-row:1/2;align-self:center;">
+
+<img class="framed" src="lib/img/regression-ex-forensic.jpg" width=100%>
+
+</div>
+
+<div style="grid-column:2/3;grid-row:1/2;align-self:center;text-align:left;">
+
+<p class="small">
+
+<span class="u em danger">Forensic analysis:</span>
+
+Most people are not accustomed to looking at foot length, so describing the suspect as having a foot of 10.5inches long would probably not help find the suspect. It would be <span class="info">far more useful</span> to tell people to look for a <span class="u-info">suspect who is of a certain <span class="info">height</span></span>.
+
+</p>
+
+<p class="fragment" data-fragment-index=3>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+The accuracy of this prediction would depend on the size of the <span class="u-danger">correlation between foot length and height</span>
+
+</p>
+
+</div>
+
+<div style="grid-column:1/2;grid-row:2/3;align-self:center;">
+
+<img class="framed" src="lib/img/regression-ex-anthropology.jpeg" width=100%>
+
+</div>
+
+<div style="grid-column:2/3;grid-row:2/3;align-self:center;text-align:left;">
+
+<p class="small">
+
+<span class="u em danger">Anthropology:</span>
+
+Body proportions and the dimensions of various body segments,
+
+including the long bones of their limbs and the bones of the
+
+foot and hand have been used to <span class="info">estimate stature</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index=3>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+The accuracy of this prediction would depend on the size of the <span class="u-danger">correlation between foot length and height</span>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Going beyond -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Limitations Of Correlation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:3.4fr 6.5fr;grid-auto-rows:auto;gap:5px;">
+
+<div style="grid-column:1/3;grid-row:1/2;">
+
+<p>
+
+Because the correlation coefficient only gives information about
+
+the
+
+<span class="danger">direction</span> and
+
+<span class="danger">strength</span> of an association,
+
+we cannot use it
+
+directly to get information of someone's height from
+
+their footprint.
+
+</p>
+
+</div>
+
+<div style="grid-column:1/2;grid-row:2/3;">
+
+<svg width="100%" viewBox="340 0 295 288">
+
+<use xlink:href="lib/img/correlation-simulation-graph-swap.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index=2 xlink:href="lib/img/correlation-simulation-graph-swap.svg#axes_5"></use>
+
+<use class="fragment" data-fragment-index=3 xlink:href="lib/img/correlation-simulation-graph-swap.svg#axes_6"></use>
+
+</svg>
+
+</div>
+
+<div style="grid-column:2/3;grid-row:2/3;display:grid;row-gap:2vmin;">
+
+<p class="framed border-pop">
+
+If we decide the association is linear (<span class="em">strong $r$</span>), it is useful to
+
+<span class="pop">develop a mathematical model</span>
+
+of that association.
+
+</p>
+
+<p class="smaller fragment" data-fragment-index="2">
+
+<i class="fas fa-arrow-circle-right orange"></i>
+
+The process of fitting a line to a set of data is called <span class="orange em">linear regression</span>, and the line
+
+of best fit is called the <span class="orange em">regression line</span>, which is the line that gets as close as possible
+
+to all of the data points.
+
+</p>
+
+<p class="smaller fragment" data-fragment-index="3">
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+We can use the regression line to give a <span class="danger">predicted value of the response variable</span>, based on a given value of the explanatory variable.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+      </div>
+      <footer class="main-footer">
+        <span>
+          Lecture 12
+        </span>
+        <span style="text-align:center;">
+        </span>
+        <span style="text-align:right;">
+          <a href="https:\\khrisgriffis.com" target="_blank" rel="noopener noreferrer">Khris Griffis &#169;2025</a>
+        </span>
+      </footer>
+    </div>
+    <script src="./src/reveal.js">
+    </script>
+    <script src="./src/plugin/notes/notes.js">
+    </script>
+    <script src="./src/plugin/highlight/highlight.js">
+    </script>
+    <script src="./src/plugin/math/math.js">
+    </script>
+    <script src="./src/plugin/reveal-splash/reveal-splash.js">
+    </script>
+    <script src="./src/plugin/vizzy-reveal/vizzy.js">
+    </script>
+    <script>
+      Reveal.initialize({
+autoSlide: 0,
+center: true,
+controls: true,
+controlsBackArrows: "faded",
+controlsLayout: "bottom-right",
+display: "block",
+fragments: true,
+fragmentInURL: true,
+hash: true,
+hideCursorTime: 5000,
+keyboard: true,
+mobileViewDistance: 3,
+mouseWheel: false,
+navigationMode: "linear",
+overview: true,
+pdfMaxPagesPerSlide: 1,
+pdfSeparateFragments: false,
+preloadIframes: null,
+progress: false,
+showNotes: false,
+showSlideNumber: "print",
+sortFragmentsOnSync: true,
+touch: true,
+transition: "fade",
+transitionSpeed: "default",
+viewDistance: 3,
+backgroundTransition: "fade",
+controlsTutorial: false,
+embedded: false,
+help: true,
+hideInactiveCursor: true,
+history: false,
+loop: false,
+previewLinks: false,
+rtl: false,
+shuffle: false,
+slideNumber: false,
+width: 1920,
+height: 1080,
+margin: 0.081,
+minScale: 0.08,
+maxScale: 1.67,
+mathjax3: {
+mathjax: "https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-mml-chtml.js",
+loader: {
+load: [
+"[tex]/html",
+],
+},
+tex: {
+packages: {
+'[+]': [
+"html",
+],
+},
+inlineMath: [
+["$", "$"],
+["\\(", "\\)"],
+],
+processEscapes: true,
+processEnvironments: true,
+},
+options: {
+skipHtmlTags: [
+"script",
+"noscript",
+"style",
+"textarea",
+"pre",
+],
+},
+chtml: {
+scale: 0.8,
+minScale: 0.4,
+},
+Safe: {
+sizeMin: 0.4,
+sizeMax: 1.25,
+},
+output: {
+displayOverflow: "linebreak",
+linebreaks: {
+inline: true,
+width: "100%",
+lineleading: 0.2,
+LinebreakVisitor: null,
+},
+},
+},
+notes: {
+
+},
+highlight: {
+
+},
+vizzy: {
+autoRunTransitions: true,
+autoTransitionDelay: 100,
+devMode: false,
+onSlideChangedDelay: 0,
+},
+splash: {
+splashImage: "lib/img/ME3040_splash.png",
+text: "Welcome to ME3040!",
+minimumDisplay: 2,
+},
+plugins: [RevealNotes, RevealHighlight, RevealMath.MathJax3, Splash, Vizzy]
+});
+    </script>
+  </body>
+</html>
