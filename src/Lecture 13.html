@@ -1,0 +1,3363 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="notranslate" name="google"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>
+      Linear Models 1
+    </title>
+    <link href="lib\favicon.png" rel="icon" type="image/x-icon"/>
+    <link href="./src/css/reset.css" rel="stylesheet"/>
+    <link href="./src/css/reveal.css" rel="stylesheet"/>
+    <link href="./src/css/revealpack.css" rel="stylesheet"/>
+    <link href="./src/theme/drG.css" id="theme" rel="stylesheet"/>
+    <!-- highlight.js theme -->
+    <link href="./src/theme/vs.css" id="highlight-theme" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <!-- Custom Scripts -->
+    <!-- Print PDF script -->
+    <script>
+      var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match(/print-pdf/gi) ? './src/css/print/pdf.css' : './src/css/print/paper.css';
+document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!-- Deck CSS Injections -->
+    <!-- Deck Script Injections -->
+    <!-- Deck Raw Injections -->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-image="lib/img/correlated-signals_bg.png" id="deck-title-slide">
+          <div class="title-slide background">
+            <div class="headline">
+              <h2 class="r-fit-text">
+                Linear Models 1
+              </h2>
+              <h3>
+              </h3>
+            </div>
+            <div class="sub-header">
+              <p class="by">
+                Khris Griffis, Ph.D.
+              </p>
+            </div>
+            <div class="byline">
+              <p class="byinfo">
+                Lecture 13
+              </p>
+              <p class="byinfo">
+                CSULA: ME3040
+              </p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Today's Objectives</h2>
+
+</div>
+
+<div class="content">
+
+<div
+
+class="grid-generic full-width left-justify big"
+
+style="grid-template-columns: 1fr; grid-auto-rows: auto; row-gap: 5vmin"
+
+>
+
+<div class="border-bottom fragment" data-fragment-index="1">
+
+<p><i class="target"></i> Recap on Correlation</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="2">
+
+<p>
+
+<i class="target"></i> Correlation of cardiac patients: A Study Of
+
+Experimenters
+
+</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="3">
+
+<p><i class="target"></i> Introduction to Linear Regression</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p></p>
+
+</aside>
+
+
+
+<!-- </section> -->
+        </section>
+        <section data-background-gradient="radial-gradient(#283b95, #17b2c3)" id="section-title-1">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-1">
+              <div class="section-number">
+                <span class="large-number">
+                  1
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Last Time...
+                </h2>
+                <h3>
+                  Recap Correlation
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-1.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Section Notes</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<section>
+
+<!-- Correlation Recap -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Last Time...</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 8fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column:1/2;grid-row:1/2;">
+
+<p>
+
+<span class="em u">Two quantitative variables association:</span>
+
+<br>
+
+- Form? <span class="fragment danger" data-fragment-index=1>Linear</span> <br>
+
+- <span class="fragment highlight-danger" data-fragment-index=1>Direction</span> <br>
+
+- <span class="fragment highlight-danger" data-fragment-index=1>Strength</span>
+
+</p>
+
+<p class="fragment" data-fragment-index=1>
+
+<i class="fa fa-arrow-circle-right danger"></i>
+
+Correlation: $\rho, r$
+
+</p>
+
+</div>
+
+<div style="grid-column:2/3;grid-row:1/2;">
+
+<svg width="100%" viewBox="0 0 720 288">
+
+<use xlink:href="lib/img/correlation-simulation-graph-swap.svg#axes_1"></use>
+
+<use class="fragment" xlink:href="lib/img/correlation-simulation-graph-swap.svg#axes_2"></use>
+
+</svg>
+
+</div>
+
+<p class="fragment" style="grid-column:1/3;grid-row:2/3;">
+
+<span class="muted em u">Note:</span> Correlation, like a lot of other statistical descriptors/tests,
+
+<span class="info">assumes normality of the data</span>. How could you check if a variable is normally distributed?
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Heteroscedasticity -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Homoscedasticity/Heteroscedasticity</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<div class="border-right" style="grid-column:1/2;grid-row:1/2;padding-right:1vmin;">
+
+<div class="bg-info-light full-width">
+
+Homoscedasticity
+
+</div>
+
+<p style="font-size:80%;text-align:justify;text-justify:inter-word;">
+
+A dataset is <span class="info-dark">homoscedastic</span> if the <span class="strong">variance</span> at any given portion is the same as all others, i.e. constant.
+
+</p>
+
+<img class="wull-width" src="lib/img/dataset-distribution-homoscedastic.png">
+
+</div>
+
+<div style="grid-column:2/3;grid-row:1/2;">
+
+<div class="bg-warning-light full-width">
+
+Heteroscedasticity
+
+</div>
+
+<p style="font-size:80%;text-align:justify;text-justify:inter-word;">
+
+A dataset is <span class="orange">heteroscedastic</span> if the <span class="strong">variance</span> at any given portion is different from all others, i.e. variable.
+
+</p>
+
+<img class="wull-width" src="lib/img/dataset-distribution-heteroscedastic.png">
+
+</div>
+
+<div style="grid-column:1/3;grid-row:2/3">
+
+<p>
+
+<i class="fas fa-arrow-circle-right"></i> Because correlation gives an
+
+information about the strength of an association (how close are the data
+
+point to the imaginary line), if the dataset is heteroscedastic then correlation
+
+won't give you a very representative result.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>We said, in order for correlation to be useful, we need to have homoscedastic data.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Steps To A Statistical Analysis -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Steps To A Statistical Analysis</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1.2fr 1fr;grid-template-rows:auto auto;column-gap:1vmin;">
+
+<div> <!-- LEFT -->
+
+<ul>
+
+<li>Collect Sample(s)</li>
+
+<li>Visualize Samples(s), inspect for normality</li>
+
+<li>Inspect for Outliers</li>
+
+<li>Summarize Samples, determine which descriptive statistic to use</li>
+
+<li>Calculate uncertainty for each sample</li>
+
+<li>Determine statistic of interest</li>
+
+<li>State the null hypothesis, consider alternative</li>
+
+<li>Test statistic against the Null, calculate the p-value (significance)</li>
+
+<li>Determine Effect Size (impact)</li>
+
+</ul>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;height:fit-content;">
+
+<div>
+
+<p class="small bordered rounded broder-info">
+
+<i class="lightbulb"></i> Determine the metric, ensure high-quality data.
+
+</p>
+
+</div>
+
+<div class="grid-generic no-hang" style="grid-template-columns:1fr 1fr;grid-template-rows:1fr;gap:5px;width:90%">
+
+<img src="lib/img/two-group-simple-density.svg" width="100%">
+
+<img src="lib/img/qqplot.svg" width="100%">
+
+</div>
+
+<div class="no-hang">
+
+<p style="font-size:90%;">
+
+$\bar{x}$, $\tilde{x}$, $\mathcal{N}(\bar{x},s)$, <span class="pop">$r$</span>, ..., $SE$, $s^2$, 95%CI, ...
+
+</p>
+
+<p>$\delta$, <span class="pop">$t$</span>, $z$, $\Delta\bar{x}$, $\mathbb{F}$, $\chi^2$,...</p>
+
+</div>
+
+<div>
+
+<p>$H_0$, $H_a$, $\bar{X}_0$, $\pi_0$, <span class="pop">$\rho_0$</span>, ...</p>
+
+</div>
+
+<div>
+
+<p>$\delta$, $\rho$, $R^2$, $\chi^2$, ...</p>
+
+</div>
+
+</div>
+
+<p style="grid-column: 1/3;" class="small framed border-pop">
+
+We've included the correlation coefficient, $r$, in the list of statistics of interest, let's look at an example.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Now, we've added a new statistic of interest: the correlation coefficient.</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <style>
+
+#patient-table {
+
+font-size: 50%;
+
+border-collapse: collapse;
+
+padding: 0;
+
+margin: 0;
+
+width: 100% !important;
+
+text-align: center;
+
+}
+
+#patient-table th,
+
+#patient-table td {
+
+padding-top: 2px;
+
+padding-bottom: 2px;
+
+padding-left: 5px;
+
+padding-right: 5px;
+
+margin: 0;
+
+text-align: center;
+
+}
+
+</style>
+
+
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Correlation In Cardiac Patients</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:2.4fr 1fr;grid-template-rows:1fr;gap:5px;">
+
+<div style="text-align:left;font-size:90%;">
+
+<p>
+
+A hospital wanted to conduct a quality of service assessment across two of their
+
+lead cardiologists. To conduct their assessment, they asked the two doctors
+
+to measure the resting cardiac output of 23 of the hospital staff.
+
+</p>
+
+<p class="fragment" data-fragment-index="1">
+
+The two doctors, <span class="info">Observer A</span> and
+
+<span class="warning">Observer B</span> recorded the data shown in the table.
+
+</p>
+
+<p class="fragment" data-fragment-index="2">
+
+The hospital wants to know, is there a statistically significant correlation
+
+between the observers?
+
+</p>
+
+<p class="fragment" data-fragment-index="3">
+
+Management flows down the requirement
+
+that in order to consider them significant, correlation shall be tested at the
+
+$\alpha=0.05$ level<span class="fragment danger" data-fragment-index="4">, i.e. $p(r)<\alpha$.</span>
+
+</p>
+
+<p class="fragment" data-fragment-index="5">
+
+What are our statistical hypotheses?
+
+</p>
+
+<p class="fragment" data-fragment-index="6">
+
+<span class="fragment" data-fragment-index="6">$H_0:\, r = \rho$, <span class="fragment" data-fragment-index="7">$H_a:\, r \neq \rho$</span></span>
+
+</p>
+
+<p class="fragment" data-fragment-index="7">
+
+Where $\rho$ is the population correlation, and the $t$ statistic for $n-2$ DOF is: $$t=\frac{r-\rho}{\sqrt{\frac{1-r^2}{n-2}}}.$$
+
+</p>
+
+</div>
+
+<div class="full-width fragment" data-fragment-index="1">
+
+<table id="patient-table" data-id="ptable" class="full-width">
+
+<!-- Table header -->
+
+<thead>
+
+<tr>
+
+<th class="bg-success">Patient</th>
+
+<th class="bg-success">Observer A</th>
+
+<th class="bg-success">Observer B</th>
+
+</tr>
+
+</thead>
+
+<!-- Table body -->
+
+<tbody>
+
+<tr><td class="bg-success-alpha-02">1</td><td>4.8</td><td>5.8</td></tr>
+
+<tr><td class="bg-success-alpha-02">2</td><td>5.6</td><td>6.1</td></tr>
+
+<tr><td class="bg-success-alpha-02">3</td><td>6</td><td>7.7</td></tr>
+
+<tr><td class="bg-success-alpha-02">4</td><td>6.4</td><td>7.8</td></tr>
+
+<tr><td class="bg-success-alpha-02">5</td><td>6.5</td><td>7.6</td></tr>
+
+<tr><td class="bg-success-alpha-02">6</td><td>6.6</td><td>8.1</td></tr>
+
+<tr><td class="bg-success-alpha-02">7</td><td>6.8</td><td>8</td></tr>
+
+<tr><td class="bg-success-alpha-02">8</td><td>7</td><td>8.1</td></tr>
+
+<tr><td class="bg-success-alpha-02">9</td><td>7</td><td>6.6</td></tr>
+
+<tr><td class="bg-success-alpha-02">10</td><td>7.2</td><td>8.1</td></tr>
+
+<tr><td class="bg-success-alpha-02">11</td><td>7.4</td><td>9.5</td></tr>
+
+<tr><td class="bg-success-alpha-02">12</td><td>7.6</td><td>9.6</td></tr>
+
+<tr><td class="bg-success-alpha-02">13</td><td>7.7</td><td>8.5</td></tr>
+
+<tr><td class="bg-success-alpha-02">14</td><td>7.7</td><td>9.5</td></tr>
+
+<tr><td class="bg-success-alpha-02">15</td><td>8.2</td><td>9.1</td></tr>
+
+<tr><td class="bg-success-alpha-02">16</td><td>8.2</td><td>10</td></tr>
+
+<tr><td class="bg-success-alpha-02">17</td><td>8.3</td><td>9.1</td></tr>
+
+<tr><td class="bg-success-alpha-02">18</td><td>8.5</td><td>10.8</td></tr>
+
+<tr><td class="bg-success-alpha-02">19</td><td>9.3</td><td>11.5</td></tr>
+
+<tr><td class="bg-success-alpha-02">20</td><td>10.2</td><td>11.5</td></tr>
+
+<tr><td class="bg-success-alpha-02">21</td><td>10.4</td><td>11.2</td></tr>
+
+<tr><td class="bg-success-alpha-02">22</td><td>10.6</td><td>11.5</td></tr>
+
+<tr><td class="bg-success-alpha-02">23</td><td>11.4</td><td>12</td></tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Correlation In Cardiac Patients</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:2.4fr 1fr;grid-template-rows:1fr;gap:5px;">
+
+<div style="text-align:left;">
+
+<p>
+
+Step 1: Visualize the data!
+
+</p>
+
+<svg width="95%" viewBox="0 0 720 288">
+
+<use xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_1"></use>
+
+<use class="fragment" data-fragment-index="0" xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_2"></use>
+
+<!-- <use class="fragment" xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_3"></use>
+
+<use class="fragment" xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_4"></use> -->
+
+</svg>
+
+<p class="fragment" data-fragment-index="1">
+
+Step 2: Calculate
+
+<span class="fragment highlight-info" data-fragment-index="2">$s_{A}^2$</span>
+
+and <span class="fragment highlight-warning" data-fragment-index="3">$s_{B}^2$</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index="4">
+
+$\bar{A} = 7.8$ and $\bar{B} = 9.03$
+
+</p>
+
+</div>
+
+<div class="full-width">
+
+<table id="patient-table" data-id="ptable" class="full-width">
+
+<!-- Table header -->
+
+<thead>
+
+<tr>
+
+<th class="bg-success">Patient</th>
+
+<th class="bg-success">Observer A</th>
+
+<th class="bg-success">Observer B</th>
+
+<th class="bg-success fragment" data-fragment-index="2">$(x_i-\bar{x})^2$</th>
+
+<th class="bg-success fragment" data-fragment-index="3">$(y_i-\bar{y})^2$</th>
+
+</tr>
+
+</thead>
+
+<!-- Table body -->
+
+<tbody>
+
+<tr>
+
+<td class="bg-success-alpha-02">1</td>
+
+<td>4.8</td>
+
+<td>5.8</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">9.000</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">10.436</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">2</td>
+
+<td>5.6</td>
+
+<td>6.1</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">4.840</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">8.587</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">3</td>
+
+<td>6</td>
+
+<td>7.7</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">3.240</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">1.770</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">4</td>
+
+<td>6.4</td>
+
+<td>7.8</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">1.960</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">1.514</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">5</td>
+
+<td>6.5</td>
+
+<td>7.6</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">1.690</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">2.046</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">6</td>
+
+<td>6.6</td>
+
+<td>8.1</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">1.440</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.866</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">7</td>
+
+<td>6.8</td>
+
+<td>8</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">1.000</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">1.062</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">8</td>
+
+<td>7</td>
+
+<td>8.1</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.640</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.866</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">9</td>
+
+<td>7</td>
+
+<td>6.6</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.640</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">5.907</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">10</td>
+
+<td>7.2</td>
+
+<td>8.1</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.360</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.866</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">11</td>
+
+<td>7.4</td>
+
+<td>9.5</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.160</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.220</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">12</td>
+
+<td>7.6</td>
+
+<td>9.6</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.040</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.324</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">13</td>
+
+<td>7.7</td>
+
+<td>8.5</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.010</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.281</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">14</td>
+
+<td>7.7</td>
+
+<td>9.5</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.010</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.220</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">15</td>
+
+<td>8.2</td>
+
+<td>9.1</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.160</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.005</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">16</td>
+
+<td>8.2</td>
+
+<td>10</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.160</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.940</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">17</td>
+
+<td>8.3</td>
+
+<td>9.1</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.250</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">0.005</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">18</td>
+
+<td>8.5</td>
+
+<td>10.8</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">0.490</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">3.131</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">19</td>
+
+<td>9.3</td>
+
+<td>11.5</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">2.250</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">6.099</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">20</td>
+
+<td>10.2</td>
+
+<td>11.5</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">5.760</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">6.099</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">21</td>
+
+<td>10.4</td>
+
+<td>11.2</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">6.760</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">4.707</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">22</td>
+
+<td>10.6</td>
+
+<td>11.5</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">7.840</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">6.099</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-alpha-02">23</td>
+
+<td>11.4</td>
+
+<td>12</td>
+
+<td class="bg-info-alpha-02 fragment" data-fragment-index="2">12.960</td>
+
+<td class="bg-warning-alpha-02 fragment" data-fragment-index="3">8.818</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Notice that we can plot these values either a vs b or b vs a? For correlation, this
+
+principle is critical. If your data are gathered in such a way that you cannot
+
+consider each as a function of the other, then you have to consider a different
+
+statistical approach (later).
+
+</p>
+
+</aside>
+
+</section>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Correlation In Cardiac Patients</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:2.4fr 1.2fr;grid-template-rows:1fr;gap:5px;">
+
+<div style="text-align:left;" class="small">
+
+<svg width="95%" viewBox="0 0 720 288">
+
+<use xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_1"></use>
+
+<use xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index="2" xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_3"></use>
+
+<use class="fragment" data-fragment-index="2" xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_5"></use>
+
+<use class="fragment" data-fragment-index="4" xlink:href="lib/img/correlation-cardiac-graph-swap.svg#axes_4"></use>
+
+</svg>
+
+<p>
+
+Step 3: Calculate <span class="fragment highlight-pop" data-fragment-index="1">$s_{AB}$</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index="2">
+
+Step 4: Calculate Pearson's correlation coefficient: <span class="info">$r=\frac{s_{AB}}{S_AS_B}=0.935$</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index="3">
+
+Step 5: Calculate $t$: $t=\frac{r-\rho}{\sqrt{\frac{1-r^2}{n-2}}}=\frac{0.935}{\sqrt{\frac{1-0.935^2}{21}}}=12.04$.
+
+</p>
+
+<p class="fragment" data-fragment-index="4">
+
+Step 6: Determine p-value from the $t$-distribution (two-sided!): <br />
+
+$t_{0.025,21}=2.0796 < 12.04 \therefore\phantom{}$
+
+<span class="fragment success" data-fragment-index="5">Reject $H_0$!</span>
+
+</p>
+
+</div>
+
+<div class="full-width">
+
+<table id="patient-table" data-id="ptable" class="full-width">
+
+<!-- Table header -->
+
+<thead>
+
+<tr class="small">
+
+<th class="bg-success">Patient</th>
+
+<th class="bg-success">Observer A</th>
+
+<th class="bg-success">Observer B</th>
+
+<th class="bg-success">$(x_i-\bar{x})^2$</th>
+
+<th class="bg-success">$(y_i-\bar{y})^2$</th>
+
+<th class="bg-success smaller">$(x_i-\bar{x})(y_i-\bar{y})$</th>
+
+</tr>
+
+</thead>
+
+<!-- Table body -->
+
+<tbody>
+
+<tr><td class="bg-success-alpha-02">1</td><td>4.8</td><td>5.8</td><td class="bg-info-alpha-02">9.000</td><td class="bg-warning-alpha-02">10.436</td><td class="bg-pop">9.691</td></tr>
+
+<tr><td class="bg-success-alpha-02">2</td><td>5.6</td><td>6.1</td><td class="bg-info-alpha-02">4.840</td><td class="bg-warning-alpha-02">8.587</td><td class="bg-pop">6.447</td></tr>
+
+<tr><td class="bg-success-alpha-02">3</td><td>6</td><td>7.7</td><td class="bg-info-alpha-02">3.240</td><td class="bg-warning-alpha-02">1.770</td><td class="bg-pop">2.395</td></tr>
+
+<tr><td class="bg-success-alpha-02">4</td><td>6.4</td><td>7.8</td><td class="bg-info-alpha-02">1.960</td><td class="bg-warning-alpha-02">1.514</td><td class="bg-pop">1.723</td></tr>
+
+<tr><td class="bg-success-alpha-02">5</td><td>6.5</td><td>7.6</td><td class="bg-info-alpha-02">1.690</td><td class="bg-warning-alpha-02">2.046</td><td class="bg-pop">1.860</td></tr>
+
+<tr><td class="bg-success-alpha-02">6</td><td>6.6</td><td>8.1</td><td class="bg-info-alpha-02">1.440</td><td class="bg-warning-alpha-02">0.866</td><td class="bg-pop">1.117</td></tr>
+
+<tr><td class="bg-success-alpha-02">7</td><td>6.8</td><td>8</td><td class="bg-info-alpha-02">1.000</td><td class="bg-warning-alpha-02">1.062</td><td class="bg-pop">1.030</td></tr>
+
+<tr><td class="bg-success-alpha-02">8</td><td>7</td><td>8.1</td><td class="bg-info-alpha-02">0.640</td><td class="bg-warning-alpha-02">0.866</td><td class="bg-pop">0.744</td></tr>
+
+<tr><td class="bg-success-alpha-02">9</td><td>7</td><td>6.6</td><td class="bg-info-alpha-02">0.640</td><td class="bg-warning-alpha-02">5.907</td><td class="bg-pop">1.944</td></tr>
+
+<tr><td class="bg-success-alpha-02">10</td><td>7.2</td><td>8.1</td><td class="bg-info-alpha-02">0.360</td><td class="bg-warning-alpha-02">0.866</td><td class="bg-pop">0.558</td></tr>
+
+<tr><td class="bg-success-alpha-02">11</td><td>7.4</td><td>9.5</td><td class="bg-info-alpha-02">0.160</td><td class="bg-warning-alpha-02">0.220</td><td class="bg-pop">-0.188</td></tr>
+
+<tr><td class="bg-success-alpha-02">12</td><td>7.6</td><td>9.6</td><td class="bg-info-alpha-02">0.040</td><td class="bg-warning-alpha-02">0.324</td><td class="bg-pop">-0.114</td></tr>
+
+<tr><td class="bg-success-alpha-02">13</td><td>7.7</td><td>8.5</td><td class="bg-info-alpha-02">0.010</td><td class="bg-warning-alpha-02">0.281</td><td class="bg-pop">0.053</td></tr>
+
+<tr><td class="bg-success-alpha-02">14</td><td>7.7</td><td>9.5</td><td class="bg-info-alpha-02">0.010</td><td class="bg-warning-alpha-02">0.220</td><td class="bg-pop">-0.047</td></tr>
+
+<tr><td class="bg-success-alpha-02">15</td><td>8.2</td><td>9.1</td><td class="bg-info-alpha-02">0.160</td><td class="bg-warning-alpha-02">0.005</td><td class="bg-pop">0.028</td></tr>
+
+<tr><td class="bg-success-alpha-02">16</td><td>8.2</td><td>10</td><td class="bg-info-alpha-02">0.160</td><td class="bg-warning-alpha-02">0.940</td><td class="bg-pop">0.388</td></tr>
+
+<tr><td class="bg-success-alpha-02">17</td><td>8.3</td><td>9.1</td><td class="bg-info-alpha-02">0.250</td><td class="bg-warning-alpha-02">0.005</td><td class="bg-pop">0.035</td></tr>
+
+<tr><td class="bg-success-alpha-02">18</td><td>8.5</td><td>10.8</td><td class="bg-info-alpha-02">0.490</td><td class="bg-warning-alpha-02">3.131</td><td class="bg-pop">1.239</td></tr>
+
+<tr><td class="bg-success-alpha-02">19</td><td>9.3</td><td>11.5</td><td class="bg-info-alpha-02">2.250</td><td class="bg-warning-alpha-02">6.099</td><td class="bg-pop">3.704</td></tr>
+
+<tr><td class="bg-success-alpha-02">20</td><td>10.2</td><td>11.5</td><td class="bg-info-alpha-02">5.760</td><td class="bg-warning-alpha-02">6.099</td><td class="bg-pop">5.927</td></tr>
+
+<tr><td class="bg-success-alpha-02">21</td><td>10.4</td><td>11.2</td><td class="bg-info-alpha-02">6.760</td><td class="bg-warning-alpha-02">4.707</td><td class="bg-pop">5.641</td></tr>
+
+<tr><td class="bg-success-alpha-02">22</td><td>10.6</td><td>11.5</td><td class="bg-info-alpha-02">7.760</td><td class="bg-warning-alpha-02">6.099</td><td class="bg-pop">6.869</td></tr>
+
+<tr><td class="bg-success-alpha-02">23</td><td>11.4</td><td>12</td><td class="bg-info-alpha-02">12.960</td><td class="bg-warning-alpha-02">8.818</td><td class="bg-pop">10.690</td></tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/correlation-bg-5.webp" data-background-size="cover" id="section-title-2">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-2">
+              <div class="section-number">
+                <span class="large-number">
+                  2
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Linear Regression
+                </h2>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-2.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Section Notes</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- Why would we want to? -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>What Is The Purpose of Correlation?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1.25fr 8fr;grid-auto-rows:auto;gap:5vmin;justify-content:center;">
+
+<div style="grid-column:1/2;grid-row:1/2;align-self:center;">
+
+<img class="framed" src="lib/img/regression-ex-forensic.jpg" width=100%>
+
+</div>
+
+<div style="grid-column:2/3;grid-row:1/2;align-self:center;text-align:left;">
+
+<p class="small">
+
+<span class="u em danger">Forensic analysis:</span>
+
+Most people are not accustomed to looking at foot length, so describing the suspect as having a foot of 10.5inches long would probably not help find the suspect. It would be <span class="info">far more useful</span> to tell people to look for a <span class="u-info">suspect who is of a certain <span class="info">height</span></span>.
+
+</p>
+
+<p class="fragment" data-fragment-index=3>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+The accuracy of this prediction would depend on the size of the <span class="u-danger">correlation between foot length and height</span>
+
+</p>
+
+</div>
+
+<div style="grid-column:1/2;grid-row:2/3;align-self:center;">
+
+<img class="framed" src="lib/img/regression-ex-anthropology.jpeg" width=100%>
+
+</div>
+
+<div style="grid-column:2/3;grid-row:2/3;align-self:center;text-align:left;">
+
+<p class="small">
+
+<span class="u em danger">Anthropology:</span>
+
+Body proportions and the dimensions of various body segments,
+
+including the long bones of their limbs and the bones of the
+
+foot and hand have been used to <span class="info">estimate stature</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index=3>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+The accuracy of this prediction would depend on the size of the <span class="u-danger">correlation between foot length and height</span>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Going beyond -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Limitations Of Correlation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:3.4fr 6.5fr;grid-auto-rows:auto;gap:5px;">
+
+<div style="grid-column:1/3;grid-row:1/2;">
+
+<p>
+
+Because the correlation coefficient only gives information about
+
+the
+
+<span class="danger">direction</span> and
+
+<span class="danger">strength</span> of an association,
+
+we cannot use it
+
+directly to get information of someone's height from
+
+their footprint.
+
+</p>
+
+</div>
+
+<div style="grid-column:1/2;grid-row:2/3;">
+
+<svg width="100%" viewBox="340 0 295 288">
+
+<use xlink:href="lib/img/correlation-simulation-graph-swap.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index=2 xlink:href="lib/img/correlation-simulation-graph-swap.svg#axes_5"></use>
+
+<use class="fragment" data-fragment-index=3 xlink:href="lib/img/correlation-simulation-graph-swap.svg#axes_6"></use>
+
+</svg>
+
+</div>
+
+<div style="grid-column:2/3;grid-row:2/3;display:grid;row-gap:2vmin;">
+
+<p class="framed border-pop">
+
+If we decide the association is linear (<span class="em">strong $r$</span>), it is useful to
+
+<span class="pop">develop a mathematical model</span>
+
+of that association.
+
+</p>
+
+<p class="smaller fragment" data-fragment-index="2">
+
+<i class="fas fa-arrow-circle-right orange"></i>
+
+The process of fitting a line to a set of data is called <span class="orange em">linear regression</span>, and the line
+
+of best fit is called the <span class="orange em">regression line</span>, which is the line that gets as close as possible
+
+to all of the data points.
+
+</p>
+
+<p class="smaller fragment" data-fragment-index="3">
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+We can use the regression line to give a <span class="danger">predicted value of the response variable</span>, based on a given value of the explanatory variable.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Linear Regression Analysis</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<p>
+
+Linear regression analysis consists of <span class="info">more than
+
+just fitting a linear line</span> through a cloud of data points. The linear regression analysis of a dataset can be
+
+decomposed in <span class="info">3 stages</span>:
+
+</p>
+
+<ol class="small down-3">
+
+<li>
+
+<span class="u strong">Analyzing</span> the correlation and directionality of the data (checking if linear
+
+regression is an <span class="danger">appropriate model</span> for the data you want to analyze)
+
+</li>
+
+<li>
+
+<span class="u strong">Estimating</span> the model using the data (fitting the line, estimating the
+
+<span class="danger">best parameters</span> for the line equation)
+
+</li>
+
+<li>
+
+<span class="u strong">Evaluating</span> the <span class="danger">validity and usefulness</span> of the model
+
+</li>
+
+</ol>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Major Uses of Linear Regression -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Linear Regression Uses</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic smaller" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="framed border-pop left-justify fragment">
+
+<span class="pop em u strong">Causal Analysis</span>: Regression can be used to <span class="strong">quantify the relationship</span> between one or more <span class="em">independent variables</span> and a <span class="em">dependent variable</span>. It helps in understanding how changes in the <span class="u">independent variables</span> are associated with changes in the <span class="u">dependent variable</span>. A key point is that <span class="strong">correlation does not imply causation</span>, and additional analysis or experimentation is often required to <span class="em">establish causal relationships</span>.
+
+<br>
+
+<span class="pop">Example question</span>: "How does an additional year of education impact a person's income?"
+
+</p>
+
+<p class="framed border-info left-justify fragment">
+
+<span class="info em u strong">Estimation</span>: Regression can be used to <span class="strong">estimate the specific value</span> of the <span class="em">dependent variable</span> given certain values of the <span class="em">independent variable(s)</span>. This is particularly useful in fields where <span class="u">precise measurements</span> are necessary.
+
+<br>
+
+<span class="info">Example question</span>: "What is the life expectancy of a person who has smoked $X_1$ pack(s) of cigarettes per day for $X_2$ years?"
+
+</p>
+
+<p class="framed border-danger left-justify fragment">
+
+<span class="danger em u strong">Forecasting</span>: While similar to <span class="em">prediction</span>, forecasting specifically refers to <span class="strong">estimating values over time</span>. Regression can be used to <span class="u">model trends</span> and <span class="strong">forecast future values</span> based on historical data, acknowledging that forecasts are always subject to <span class="em">uncertainty</span>.
+
+<br>
+
+<span class="danger">Example question</span>: "What is the predicted incidence rate of hospital-acquired infections (HAIs) in the next quarter, given historical trends, seasonal variations, and changes in hospital protocols?"
+
+</p>
+
+<p class="smaller muted right-justify fragment">We should always be very cautious of <span class="em">extrapolating</span> beyond the domain of our data.</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-gradient="radial-gradient(#ffff, #FFC75F)" id="section-title-3">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-3">
+              <div class="section-number">
+                <span class="large-number">
+                  3
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Linear Regression
+                </h2>
+                <h3>
+                  Analysis Overview
+                </h3>
+              </div>
+            </div>
+          </div>
+          <aside class="notes">
+
+<p>This is an overview, we will get to more </p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- A Linear "Model" -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>A Linear <span class="s-quote">Model</span></h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.5fr;grid-template-rows:1fr;gap:1vmin;">
+
+<div style="font-size:80%;text-align:left;justify-items:start;align-items:center;display:grid;gap:2vmin;">
+
+<p>
+
+<span class="u em">Linear regression model:</span>
+
+</p>
+
+<p class="big">
+
+$\hat{y}=\beta_0+\beta_1x$
+
+</p>
+
+<p>
+
+Find the <span class="quoted">Best fit line</span>
+
+</p>
+
+<p class="fragment" data-fragment-index="1">
+
+Find the line ($\hat{y}$) that minimizes the distance between the measured response, $y_i$, and the predicted predicted response, $\hat{y}_i$.
+
+</p>
+
+<p class="fragment" data-fragment-index="2">
+
+<span class="em strong">Terminology:</span> This <span class="s-quote">distance</span> is called a <span class="u">residual</span>. <br />
+
+Defined as: $\epsilon_i = y_i - \hat{y}_i$.
+
+</p>
+
+<p class="fragment" data-fragment-index="3">
+
+How might you go about finding this line?
+
+</p>
+
+</div>
+
+<vizzy data-src="lib/interactive/linear-regression.html"></vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Think about how we calculate variance, what happens to the sum of the residuals when we find the best fit line? They sum to zero.</p>
+
+</aside>
+
+</section>
+
+
+
+
+
+<!-- The regression line -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>The Regression Line</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:3.5fr 6.5fr;grid-auto-rows:auto;gap:5px;">
+
+
+
+<p style="grid-column:1/3;grid-row:1/2;">
+
+To make predictions, we use the <span class="info">equation of the regression line</span>.
+
+</p>
+
+
+
+<div style="grid-column:1/3;grid-row:2/3;grid-template-columns:4fr 6fr;grid-auto-rows:auto;gap:5vmin;" class="grid-generic box-width">
+
+<div>
+
+<svg width="100%" viewBox="0 0 360 360">
+
+<use xlink:href="lib/img/regression-line.svg#axes_1"></use>
+
+<use xlink:href="lib/img/regression-line.svg#axes_2" class="fragment" data-fragment-index="1"></use>
+
+<use xlink:href="lib/img/regression-line.svg#axes_3" class="fragment" data-fragment-index="2"></use>
+
+</svg>
+
+</div>
+
+<div style="display:grid;gap:2vmin;align-self:center;align-items:center;">
+
+<p class="fragment" data-fragment-index="0">
+
+<span class="u em">Equation for a line:</span> <br>
+
+$y= \beta_0 + \beta_1x$
+
+</p>
+
+<div>
+
+<p class="fragment" data-fragment-index="1">
+
+<span class="warning">$\beta_0$</span>: y-intercept at $x=0$
+
+</p>
+
+<p class="fragment" data-fragment-index="2">
+
+<span class="success">$\beta_1$</span>: slope of the line (often called <span class="success">$m$</span>)
+
+</p>
+
+<p class="left-justify fragment" data-fragment-index="3">
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+Predicting the response variable from the explanatory
+
+variable:
+
+</p>
+
+<p class="fragment" data-fragment-index="3">
+
+<span class="danger">$\mathrm{Response}= \beta_0 + \beta_1 \times \mathrm{Explanatory}$</span>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div style="grid-column:1/3;grid-row:3/4;" class="fragment small no-hang" data-fragment-index="3">
+
+<p>You can imagine extending this to multiple explanatory variables:</p>
+
+$$
+
+\hat{y}=\beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_nX_n
+
+$$
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- The Linear Parameters -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>The Regression "Line"</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;row-gap:5vmin;justify-items:start;width:80%;">
+
+<p style="justify-self:start;">
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+When used to make prediction, the equation of the regression line is written:
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:2fr 8fr;grid-template-rows:1fr;gap:5px;">
+
+<p style="align-self:center;">
+
+$\hat{y}=\beta_0+\beta_1x$
+
+</p>
+
+<div style="text-align:left;margin-left:15px;">
+
+<p>
+
+<span class="danger">$x$</span>: value of the explanatory variable
+
+</p>
+
+<p>
+
+<span class="danger">$\hat{y}$</span>: predicted value of the response variable
+
+</p>
+
+</div>
+
+</div>
+
+<p class="fragment">
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+For a given data set, the signs (positive, negative, or zero) for the correlation coefficient and the slope of the regression line must be the same.
+
+</p>
+
+<p class="fragment">
+
+<i class="fas fa-arrow-circle-right orange"></i>
+
+The slope of the regression line can be interpreted as the <span class="u-orange">predicted change in the <span class="orange strong">average response variable</span> for a one-unit change in the explanatory variable</span>.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- HOW DOES REGRESSION WORK? -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>How Does Linear Regression Work?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<svg width="100%" viewBox="0 0 360 340">
+
+<use xlink:href="lib/img/regression-least-square.svg#axes_1"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/regression-least-square.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+<div style="align-self:center;">
+
+<p class="fragment" data-fragment-index=1>
+
+The vertical distance from a data point to the regression
+
+line is called a <span class="danger">residual</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index=2>
+
+$\mathrm{Residual} = \mathrm{Observed} - \mathrm{Predicted}$
+
+$\mathrm{Residual} = y_i - \hat{y}$
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>How Does Linear Regression Work?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<svg width="100%" viewBox="0 0 360 340">
+
+<use xlink:href="lib/img/regression-least-square.svg#axes_1"></use>
+
+<use xlink:href="lib/img/regression-least-square.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+<div style="align-self:center;">
+
+<svg width="100%" viewBox="0 0 432 180">
+
+<use xlink:href="lib/img/regression-residuals.svg#axes_1"></use>
+
+</svg>
+
+<ul class="small">
+
+<li role="fa" data-icon="&#xf30c;" class="success">Points above the regression line
+
+<ul class="black">
+
+<li class="emoji-arrowr"><span class="success">positive</span> residuals</li>
+
+</ul>
+
+</li>
+
+<li role="fa" data-icon="&#xf309;" class="danger">Points below the regression line
+
+<ul class="black">
+
+<li class="emoji-arrowr"><span class="danger">negative</span> residuals</li>
+
+</ul>
+
+</li>
+
+<li role="fa" data-icon="&#xf140;">If the predicted values closely match the observed data values, the residuals will be <span class="orange">small</span>.</li>
+
+</ul>
+
+</div>
+
+<div style="grid-column:1/3;">
+
+<p class="small">
+
+<i class="fas fa-arrow-circle-right pink"></i> The line that fits the data best is the one where the residuals are close to zero.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>How Does Linear Regression Work?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<svg width="100%" viewBox="0 0 360 340">
+
+<use xlink:href="lib/img/regression-least-square.svg#axes_1"></use>
+
+<use xlink:href="lib/img/regression-least-square.svg#axes_3"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/regression-least-square.svg#axes_2"></use>
+
+</svg>
+
+</div>
+
+<div style="align-self:center;">
+
+<svg width="100%" viewBox="0 0 432 180">
+
+<use xlink:href="lib/img/regression-residuals.svg#axes_1"></use>
+
+</svg>
+
+<p>
+
+<i class="fas fa-arrow-circle-right pink"></i>
+
+Instead of working directly with the residuals, we usually try to <span class="pink">minimize the sum of the
+
+square of the residuals</span>:
+
+</p>
+
+<p>
+
+$SS_{residuals}=\sum_{i=1}^{n}(y_i-\hat{y_i})^2$
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Notes on minimizing sse 1 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Minimizing $SS_{\mathrm{residuals}}$ (aka $SSE$)</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:6fr 4fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p style="grid-column:1/2;">
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+The errors (residuals) are squared to prevent the positive and negative errors to cancel out each
+
+others, which could give you a value of zero.
+
+</p>
+
+<p class="grid-column:2/3;">
+
+$SS_{residuals}=\sum_{i=1}^{n}(y_i-\hat{y_i})^2$
+
+</p>
+
+<div style="grid-column:1/3;">
+
+<p class="fragment" data-fragment-index="1">
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+Most statistical software packages use a procedure called
+
+<span class="danger">Ordinary Least Squares (OLS)</span> to find
+
+the line of best fit. This procedure finds a line that minimizes
+
+the sum of the squared errors.
+
+</p>
+
+</div>
+
+<div style="grid-column:1/2;">
+
+<p class="fragment" data-fragment-index="2">
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+While OLS is pretty much the standard, different penalty functions can be use as well. For example,
+
+the <span class="pop">Median Absolute Deviation (MAD)</span> uses the absolute error, and so will
+
+be more <span class="u-orange">robust to outliers</span> since it assigns less weight to outliers than OLS.
+
+</p>
+
+</div>
+
+<div class="fragment" data-fragment-index="2" style="grid-column:2/3;width:80%;">
+
+<svg width="100%" viewBox="0 0 360 360">
+
+<use xlink:href="lib/img/regression-least-square-vs-mad.svg#axes_1"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Notes on minimizing sse 2 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Minimizing $SS_{\mathrm{residuals}}$ (aka $SSE$)</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:6fr 4fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p style="grid-column:1/2;">
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+The errors (residuals) are squared to prevent the positive and negative errors to cancel out each
+
+others, which could give you a value of zero.
+
+</p>
+
+<p class="grid-column:2/3;">
+
+$SS_{residuals}=\sum_{i=1}^{n}(y_i-\hat{y_i})^2$
+
+</p>
+
+<div style="grid-column:1/3;">
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+Most statistical software packages use a procedure called
+
+<span class="danger">Ordinary Least Squares (OLS)</span> to find
+
+the line of best fit. This procedure finds a line that minimizes
+
+the sum of the squared errors.
+
+</p>
+
+</div>
+
+<div style="grid-column:1/2;">
+
+<p>
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+While OLS is pretty much the standard, different penalty functions can be use as well. For example,
+
+the <span class="pop">Median Absolute Deviation (MAD)</span> uses the absolute error, and so will
+
+be more <span class="u-orange">robust to outliers</span> since it assigns less weight to outliers than OLS.
+
+</p>
+
+</div>
+
+<div style="grid-column:2/3;width: 80%;">
+
+<svg width="100%" viewBox="0 0 360 360">
+
+<use xlink:href="lib/img/regression-least-square-vs-mad-fit.svg#axes_1"></use>
+
+<use class="fragment" xlink:href="lib/img/regression-least-square-vs-mad-fit.svg#axes_2"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/bg-regression-olympics-abstract.webp" data-background-size="cover" id="section-title-4">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-4">
+              <div class="section-number">
+                <span class="large-number">
+                  4
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Linear Regression
+                </h2>
+                <h3>
+                  Cautionary Discretion
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-4.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Section Notes</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- Caution 1: Extrapolation -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2><i class="fas fa-exclamation-triangle fa-2x danger"></i> Extrapolation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<p class="small">
+
+The regression line should only be used to
+
+<span class="strong">predict values within or close to those contained in the dataset</span>.
+
+Far beyond the dataset, the trend may change and the predictions will be incorrect.
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:3fr 1fr;grid-template-rows:1fr;gap:5px;width:70%;">
+
+<div><img class="framed" src="lib/img/regression-olympics-100m-nature-paper.png" width=100%></div>
+
+<p class="em" style="font-size:75%;">
+
+Nature 431, 525 (30 September <span class="warning">2004</span>)
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Caution 1: Extrapolation -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2><i class="fas fa-exclamation-triangle fa-2x danger"></i> Extrapolation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<p class="small">
+
+The regression line should only be used to
+
+<span class="strong">predict values within or close to those contained in the dataset</span>.
+
+Far beyond the dataset, the trend may change and the predictions will be incorrect.
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-template-rows:1fr;gap:5px;">
+
+<div><img class="framed" src="lib/img/regression-olympics-times-100m.svg" width=100%></div>
+
+<div class="small">
+
+<p class="em" style="font-size:75%;">
+
+Nature 431, 525 (30 September <span class="warning">2004</span>)
+
+</p>
+
+<p class="quoted">
+
+Projections intersect just before 2156 Olympics, where winning women's 100m sprint time of 8.079s will be faster than the men's at 8.098s.
+
+</p>
+
+<p>
+
+At this rate, women will reach a 0s 100m sprint time in 2643, 200+ years before men, who will achieve this feat in 2892!
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Caution 1: Extrapolation -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2><i class="fas fa-exclamation-triangle fa-2x danger"></i> Extrapolation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<p class="small">
+
+The regression line should only be used to
+
+<span class="strong">predict values within or close to those contained in the dataset</span>.
+
+Far beyond the dataset, the trend may change and the predictions will be incorrect.
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:3fr 1fr;grid-template-rows:1fr;gap:5px;width:80%;">
+
+<div>
+
+<svg width="100%" viewBox="0 0 504 288">
+
+<use class="fragment current-visible" data-fragment-index=1 xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_2"></use>
+
+<use class="fragment current-visible" data-fragment-index=2 xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_2"></use>
+
+<use class="fragment current-visible" data-fragment-index=3 xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_2"></use>
+
+<use class="fragment current-visible" data-fragment-index=4 xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_2"></use>
+
+<use class="fragment current-visible" data-fragment-index=5 xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_2"></use>
+
+<use class="fragment current-visible" data-fragment-index=6 xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_2"></use>
+
+<use xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_1"></use>
+
+<use class="fragment" data-fragment-index=2 xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_3"></use>
+
+<use class="fragment" data-fragment-index=3 xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_4"></use>
+
+<use class="fragment" data-fragment-index=4 xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_5"></use>
+
+<use class="fragment" data-fragment-index=5 xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_6"></use>
+
+<use class="fragment" data-fragment-index=6 xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_7"></use>
+
+<use class="fragment" data-fragment-index=7 xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_8"></use>
+
+</svg>
+
+</div>
+
+<div style="font-size:80%;">
+
+<table class="smaller">
+
+<col width=30%>
+
+<col width=35%>
+
+<col width=35%>
+
+<tbody>
+
+<tr class="bg-pink-light black">
+
+<td>Year</td>
+
+<td>Predicted</td>
+
+<td>Real</td>
+
+</tr>
+
+<tr>
+
+<td>2008</td>
+
+<td>10.58</td>
+
+<td><span class="fragment success" data-fragment-index=2>10.78</span></td>
+
+</tr>
+
+<tr>
+
+<td>2012</td>
+
+<td>10.51</td>
+
+<td><span class="fragment success" data-fragment-index=3>10.75</span></td>
+
+</tr>
+
+<tr>
+
+<td>2016</td>
+
+<td>10.44</td>
+
+<td><span class="fragment success" data-fragment-index=4>10.71</span></td>
+
+</tr>
+
+<tr>
+
+<td>2020</td>
+
+<td>10.38</td>
+
+<td><span class="fragment success" data-fragment-index=5>10.61</span></td>
+
+</tr>
+
+<tr>
+
+<td>2024</td>
+
+<td>10.31</td>
+
+<td><span class="fragment success" data-fragment-index=6>10.72</span></td>
+
+</tr>
+
+<tr class="bg-info-light black">
+
+<td>Year</td>
+
+<td>Predicted</td>
+
+<td>Real</td>
+
+</tr>
+
+<tr>
+
+<td>2008</td>
+
+<td>9.73</td>
+
+<td><span class="fragment danger" data-fragment-index=2>9.69</span></td>
+
+</tr>
+
+<tr>
+
+<td>2012</td>
+
+<td>9.68</td>
+
+<td><span class="fragment danger" data-fragment-index=3>9.63</span></td>
+
+</tr>
+
+<tr>
+
+<td>2016</td>
+
+<td>9.64</td>
+
+<td><span class="fragment danger" data-fragment-index=4>9.81</span></td>
+
+</tr>
+
+<tr>
+
+<td>2020</td>
+
+<td>9.60</td>
+
+<td><span class="fragment danger" data-fragment-index=5>9.80</span></td>
+
+</tr>
+
+<tr>
+
+<td>2024</td>
+
+<td>9.55</td>
+
+<td><span class="fragment danger" data-fragment-index=6>9.79</span></td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>How well did our model do? We'll talk about how to quantify this later.</p>
+
+<p>Keep in mind this is sarcasm, don't do this, but if you're trying to predict the future:</p>
+
+<p>Men will reach 0s 100m dash in 2892</p>
+
+<p>Women will reach 0s 100m dash in 2643</p>
+
+<p>Men (updated) will reach 0s 100m dash in 2960 (as low as 2844)</p>
+
+<p>Women (updated) will reach 0s 100m dash in 2784 (as low as 2640)</p>
+
+</aside>
+
+</section>
+
+<!-- Caution 1: Extrapolation -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2><i class="fas fa-exclamation-triangle fa-2x danger"></i> Extrapolation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<p class="small">
+
+The regression line should only be used to
+
+<span class="strong">predict values within or close to those contained in the dataset</span>.
+
+Far beyond the dataset, the trend may change and the predictions will be incorrect.
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-template-rows:1fr;gap:5px;width:100%;">
+
+<div>
+
+<svg width="100%" viewBox="0 0 504 288">
+
+<use xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_1"></use>
+
+<use xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_2"></use>
+
+<use xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_3"></use>
+
+<use xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_4"></use>
+
+<use xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_5"></use>
+
+<use xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_6"></use>
+
+<use xlink:href="lib/img/regression-olympics-winning-times-100m-fig-2024.svg#axes_7"></use>
+
+</svg>
+
+</div>
+
+<p class="small">
+
+"A. J. Tatem and colleagues calculate that women may out-sprint men by the middle of the twenty-second century.
+
+They omit to mention, however, that (according to their analysis)
+
+<span class="pop">a far more interesting race should occur in about 2636,
+
+when times of less than zero seconds will be recorded</span>."
+
+<br>
+
+<span class="em">-- Kenneth Rice (2004) --</span>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>So the data from the last few years indicates we'll have a sub-zero sprint time even sooner! 2608</p>
+
+<p>Keep in mind this is sarcasm, don't do this, but if you're trying to predict the future:</p>
+
+<p>Men will reach 0s 100m dash in 2892</p>
+
+<p>Women will reach 0s 100m dash in 2643</p>
+
+<p>Men (updated) will reach 0s 100m dash in 2960 (as low as 2844)</p>
+
+<p>Women (updated) will reach 0s 100m dash in 2784 (as low as 2640)</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Caution 2: Generalization -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2><i class="fas fa-exclamation-triangle fa-2x danger"></i> Generalization</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<p>
+
+<i class="fas fa-arrow-circle-right red"></i>
+
+A regression model developed from a specific dataset <span class="strong">should not be used to
+
+generalize about observational units not related to the original dataset</span>
+
+or to conclude about the general pattern of the phenomena.
+
+</p>
+
+<p class="fragment">
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+If you develop a linear model from data collected on a
+
+specific sport team in order to predict how this team will
+
+perform in the near future, <span class="info">it is unlikely that the same
+
+model would be able to accurately predict how all the other
+
+teams will perform</span>. Although we may find some kind of
+
+relationship between the variable recorded on the team we
+
+are studying, the same relationships might not exist for
+
+another team.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Causation -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2><i class="fas fa-exclamation-triangle fa-2x danger"></i> Causation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<p>
+
+<i class="fas fa-arrow-circle-right red"></i>
+
+Although we imply a causal relationship when we use
+
+linear regression, <span class="strong">regression analysis
+
+will not prove
+
+causality between two variables</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index=1>
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+Recall that linear regression is a
+
+<span class="info">strictly numeric procedure</span>; you may
+
+find that two totally unrelated variables give a significant $R^2$.
+
+</p>
+
+<p class="fragment" data-fragment-index=1>
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+We must have some understanding of the phenomenon of interest in order to
+
+<span class="info strong">interpret the results appropriately</span>.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Validity -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2><i class="fas fa-exclamation-triangle fa-2x danger"></i> Validity</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<p>
+
+<i class="fas fa-arrow-circle-right red"></i>
+
+Although we imply a causal relationship when we use
+
+linear regression, <span class="strong">regression analysis
+
+will not prove
+
+causality between two variables</span>.
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:4fr 5fr;grid-template-rows:1fr;gap:1vmin;width:80%">
+
+<div style="font-size:65%;text-align:center;">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th class="bg-muted border-right" colspan="2">Set #1</th>
+
+<th class="bg-muted border-right" colspan="2">Set #2</th>
+
+<th class="bg-muted border-right" colspan="2">Set #3</th>
+
+<th class="bg-muted border-right" colspan="2">Set #4</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>x</td>
+
+<td class="border-right">y</td>
+
+<td>x</td>
+
+<td class="border-right">y</td>
+
+<td>x</td>
+
+<td class="border-right">y</td>
+
+<td>x</td>
+
+<td>y</td>
+
+</tr>
+
+<tr>
+
+<td>10</td>
+
+<td class="border-right">8.04</td>
+
+<td>10</td>
+
+<td class="border-right">9.14</td>
+
+<td>10</td>
+
+<td class="border-right">7.46</td>
+
+<td>8</td>
+
+<td>6.58</td>
+
+</tr>
+
+<tr>
+
+<td>8</td>
+
+<td class="border-right">6.95</td>
+
+<td>8</td>
+
+<td class="border-right">8.14</td>
+
+<td>8</td>
+
+<td class="border-right">6.77</td>
+
+<td>8</td>
+
+<td>5.76</td>
+
+</tr>
+
+<tr>
+
+<td>13</td>
+
+<td class="border-right">7.58</td>
+
+<td>13</td>
+
+<td class="border-right">8.74</td>
+
+<td>13</td>
+
+<td class="border-right">12.74</td>
+
+<td>8</td>
+
+<td>7.71</td>
+
+</tr>
+
+<tr>
+
+<td>9</td>
+
+<td class="border-right">8.81</td>
+
+<td>9</td>
+
+<td class="border-right">8.77</td>
+
+<td>9</td>
+
+<td class="border-right">7.11</td>
+
+<td>8</td>
+
+<td>8.84</td>
+
+</tr>
+
+<tr>
+
+<td>11</td>
+
+<td class="border-right">8.33</td>
+
+<td>11</td>
+
+<td class="border-right">9.26</td>
+
+<td>11</td>
+
+<td class="border-right">7.81</td>
+
+<td>8</td>
+
+<td>8.47</td>
+
+</tr>
+
+<tr>
+
+<td>14</td>
+
+<td class="border-right">9.96</td>
+
+<td>14</td>
+
+<td  class="border-right">8.1</td>
+
+<td>14</td>
+
+<td class="border-right">8.84</td>
+
+<td>8</td>
+
+<td>7.04</td>
+
+</tr>
+
+<tr>
+
+<td>6</td>
+
+<td class="border-right">7.24</td>
+
+<td>6</td>
+
+<td class="border-right">6.13</td>
+
+<td>6</td>
+
+<td class="border-right">6.08</td>
+
+<td>8</td>
+
+<td>5.25</td>
+
+</tr>
+
+<tr>
+
+<td>4</td>
+
+<td class="border-right">4.26</td>
+
+<td>4</td>
+
+<td class="border-right">3.1</td>
+
+<td>4</td>
+
+<td class="border-right">5.39</td>
+
+<td>19</td>
+
+<td>12.5</td>
+
+</tr>
+
+<tr>
+
+<td>12</td>
+
+<td class="border-right">10.84</td>
+
+<td>12</td>
+
+<td class="border-right">9.13</td>
+
+<td>12</td>
+
+<td class="border-right">8.15</td>
+
+<td>8</td>
+
+<td>5.56</td>
+
+</tr>
+
+<tr>
+
+<td>7</td>
+
+<td class="border-right">4.82</td>
+
+<td>7</td>
+
+<td  class="border-right">7.26</td>
+
+<td>7</td>
+
+<td  class="border-right">6.42</td>
+
+<td>8</td>
+
+<td>7.91</td>
+
+</tr>
+
+<tr>
+
+<td>5</td>
+
+<td  class="border-right">5.68</td>
+
+<td>5</td>
+
+<td  class="border-right">4.74</td>
+
+<td>5</td>
+
+<td class="border-right">5.73</td>
+
+<td>8</td>
+
+<td>6.89</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<div style="font-size:70%;">
+
+<table class="smaller up-5">
+
+<tbody>
+
+<tr class="bg-warning-light">
+
+<td>Correlation</td>
+
+<td>0.86</td>
+
+</tr>
+
+<tr class="bg-info-light">
+
+<td>Regression line</td>
+
+<td>y = 3 + 0.5x</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div>
+
+<svg width="100%" viewBox="0 0 432 324">
+
+<use xlink:href="lib/img/anscombe.svg#axes_1"></use>
+
+<use xlink:href="lib/img/anscombe.svg#axes_2"></use>
+
+<use xlink:href="lib/img/anscombe.svg#axes_3"></use>
+
+<use xlink:href="lib/img/anscombe.svg#axes_4"></use>
+
+<use class="fragment" data-fragment-index=2 xlink:href="lib/img/anscombe.svg#axes_5"></use>
+
+<use class="fragment" data-fragment-index=2 xlink:href="lib/img/anscombe.svg#axes_6"></use>
+
+<use class="fragment" data-fragment-index=2 xlink:href="lib/img/anscombe.svg#axes_7"></use>
+
+<use class="fragment" data-fragment-index=2 xlink:href="lib/img/anscombe.svg#axes_8"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Resistance -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2><i class="fas fa-exclamation-triangle fa-2x danger"></i> Resistance</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<p>
+
+<i class="fas fa-arrow-circle-right red"></i>
+
+<span class="strong">Outliers can have a strong influence</span> on the regression line
+
+(similarly to what we saw for correlation). Lots of robust
+
+linear regression algorithms are capable of dealing with
+
+outliers by giving them less weight in the residual minimization function.
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.2fr;grid-template-rows:1fr;gap:5px;">
+
+<div>
+
+<p class="small">
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+In particular, data points for which the
+
+<span class="info">explanatory value (x) is an outlier</span> are often
+
+called <span class="danger u-danger">influential</span> points because they exert an
+
+<span class="info">overly strong effect</span> on the regression line.
+
+</p>
+
+</div>
+
+<div>
+
+<img src="lib/img/regression-outliers.svg" width=100%>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- </section> -->
+        </section>
+      </div>
+      <footer class="main-footer">
+        <span>
+          Lecture 13
+        </span>
+        <span style="text-align:center;">
+        </span>
+        <span style="text-align:right;">
+          <a href="https:\\khrisgriffis.com" target="_blank" rel="noopener noreferrer">Khris Griffis &#169;2025</a>
+        </span>
+      </footer>
+    </div>
+    <script src="./src/reveal.js">
+    </script>
+    <script src="./src/plugin/notes/notes.js">
+    </script>
+    <script src="./src/plugin/highlight/highlight.js">
+    </script>
+    <script src="./src/plugin/math/math.js">
+    </script>
+    <script src="./src/plugin/reveal-splash/reveal-splash.js">
+    </script>
+    <script src="./src/plugin/vizzy-reveal/vizzy.js">
+    </script>
+    <script>
+      Reveal.initialize({
+autoSlide: 0,
+center: true,
+controls: true,
+controlsBackArrows: "faded",
+controlsLayout: "bottom-right",
+display: "block",
+fragments: true,
+fragmentInURL: true,
+hash: true,
+hideCursorTime: 5000,
+keyboard: true,
+mobileViewDistance: 3,
+mouseWheel: false,
+navigationMode: "linear",
+overview: true,
+pdfMaxPagesPerSlide: 1,
+pdfSeparateFragments: false,
+preloadIframes: null,
+progress: false,
+showNotes: false,
+showSlideNumber: "print",
+sortFragmentsOnSync: true,
+touch: true,
+transition: "fade",
+transitionSpeed: "default",
+viewDistance: 3,
+backgroundTransition: "fade",
+controlsTutorial: false,
+embedded: false,
+help: true,
+hideInactiveCursor: true,
+history: false,
+loop: false,
+previewLinks: false,
+rtl: false,
+shuffle: false,
+slideNumber: false,
+width: 1920,
+height: 1080,
+margin: 0.081,
+minScale: 0.08,
+maxScale: 1.67,
+mathjax3: {
+mathjax: "https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-mml-chtml.js",
+loader: {
+load: [
+"[tex]/html",
+],
+},
+tex: {
+packages: {
+'[+]': [
+"html",
+],
+},
+inlineMath: [
+["$", "$"],
+["\\(", "\\)"],
+],
+processEscapes: true,
+processEnvironments: true,
+},
+options: {
+skipHtmlTags: [
+"script",
+"noscript",
+"style",
+"textarea",
+"pre",
+],
+enableMenu: false,
+},
+chtml: {
+scale: 0.8,
+minScale: 0.4,
+},
+Safe: {
+sizeMin: 0.4,
+sizeMax: 1.25,
+},
+output: {
+linebreaks: {
+inline: true,
+width: "100%",
+lineleading: 0.2,
+LinebreakVisitor: null,
+},
+},
+},
+notes: {
+
+},
+highlight: {
+
+},
+vizzy: {
+autoRunTransitions: true,
+autoTransitionDelay: 100,
+devMode: false,
+onSlideChangedDelay: 0,
+},
+splash: {
+splashImage: "lib/img/ME3040_splash.png",
+text: "Welcome to ME3040!",
+minimumDisplay: 2,
+},
+plugins: [RevealNotes, RevealHighlight, RevealMath.MathJax3, Splash, Vizzy]
+});
+    </script>
+  </body>
+</html>

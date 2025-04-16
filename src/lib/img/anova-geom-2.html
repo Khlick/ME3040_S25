@@ -1,0 +1,76 @@
+---
+---
+<!-- Understanding the SS terms -->
+
+<!-- <section> -->
+  <div class="grid-wrapper">
+    <div class="header">
+      <h2>Geometric Interpretation</h2>
+    </div>
+    <div class="content">
+      <div class="grid-generic full-width smallest" style="grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr;gap:2px;">
+        <!-- top left column -->
+        <div class="no-top-margin framed border-muted">
+          <p class="muted strong left-justify">
+            Statistic:
+          </p>
+          <div class="fragment" data-fragment-index="0">
+            $$\mathcal{F}=\frac{SS_{between}}{SS_{Within}}=
+            \frac{\partial^2(fit,null)}{\partial^2(fit,data)}
+            $$
+          </div>          
+        </div>    
+        <!-- top right column -->
+        <div class="no-top-margin framed border-muted">
+          <p class="muted left-justify">Effect Size:</p>
+          <div class="fragment" data-fragment-index="0">
+            $$R^2=\eta^2=\frac{\partial^2(fit,null)}{\partial^2(data,null)}$$
+          </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="grid-generic no-top-margin fragment" data-fragment-index="1" style="grid-column:1/3;justify-content:center;justify-self:center;grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+          <div style="justify-content:center;">
+            <svg version="1.1" viewBox="0 50 412 395" height="60vh" style="max-height:100%;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <defs>
+                <style type="text/css">
+                  *{stroke-linecap:butt;stroke-linejoin:round;}
+                </style>
+              </defs>
+              <use xlink:href="lib/img/f-stat-geom-standard.svg#axes_1"></use>
+              <use xlink:href="lib/img/f-stat-geom-standard.svg#axes_2"></use>
+              <use class="fragment" data-fragment-index="1" xlink:href="lib/img/f-stat-geom-standard.svg#axes_3"></use>
+              <use class="fragment" data-fragment-index="1" xlink:href="lib/img/f-stat-geom-standard.svg#axes_4"></use>
+            </svg>
+          </div>
+          <div style="justify-content:center;">
+            <svg version="1.1" viewBox="0 20 432 395" height="50vh" style="max-height:100%;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <defs>
+                <style type="text/css">
+                  *{stroke-linecap:butt;stroke-linejoin:round;}
+                </style>
+              </defs>
+              <use xlink:href="lib/img/f-stat-geom-explo.svg#axes_1"></use>
+              <use xlink:href="lib/img/f-stat-geom-explo.svg#axes_2"></use>
+              <use class="fragment" data-fragment-index="2" xlink:href="lib/img/f-stat-geom-explo.svg#axes_3"></use>
+              <use class="fragment" data-fragment-index="2" xlink:href="lib/img/f-stat-geom-explo.svg#axes_4"></use>
+              <use class="fragment" data-fragment-index="2" xlink:href="lib/img/f-stat-geom-explo.svg#axes_5"></use>
+              <use class="fragment" data-fragment-index="3" xlink:href="lib/img/f-stat-geom-explo.svg#axes_6"></use>
+              <use class="fragment" data-fragment-index="4" xlink:href="lib/img/f-stat-geom-explo.svg#axes_7"></use>
+              <use class="fragment" data-fragment-index="4" xlink:href="lib/img/f-stat-geom-explo.svg#axes_8"></use>
+              <use class="fragment" data-fragment-index="5" xlink:href="lib/img/f-stat-geom-explo.svg#axes_9"></use>
+              <use class="fragment" data-fragment-index="5" xlink:href="lib/img/f-stat-geom-explo.svg#axes_10"></use>
+              <use class="fragment" data-fragment-index="5" xlink:href="lib/img/f-stat-geom-explo.svg#axes_11"></use>
+              <use class="fragment" data-fragment-index="2" xlink:href="lib/img/f-stat-geom-explo.svg#axes_12"></use>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Large F, distance between fit and null (mean and grand mean: group variance) in euclidean space is large.</p>
+    <p>Small F, distance between the fit and data (mean and points: residuals) is larger that fit-null distance.</p>
+    <p>Think back to trigonometry, if the ratio of the opposite over the adjacent is large, then the angle is large.</p>
+  </aside>
+<!-- </section> -->

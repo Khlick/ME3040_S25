@@ -1,0 +1,2307 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="notranslate" name="google"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>
+      Analysis of Variance 3 ANOVA Does Even More
+    </title>
+    <link href="lib\favicon.png" rel="icon" type="image/x-icon"/>
+    <link href="./src/css/reset.css" rel="stylesheet"/>
+    <link href="./src/css/reveal.css" rel="stylesheet"/>
+    <link href="./src/css/revealpack.css" rel="stylesheet"/>
+    <link href="./src/theme/drG.css" id="theme" rel="stylesheet"/>
+    <!-- highlight.js theme -->
+    <link href="./src/theme/vs.css" id="highlight-theme" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <!-- Custom Scripts -->
+    <!-- Print PDF script -->
+    <script>
+      var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match(/print-pdf/gi) ? './src/css/print/pdf.css' : './src/css/print/paper.css';
+document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!-- Deck CSS Injections -->
+    <!-- Deck Script Injections -->
+    <!-- Deck Raw Injections -->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-image="lib/img/power_1.png" data-background-size="cover" id="deck-title-slide">
+          <div class="title-slide background">
+            <div class="headline">
+              <h2 class="r-fit-text">
+                Analysis Of Variance 3
+              </h2>
+              <h3>
+                ANOVA Does Even More
+              </h3>
+            </div>
+            <div class="sub-header">
+              <p class="by">
+                Khris Griffis, Ph.D.
+              </p>
+            </div>
+            <div class="byline">
+              <p class="byinfo">
+                Lecture 18
+              </p>
+              <p class="byinfo">
+                CSULA: ME3040
+              </p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Today's Objectives</h2>
+
+</div>
+
+<div class="content">
+
+<div
+
+class="grid-generic full-width left-justify big"
+
+style="grid-template-columns: 1fr; grid-auto-rows: auto; row-gap: 5vmin"
+
+>
+
+<div class="border-bottom fragment" data-fragment-index="1">
+
+<p><i class="target"></i> Recap ANOVA</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="2">
+
+<p><i class="target"></i> Two-Way ANOVA Introduction</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Let's recap some of the concepts of ANOVA.</p>
+
+</aside>
+        </section>
+        <section data-background-image="lib/img/rmanova-intro-1.png" id="section-title-1">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-1">
+              <div class="section-number">
+                <span class="large-number">
+                  1
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Anova Recap
+                </h2>
+                <h3>
+                  One-Way, Repeated Measures
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-1.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Section Notes</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Geometric Interpretation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width smallest" style="grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr;gap:2px;">
+
+<!-- top left column -->
+
+<div class="no-top-margin framed border-muted">
+
+<p class="muted strong left-justify">
+
+Statistic:
+
+</p>
+
+<div>
+
+$$\mathcal{F}=\frac{SS_{between}}{SS_{Within}}=
+
+\frac{\partial^2(fit,null)}{\partial^2(fit,data)}
+
+$$
+
+</div>
+
+</div>
+
+<!-- top right column -->
+
+<div class="no-top-margin framed border-muted">
+
+<p class="muted left-justify">Effect Size:</p>
+
+<div>
+
+$$R^2=\eta^2=\frac{\partial^2(fit,null)}{\partial^2(data,null)}$$
+
+</div>
+
+</div>
+
+
+
+<!-- Bottom -->
+
+<div class="grid-generic no-top-margin" style="grid-column:1/3;justify-content:center;justify-self:center;grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="justify-content:center;">
+
+<svg version="1.1" viewBox="0 50 412 395" height="60vh" style="max-height:100%;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<defs>
+
+<style type="text/css">
+
+*{stroke-linecap:butt;stroke-linejoin:round;}
+
+</style>
+
+</defs>
+
+<use xlink:href="lib/img/f-stat-geom-standard.svg#axes_1"></use>
+
+<use xlink:href="lib/img/f-stat-geom-standard.svg#axes_2"></use>
+
+<use xlink:href="lib/img/f-stat-geom-standard.svg#axes_3"></use>
+
+<use xlink:href="lib/img/f-stat-geom-standard.svg#axes_4"></use>
+
+</svg>
+
+</div>
+
+<div style="justify-content:center;">
+
+<svg version="1.1" viewBox="0 20 432 395" height="50vh" style="max-height:100%;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<defs>
+
+<style type="text/css">
+
+*{stroke-linecap:butt;stroke-linejoin:round;}
+
+</style>
+
+</defs>
+
+<use xlink:href="lib/img/f-stat-geom-explo.svg#axes_1"></use>
+
+<use xlink:href="lib/img/f-stat-geom-explo.svg#axes_2"></use>
+
+<use xlink:href="lib/img/f-stat-geom-explo.svg#axes_3"></use>
+
+<use xlink:href="lib/img/f-stat-geom-explo.svg#axes_4"></use>
+
+<use xlink:href="lib/img/f-stat-geom-explo.svg#axes_5"></use>
+
+<use xlink:href="lib/img/f-stat-geom-explo.svg#axes_6"></use>
+
+<use xlink:href="lib/img/f-stat-geom-explo.svg#axes_7"></use>
+
+<use xlink:href="lib/img/f-stat-geom-explo.svg#axes_8"></use>
+
+<use xlink:href="lib/img/f-stat-geom-explo.svg#axes_9"></use>
+
+<use xlink:href="lib/img/f-stat-geom-explo.svg#axes_10"></use>
+
+<use xlink:href="lib/img/f-stat-geom-explo.svg#axes_11"></use>
+
+<use xlink:href="lib/img/f-stat-geom-explo.svg#axes_12"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Large F, distance between fit and null (mean and grand mean: group variance) in euclidean space is large.</p>
+
+<p>Small F, distance between the fit and data (mean and points: residuals) is larger that fit-null distance.</p>
+
+<p>Think back to trigonometry, if the ratio of the opposite over the adjacent is large, then the angle is large.</p>
+
+</aside>
+
+</section>
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Adjusting the $SS$ Terms</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width smallest" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:2px;">
+
+<!-- top left column -->
+
+<div class="no-top-margin framed border-muted smaller">
+
+<p class="muted left-justify">
+
+Statistic:
+
+</p>
+
+<p>
+
+$$\mathcal{F}=\frac{\color{orange}{SS_{between}}}{\color{lightblue}
+
+{SS_{Within}}}=\frac{\color{orange}{\partial^2(fit,null)}}
+
+{\color{lightblue}{\partial^2(fit,data)}}$$
+
+</p>
+
+<p class="muted left-justify">Effect Size:</p>
+
+<p>
+
+$$R^2=\frac{\color{orange}{\partial^2(fit,null)}}{\color{seagreen}{\partial^2(data,null)}}$$
+
+</p>
+
+</div>
+
+
+
+<!-- top right column -->
+
+<div class="no-top-margin framed border-muted smaller">
+
+<p class="muted left-justify">
+
+Statistic:
+
+</p>
+
+<p>
+
+$$\mathcal{F}=\frac{\color{orange}{\partial^2(fit,null)}}{\color{lightblue}{\partial^2(fit,\color{purple}{reduced})}}$$
+
+</p>
+
+<p class="muted left-justify">Effect Size:</p>
+
+<p>
+
+$$\eta^2_{p}=\frac{\color{orange}{\partial^2(fit,null)}}{\color{purple}{\partial^2(reduced,null)}}=\frac{SS_{Between}}{SS_{Total}}$$
+
+</p>
+
+</div>
+
+
+
+<!-- Bottom -->
+
+<div class="grid-generic no-top-margin" style="grid-column:1/3;justify-content:center;justify-self:center;grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="justify-content:center;">
+
+<svg version="1.1" viewBox="0 50 412 395" height="50vh" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<defs>
+
+<style type="text/css">
+
+*{stroke-linecap:butt;stroke-linejoin:round;}
+
+</style>
+
+</defs>
+
+<use xlink:href="lib/img/f-stat-geom-standard.svg#axes_1"></use>
+
+<use xlink:href="lib/img/f-stat-geom-standard.svg#axes_2"></use>
+
+<use xlink:href="lib/img/f-stat-geom-standard.svg#axes_3"></use>
+
+<use xlink:href="lib/img/f-stat-geom-standard.svg#axes_4"></use>
+
+</svg>
+
+</div>
+
+<div style="justify-content:center;">
+
+<svg version="1.1" viewBox="0 50 412 395" height="50vh" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<defs>
+
+<style type="text/css">
+
+*{stroke-linecap:butt;stroke-linejoin:round;}
+
+</style>
+
+</defs>
+
+<use xlink:href="lib/img/f-stat-geom-RM.svg#axes_1"></use>
+
+<use xlink:href="lib/img/f-stat-geom-RM.svg#axes_2"></use>
+
+<use xlink:href="lib/img/f-stat-geom-RM.svg#axes_3"></use>
+
+<use xlink:href="lib/img/f-stat-geom-RM.svg#axes_4"></use>
+
+<use xlink:href="lib/img/f-stat-geom-RM.svg#axes_5"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+F = SSB/SSW.
+
+
+
+So then, when F is large, then $\partial^2(fit,null) > \partial^2(fit,data)$ and
+
+when F is small (less than 1) then $\partial^2(fit,null) < \partial^2(fit,data)$.
+
+
+
+And the same case can be said about the reduced, we are just correcting the _data_
+
+term for "mixed" effects.
+
+</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- Impact of Variance -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Impact of Variance</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<p class="question">How does the assumption of homogeneity of variances impact the interpretation of ANOVA results?</p>
+
+<p class="fragment em info" data-fragment-index="1">Discuss what might happen if this assumption is violated, and how might such a violation affect the validity of the ANOVA test conclusions?</p>
+
+</div>
+
+<div class="framed border-success fragment smaller" data-fragment-index="2">
+
+<p>
+
+Homogeneity of variances (equal variances) across groups is essential for the validity of ANOVA because it ensures the F-ratio remains an accurate measure of group differences. When variances are equal, the pooled variance estimate provides a fair comparison between group means. If this assumption is violated, particularly in cases of unequal sample sizes, ANOVA becomes prone to type I and type II errors. Specifically, the test may falsely detect differences when none exist or fail to detect real differences, especially if variances are higher in groups with smaller sample sizes. Violations can also lead to biased estimates, making the ANOVA conclusions unreliable.
+
+</p>
+
+<p class="fragment em" data-fragment-index="3">
+
+Note: In the case of an <span class="strong">unbalanced</span> design (or unequal variances), you can use Welch's ANOVA, or another <span class="info">non-parametric</span> test like the Kruskal-Wallis test or my favorite: <span class="success">bootstrapping</span>!
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>The F-statistic in ANOVA depends on the assumption of equal variances among groups, known as homogeneity of variances. If the assumption is met, the F-distribution under the null hypothesis accurately represents what we expect under no treatment effect. However, when variances differ significantly across groups, especially if sample sizes vary, it can skew the F-statistic and lead to incorrect conclusions.</p>
+
+<p>In terms of error rates, unequal variances can inflate the type I error rate, where we incorrectly reject the null hypothesis, or type II error rate, where we fail to detect a true effect. This violation introduces bias, as groups with higher variance but smaller sample sizes disproportionately affect the results.</p>
+
+<p>To address variance inequality, we can use alternative approaches like Welch’s ANOVA, which adjusts for unequal variances. Another approach is transforming the data (e.g., using logarithmic or square root transformations) to stabilize variances across groups before running a traditional ANOVA. Additionally, we might consider non-parametric alternatives if the assumption cannot be met, as these tests do not rely on equal variances.</p>
+
+<p>Purpose: By exploring the assumption of homogeneity of variances, students gain insight into why ANOVA requires careful consideration of data characteristics and how to proceed if the assumption fails. This concept also encourages critical thinking about model assumptions and the practical steps for addressing real-world data issues.</p>
+
+</aside>
+
+
+
+</section>
+
+
+
+<!-- Understanding the F-Statistic -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Understanding the F-Statistic</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<p class="question smaller">How does the F-statistic used in ANOVA compare conceptually to the t and z statistics used in other types of hypothesis testing</p>
+
+<p class="fragment em info smaller" data-fragment-index="1">Consider how each of these statistics relates to their respective null and sampling distributions, and what they indicate about the data relative to the null hypothesis.</p>
+
+</div>
+
+<div class="grid-generic smaller" style="grid-template-columns:1fr 1fr 1fr;grid-auto-rows:auto;gap:3vmin;">
+
+<div class="framed border-success fragment smaller" data-fragment-index="2" style="height:100%;">
+
+<p>F-statistic</p>
+
+<ul>
+
+<li><strong>Conceptual Use:</strong> Used to compare the variances between groups to determine if the means are significantly different across three or more groups.</li>
+
+<li><strong>Distribution:</strong> Follows an F-distribution, derived from two chi-squared distributions, dependent on two types of degrees of freedom: between and within groups.</li>
+
+<li><strong>Indication About Data:</strong> A high F-value suggests significant variability between groups compared to within, indicating that not all group means are equal, contrary to the null hypothesis of equal means.</li>
+
+</ul>
+
+</div>
+
+<div class="framed border-success fragment smaller" data-fragment-index="3" style="height:100%;">
+
+<p>t-statistic</p>
+
+<ul>
+
+<li><strong>Conceptual Use:</strong> Used to compare the means between two groups, particularly when the sample sizes are small and the population standard deviation is unknown. Suitable for either two independent samples or two related samples.</li>
+
+<li><strong>Distribution:</strong> Follows a t-distribution, appropriate when the population standard deviation is estimated from the data. The shape of the t-distribution is dependent on the sample size through its degrees of freedom.</li>
+
+<li><strong>Indication About Data:</strong> A high t-value suggests a significant difference between the group means, implying a rejection of the null hypothesis if it states the means should be equal.</li>
+
+</ul>
+
+</div>
+
+<div class="framed border-success fragment smaller" data-fragment-index="4" style="height:100%;">
+
+<p>z-statistic</p>
+
+<ul>
+
+<li><strong>Conceptual Use:</strong> Used for hypothesis testing when the population variance is known and the sample size is large. It is typically used to test the difference between a sample mean and a population mean or between two population means when the variances are known.</li>
+
+<li><strong>Distribution:</strong> Follows a normal distribution, under the assumption of normal data distribution or sufficient sample size for the Central Limit Theorem to apply.</li>
+
+<li><strong>Indication About Data:</strong> A high z-value indicates that the sample mean is significantly different from the population mean under the null hypothesis, assuming a normal distribution.</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Purpose: This question aims to deepen understanding of the F-statistic by comparing it with other more familiar statistics like t and z. It encourages students to think about the roles these statistics play in determining the probability of observing the given data under the null hypothesis.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Choosing Between One-Way and Repeated Measures ANOVA -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Choosing Between One-Way and Repeated Measures ANOVA</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<p class="question">Under what circumstances might you choose to use repeated measures ANOVA instead of one-way ANOVA</p>
+
+<p class="fragment em info" data-fragment-index="1">Consider the types of research questions that each method is best suited to address and the data characteristics required for each.</p>
+
+</div>
+
+<div class="framed border-success fragment smaller" data-fragment-index="2">
+
+<p>
+
+Repeated measures ANOVA is more appropriate when the same subjects are measured multiple times under different conditions. This method accounts for within-subject variability and is more powerful for detecting differences when conditions affect the same subjects. One-way ANOVA is used when different subjects are measured under similar conditions but only once.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Purpose: This question helps students differentiate when to use one-way ANOVA versus repeated measures ANOVA. It prompts them to consider the structure of the dataset, the specific hypotheses being tested, and the appropriate statistical approach based on the research design (e.g., within-subjects vs. between-subjects).</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/multigroup_5.png" id="section-title-2">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-2">
+              <div class="section-number">
+                <span class="large-number">
+                  2
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Two-Way Anova
+                </h2>
+                <h3>
+                  Dealing With Multiple Factors
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-2.section-title-content {
+
+background-color: rgba(240,240,240,0.7) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240,240,240,0.7) !important;
+
+}
+
+</style>
+
+</section>
+
+
+
+
+
+<!-- ANOVA Does Even More -->
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>ANOVA Does Even More</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr auto;gap:6px;">
+
+<!-- top left column -->
+
+<div class="no-top-margin framed border-muted" style="height:100%;">
+
+<h4>One-Way ANOVA</h4>
+
+<p class="smallest">
+
+One-Way ANOVA considers multiple groups belonging to a single categorical
+
+family called a <span class="info-muted">factor level</span>, i.e. sandwiches,
+
+treatment types, etc.
+
+</p>
+
+<p class="smallest">
+
+$$\mathcal{F}=\frac{\color{orange}{SS_{between}}}{\color{lightblue}{SS_{Within}}}$$
+
+</p>
+
+</div>
+
+
+
+<!-- top right column -->
+
+<div class="col-50 no-top-margin framed border-orange" style="height:100%;">
+
+<h4>One-Way Repeated Measures ANOVA</h4>
+
+<p class="smallest">
+
+Just as we discussed with <span class="orange">before $\sim$ after</span>
+
+in two-group NHST, ANOVA has special methods for dealing with repeatedly
+
+measuring from a single subject. It takes the form of:
+
+</p>
+
+<p class="smallest">
+
+$$\mathcal{F}=\frac{\color{orange}{SS_{between}}}{\color{lightblue}{(SS_{Within}-
+
+SS_{random})}}=\frac{SS_{between.timepoints}}{SS_{fixed}}$$
+
+</p>
+
+</div>
+
+
+
+<!-- bottom left column -->
+
+<div class="col-50 no-top-margin framed border-info" style="height:100%;">
+
+<h4>N-Way ANOVA</h4>
+
+<p class="smallest">We aren't limited to one level (plus time) and can model multiple factors,
+
+though it starts getting complicated because we have new
+
+<span class="info-muted">kinds</span> of terms to discuss called
+
+<span class="orange">interactions</span>. Note that each new factor
+
+level will get its own $\mathcal{F}$-statistic.</p>
+
+<p class="smallest">$$\mathcal{F}=\frac{\{ SS_{b.group1},\, SS_{b.group2},\,
+
+\ldots ,\, SS_{b.groupN},\, \{ SS_{\color{orange}{interactions}}\} \} }
+
+{SS_{Within}}$$
+
+</p>
+
+</div>
+
+
+
+<!-- bottom right column -->
+
+<div class="col-50 no-top-margin framed border-pink" style="height:100%;">
+
+<h4>N-Way Repeated Measures ANOVA</h4>
+
+<p class="smallest">Just like in the One-Way approach, we now have to consider the effects of
+
+time and remove the <span class="info-muted">random</span> effects, i.e.
+
+the <span class="info-muted">within subject</span> variation.</p>
+
+<p class="smallest">$$\mathcal{F}=\frac{\{ SS_{b.time},\, SS_{b.group2},\,
+
+\ldots ,\, SS_{b.groupN},\, \{ SS_{\color{orange}{interactions}}\} \} }
+
+{SS_{Within}-SS_{random}}$$
+
+</p>
+
+</div>
+
+
+
+<!-- What are factors -->
+
+<div style="grid-column:1/3;" class="box-width">
+
+<p class="full-width em smaller">
+
+Note: As we add more and more <span class="info">factors</span>, we stop calling it ANOVA
+
+and just say "Factor Analysis", and it starts taking on a different purpose.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Namely, Factor Analysis is a way of reducing data dimensionality by merging variables with highly explained variance.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Multiple Factor -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Two-Way ANOVA</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div data-id="d-info">
+
+<p class="smaller">
+
+A two-way ANOVA allows us to investigate the (individual & combined) effects of <span class="strong">two factors</span> (explanatory/independent variables) on a quantitative variable (response).
+
+</p>
+
+<p class="fragment em smaller down-2 muted" data-fragment-index=0>
+
+In our memorization performance and noise level experiment, we could for example investigate if gender (or the combine effect of gender and noise) also affects our response variable.
+
+</p>
+
+<p class="smaller fragment" data-fragment-index=3>
+
+The results from a two way ANOVA will give information about the <span class="strong">main effect</span> and the <span class="strong">interaction effect</span>:
+
+</p>
+
+</div>
+
+<div class="full-width">
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/anova-family-on-noise-data.svg#axes_1"></use>
+
+<use class="fragment fade-out" data-fragment-index=2 xlink:href="lib/img/anova-family-on-noise-data.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/anova-family-on-noise-data.svg#axes_5"></use>
+
+</svg>
+
+</div>
+
+<div class="fragment" data-fragment-index="3" style="grid-column: 1/3;" data-id="d-extend">
+
+<ul class="smaller push-left fragment" data-fragment-index=3>
+
+<li>
+
+Main effect of factor 1 (e.g.: noise ... this factor has 4 levels)
+
+</li>
+
+<li>
+
+Main effect of factor 2 (e.g.: gender ... this factor has 2 levels)
+
+</li>
+
+<li>
+
+Effect due to the combination/interaction of factor 1 and factor 2 (e.g.: does the effect of the noise depends on the gender too)
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Multiple Factor -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Two-Way ANOVA</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div data-id="d-info">
+
+<p>
+
+We can think of two-way ANOVA as a nesting of one-way ANOVAs. <br>That is, we end up with, essentially, three one-way ANOVAs:
+
+</p>
+
+<ul class="smaller">
+
+<li>
+
+one for each factor
+
+</li>
+
+<li>
+
+and one for the combined factors
+
+</li>
+
+</ul>
+
+<p>
+
+<i class="fas fa-arrow-circle-right muted"></i>
+
+The computation of the $SS$ terms for each factor and the error terms are virtually similar than for a one-way ANOVA.
+
+</p>
+
+</div>
+
+<div class="full-width">
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/anova-family-on-noise-data.svg#axes_1"></use>
+
+<use xlink:href="lib/img/anova-family-on-noise-data.svg#axes_5"></use>
+
+</svg>
+
+</div>
+
+<div class="fragment" data-fragment-index="3" style="grid-column: 1/3;" data-id="d-extend">
+
+<p class="smallest">
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+The <span class="strong">interaction variability</span> refers to the degree to which the combined effect of two independent variables on the dependent variable differs from what would be expected based on their individual effects alone.
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:6fr 1fr 6fr 1fr 6fr 1fr 6fr 1fr 6fr;grid-template-rows:1fr;gap:5px;">
+
+<div class="framed border-warning" style="height:100%;display:grid;align-content:center;">
+
+<p >
+
+Total Variability
+
+</p>
+
+</div>
+
+<div style="height:100%;display:grid;align-content:center;">
+
+$$\phantom{ }=\phantom{ }$$
+
+</div>
+
+<div class="framed border-danger" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+Factor A Variability
+
+</p>
+
+</div>
+
+<div style="height:100%;display:grid;align-content:center;">
+
+$$\phantom{ }+\phantom{ }$$
+
+</div>
+
+<div class="framed border-info" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+Factor B Variability
+
+</p>
+
+</div>
+
+<div style="height:100%;display:grid;align-content:center;">
+
+$$\phantom{ }+\phantom{ }$$
+
+</div>
+
+<div class="framed border-pop" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+Variability Of $A\star B$
+
+</p>
+
+</div>
+
+<div style="height:100%;display:grid;align-content:center;">
+
+$$\phantom{ }+\phantom{ }$$
+
+</div>
+
+<div class="framed border-muted" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+Variability Due To Error
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>But what is the "Interaction"?</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Interactions -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Assessing The Interactions</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="em u left-justify">
+
+Understanding the pattern in an interaction plot:
+
+</p>
+
+<p class="smaller left-justify">
+
+An interaction is usually described in terms of the simple <span class="u strong">main effects</span> that make it up. A "main effect" is the effect of one of your independent variables on the dependent variable, ignoring the effects of all other independent variables.
+
+</p>
+
+<img src="lib/img/anova-interaction-patterns.svg" class="q3-width">
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Noise Interactions -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Assessing The Interactions (Noise)</h2>
+
+</div>
+
+<div class="content" style="display:grid;">
+
+<div class="grid-generic box-width" style="display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;justify-content:center;justify-self:center;justify-items:center;">
+
+<div class="full-width">
+
+<img src="lib/img/anova-noise-data-interaction-f1.svg" width="100%">
+
+</div>
+
+<div class="full-width">
+
+<img src="lib/img/anova-noise-data-interaction-f2.svg" width="100%">
+
+</div>
+
+<div style="grid-column:1/3;" class="full-width left-justify">
+
+<p>
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+Depending on the number of levels in each of your factors, the interaction plots might be more or less easy to interpret ...
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/plantsCO2_bg.png" id="section-title-3">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-3">
+              <div class="section-number">
+                <span class="large-number">
+                  3
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  2-Way Anova Example
+                </h2>
+                <h3>
+                  Plant Response To Climatic Stress
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-3.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Section Notes</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- Plant Response to Climatic Stress -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Plant Response to Climatic Stress</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="left-justify">
+
+<p class="strong left-justify sided border-info">
+
+This experiment examines the cold tolerance of <span class="em">Echinochloa crus-galli</span> under varying CO<sub>2</sub> concentrations. We explore how genetic and environmental factors influence physiological adaptations.
+
+</p>
+
+<p>
+
+<span class="strong">Purpose:</span> To determine the impact of chilling treatment on CO<sub>2</sub> uptake in <span class="em">Echinochloa crus-galli</span> from different geographic origins (Quebec and Mississippi).
+
+</p>
+
+<p>
+
+<span class="strong">Hypothesis:</span> <span class="pop">Plants subjected to chilling will exhibit different rates of CO<sub>2</sub> uptake compared to non-chilled plants,</span> potentially due to physiological acclimatization.
+
+</p>
+
+<p>
+
+<span class="strong">Collection Methods:</span> CO<sub>2</sub> uptake was measured using <span class="u">infrared gas analyzers</span> following exposure to different ambient CO<sub>2</sub> concentrations. Plants were divided into two treatment groups: <span class="success">chilled</span> and <span class="warning">non-chilled</span>.
+
+</p>
+
+<p class="muted">
+
+Data analysis will be conducted using a two-way ANOVA to explore the interaction effects between plant type and treatment on CO<sub>2</sub> uptake rates.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Data Structure -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Data Structure</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1.2fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="framed border-info smaller" style="height:100%;">
+
+<p class="fragment left-justify" data-fragment-index=0>For two-way ANOVA, we have two factor levels, each containing information about the <span class="success">group</span> and <span class="info">sub-group</span> for each measurement.</p>
+
+<p class="fragment left-justify" data-fragment-index=1>Here our <span class="success">Plant Type</span> factor contains one level of categorization and our <span class="info">Treatment</span> factor contains another for $CO_2$ Uptake.</p>
+
+<p class="fragment" data-fragment-index=1>
+
+The <span class="warning">true</span> groupings are actually the combined category of both factors. Here, that is 4 groups:<br>
+
+<span class="fragment warning" data-fragment-index=2>Quebec$*$Non</span><br>
+
+<span class="fragment muted" data-fragment-index=3>Quebec$*$Chilled</span><br>
+
+<span class="fragment danger" data-fragment-index=4>Miss.$*$Non</span><br>
+
+<span class="fragment pop" data-fragment-index=5>Miss.$*$Chilled</span>
+
+</p>
+
+<p class="fragment border-success framed big left-justify">
+
+Two-way ANOVA analyzes the effects of each factor level and then the interaction, i.e. <span class="warning">true</span> grouping, effect on the response variable (Uptake column).
+
+</p>
+
+</div>
+
+<div class="framed border-success small" style="height:100%;">
+
+<style scoped="">
+
+.dataframe tbody tr th:only-of-type {
+
+vertical-align: middle;
+
+}
+
+
+
+.dataframe tbody tr th {
+
+vertical-align: top;
+
+}
+
+
+
+.dataframe table {
+
+overflow: hidden;
+
+}
+
+
+
+.dataframe thead tr,
+
+.dataframe thead th {
+
+position: relative;
+
+text-align: center;
+
+}
+
+
+
+.dataframe tbody tr:hover {
+
+background-color: #626262;
+
+}
+
+.dataframe tbody td,
+
+.dataframe tbody th {
+
+position: relative;
+
+text-align: center;
+
+}
+
+</style>
+
+<table border="1" class="dataframe small">
+
+<thead>
+
+<tr style="text-align: right;">
+
+<th></th>
+
+<th>Plant</th>
+
+<th class="fragment highlight-current-bg-success" data-fragment-index=0>Type</th>
+
+<th class="fragment highlight-current-bg-info" data-fragment-index=0>Treatment</th>
+
+<th>Uptake</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<th>0</th>
+
+<td>Qn1</td>
+
+<td class="fragment highlight-bg-success" data-fragment-index=1><span class="fragment highlight-warning" data-fragment-index=2>Quebec</span></td>
+
+<td class="fragment highlight-bg-info" data-fragment-index=1><span class="fragment highlight-warning" data-fragment-index=2>nonchilled</span></td>
+
+<td>16.0</td>
+
+</tr>
+
+<tr>
+
+<th>1</th>
+
+<td>Qn1</td>
+
+<td class="fragment highlight-bg-success" data-fragment-index=1><span class="fragment highlight-warning" data-fragment-index=2>Quebec</span></td>
+
+<td class="fragment highlight-bg-info" data-fragment-index=1><span class="fragment highlight-warning" data-fragment-index=2>nonchilled</span></td>
+
+<td>30.4</td>
+
+</tr>
+
+<tr>
+
+<th>$\vdots$</th>
+
+<td>$\vdots$</td>
+
+<td>$\vdots$</td>
+
+<td>$\vdots$</td>
+
+<td>$\vdots$</td>
+
+</tr>
+
+<tr>
+
+<th>21</th>
+
+<td>Qc1</td>
+
+<td class="fragment highlight-bg-success" data-fragment-index=1><span class="fragment highlight-muted" data-fragment-index=3>Quebec</span></td>
+
+<td class="fragment highlight-bg-pink" data-fragment-index=1><span class="fragment highlight-muted" data-fragment-index=3>chilled</span></td>
+
+<td>14.2</td>
+
+</tr>
+
+<tr>
+
+<th>22</th>
+
+<td>Qc1</td>
+
+<td class="fragment highlight-bg-success" data-fragment-index=1><span class="fragment highlight-muted" data-fragment-index=3>Quebec</span></td>
+
+<td class="fragment highlight-bg-pink" data-fragment-index=1><span class="fragment highlight-muted" data-fragment-index=3>chilled</span></td>
+
+<td>24.1</td>
+
+</tr>
+
+<tr>
+
+<th>$\vdots$</th>
+
+<td>$\vdots$</td>
+
+<td>$\vdots$</td>
+
+<td>$\vdots$</td>
+
+<td>$\vdots$</td>
+
+</tr>
+
+<tr>
+
+<th>60</th>
+
+<td>Mn3</td>
+
+<td class="fragment highlight-bg-accent" data-fragment-index=1><span class="fragment highlight-danger" data-fragment-index=4>Mississippi</span></td>
+
+<td class="fragment highlight-bg-info" data-fragment-index=1><span class="fragment highlight-danger" data-fragment-index=4>nonchilled</span></td>
+
+<td>28.5</td>
+
+</tr>
+
+<tr>
+
+<th>61</th>
+
+<td>Mn3</td>
+
+<td class="fragment highlight-bg-accent" data-fragment-index=1><span class="fragment highlight-danger" data-fragment-index=4>Mississippi</span></td>
+
+<td class="fragment highlight-bg-info" data-fragment-index=1><span class="fragment highlight-danger" data-fragment-index=4>nonchilled</span></td>
+
+<td>28.1</td>
+
+</tr>
+
+<tr>
+
+<th>$\vdots$</th>
+
+<td>$\vdots$</td>
+
+<td>$\vdots$</td>
+
+<td>$\vdots$</td>
+
+<td>$\vdots$</td>
+
+</tr>
+
+<tr>
+
+<th>82</th>
+
+<td>Mc3</td>
+
+<td class="fragment highlight-bg-accent" data-fragment-index=1><span class="fragment highlight-pop" data-fragment-index=5>Mississippi</span></td>
+
+<td class="fragment highlight-bg-pink" data-fragment-index=1><span class="fragment highlight-pop" data-fragment-index=5>chilled</span></td>
+
+<td>18.9</td>
+
+</tr>
+
+<tr>
+
+<th>83</th>
+
+<td>Mc3</td>
+
+<td class="fragment highlight-bg-accent" data-fragment-index=1><span class="fragment highlight-pop" data-fragment-index=5>Mississippi</span></td>
+
+<td class="fragment highlight-bg-pink" data-fragment-index=1><span class="fragment highlight-pop" data-fragment-index=5>chilled</span></td>
+
+<td>19.9</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Two-Way ANOVA -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Two-Way ANOVA</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="smaller" style="grid-column:1/3;">
+
+<p>We can think of Two-Way ANOVA as a nesting of One-Way ANOVAs. That is, we end up with, essentially, three One-Way ANOVAs: one for each factor-level and one for the combined factor levels.</p>
+
+<p class="small">
+
+For factor-levels ($p= \{A,B\}$) $A$ and $B$:
+
+$$\left\{ \mathcal{F}_A = \frac{\class{success}{MS_{A}}}{MS_{E}}, \mathcal{F}_B = \frac{\class{info}{MS_{B}}}{MS_{E}}, \mathcal{F}_{A*B} = \frac{MS_{\class{success}{A}*\class{info}{B}}}{MS_{E}}\quad \right\}$$
+
+</p>
+
+</div>
+
+<!-- left -->
+
+<div class="left-justify fragment" data-fragment-index="1" style="align-items: center;height:100%;">
+
+<p class="big">Variability <span class="em">Between</span> A-Level Factors</p>
+
+</div>
+
+<!-- right -->
+
+<div class="no-hang fragment" data-fragment-index="1" style="align-items: center;height:100%;">
+
+$$SS_A = \sum_{i=1}^{n_a} n_{i\cdot} \left( \bar{y}_{i \cdot \cdot} - \hat{y} \right)^2,\quad {\scriptstyle \mathrm{dof}=n_a - 1}$$
+
+</div>
+
+<!-- left -->
+
+<div class="left-justify fragment" data-fragment-index="2" style="align-items: center;height:100%;">
+
+<p class="big">Variability <span class="em">Between</span> B-Level Factors</p>
+
+</div>
+
+<!-- right -->
+
+<div class="no-hang fragment" data-fragment-index="2" style="align-items: center;height:100%;">
+
+$$SS_B = \sum_{j=1}^{n_b} n_{\cdot j} \left( \bar{y}_{\cdot j \cdot} - \hat{y} \right)^2,\quad {\scriptstyle \mathrm{dof}=n_B - 1}$$
+
+</div>
+
+<!-- left -->
+
+<div class="left-justify fragment" data-fragment-index="3" style="align-items: center;height:100%;">
+
+<p class="big">Variability <span class="em">Within</span> groupings (Error)</p>
+
+</div>
+
+<!-- right -->
+
+<div class="no-hang fragment" data-fragment-index="3" style="align-items: center;height:100%;">
+
+$$SS_E = \sum_{i=1}^{n_a} \sum_{j=1}^{n_b} \sum_{k=1}^{n_{ij}} \left( y_{ijk} - \bar{y}_{ij\cdot} \right)^2,\quad {\scriptstyle \mathrm{dof}= N - (n_a + n_b - 1 + (n_a - 1)(n_b - 1))}$$
+
+</div>
+
+<p class="smaller fragment em" data-fragment-index="4" style="grid-column:1/3;">
+
+$n_a$: number of levels for Factor A; $n_b$: number of levels for Factor B; $n_{ij}$: number of observations for each combination of levels $(i, j)$; $\hat{y}$: grand mean; $\bar{y}_{i \cdot \cdot}$: weighted mean for Factor A; $\bar{y}_{\cdot j \cdot}$: weighted mean for Factor B; $\bar{y}_{ij \cdot}$: mean for each combination of levels $(i, j)$; $y_{ijk}$: individual observation in combination $(i, j)$; $df$: degrees of freedom; $N$: total number of observations.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<ul style="font-size:80%;">
+
+<li><strong>Total Sum of Squares (SS<sub>Total</sub>)</strong>: Measures the total variability in the data by comparing each observation to the overall grand mean.</li>
+
+<li><strong>Sum of Squares for Factor A (SS<sub>A</sub>)</strong>: Quantifies the variability due to differences between levels of Factor A, weighted by the number of observations per level.</li>
+
+<li><strong>Sum of Squares for Factor B (SS<sub>B</sub>)</strong>: Represents the variability due to differences between levels of Factor B, also weighted by the observations in each level.</li>
+
+<li><strong>Sum of Squares for the Interaction (SS<sub>AB</sub>)</strong>: Captures the variability from the combined effect of Factors A and B, using cell means adjusted by Factor A and Factor B levels.</li>
+
+<li><strong>Sum of Squares for Error (SS<sub>E</sub>)</strong>: Represents the residual variability within each cell that is not explained by Factors A, B, or their interaction.</li>
+
+<li><strong>Degrees of Freedom for Factor A (df<sub>A</sub>)</strong>: Calculated as the number of levels in Factor A minus one, representing independent information for Factor A.</li>
+
+<li><strong>Degrees of Freedom for Factor B (df<sub>B</sub>)</strong>: Calculated as the number of levels in Factor B minus one, representing independent information for Factor B.</li>
+
+<li><strong>Degrees of Freedom for the Interaction (df<sub>AB</sub>)</strong>: The product of the degrees of freedom for Factor A and Factor B, accounting for their combined effect.</li>
+
+<li><strong>Degrees of Freedom for Error (df<sub>E</sub>)</strong>: Calculated as the total number of observations minus the degrees of freedom used by Factors A, B, and their interaction.</li>
+
+<li><strong>Total Degrees of Freedom (df<sub>Total</sub>)</strong>: Represents the total independent information in the dataset, calculated as the total number of observations minus one.</li>
+
+</ul>
+
+</aside>
+
+</section>
+
+
+
+<!-- Two-Way ANOVA  -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Two-Way ANOVA</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="small" style="grid-column:1/3;">
+
+<p>The interaction term, $SS_{A*B}$, takes into account the fact that a measurement belongs to both $A$ and $B$ factors, which have some <span class="info">effect</span>, $\epsilon$, that needs to be accounted for.</p>
+
+</div>
+
+<!-- left -->
+
+<div class="small">
+
+<p class="center fragment" data-fragment-index=1>$\epsilon$ is the sum of each factor-level effects.</p>
+
+<p class="center fragment" data-fragment-index=2>Factor-level effects are actually the residuals of the between groups variances.</p>
+
+<p class="center fragment" data-fragment-index=3>Like other $SS$ terms, $SS_{A\cdot B}$ is the residual of the <span class="orange">true grouping</span> minus the sum of the <span class="mutedBlue">factor-level effects</span>.</p>
+
+</div>
+
+<!-- right -->
+
+<div class="smaller">
+
+<div class="fragment no-hang" data-fragment-index="4">
+
+$$
+
+\begin{aligned}
+
+\epsilon &=& \epsilon_A + \epsilon_B, \\
+
+\epsilon_i &=& (\bar{y}_{i \cdot \cdot} - \hat{y}), \\
+
+\therefore \epsilon_{A_i} &=& (\bar{y}_{\{A \mid i \in A\}} - \hat{y})
+
+\end{aligned}
+
+$$
+
+</div>
+
+<div class="fragment no-hang" data-fragment-index="5">
+
+$$SS_{A \cdot B} = \sum_{i=1}^{n_a} \sum_{j=1}^{n_b} n_{ij} \left( (\bar{y}_{ij \cdot} - \hat{y}) - (\epsilon_{A_i} + \epsilon_{B_j}) \right)^2$$
+
+</div>
+
+</div>
+
+<!-- bottom -->
+
+<div class="smallest no-hang grid-generic" style="grid-column:1/3;grid-template-columns:auto 1fr;grid-auto-rows:auto;gap:1vmin;align-items:center;">
+
+<p class="center fragment" data-fragment-index="6">With substitution, our interaction term becomes:</p>
+
+<div class="center fragment small no-hang" data-fragment-index="6">
+
+$$SS_{A \cdot B} = \sum_{i=1}^{n_a} \sum_{j=1}^{n_b} n_{ij} \left( (\bar{y}_{ij \cdot} - \hat{y}) - ((\bar{y}_{i \cdot \cdot} - \hat{y}) + (\bar{y}_{\cdot j \cdot} - \hat{y})) \right)^2$$
+
+</div>
+
+<p class="center fragment" data-fragment-index="7">Which simplifies to:</p>
+
+<div class="center fragment small no-hang" data-fragment-index="7">
+
+$$SS_{A \cdot B} = \sum_{i=1}^{n_a} \sum_{j=1}^{n_b} n_{ij} \left( \bar{y}_{ij \cdot} - \bar{y}_{i \cdot \cdot} - \bar{y}_{\cdot j \cdot} + \hat{y} \right)^2$$
+
+</div>
+
+<p class="center fragment" data-fragment-index="8">To match the desired form, we write:</p>
+
+<div class="center fragment small no-hang" data-fragment-index="8">
+
+$$SS_{A \cdot B} = \sum_{i=1}^{n_a} \sum_{j=1}^{n_b} n_{ij} \left( \bar{y}_{ij \cdot} - (\bar{y}_{i \cdot \cdot} + \bar{y}_{\cdot j \cdot} - \hat{y}) \right)^2$$
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<ul style="font-size:80%;">
+
+<li><strong>Total Sum of Squares (SS<sub>Total</sub>)</strong>: Measures the total variability in the data by comparing each observation to the overall grand mean.</li>
+
+<li><strong>Sum of Squares for Factor A (SS<sub>A</sub>)</strong>: Quantifies the variability due to differences between levels of Factor A, weighted by the number of observations per level.</li>
+
+<li><strong>Sum of Squares for Factor B (SS<sub>B</sub>)</strong>: Represents the variability due to differences between levels of Factor B, also weighted by the observations in each level.</li>
+
+<li><strong>Sum of Squares for the Interaction (SS<sub>AB</sub>)</strong>: Captures the variability from the combined effect of Factors A and B, using cell means adjusted by Factor A and Factor B levels.</li>
+
+<li><strong>Sum of Squares for Error (SS<sub>E</sub>)</strong>: Represents the residual variability within each cell that is not explained by Factors A, B, or their interaction.</li>
+
+<li><strong>Degrees of Freedom for Factor A (df<sub>A</sub>)</strong>: Calculated as the number of levels in Factor A minus one, representing independent information for Factor A.</li>
+
+<li><strong>Degrees of Freedom for Factor B (df<sub>B</sub>)</strong>: Calculated as the number of levels in Factor B minus one, representing independent information for Factor B.</li>
+
+<li><strong>Degrees of Freedom for the Interaction (df<sub>AB</sub>)</strong>: The product of the degrees of freedom for Factor A and Factor B, accounting for their combined effect.</li>
+
+<li><strong>Degrees of Freedom for Error (df<sub>E</sub>)</strong>: Calculated as the total number of observations minus the degrees of freedom used by Factors A, B, and their interaction.</li>
+
+<li><strong>Total Degrees of Freedom (df<sub>Total</sub>)</strong>: Represents the total independent information in the dataset, calculated as the total number of observations minus one.</li>
+
+</ul>
+
+</aside>
+
+</section>
+
+
+
+<!-- Plant Response to Climatic Stress -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Plant Response to Climatic Stress</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:1vmin;">
+
+<div class="left-justify">
+
+<p class="small em">The $CO_2$ uptake was measured in the grass species <em>Echinochloa crus-galli</em>.</p>
+
+<p class="fragment" data-fragment-index="1">What is the <span class="danger">null</span> hypothesis?</p>
+
+<p class="fragment em" data-fragment-index="2">That <span class="danger">all</span> the measurements came from the same underlying distribution.</p>
+
+<p class="fragment" data-fragment-index="3">What is the <span class="info">Alternative</span> hypothesis?</p>
+
+<p class="fragment" data-fragment-index="4">At least 1 of the treatments has an effect in 1 location.</p>
+
+<table border="1" class="latex-style-table-row-labels tiny fragment" data-fragment-index="5">
+
+<thead>
+
+<tr style="text-align: right;">
+
+<th></th>
+
+<th>SS</th>
+
+<th>df</th>
+
+<th>MS</th>
+
+<th>F</th>
+
+<th>p(&gt;F)</th>
+
+<th>p_adj</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<th>Type</th>
+
+<td>3365.5</td>
+
+<td>1</td>
+
+<td>3365.5</td>
+
+<td>52.5</td>
+
+<td>2.38e-10</td>
+
+<td>7.13e-10</td>
+
+</tr>
+
+<tr>
+
+<th>Treatment</th>
+
+<td>988.1</td>
+
+<td>1</td>
+
+<td>988.1</td>
+
+<td>15.4</td>
+
+<td>0.00018</td>
+
+<td>0.00027</td>
+
+</tr>
+
+<tr>
+
+<th>Type:Treatment</th>
+
+<td>225.7</td>
+
+<td>1</td>
+
+<td>225.7</td>
+
+<td>3.5218</td>
+
+<td>0.064</td>
+
+<td>0.064</td>
+
+</tr>
+
+<tr>
+
+<th>Within</th>
+
+<td>5127.6</td>
+
+<td>80</td>
+
+<td>64.1</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>-</td>
+
+</tr>
+
+<tr>
+
+<th>Total</th>
+
+<td>9707.0</td>
+
+<td>83</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>-</td>
+
+<td>-</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div style="justify-self:center;height:100%;">
+
+<svg width="100%" viewBox="0 0 432 360">
+
+<use xlink:href="lib/img/plantsCO2_data.svg#axes_1"></use>
+
+<use xlink:href="lib/img/plantsCO2_data.svg#axes_2"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>This shows: Effects of Type, Effects of Treatment, and slight potential Interaction.</p>
+
+</aside>
+
+</section>
+
+
+
+
+
+<!-- General Interaction (interactive) -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Viewing Interactions</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.5fr;grid-auto-rows:1fr;gap:1vmin;">
+
+<div class="left-justify smaller">
+
+<ul>
+
+<li>Interactions for a two-way analysis of Location and Chilling on $\mathrm{CO}_2$ uptake of <span class="em">Echinochloa crus-galli</span>.</li>
+
+<li class="fragment" data-fragment-index=0>Assess group means, and their relationship to each other.</li>
+
+<li class="fragment" data-fragment-index=1>Like merging groups and asking if there's a difference in "Location".</li>
+
+<li class="fragment" data-fragment-index=2>Then checking if there's a difference in "Chilling".</li>
+
+<li class="fragment" data-fragment-index=3>Really, we're interested in the slopes of pairs.</li>
+
+<li class="fragment" data-fragment-index=5>In both configurations...</li>
+
+<li class="fragment" data-fragment-index=6>These nesting procedures provide insight into the "main effects".</li>
+
+</ul>
+
+</div>
+
+<vizzy data-src="lib/interactive/anova-overview.html" style="height:70vh;justify-content:center;"></vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Interactions -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Interactions</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column: 1/3;">
+
+<svg class="box-width" viewBox="0 0 792 360" xmlns="http://www.w3.org/2000/svg" style="justify-self:center;">
+
+<use xlink:href="lib/img/plantsCO2_interactions.svg#axes_1"></use>
+
+<use xlink:href="lib/img/plantsCO2_interactions.svg#axes_2" class="fragment" data-fragment-index="2"></use>
+
+</svg>
+
+</div>
+
+<div class="fragment left-justify" data-fragment-index="1">
+
+<ul>
+
+<li>Chilling seems to reduce $CO_2$ uptake.</li>
+
+<li>Location has an overall effect on $CO_2$ uptake.</li>
+
+</ul>
+
+</div>
+
+<div class="fragment left-justify" data-fragment-index="2">
+
+<ul>
+
+<li>Location has an effect on $CO_2$ uptake.</li>
+
+<li>Chilling seems to reduce the $CO_2$ uptake, and may have larger effect in Mississippi.</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>But our interaction p-value was 0.06, what do we do?</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Outcome -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Outcome</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="quoted small">The analysis presented investigates the effects of geographical origin (Type) and thermal treatment (Treatment) on CO<sub>2</sub> uptake in Echinochloa crus-galli, assessing how these factors interact under experimental conditions. The ANOVA results highlight significant main effects of both Type and Treatment on CO<sub>2</sub> uptake, suggesting that plant genetic background and exposure to chilling significantly influence physiological responses. The interaction effect, while suggestive, did not reach conventional levels of statistical significance, indicating that the combined effects of Type and Treatment on CO<sub>2</sub> uptake might not differ substantially from their individual impacts.</p>
+
+<p class="fragment" data-fragment-index="1">What's next? <span class="fragment em" data-fragment-index="2">post hoc testing, p-value correction.</span></p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+      </div>
+      <footer class="main-footer">
+        <span>
+          Lecture 18
+        </span>
+        <span style="text-align:center;">
+        </span>
+        <span style="text-align:right;">
+          <a href="https:\\khrisgriffis.com" target="_blank" rel="noopener noreferrer">Khris Griffis &#169;2025</a>
+        </span>
+      </footer>
+    </div>
+    <script src="./src/reveal.js">
+    </script>
+    <script src="./src/plugin/notes/notes.js">
+    </script>
+    <script src="./src/plugin/highlight/highlight.js">
+    </script>
+    <script src="./src/plugin/math/math.js">
+    </script>
+    <script src="./src/plugin/reveal-splash/reveal-splash.js">
+    </script>
+    <script src="./src/plugin/vizzy-reveal/vizzy.js">
+    </script>
+    <script>
+      Reveal.initialize({
+autoSlide: 0,
+center: true,
+controls: true,
+controlsBackArrows: "faded",
+controlsLayout: "bottom-right",
+display: "block",
+fragments: true,
+fragmentInURL: true,
+hash: true,
+hideCursorTime: 5000,
+keyboard: true,
+mobileViewDistance: 3,
+mouseWheel: false,
+navigationMode: "linear",
+overview: true,
+pdfMaxPagesPerSlide: 1,
+pdfSeparateFragments: false,
+preloadIframes: null,
+progress: false,
+showNotes: false,
+showSlideNumber: "print",
+sortFragmentsOnSync: true,
+touch: true,
+transition: "fade",
+transitionSpeed: "default",
+viewDistance: 3,
+backgroundTransition: "fade",
+controlsTutorial: false,
+embedded: false,
+help: true,
+hideInactiveCursor: true,
+history: false,
+loop: false,
+previewLinks: false,
+rtl: false,
+shuffle: false,
+slideNumber: false,
+width: 1920,
+height: 1080,
+margin: 0.081,
+minScale: 0.08,
+maxScale: 1.67,
+mathjax3: {
+mathjax: "https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-mml-chtml.js",
+loader: {
+load: [
+"[tex]/html",
+],
+},
+tex: {
+packages: {
+'[+]': [
+"html",
+],
+},
+inlineMath: [
+["$", "$"],
+["\\(", "\\)"],
+],
+processEscapes: true,
+processEnvironments: true,
+},
+options: {
+skipHtmlTags: [
+"script",
+"noscript",
+"style",
+"textarea",
+"pre",
+],
+enableMenu: false,
+},
+chtml: {
+scale: 0.8,
+minScale: 0.4,
+},
+Safe: {
+sizeMin: 0.4,
+sizeMax: 1.25,
+},
+output: {
+linebreaks: {
+inline: true,
+width: "100%",
+lineleading: 0.2,
+LinebreakVisitor: null,
+},
+},
+},
+notes: {
+
+},
+highlight: {
+
+},
+vizzy: {
+autoRunTransitions: true,
+autoTransitionDelay: 100,
+devMode: false,
+onSlideChangedDelay: 0,
+},
+splash: {
+splashImage: "lib/img/ME3040_splash.png",
+text: "Welcome to ME3040!",
+minimumDisplay: 2,
+},
+plugins: [RevealNotes, RevealHighlight, RevealMath.MathJax3, Splash, Vizzy]
+});
+    </script>
+  </body>
+</html>

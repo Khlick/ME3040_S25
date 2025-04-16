@@ -1,0 +1,4243 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="notranslate" name="google"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>
+      Linear Regression Inference And Prediction
+    </title>
+    <link href="lib\favicon.png" rel="icon" type="image/x-icon"/>
+    <link href="./src/css/reset.css" rel="stylesheet"/>
+    <link href="./src/css/reveal.css" rel="stylesheet"/>
+    <link href="./src/css/revealpack.css" rel="stylesheet"/>
+    <link href="./src/theme/drG.css" id="theme" rel="stylesheet"/>
+    <!-- highlight.js theme -->
+    <link href="./src/theme/vs.css" id="highlight-theme" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <!-- Custom Scripts -->
+    <!-- Print PDF script -->
+    <script>
+      var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match(/print-pdf/gi) ? './src/css/print/pdf.css' : './src/css/print/paper.css';
+document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!-- Deck CSS Injections -->
+    <!-- Deck Script Injections -->
+    <!-- Deck Raw Injections -->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-image="lib/img/correlated-signals_bg.png" id="deck-title-slide">
+          <div class="title-slide background">
+            <div class="headline">
+              <h2 class="r-fit-text">
+                Linear Regression
+              </h2>
+              <h3>
+                Inference And Prediction
+              </h3>
+            </div>
+            <div class="sub-header">
+              <p class="by">
+                Khris Griffis, Ph.D.
+              </p>
+            </div>
+            <div class="byline">
+              <p class="byinfo">
+                Lecture 14
+              </p>
+              <p class="byinfo">
+                CSULA: ME3040
+              </p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Today's Objectives</h2>
+
+</div>
+
+<div class="content">
+
+<div
+
+class="grid-generic full-width left-justify big"
+
+style="grid-template-columns: 1fr; grid-auto-rows: auto; row-gap: 5vmin"
+
+>
+
+<div class="border-bottom fragment" data-fragment-index="1">
+
+<p><i class="target"></i> Recap linear modeling</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="2">
+
+<p><i class="target"></i> Analysis of Residuals</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="3">
+
+<p>
+
+<i class="target"></i> Principles of linear modeling
+
+</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="4">
+
+<p><i class="target"></i> Inference and prediction from linear models</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Last Time...</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.5fr;grid-template-rows:1fr;gap:1vmin;">
+
+<div style="font-size:80%;text-align:left;justify-items:start;align-items:center;display:grid;gap:2vmin;">
+
+<p>
+
+<span class="u em">Linear regression model:</span>
+
+</p>
+
+<p>
+
+$\hat{y}=\beta_0+\beta_1x$
+
+</p>
+
+<p class="quoted">
+
+Find the "Best fit line"
+
+</p>
+
+<p>
+
+<span class="u em"> Minimize the residuals</span> $(y-\hat{y})$<br>
+
+- Sum of Squares residuals (OLS)<br>
+
+- Absolute residuals (ex: MAD)
+
+</p>
+
+<p>
+
+<span class="em u"> Goodness of fit:</span><br>
+
+$R^2$, $RMSE$
+
+</p>
+
+<p>
+
+<span class="u em">Outliers:</span><br>
+
+y direction (increase $RMSE$) <br>
+
+x direction (won't affect RMSE much)
+
+</p>
+
+</div>
+
+<!-- <div class="fig-container" data-file="lib/interactive/linear-regression.html" style="width:100%;height:100%;"></div> -->
+
+<vizzy data-src="lib/interactive/linear-regression"></vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<!-- INTRO -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Linear Regression Analysis</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<p>
+
+Linear regression analysis consists of <span class="info">more than
+
+just fitting a linear line</span> through a cloud of data points. The linear regression analysis of a dataset can be
+
+decomposed in <span class="info">3 stages</span>:
+
+</p>
+
+<ol class="small down-3">
+
+<li>
+
+<span class="u strong">Analyzing</span> the correlation and directionality of the data (checking if linear
+
+regression is an <span class="danger">appropriate model</span> for the data you want to analyze)
+
+</li>
+
+<li>
+
+<span class="u strong">Estimating</span> the model using the data (fitting the line, estimating the
+
+<span class="danger">best parameters</span> for the line equation)
+
+</li>
+
+<li>
+
+<span class="u strong">Evaluating</span> the <span class="danger">validity and usefulness</span> of the model
+
+</li>
+
+</ol>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- The Model -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Evaluating The Model</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<p class="smaller">
+
+It is important evaluate the "Goodness of Fit", 3 common statistics we use are:
+
+</p>
+
+<ul class="small">
+
+<li>
+
+The <span class="pop">$R^2$</span>, or <span class="em strong">coefficient of determination</span>
+
+</li>
+
+<li>
+
+The <span class="pop">$RMSE$</span>, or <span class="em strong">Root Mean Square Error</span>
+
+</li>
+
+<li>
+
+The <span class="orange">$F$-statistic</span> (To be discussed in ANOVA lectures)
+
+</li>
+
+</ul>
+
+<p class="small down-2 em u">
+
+All three statistics are based on two sums of squares:
+
+</p>
+
+<table class="smaller down-2">
+
+<col width=50%>
+
+<col width=50%>
+
+<tbody>
+
+<tr>
+
+<td class="bg-info-light">Total Sum of Squares ($TSS$)</td>
+
+<td class="bg-danger-light">Sum of Squares Error ($SSE$)</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td>
+
+Measures "distance" from the data to the mean ($\bar{y}$).
+
+$TSS=\sum_{i=1}^{n}(y_i-\bar{y})^2$
+
+</td>
+
+<td>
+
+Measures "distance" from the data to model ($\hat{y}$).
+
+$SSE=\sum_{i=1}^{n}(y_i-\hat{y})^2$
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<p class="small">
+
+<i class="fas fa-arrow-circle-right"></i>
+
+Different combinations of these two values provide different information about how the regression model
+
+compares to the mean model.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- R squared -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Coefficient Of Determination, $R^2$</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<p class="framed border-pink">
+
+$R^2$ measures the percentage of total variation
+
+in the response variable that is explained by the linear relationship.
+
+</p>
+
+<p>
+
+<span class="pink">$R^2=1-\frac{\textrm{Sum of squared errors (SSE)}}{\textrm{Total sum of squares (TSS)}}$</span>
+
+$= 1-\frac{\sum_{i=1}^{n}(y_i-\hat{y})^2}{\sum_{i=1}^{n}(y_i-\bar{y})^2}$
+
+</p>
+
+<p class="u em muted down-3">
+
+Notes:
+
+</p>
+
+<ul class="small">
+
+<li>
+
+For <span class="danger">Linear Models</span>, $R^2$is the
+
+<span class="orange">square of the correlation coefficient</span> ($r$)
+
+<i class="fas fa-arrow-right"></i> $R^2 = r^2$
+
+</li>
+
+<li>
+
+The slope ($m$) of the regression line tells you how much change in $Y$ you can
+
+expect based on a given change in $X$. The coefficient $R^2$ tells you
+
+<span class="orange strong">how much of the variation in $Y$ is attributable to (explained by) the variation in $X$</span>.
+
+The rest of the variation (or <span class="em danger">"noise"</span>), is accounted by other factors,
+
+such as measurement error, individual variation, etc.
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- RMSE -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Root mean square error, $RMSE$</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<p class="framed border-pink">
+
+The $RMSE$ measures how close the observed data points are to the model's predicted values.
+
+</p>
+
+<p>
+
+The $RMSE$ evaluates the model performance, and computes the square
+
+root of the average squared residual (distance from the data to the model).
+
+</p>
+
+<p class="pink">
+
+$RMSE=\sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y})^2}$
+
+</p>
+
+<p class="smaller down-3">
+
+<i class="fas fa-arrow-circle-right orange"></i>
+
+The key idea behind the computation of the $RMSE$
+
+is that predictions ($\hat{y}$) that are <span class="orange">far away from the true observed data</span>
+
+value ($y$) will contribute more heavily to <span class="orange">increasing the value of the $RMSE$</span>
+
+than predictions that are close to the true values.
+
+</p>
+
+<p class="down-2">
+
+<i class="fas fa-arrow-circle-right orange"></i>
+
+<span class="orange">Lower</span> values of RMSE indicate <span class="orange">better</span> fit.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- COMPARISON -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Model evaluation, $R^2$ vs $RMSE$</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5px;">
+
+<div>
+
+<table class="small">
+
+<col width=50%>
+
+<col width=50%>
+
+<tbody>
+
+<tr>
+
+<td class="bg-info-light center">$R^2$</td>
+
+<td class="bg-danger-light center">$RMSE$</td>
+
+</tr>
+
+<tr>
+
+<td>Square of the correlation coefficient</td>
+
+<td>Square root of the average squared residual</td>
+
+</tr>
+
+<tr>
+
+<td colspan="2" class="center-justify">Both give an indication about the
+
+<span class="em">"goodness of the fit"</span></td>
+
+</tr>
+
+<tr>
+
+<td>$R^2$ is conveniently scaled between 0 and 1 (<span class="info">relative measure</span> of fit)</td>
+
+<td>$RMSE$ is not scaled to any particular value (<span class="danger">absolute measure</span> of fit)</td>
+
+</tr>
+
+<tr>
+
+<td>$R^2$ can be more easily interpreted
+
+in the <span class="info">context of the linear association</span>
+
+analyzed
+
+(how successful the fit is in explaining the variation of the data)
+
+</td>
+
+<td>$RMSE$ explicitly provides information about
+
+<span class="danger">how much our predictions deviate, on average</span>,
+
+from the actual values in the dataset</td>
+
+</tr>
+
+<tr>
+
+<td>Its main purpose is either the <span class="info">prediction</span>
+
+of future outcomes or the <span class="info">testing</span> of hypotheses.</td>
+
+<td>
+
+It is one of the most important criterion for fit if the main purpose of the
+
+model is <span class="danger">prediction</span>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Major Uses of Linear Regression -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Linear Regression Uses</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic smaller" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p>
+
+There are 3 major uses for regression analysis:
+
+</p>
+
+<p class="framed border-pop left-justify fragment">
+
+<span class="pop em u strong">Causal Analysis</span>: Regression can be used to <span class="strong">quantify the relationship</span> between one or more <span class="em">independent variables</span> and a <span class="em">dependent variable</span>. It helps in understanding how changes in the <span class="u">independent variables</span> are associated with changes in the <span class="u">dependent variable</span>. A key point is that <span class="strong">correlation does not imply causation</span>, and additional analysis or experimentation is often required to <span class="em">establish causal relationships</span>.
+
+<br>
+
+<span class="pop">Example question</span>: "How does an additional year of education impact a person's income?"
+
+</p>
+
+<p class="framed border-info left-justify fragment">
+
+<span class="info em u strong">Estimation</span>: Regression can be used to <span class="strong">estimate the specific value</span> of the <span class="em">dependent variable</span> given certain values of the <span class="em">independent variable(s)</span>. This is particularly useful in fields where <span class="u">precise measurements</span> are necessary.
+
+<br>
+
+<span class="info">Example question</span>: "What is the expected life span of a bearing operating under a specific <span class="u">load</span> and <span class="u">rotational speed</span>?"
+
+</p>
+
+<p class="framed border-danger left-justify fragment">
+
+<span class="danger em u strong">Forecasting</span>: While similar to <span class="em">prediction</span>, forecasting specifically refers to <span class="strong">estimating values over time</span>. Regression can be used to <span class="u">model trends</span> and <span class="strong">forecast future values</span> based on historical data, acknowledging that forecasts are always subject to <span class="em">uncertainty</span>.
+
+<br>
+
+<span class="danger">Example question</span>: "Based on historical vibration data, what is the <span class="u">predicted maintenance schedule</span> to prevent future machinery failures?"
+
+</p>
+
+<p class="smaller muted right-justify fragment">We should always be very cautious of <span class="em">extrapolating</span> beyond the domain of our data.</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-gradient="radial-gradient(#ffff, #17b2c3)" id="section-title-1">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-1">
+              <div class="section-number">
+                <span class="large-number">
+                  1
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Linear Regression
+                </h2>
+                <h3>
+                  Understanding Residuals
+                </h3>
+              </div>
+            </div>
+          </div>
+          </section>
+
+
+
+
+
+<!-- Interpret Residuals 1 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Interpreting the residuals plot</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.1fr;grid-auto-rows:auto;gap:5px;">
+
+<div class="orange" style="grid-column:1/3;">
+
+<span class="circled-bg-orange black">1</span> Outlier (response variable)
+
+</div>
+
+<div style="align-items:center;display:grid;align-self:center;">
+
+<p>
+
+A value much lower or much larger than the other ones in the residual plot might
+
+be the sign of the presence of an outlier in the dataset,
+
+that may <span class="danger">reduce the strength of the regression model</span>
+
+(large error = lower $R^2$).
+
+</p>
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+Depending of your study, you may decide to use a robust linear regression method.
+
+</p>
+
+</div>
+
+<div style="align-items:center;display:grid;align-self:center;">
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/regression-residuals-exploration-1.svg#axes_1"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Interpret Residuals 2 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Interpreting the residuals plot</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.1fr;grid-auto-rows:auto;gap:5px;">
+
+<div class="pink" style="grid-column:1/3;">
+
+<span class="circled-bg-pink black">2</span> Outlier (explanatory variable)
+
+</div>
+
+<div style="align-items:center;display:grid;align-self:center;">
+
+<p class="col-45">
+
+A residual lying at the far end of the plot, directly on the $0$ line is
+
+the sign of an outlier that has pulled the regression line towards it.
+
+This type of outlier <span class="danger">"artificially" increases the
+
+strength of the regression model (higher $R^2$)</span>, (this outlier
+
+has no error because the line has passed right through it).
+
+</p>
+
+</div>
+
+<div style="align-items:center;display:grid;align-self:center;">
+
+<svg width="100%" viewBox="0 0 432 288" style="margin-top: 0;">
+
+<use xlink:href="lib/img/regression-residuals-exploration-2.svg#axes_1"></use>
+
+</svg>
+
+</div>
+
+<div style="grid-column:1/3;">
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+The equation and predictions from the obtained regression line are <span class="strong">likely to be incorrect</span>.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Interpret Residuals 3 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Interpreting the residuals plot</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.1fr;grid-auto-rows:auto;gap:5px;">
+
+<div class="success" style="grid-column:1/3;">
+
+<span class="circled-bg-success black">3</span> Fan shape
+
+</div>
+
+<div style="align-items:center;display:grid;align-self:center;">
+
+<p>
+
+A fan shape in the residuals plot indicates that the amount of
+
+<span class="warning">error is not constant along the regression line</span>.
+
+At the lower end of the line, the errors are small; at the high end, the errors are large.
+
+</p>
+
+<p>
+
+<i class="fa fa-arrow-circle-right danger"></i>
+
+You often encounter this kind of heteroscedasticity (hetero = different,
+
+scedastic = scatter) when <span class="warning">an additional variable is
+
+influencing the relationship</span>.
+
+</p>
+
+</div>
+
+<div style="align-items:center;display:grid;align-self:center;">
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/regression-residuals-exploration-3.svg#axes_1"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Interpret Residuals 4 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Interpreting the residuals plot</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.1fr;grid-auto-rows:auto;gap:5px;">
+
+<div class="info" style="grid-column:1/3;">
+
+<span class="circled-bg-info black">4</span> Curved residuals
+
+</div>
+
+<div style="align-items:center;display:grid;align-self:center;">
+
+<p>
+
+Residuals in a curve indicate that the relationship between the two variables is <span class="danger">not linear</span>.
+
+</p>
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+You need to reconsider your variables or conduct non-linear regression analysis (not covered in this class).
+
+</p>
+
+</div>
+
+<div style="align-items:center;display:grid;align-self:center;">
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/regression-residuals-exploration-4.svg#axes_1"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-gradient="radial-gradient(#283b95, #17b2c3)" id="section-title-2">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-2">
+              <div class="section-number">
+                <span class="large-number">
+                  2
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Building A Linear Model
+                </h2>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-2.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Section Notes</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- Linear regression for prediction -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Linear Modeling</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-template-rows:1fr;gap:5px;">
+
+<div style="width:80%;height:100%;">
+
+<svg width="100%" viewBox="0 0 504 259.2">
+
+<use xlink:href="lib/img/regression-train-test-sets-split.svg#layer0"></use>
+
+<use class="fragment" xlink:href="lib/img/regression-train-test-sets-split.svg#layer1"></use>
+
+<use class="fragment" xlink:href="lib/img/regression-train-test-sets-split.svg#layer2"></use>
+
+<use class="fragment" xlink:href="lib/img/regression-train-test-sets-split.svg#layer3"></use>
+
+<use class="fragment" xlink:href="lib/img/regression-train-test-sets-split.svg#layer4"></use>
+
+<use class="fragment" xlink:href="lib/img/regression-train-test-sets-split.svg#layer5"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Keep in mind, when we build a linear model, it is usually with the purpose
+
+of predicting some new measurements. Why have a model if you don't use it to
+
+model a process?
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Let's make a prediction model -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Example Usage</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-template-rows:1fr;gap:5px;height:100%;justify-items:center;">
+
+<vizzy data-src="lib/interactive/linear-regression-prediction-model.html" style="width:50%;height:100%;"></vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Get A shoe size from the students, show how using a model to predict new data (within the domain).</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Setup -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Determining Coefficients</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-template-rows:1fr;gap:5px;">
+
+<div style="font-size:80%;">
+
+<p>
+
+Given the system: \(\mathrm {X} {\boldsymbol {\beta }}=\mathbf {y} ,\) where
+
+
+
+\[{\displaystyle \mathrm {X} ={\begin{bmatrix}X_{11}&X_{12}&\cdots &X_{1p}\\X_{21}&X_{22}&\cdots &X_{2p}\\\vdots &\vdots &\ddots &\vdots \\X_{n1}&X_{n2}&\cdots &X_{np}\end{bmatrix}},\qquad {\boldsymbol {\beta }}={\begin{bmatrix}\beta _{1}\\\beta _{2}\\\vdots \\\beta _{p}\end{bmatrix}},\qquad \mathbf {y} ={\begin{bmatrix}y_{1}\\y_{2}\\\vdots \\y_{n}\end{bmatrix}}.}\]
+
+</p>
+
+<p class="fragment">
+
+The estimated solution is: \({\displaystyle {\hat {\boldsymbol {\beta }}}=(\mathbf {X} ^{\mathsf {T}}\mathbf {X} )^{-1}\mathbf {X} ^{\mathsf {T}}\mathbf {y} .}\)
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>These are estimates!</p>
+
+</aside>
+
+</section>
+
+<!-- Setup 2 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Determining Coefficients</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-template-rows:1fr;gap:5px;font-size:90%;">
+
+<div style="text-align:left;">
+
+<p class="fragment">
+
+Consider the model: $\begin{align}
+
+Y = \beta_0+\beta_1 X +\epsilon,
+
+\end{align}$
+
+</p>
+
+<p class="fragment">
+
+where $\epsilon$ is a $\mathcal{N}(0,\sigma^2)$ random variable independent of $X$.
+
+We can determine the $\beta$ coefficients by first taking the <span class="em">Expected Value</span>
+
+from both sides and rearranging the equation:
+
+$$\begin{align} %
+
+\mathbb{E}Y &= \beta_0+\beta_1 \mathbb{E}X +\mathbb{E}[\epsilon]\\
+
+&=\beta_0+\beta_1 \mathbb{E}X\\
+
+\beta_0&=EY-\beta_1 EX.
+
+\end{align}$$
+
+</p>
+
+</div>
+
+<div style="text-align:left;">
+
+<p class="fragment">
+
+For $\beta_1$, we turn to $\textrm{Cov}(X,Y)$ where
+
+</p>
+
+<p class="fragment">
+
+$\begin{align}
+
+\textrm{Cov}(X,Y) &= \textrm{Cov}(X,\beta_0+\beta_1 X +\epsilon)\\
+
+&=\beta_0 \textrm{Cov}(X,1)+\beta_1\textrm{Cov}(X,X)+\textrm{Cov}(X, \epsilon)\\
+
+&=0+\beta_1 \textrm{Cov}(X,X)+0 \quad (\textrm{since $X$ and $\epsilon$ are independent})\\
+
+&=\beta_1 \textrm{Var}(X)\\
+
+\therefore\beta_1&=\frac{\textrm{Cov}(X,Y)}{\textrm{Var}(X)}
+
+\end{align}$
+
+</p>
+
+<p class="fragment framed border-success">
+
+$$\begin{align}
+
+&\hat{\beta_1}=\frac{s_{xy}}{s_{xx}},\\
+
+&\hat{\beta_0}=\overline{y}-\hat{\beta_1} \overline{x}.
+
+\end{align}$$
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>These are estimates!</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- The Data -->
+
+<section data-auto-animate>
+
+<style>
+
+.dataframe tr,
+
+.dataframe td,
+
+.dataframe th {
+
+text-align: center !important;
+
+}
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>High-Precision Positioning</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:2.5fr 1fr;grid-template-rows:1fr;gap:5px;">
+
+<div style="text-align:justify;text-justify:inter-word;font-size:75%;display:grid;grid-template-columns:1fr;grid-auto-rows:1fr;">
+
+<p>
+
+An engineering team working on developing a high-precision positioning system that
+
+utilizes a Linear Variable Differential Transformer (LVDT) as a key sensor. An
+
+LVDT is an electromechanical transducer that can provide extremely precise
+
+information about the position of a moving object to which it is attached.
+
+It works by converting the linear position of a movable soft iron core into
+
+an electrical signal.
+
+</p>
+
+<p class="fragment" data-fragment-index="1">
+
+The team is particularly interested in improving an automated assembly
+
+line for electronic components where exact positioning is critical for
+
+operational efficiency and product quality. For this purpose, they've deployed
+
+an LVDT to translate mechanical motion into voltage changes. The column "x"
+
+represents the displacement of the core in millimeters, which corresponds to
+
+the position of a component as it's being placed. The column "y" contains
+
+the corresponding DC output voltage in millivolts from the LVDT, which is
+
+intended to be proportional to the displacement.
+
+</p>
+
+</div>
+
+<div class="full-width" style="font-size:90%;text-align:center;">
+
+<table border="1" class="dataframe">
+
+<thead>
+
+<tr style="text-align: right;">
+
+<th>x</th>
+
+<th>y</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>3.96</td>
+
+<td>4.212</td>
+
+</tr>
+
+<tr>
+
+<td>8.00</td>
+
+<td>7.981</td>
+
+</tr>
+
+<tr>
+
+<td>7.75</td>
+
+<td>6.954</td>
+
+</tr>
+
+<tr>
+
+<td>2.83</td>
+
+<td>2.461</td>
+
+</tr>
+
+<tr>
+
+<td>2.39</td>
+
+<td>2.655</td>
+
+</tr>
+
+<tr>
+
+<td>6.18</td>
+
+<td>6.169</td>
+
+</tr>
+
+<tr>
+
+<td>8.80</td>
+
+<td>8.359</td>
+
+</tr>
+
+<tr>
+
+<td>4.60</td>
+
+<td>4.367</td>
+
+</tr>
+
+<tr>
+
+<td>7.05</td>
+
+<td>7.157</td>
+
+</tr>
+
+<tr>
+
+<td>3.44</td>
+
+<td>3.065</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>High-Precision Positioning</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:2.5fr 1fr;grid-template-rows:1fr;gap:5px;grid-auto-rows:1fr;">
+
+<div style="text-align:justify;text-justify:inter-word;font-size:75%;display:grid;grid-template-columns:1fr;grid-auto-rows:auto;row-gap:2vmin;">
+
+<p>
+
+The task at hand is to ensure that the output voltage of the LVDT is, in fact,
+
+linearly related to the displacement so that the system can accurately
+
+infer the position of the components from the voltage reading alone. To
+
+verify this relationship and calibrate the system, they've collected
+
+data pairs of displacement and output voltage.
+
+</p>
+
+<p class="fragment" data-fragment-index="1">
+
+Linear regression is the ideal method to model these data because the LVDT is theoretically a linear sensor. By applying linear regression, the team can determine the line of best fit that represents the relationship between displacement and voltage. This model will:
+
+</p>
+
+<ol class="fragment" data-fragment-index="2">
+
+<li>Verify the linearity of the LVDT within its operating range.</li>
+
+<li>Allow for the calculation of the sensor's sensitivity, represented by the slope of the line, which should be constant if the LVDT is functioning properly</li>
+
+<li>Enable them to detect any nonlinearities or anomalies which could indicate problems with the sensor or the experimental setup.</li>
+
+<li>Serve as a calibration curve that can be used in their control systems to convert future voltage readings back into precise displacement measurements, ensuring the assembly line operates with high precision and repeatability.</li>
+
+</ol>
+
+</div>
+
+<div class="full-width" style="font-size:90%;text-align:center;">
+
+<table border="1" class="dataframe">
+
+<thead>
+
+<tr style="text-align: right;">
+
+<th>x</th>
+
+<th>y</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>3.96</td>
+
+<td>4.212</td>
+
+</tr>
+
+<tr>
+
+<td>8.00</td>
+
+<td>7.981</td>
+
+</tr>
+
+<tr>
+
+<td>7.75</td>
+
+<td>6.954</td>
+
+</tr>
+
+<tr>
+
+<td>2.83</td>
+
+<td>2.461</td>
+
+</tr>
+
+<tr>
+
+<td>2.39</td>
+
+<td>2.655</td>
+
+</tr>
+
+<tr>
+
+<td>6.18</td>
+
+<td>6.169</td>
+
+</tr>
+
+<tr>
+
+<td>8.80</td>
+
+<td>8.359</td>
+
+</tr>
+
+<tr>
+
+<td>4.60</td>
+
+<td>4.367</td>
+
+</tr>
+
+<tr>
+
+<td>7.05</td>
+
+<td>7.157</td>
+
+</tr>
+
+<tr>
+
+<td>3.44</td>
+
+<td>3.065</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>WHAT IS STEP 1??</p>
+
+</aside>
+
+</section>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>High-Precision Positioning</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:2.5fr 1fr;grid-template-rows:1fr;gap:5px;grid-auto-rows:1fr;">
+
+<div style="text-align:justify;text-justify:inter-word;font-size:100%;display:grid;grid-template-columns:1fr;grid-auto-rows:auto;row-gap:2vmin;">
+
+<p>
+
+Step 1: Visualize the data!
+
+</p>
+
+<div style="width:80%;">
+
+<svg width="100%" viewBox="0 0 460.8 345.6">
+
+<use xlink:href="lib/img/regression-example-lvdt.svg#axes_1"></use>
+
+<use style="opacity:0;visibility:hidden;" xlink:href="lib/img/regression-example-lvdt.svg#axes_2"></use>
+
+<use style="opacity:0;visibility:hidden;" xlink:href="lib/img/regression-example-lvdt.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+<div class="full-width" style="font-size:90%;text-align:center;">
+
+<table border="1" class="dataframe">
+
+<thead>
+
+<tr style="text-align: center;">
+
+<th>x</th>
+
+<th>y</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>3.96</td>
+
+<td>4.212</td>
+
+</tr>
+
+<tr>
+
+<td>8.00</td>
+
+<td>7.981</td>
+
+</tr>
+
+<tr>
+
+<td>7.75</td>
+
+<td>6.954</td>
+
+</tr>
+
+<tr>
+
+<td>2.83</td>
+
+<td>2.461</td>
+
+</tr>
+
+<tr>
+
+<td>2.39</td>
+
+<td>2.655</td>
+
+</tr>
+
+<tr>
+
+<td>6.18</td>
+
+<td>6.169</td>
+
+</tr>
+
+<tr>
+
+<td>8.80</td>
+
+<td>8.359</td>
+
+</tr>
+
+<tr>
+
+<td>4.60</td>
+
+<td>4.367</td>
+
+</tr>
+
+<tr>
+
+<td>7.05</td>
+
+<td>7.157</td>
+
+</tr>
+
+<tr>
+
+<td>3.44</td>
+
+<td>3.065</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>High-Precision Positioning</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:2fr 1fr;grid-template-rows:1fr;gap:5px;grid-auto-rows:1fr;">
+
+<div style="text-align:justify;text-justify:inter-word;font-size:100%;display:grid;grid-template-columns:1fr;grid-auto-rows:auto;row-gap:2vmin;">
+
+<p>
+
+Step 2: Calculate the the means:
+
+</p>
+
+<p>
+
+$$\begin{align}
+
+&\overline{x}=\frac{x_1+x_2+...+x_n}{n}=5.499,\\
+
+&\overline{y}=\frac{y_1+y_2+...+y_n}{n}=5.337,
+
+\end{align}$$
+
+</p>
+
+<p class="fragment" data-fragment-index="0">and the deviations for each variable.</p>
+
+</div>
+
+<div class="full-width" style="font-size:85%;text-align:center;">
+
+<table border="1" class="dataframe">
+
+<thead>
+
+<tr style="text-align: center;">
+
+<th>x</th>
+
+<th>y</th>
+
+<th class="fragment" data-fragment-index="1"><span>$(x-\bar{x})$</span></th>
+
+<th class="fragment" data-fragment-index="2">$(y-\bar{y})$</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>3.96</td>
+
+<td>4.212</td>
+
+<td class="fragment" data-fragment-index="1">-1.54</td>
+
+<td class="fragment" data-fragment-index="2">-1.126</td>
+
+</tr>
+
+<tr>
+
+<td>8.00</td>
+
+<td>7.981</td>
+
+<td class="fragment" data-fragment-index="1">2.50</td>
+
+<td class="fragment" data-fragment-index="2">2.643</td>
+
+</tr>
+
+<tr>
+
+<td>7.75</td>
+
+<td>6.954</td>
+
+<td class="fragment" data-fragment-index="1">2.25</td>
+
+<td class="fragment" data-fragment-index="2">1.616</td>
+
+</tr>
+
+<tr>
+
+<td>2.83</td>
+
+<td>2.461</td>
+
+<td class="fragment" data-fragment-index="1">-2.67</td>
+
+<td class="fragment" data-fragment-index="2">-2.877</td>
+
+</tr>
+
+<tr>
+
+<td>2.39</td>
+
+<td>2.655</td>
+
+<td class="fragment" data-fragment-index="1">-3.11</td>
+
+<td class="fragment" data-fragment-index="2">-2.683</td>
+
+</tr>
+
+<tr>
+
+<td>6.18</td>
+
+<td>6.169</td>
+
+<td class="fragment" data-fragment-index="1">0.68</td>
+
+<td class="fragment" data-fragment-index="2">0.831</td>
+
+</tr>
+
+<tr>
+
+<td>8.80</td>
+
+<td>8.359</td>
+
+<td class="fragment" data-fragment-index="1">3.30</td>
+
+<td class="fragment" data-fragment-index="2">3.021</td>
+
+</tr>
+
+<tr>
+
+<td>4.60</td>
+
+<td>4.367</td>
+
+<td class="fragment" data-fragment-index="1">-0.90</td>
+
+<td class="fragment" data-fragment-index="2">-0.971</td>
+
+</tr>
+
+<tr>
+
+<td>7.05</td>
+
+<td>7.157</td>
+
+<td class="fragment" data-fragment-index="1">1.55</td>
+
+<td class="fragment" data-fragment-index="2">1.819</td>
+
+</tr>
+
+<tr>
+
+<td>3.44</td>
+
+<td>3.065</td>
+
+<td class="fragment" data-fragment-index="1">-2.06</td>
+
+<td class="fragment" data-fragment-index="2">-2.273</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>High-Precision Positioning</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:1fr 1fr;grid-template-rows:1fr;gap:5px;">
+
+<div style="text-align:justify;text-justify:inter-word;font-size:100%;display:grid;grid-template-columns:1fr;grid-auto-rows:auto;row-gap:2vmin;">
+
+<p>
+
+Step 3: Calculate $s_{xx}$ and $s_{xy}$:
+
+</p>
+
+<p>
+
+$$\begin{align}
+
+&s_{xx}=\sum_{i=1}^n (x_i-\overline{x})^2=49.293,\\
+
+&s_{xy}=\sum_{i=1}^{n} (x_i-\overline{x})(y_i-\overline{y})=46.913.
+
+\end{align}$$
+
+</p>
+
+<p class="fragment" data-fragment-index="1">Use the distances from the means (squared!).</p>
+
+<p class="fragment" data-fragment-index="2">
+
+$$\begin{align}
+
+&\hat{\beta_1}=\frac{s_{xy}}{s_{xx}}&=\frac{46.913}{49.293}&=0.95,\\
+
+&\hat{\beta_0}=\overline{y}-\hat{\beta_1} \overline{x}&=5.337-0.95(5.499)&=0.10,
+
+\end{align}$$
+
+</p>
+
+</div>
+
+<div class="full-width" style="font-size:70%;text-align:center;">
+
+<table border="1" class="dataframe">
+
+<thead style="white-space: nowrap;">
+
+<tr style="text-align:center;">
+
+<th>x</th>
+
+<th>y</th>
+
+<th class="small">$(x-\bar{x})$</th>
+
+<th class="small">$(y-\bar{y})$</th>
+
+<th class="fragment small" data-fragment-index="1">$(x-\bar{x})(y-\bar{y})$</th>
+
+<th class="fragment small" data-fragment-index="1">$(x-\bar{x})^2$</th>
+
+<th class="fragment small" data-fragment-index="1">$(y-\bar{y})^2$</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>3.96</td>
+
+<td>4.212</td>
+
+<td>-1.54</td>
+
+<td>-1.126</td>
+
+<td class="fragment" data-fragment-index="1">1.73404</td>
+
+<td class="fragment" data-fragment-index="1">2.3716</td>
+
+<td class="fragment" data-fragment-index="1">1.267876</td>
+
+</tr>
+
+<tr>
+
+<td>8.00</td>
+
+<td>7.981</td>
+
+<td>2.50</td>
+
+<td>2.643</td>
+
+<td class="fragment" data-fragment-index="1">6.60750</td>
+
+<td class="fragment" data-fragment-index="1">6.2500</td>
+
+<td class="fragment" data-fragment-index="1">6.985449</td>
+
+</tr>
+
+<tr>
+
+<td>7.75</td>
+
+<td>6.954</td>
+
+<td>2.25</td>
+
+<td>1.616</td>
+
+<td class="fragment" data-fragment-index="1">3.63600</td>
+
+<td class="fragment" data-fragment-index="1">5.0625</td>
+
+<td class="fragment" data-fragment-index="1">2.611456</td>
+
+</tr>
+
+<tr>
+
+<td>2.83</td>
+
+<td>2.461</td>
+
+<td>-2.67</td>
+
+<td>-2.877</td>
+
+<td class="fragment" data-fragment-index="1">7.68159</td>
+
+<td class="fragment" data-fragment-index="1">7.1289</td>
+
+<td class="fragment" data-fragment-index="1">8.277129</td>
+
+</tr>
+
+<tr>
+
+<td>2.39</td>
+
+<td>2.655</td>
+
+<td>-3.11</td>
+
+<td>-2.683</td>
+
+<td class="fragment" data-fragment-index="1">8.34413</td>
+
+<td class="fragment" data-fragment-index="1">9.6721</td>
+
+<td class="fragment" data-fragment-index="1">7.198489</td>
+
+</tr>
+
+<tr>
+
+<td>6.18</td>
+
+<td>6.169</td>
+
+<td>0.68</td>
+
+<td>0.831</td>
+
+<td class="fragment" data-fragment-index="1">0.56508</td>
+
+<td class="fragment" data-fragment-index="1">0.4624</td>
+
+<td class="fragment" data-fragment-index="1">0.690561</td>
+
+</tr>
+
+<tr>
+
+<td>8.80</td>
+
+<td>8.359</td>
+
+<td>3.30</td>
+
+<td>3.021</td>
+
+<td class="fragment" data-fragment-index="1">9.96930</td>
+
+<td class="fragment" data-fragment-index="1">10.8900</td>
+
+<td class="fragment" data-fragment-index="1">9.126441</td>
+
+</tr>
+
+<tr>
+
+<td>4.60</td>
+
+<td>4.367</td>
+
+<td>-0.90</td>
+
+<td>-0.971</td>
+
+<td class="fragment" data-fragment-index="1">0.87390</td>
+
+<td class="fragment" data-fragment-index="1">0.8100</td>
+
+<td class="fragment" data-fragment-index="1">0.942841</td>
+
+</tr>
+
+<tr>
+
+<td>7.05</td>
+
+<td>7.157</td>
+
+<td>1.55</td>
+
+<td>1.819</td>
+
+<td class="fragment" data-fragment-index="1">2.81945</td>
+
+<td class="fragment" data-fragment-index="1">2.4025</td>
+
+<td class="fragment" data-fragment-index="1">3.308761</td>
+
+</tr>
+
+<tr>
+
+<td>3.44</td>
+
+<td>3.065</td>
+
+<td>-2.06</td>
+
+<td>-2.273</td>
+
+<td class="fragment" data-fragment-index="1">4.68238</td>
+
+<td class="fragment" data-fragment-index="1">4.2436</td>
+
+<td class="fragment" data-fragment-index="1">5.166529</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>High-Precision Positioning</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:2fr 1fr;grid-template-rows:1fr;gap:5px;grid-auto-rows:1fr;">
+
+<div style="text-align:justify;text-justify:inter-word;font-size:100%;display:grid;grid-template-columns:1fr;grid-auto-rows:auto;row-gap:2vmin;">
+
+<p>
+
+Step 4: Visualize the fit!
+
+</p>
+
+<p class="fragment" data-fragment-index="1">
+
+$\widehat{Y}=0.10+0.95X$
+
+</p>
+
+<div class="fragment" data-fragment-index="1" style="width:70%;justify-self:center;">
+
+<svg width="100%" viewBox="0 0 460.8 345.6">
+
+<use xlink:href="lib/img/regression-example-lvdt.svg#axes_1"></use>
+
+<use class="fragment" data-fragment-index="1" xlink:href="lib/img/regression-example-lvdt.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index="2" xlink:href="lib/img/regression-example-lvdt.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+<div class="full-width" style="font-size:90%;text-align:center;">
+
+<table border="1" class="dataframe">
+
+<thead>
+
+<tr style="text-align: center;">
+
+<th>x</th>
+
+<th>y</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>3.96</td>
+
+<td>4.212</td>
+
+</tr>
+
+<tr>
+
+<td>8.00</td>
+
+<td>7.981</td>
+
+</tr>
+
+<tr>
+
+<td>7.75</td>
+
+<td>6.954</td>
+
+</tr>
+
+<tr>
+
+<td>2.83</td>
+
+<td>2.461</td>
+
+</tr>
+
+<tr>
+
+<td>2.39</td>
+
+<td>2.655</td>
+
+</tr>
+
+<tr>
+
+<td>6.18</td>
+
+<td>6.169</td>
+
+</tr>
+
+<tr>
+
+<td>8.80</td>
+
+<td>8.359</td>
+
+</tr>
+
+<tr>
+
+<td>4.60</td>
+
+<td>4.367</td>
+
+</tr>
+
+<tr>
+
+<td>7.05</td>
+
+<td>7.157</td>
+
+</tr>
+
+<tr>
+
+<td>3.44</td>
+
+<td>3.065</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- So What Happened? -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>How Did We Minimize <span class="danger">Error</span>?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-template-rows:1fr;gap:2vmin;">
+
+<div class="small no-hang" style="text-align:left;font-size:90%;">
+
+<p class="fragment" data-fragment-index="0">
+
+Using Ordinary Least Squares (OLS), we minimized the average <span class="success">Squared Error</span>
+
+($MSE_{(\beta_0,\beta_1)}$ or $\hat{\epsilon}$), such that
+
+$$\widehat{\operatorname{MSE}}_{(\beta_0,\, \beta_1)} = \frac{1}{n}\sum_{i=1}^{n}\left( y_i - (\beta_0+\beta_1x_i)\right)^2$$
+
+</p>
+
+<p class="fragment" data-fragment-index="1">
+
+That is, we found values for $\beta_0$ and $\beta_1$ that make $\hat{y}$ as
+
+close to $\mathbb{E}X$ as possible.
+
+</p>
+
+<p class="fragment" data-fragment-index="2">
+
+Conceptually, this is like checking a lot of possible values and combinations
+
+for the $\beta$ coefficients and finding the smallest $\epsilon$.
+
+</p>
+
+<p class="fragment" data-fragment-index="3">
+
+We find the intersection of Slope and Intercept at:
+
+$$\begin{align}
+
+\hat{\beta_1}=\frac{s_{xy}}{s^2_{x}},
+
+\hat{\beta_0}=\overline{y}-\hat{\beta_1} \overline{x}.
+
+\end{align}$$
+
+</p>
+
+</div>
+
+<div class="full-width" style="justify-self:start;align-self:center;">
+
+<svg width="100%" viewBox="410 90 400 300">
+
+<use class="fragment" data-fragment-index="3" xlink:href="lib/img/OLS-min-lvdt.svg#axes_1"></use>
+
+<use class="fragment" data-fragment-index="0" xlink:href="lib/img/OLS-min-lvdt.svg#grid3d_1"></use>
+
+<use class="fragment" data-fragment-index="0" xlink:href="lib/img/OLS-min-lvdt.svg#grid3d_2"></use>
+
+<use class="fragment" data-fragment-index="0" xlink:href="lib/img/OLS-min-lvdt.svg#grid3d_3"></use>
+
+<use class="fragment" data-fragment-index="2" xlink:href="lib/img/OLS-min-lvdt.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index="0" xlink:href="lib/img/OLS-min-lvdt.svg#axis3d_1"></use>
+
+<use class="fragment" data-fragment-index="0" xlink:href="lib/img/OLS-min-lvdt.svg#axis3d_2"></use>
+
+<use class="fragment" data-fragment-index="0" xlink:href="lib/img/OLS-min-lvdt.svg#axis3d_3"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Point out the residual calctulation inside mse formula.</p>
+
+<p>
+
+Recall, what is error? The standardized area (distance) of the deviations between some point and some model.
+
+</p>
+
+<p>
+
+It turns out, that if you follow the derivation, the minimum of $(y_i-a)^2$ is simply $\mathbb{E}[X|Y=y]$.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- The Data -->
+
+<section data-auto-animate>
+
+<style>
+
+.dataframe tr,
+
+.dataframe td,
+
+.dataframe th {
+
+text-align: center !important;
+
+}
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>High-Precision Positioning</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:2fr 1fr;grid-template-rows:1fr;gap:5px;grid-auto-rows:1fr;">
+
+<div style="text-align:justify;text-justify:inter-word;font-size:100%;display:grid;grid-template-columns:1fr;grid-auto-rows:auto;row-gap:2vmin;">
+
+<p data-id="instruction">
+
+Calculate the model predictions ($\widehat{Y}_i$):
+
+</p>
+
+<p data-id="mathblock">
+
+$\hat{y}_i=0.10+0.95x_i$
+
+</p>
+
+<div data-id="img" style="width:70%;justify-self:center;">
+
+<svg width="100%" viewBox="0 0 460.8 345.6">
+
+<use xlink:href="lib/img/regression-example-lvdt.svg#axes_1"></use>
+
+<use xlink:href="lib/img/regression-example-lvdt.svg#axes_2"></use>
+
+<use xlink:href="lib/img/regression-example-lvdt.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+<div class="full-width" style="font-size:90%;text-align:center;">
+
+<table border="1" class="dataframe">
+
+<thead>
+
+<tr style="text-align: center;">
+
+<th>x</th>
+
+<th>y</th>
+
+<th class="fragment highlight-current-bg-danger-white" data-fragment-index="1">$\hat{y}_i$</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>3.96</td>
+
+<td>4.212</td>
+
+<td class="fragment highlight-current-bg-danger-white" data-fragment-index="1">3.872362</td>
+
+</tr>
+
+<tr>
+
+<td>8.00</td>
+
+<td>7.981</td>
+
+<td class="fragment highlight-current-bg-danger-white" data-fragment-index="1">7.717283</td>
+
+</tr>
+
+<tr>
+
+<td>7.75</td>
+
+<td>6.954</td>
+
+<td class="fragment highlight-current-bg-danger-white" data-fragment-index="1">7.479355</td>
+
+</tr>
+
+<tr>
+
+<td>2.83</td>
+
+<td>2.461</td>
+
+<td class="fragment highlight-current-bg-danger-white" data-fragment-index="1">2.796926</td>
+
+</tr>
+
+<tr>
+
+<td>2.39</td>
+
+<td>2.655</td>
+
+<td class="fragment highlight-current-bg-danger-white" data-fragment-index="1">2.378172</td>
+
+</tr>
+
+<tr>
+
+<td>6.18</td>
+
+<td>6.169</td>
+
+<td class="fragment highlight-current-bg-danger-white" data-fragment-index="1">5.985165</td>
+
+</tr>
+
+<tr>
+
+<td>8.80</td>
+
+<td>8.359</td>
+
+<td class="fragment highlight-current-bg-danger-white" data-fragment-index="1">8.478654</td>
+
+</tr>
+
+<tr>
+
+<td>4.60</td>
+
+<td>4.367</td>
+
+<td class="fragment highlight-current-bg-danger-white" data-fragment-index="1">4.481458</td>
+
+</tr>
+
+<tr>
+
+<td>7.05</td>
+
+<td>7.157</td>
+
+<td class="fragment highlight-current-bg-danger-white" data-fragment-index="1">6.813155</td>
+
+</tr>
+
+<tr>
+
+<td>3.44</td>
+
+<td>3.065</td>
+
+<td class="fragment highlight-current-bg-danger-white" data-fragment-index="1">3.377471</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>High-Precision Positioning</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-template-rows:1fr;gap:5px;width:80%;">
+
+<div style="text-align:justify;text-justify:inter-word;font-size:100%;display:grid;grid-template-columns:1fr;grid-auto-rows:auto;row-gap:2vmin;">
+
+<p data-id="instruction">
+
+Then, Check the "Goodness Of Fit":
+
+</p>
+
+<div class="grid-generic" style="width:80%;align-self:start;justify-self:center;;grid-template-columns:1fr;grid-template-rows:1fr auto;">
+
+<div style="align-self:start;justify-self:center;">
+
+<p style="font-size:60%;justify-self:center;" class="fragment" data-id="mathblock">
+
+$\begin{align}
+
+TSS&=\sum_{i=1}^{n}(y_i-\bar{y})^2&=45.57\\
+
+SSE&=\sum_{i=1}^{n}(y_i-\hat{y}_i)^2&=0.927
+
+\end{align}$
+
+</p>
+
+<p style="font-size:60%;justify-self:center;" class="fragment">
+
+$\begin{align}R^2&=1-\frac{\mathrm{SSE}}{\mathrm{TSS}}=1-\frac{0.927}{45.57}&=0.9797\\
+
+\mathrm{RMSE}&=\sqrt{\frac{1}{n}SSE}=\sqrt{\frac{1}{10}0.927}&=0.304
+
+\end{align}$
+
+</p>
+
+</div>
+
+<div data-id="img" style="width:100%;height:100%;align-self:start;justify-self:center;">
+
+<svg height="80%" viewBox="0 0 460.8 345.6">
+
+<use xlink:href="lib/img/regression-example-lvdt.svg#axes_1"></use>
+
+<use xlink:href="lib/img/regression-example-lvdt.svg#axes_2"></use>
+
+<use xlink:href="lib/img/regression-example-lvdt.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="full-width" style="font-size:80%;text-align:center;">
+
+<table border="1" class="dataframe">
+
+<thead>
+
+<tr style="text-align: right;">
+
+<th>x</th>
+
+<th>y</th>
+
+<th>$(y_i-\hat{y}_i)^2$</th>
+
+<th>$(y_i-\bar{y})^2$</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>3.96</td>
+
+<td>4.212</td>
+
+<td>0.115354</td>
+
+<td>1.267876</td>
+
+</tr>
+
+<tr>
+
+<td>8.00</td>
+
+<td>7.981</td>
+
+<td>0.069547</td>
+
+<td>6.985449</td>
+
+</tr>
+
+<tr>
+
+<td>7.75</td>
+
+<td>6.954</td>
+
+<td>0.275998</td>
+
+<td>2.611456</td>
+
+</tr>
+
+<tr>
+
+<td>2.83</td>
+
+<td>2.461</td>
+
+<td>0.112846</td>
+
+<td>8.277129</td>
+
+</tr>
+
+<tr>
+
+<td>2.39</td>
+
+<td>2.655</td>
+
+<td>0.076634</td>
+
+<td>7.198489</td>
+
+</tr>
+
+<tr>
+
+<td>6.18</td>
+
+<td>6.169</td>
+
+<td>0.033795</td>
+
+<td>0.690561</td>
+
+</tr>
+
+<tr>
+
+<td>8.80</td>
+
+<td>8.359</td>
+
+<td>0.014317</td>
+
+<td>9.126441</td>
+
+</tr>
+
+<tr>
+
+<td>4.60</td>
+
+<td>4.367</td>
+
+<td>0.013101</td>
+
+<td>0.942841</td>
+
+</tr>
+
+<tr>
+
+<td>7.05</td>
+
+<td>7.157</td>
+
+<td>0.118229</td>
+
+<td>3.308761</td>
+
+</tr>
+
+<tr>
+
+<td>3.44</td>
+
+<td>3.065</td>
+
+<td>0.097638</td>
+
+<td>5.166529</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Standard Error Of The Estimates -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>High-Precision Positioning</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-template-rows:1fr;gap:5px;width:100%;">
+
+<div class="full-width" style="text-align:justify;text-justify:inter-word;font-size:85%;display:grid;grid-template-columns:1fr;grid-auto-rows:auto;row-gap:2vmin;">
+
+<h3 style="justify-self:center;text-align:center;">
+
+Investigate the Residuals
+
+</h3>
+
+<ul>
+
+<li class="fragment" data-fragment-index="1">Residual: The difference between actual and predicted values ($y_i-\hat{y}_i$).</li>
+
+<li class="fragment" data-fragment-index="1">If appropriate model chosen, residuals should have no apparent pattern, i.e., they should <span class="em">appear random</span>.</li>
+
+<li class="fragment emoji-exclamation" data-fragment-index="2">Do we have an obvious pattern or relationship?</li>
+
+<li class="fragment emoji-question" data-fragment-index="3">Homoscedastic   <span class="fragment success" data-fragment-index="4"><i class="fa-solid fa-check"></i></span></li>
+
+<li class="fragment emoji-star" data-fragment-index="4">There is no apparent pattern in the distribution of residuals w.r.t displacement.</li>
+
+<li class="fragment emoji-question" data-fragment-index="5">Gaussian (Normal) Distributed   <span class="fragment success" data-fragment-index="6"><i class="fa-solid fa-check"></i></span></li>
+
+<li class="fragment emoji-star" data-fragment-index="6">There is apparently random distribution of residuals around $0$, with relatively more frequent residuals near $0$.</li>
+
+<li class="fragment emoji-question" data-fragment-index="7">Independent   <span class="fragment success" data-fragment-index="8"><i class="fa-solid fa-check"></i></span></li>
+
+<li class="fragment emoji-star" data-fragment-index="8">There is no apparent dependence of $y_{i+1}$ on $x_i$.</li>
+
+</ul>
+
+<p class="fragment framed border-success" data-fragment-index="9" style="text-align:center;">
+
+It appears our <span class="success">Linear Model</span> is appropriate!
+
+</p>
+
+</div>
+
+<div class="full-width" style="justify-self:start;">
+
+<svg width="100%" viewBox="0 0 288 432">
+
+<use xlink:href="lib/img/regression-example-lvdt-residuals.svg#axes_1"></use>
+
+<use class="fragment" data-fragment-index="1" xlink:href="lib/img/regression-example-lvdt-residuals.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index="2" xlink:href="lib/img/regression-example-lvdt-residuals.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<ul style="font-size:80%">
+
+<li>We can use a number of methods to evaluate if our model is well fit. It is always advisable to look at the residuals.</li>
+
+<li>We can test residuals for a few features before we can really trust our coefficient of determination and RMSE</li>
+
+<li>Is there any qualitative pattern? How about a pattern we can quantify?</li>
+
+<li>If it were heteroscedastic, what could we do?</li>
+
+<li>What are ways we can test for normality? Histogram, Q-Norm, Shapiro-Wilks...</li>
+
+<li>Independence meaning, it shouldn't matter what order I collected the data in.</li>
+
+</ul>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Review: Linear Regression Concepts</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width left-justify small" style="
+
+grid-template-columns: 2.5fr 7.5fr;
+
+grid-auto-rows: auto;
+
+row-gap: 1vmin;
+
+column-gap: 0;
+
+">
+
+<div class="small border-bottom fragment" data-fragment-index="1" style="height: 100%; align-items: center">
+
+<p>
+
+<i class="fa-solid fa-lightbulb"></i> Linear Regression Model
+
+</p>
+
+</div>
+
+<div class="small border-bottom fragment" data-fragment-index="1" style="height: 100%; align-items: center">
+
+<p>
+
+The linear regression model follows the form \(y = \beta_0 + \beta_1 x\), aiming to minimize residuals for the best-fit line. Residuals are differences between observed values and model predictions.
+
+</p>
+
+</div>
+
+
+
+<div class="small border-bottom fragment" data-fragment-index="2" style="height: 100%; align-items: center">
+
+<p>
+
+<i class="fa-solid fa-lightbulb"></i> Goodness of Fit
+
+</p>
+
+</div>
+
+<div class="small border-bottom fragment" data-fragment-index="2" style="height: 100%; align-items: center">
+
+<p>
+
+Three key measures evaluate goodness of fit: \(R^2\) (coefficient of determination), RMSE (root mean square error), and the F-statistic (discussed in future lectures).
+
+</p>
+
+</div>
+
+
+
+<div class="small border-bottom fragment" data-fragment-index="3" style="height: 100%; align-items: center">
+
+<p>
+
+<i class="fa-solid fa-lightbulb"></i> Coefficient of Determination
+
+</p>
+
+</div>
+
+<div class="small border-bottom fragment" data-fragment-index="3" style="height: 100%; align-items: center">
+
+<p>
+
+\(R^2\) explains the proportion of variance in the response variable explained by the linear model. Higher values suggest a better model fit.
+
+</p>
+
+</div>
+
+
+
+<div class="small border-bottom fragment" data-fragment-index="4" style="height: 100%; align-items: center">
+
+<p>
+
+<i class="fa-solid fa-lightbulb"></i> RMSE
+
+</p>
+
+</div>
+
+<div class="small border-bottom fragment" data-fragment-index="4" style="height: 100%; align-items: center">
+
+<p>
+
+RMSE provides a measure of the average deviation between predicted and observed values. Lower RMSE values indicate better model accuracy.
+
+</p>
+
+</div>
+
+
+
+<div class="small border-bottom fragment" data-fragment-index="5" style="height: 100%; align-items: center">
+
+<p>
+
+<i class="fa-solid fa-lightbulb"></i> Residual Analysis
+
+</p>
+
+</div>
+
+<div class="small border-bottom fragment" data-fragment-index="5" style="height: 100%; align-items: center">
+
+<p>
+
+Analyzing residuals helps check for patterns. If residuals appear random with no patterns, the model is likely appropriate. Homoscedasticity and normality are desired properties.
+
+</p>
+
+</div>
+
+
+
+<div class="small border-bottom fragment" data-fragment-index="6" style="height: 100%; align-items: center">
+
+<p>
+
+<i class="fa-solid fa-lightbulb"></i> Limitations: Extrapolation
+
+</p>
+
+</div>
+
+<div class="small border-bottom fragment" data-fragment-index="6" style="height: 100%; align-items: center">
+
+<p>
+
+Caution is required when using regression models to extrapolate beyond the observed data range. Trends may change outside the dataset, leading to inaccurate predictions.
+
+</p>
+
+</div>
+
+
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+This recap covers essential linear regression concepts, including model evaluation metrics and residual analysis. The next focus will be on extending regression models to more complex scenarios.
+
+</p>
+
+</aside>
+        </section>
+        <section data-background-image="lib/img/inferences_bg.png" id="section-title-3">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-3">
+              <div class="section-number">
+                <span class="large-number">
+                  3
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Making Inferences
+                </h2>
+                <h3>
+                  And Predictions From Linear Models
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-3.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Section Notes</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- Regression Inference intro -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Inference</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;row-gap:1vmin;">
+
+<p>
+
+Previously, our focus was on using regression to describe a dataset
+
+without making <span class="pop">inferences</span> about the population.
+
+Now, we'll explore how to infer population relationships from our
+
+sample, specifically focusing
+
+on <span class="success">estimating the uncertainty</span> of our
+
+model's parameters.
+
+</p>
+
+<p class="em u">
+
+Some questions involving the population that we might ask when analyzing a relationship are:
+
+</p>
+
+<ul>
+
+<li class="fragment">
+
+Does the observed relationship <span class="pop">also occur</span> in the population?
+
+</li>
+
+<li class="fragment">
+
+For a linear relationship, what is the <span class="pop">slope of the regression line</span> in the population?
+
+</li>
+
+<li class="fragment">
+
+What is the <span class="pop">mean value of the response variable</span> (y) for individuals with a specific value of the explanatory variable (x)?
+
+</li>
+
+<li class="fragment">
+
+What <span class="pop">interval of values</span> predicts the value of the response variable (y) for an individual with a specific value of the explanatory variable (x)?
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Regression to describe population -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Describing A Population</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<div>
+
+The regression equation for a simple linear relationship in a population can be written as:
+
+</div>
+
+<div class="danger">
+
+<p>
+
+$$E(Y) = \beta_0 + \beta_1X + \epsilon$$
+
+</p>
+
+</div>
+
+<ul>
+
+<li class="fragment">
+
+$E(Y)$ represents the <span class="info">mean or expected value of y</span> for individuals in the population who all have the same particular value of x. Note that $\hat{y}$ is an estimate of $E(Y)$
+
+</li>
+
+<li class="fragment">
+
+$\beta_0$ is the <span class="info">intercept</span> of the line in the <span class="info">population</span>
+
+</li>
+
+<li class="fragment">
+
+$\beta_1$ is the <span class="info">slope</span> of the regression line in the <span class="info">population</span>. <span class="em"> Note that if the slope $\beta_1 = 0$, there is no linear relationship in the population</span>.
+
+</li>
+
+</ul>
+
+<p class="framed border-danger fragment">
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+Unless we measure the entire population, we cannot know the numerical values of $\beta_0$ and $\beta_1$. These are population parameters that we <span class="danger">estimate using the corresponding sample statistics</span>.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Tipping Patterens: Example Analysis -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Tipping Pattern</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-template-rows:1fr;column-gap:2vmin;">
+
+<div style="text-align:left;">
+
+<p>
+
+The owner of a bistro called <span class="em">First Crush</span> in Potsdam, New York, was interested in studying the <span class="danger">tipping patterns of its patrons</span>.
+
+</p>
+
+<p class="no-margin-bottom">
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+He collected restaurant bills over a
+
+two-week period that he believes provide a
+
+<span class="info">good sample of his customers</span>. He recorded the data from 157 bills including:
+
+</p>
+
+<ul class="small">
+
+<li>amount of the bill</li>
+
+<li>amount of the tip</li>
+
+<li>corresponding percentage of the tip</li>
+
+<li>number of customers in the group</li>
+
+<li>whether or not a credit card was used</li>
+
+<li>day of the week</li>
+
+<li>coded identity of the server</li>
+
+</ul>
+
+</div>
+
+<div>
+
+<img src="lib/img/regression-tipping-first-crush.jpg" width=100% class="rounded">
+
+<p>(Multivariate dataset)</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Tipping Pattern: Predict 1 -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Tipping Pattern Data</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.5fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div style="grid-column:1/2;grid-row:2/3;">
+
+<svg width="100%" viewBox="0 0 432 306">
+
+<use xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_1"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index=4 xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_5"></use>
+
+<use class="fragment" data-fragment-index=3 xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_3"></use>
+
+<use class="fragment" data-fragment-index=0 xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_6"></use>
+
+</svg>
+
+</div>
+
+<div style="grid-column:2/3;grid-row:2/3;text-align:left;">
+
+<p class="u em center-justify">
+
+We want to predict the <span class="info">tip amount</span> based on the <span class="danger">bill amount</span>.
+
+</p>
+
+<p class="small">
+
+<i class="fa fa-arrow-circle-right info"></i>
+
+1) View the scatterplot of the data:
+
+</p>
+
+<ul class="smaller icon fragment" data-fragment-index="0">
+
+<li class="play">strong <span class="success">positive relationship</span> in the data</li>
+
+<li class="play">few <span class="danger">outliers</span> (big tippers) above the main pattern</li>
+
+</ul>
+
+<p class="small fragment" data-fragment-index=2 >
+
+<i class="fa fa-arrow-circle-right danger"></i>
+
+2) Let's build a linear model of the association.
+
+</p>
+
+<p class="smaller fragment" data-fragment-index="3">
+
+$$
+
+\begin{aligned}
+
+\hat{\beta}_1 &=& \frac{s_{xy}}{s^2_x} &=& \frac{26.9}{147.8} &=& 0.182 \\
+
+\hat{\beta}_0 &=& \bar{y} - \hat{\beta}_1 \bar{x} &=& 3.8 - 0.182(22.7) &=& -0.292 \\
+
+R^2 &=& 1-\frac{SSE}{SST} &=& 1 - \frac{148.72}{914.25} &=& 0.837
+
+\end{aligned}
+
+$$
+
+</p>
+
+</div>
+
+<div style="grid-column:1/3;grid-row:3/4;">
+
+<p class="small fragment" data-fragment-index=1>
+
+<i class="fa fa-arrow-circle-right info"></i>
+
+Pearson's correlation, $r=0.915$, reinforces the observation of a
+
+<span class="u">strong positive linear relationship</span>.
+
+</p>
+
+<p class="small fragment" data-fragment-index=4>
+
+<i class="fa fa-arrow-circle-right warning"></i>
+
+A high <span class="em">coefficient of determination</span>, $R^2=0.837$,
+
+suggests that $\sim84\%$ of the variation in tip can be <span class="warning">explained</span>
+
+by the variation in bill amount.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>The scatter plot shows what?</p>
+
+<p>More specifically OUR linear model is probably good.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Tipping Pattern: Predict 2 -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Tipping Pattern Data</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.5fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div style="grid-column:1/2;grid-row:2/3;">
+
+<svg width="100%" viewBox="0 0 432 306">
+
+<use xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_1"></use>
+
+<use xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_2"></use>
+
+<use xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_5"></use>
+
+<use xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+<div style="grid-column:2/3;grid-row:2/3;text-align:left;">
+
+<p class="u em center-justify">
+
+We want to predict the <span class="info">tip amount</span> based on the <span class="danger">bill amount</span>.
+
+</p>
+
+<p class="small">
+
+The statistical model (linear): $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x = -0.292+0.182x$
+
+</p>
+
+<p class="small fragment em" data-fragment-index="1">
+
+What does the slope mean?
+
+</p>
+
+<p class="fragment strong" data-fragment-index="2">
+
+An <span class="danger">average</span> increased tip of $\$0.18$ for
+
+<span class="info">each dollar </span> increase in the bill.
+
+</p>
+
+<p class="small fragment em" data-fragment-index="3">
+
+What is the <span class="warning">uncertainty</span> of this estimate?
+
+</p>
+
+<p class="small fragment em" data-fragment-index="4">
+
+As usual, $CI = \hat{\beta}_i \pm t_{\frac{\alpha}{2},\nu}\cdot \text{SE}(\hat{\beta}_i)$, where $\nu=n-p-1$ and $p$ is the number of <span class="em">predictors</span>.
+
+</p>
+
+</div>
+
+<div class="framed border-info bg-info-alpha-02 fragment" style="grid-column:1/3;grid-row:3/4;" data-fragment-index="5">
+
+<p class="fragment em small" data-fragment-index="5">
+
+The standard error of the slope, $SE(\hat{\beta}_1)$, represents the standard deviation of the sampling distribution of the slope.
+
+</p>
+
+<p class="bigger fragment pop" data-fragment-index="6">
+
+How do we estimate the standard error of the coefficients ($SE(\hat{\beta}_i)$)?
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Slope: Since this is average based on our sample, what does it mean for
+
+<strong>all patrons, ever</strong>? How do we estimate this uncertainty? (go to next fragment)
+
+</p>
+
+<p>
+
+Since p is the number of predictors less the constant term, in this simple
+
+linear regression, we have beta 1 and the constant (beta 0) term, so p = 1.
+
+</p>
+
+<p>
+
+SE of beta is the standard deviation of the sampling distribution of betas.
+
+So we need a way of estimating what that sampling distribution is.
+
+<em>What do you think a good estimate of the standardized errors is?</em>
+
+</p>
+
+<p>
+
+We need a term that represents the average amount of deviation from the prediction...
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Tipping Pattern: Predict 3 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Uncertainty in $\hat{\beta}$ Estimates</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<!-- MSE Definition -->
+
+<div class="small fragment sided border-info no-hang" data-fragment-index="1" style="grid-column:1/3;">
+
+<p class="small">
+
+We can relate the sampling distributions for the $\beta$ estimates ($\hat{\beta}$
+
+is the estimator for the population $\beta$) by estimating standard error
+
+of the regression from the variance of the residuals (<span class="em">Mean Squared Error</span>):
+
+</p>
+
+<p>$$ MSE = \frac{SSE}{n - p - 1} $$</p>
+
+<p class="smallest">Recall \( SSE \) is the Sum of Squared Errors, $SSE = \sum (y_i - \hat{y})^2$, \( n \) is the number of observations, and \( p \) is the number of predictors (<span class="em">excluding</span> the intercept).</p>
+
+<p class="smallest">
+
+MSE is an estimate of the variance of the error term \( \epsilon \)
+
+in the population model: $Y=\beta_0+\beta_1X+\epsilon$.
+
+</p>
+
+</div>
+
+<!-- SE for Slope (b1) -->
+
+<div class="fragment no-hang" data-fragment-index="2">
+
+<p><span class="em">Standard Error of Slope \( \hat{\beta}_1 \):</span></p>
+
+<div class="smallest">$$ SE(\hat{\beta}_1) = \sqrt{\text{Var}(\hat{\beta}_1)} = \sqrt{\frac{MSE}{\sum (x_i - \bar{x})^2}} $$</div>
+
+<p class="smallest">The standard error of \( \hat{\beta}_1 \) quantifies the precision of the slope estimate. It's calculated as the square root of the variance of \( \hat{\beta}_1 \), which is derived from the mean of the squared deviations of our predictor \( x \) from its mean \( \bar{x} \), scaled by the MSE. This variance reflects how much the slope would vary across different samples from the same population.</p>
+
+</div>
+
+<!-- SE for Intercept (b0) -->
+
+<div class="fragment no-hang" data-fragment-index="3">
+
+<p><span class="em">Standard Error of Intercept \( \hat{\beta}_0 \):</span></p>
+
+<div class="smallest">$$ SE(\hat{\beta}_0) = \sqrt{MSE \left(\frac{1}{n} + \frac{\bar{x}^2}{\sum (x_i - \bar{x})^2}\right)} $$</div>
+
+<p class="smallest">The standard error of \( \hat{\beta}_0 \) represents the spread of the intercept's sampling distribution. The formula accounts for the average squared distance of \( x \) values from their mean, suggesting as this distance increases, or as the sample size \( n \) grows, our estimate of \( \hat{\beta}_0 \) becomes more precise.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Just like estimating the se of the mean (recall sqrt(var(x)/(n-1))), we
+
+can estimate the standard error the beta coefficients by assessing the
+
+spread of the residuals wrt to the prediction, and standardizing it.
+
+</p>
+
+<p>
+
+That is, we take the SSE and standardize it by the variation in the x variable, or by scaling it with the average fractional variation in x.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Tipping Pattern: Slope 95%CI Calculation -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Tipping Pattern Data</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic no-hang" style="grid-template-columns:1fr 2.5fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div style="grid-column:1/2;grid-row:2/3;align-self:center;">
+
+<svg width="100%" viewBox="0 0 432 306">
+
+<use xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_1"></use>
+
+<use xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_2"></use>
+
+<use xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_5"></use>
+
+<use xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+<div style="grid-column:2/3;grid-row:2/3;text-align:left;">
+
+<p class="u em center-justify">
+
+We want to predict the <span class="info">tip amount</span> based on the <span class="danger">bill amount</span>.
+
+</p>
+
+<p class="smaller">
+
+The statistical model (linear): $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x = -0.2923+0.1822x$
+
+</p>
+
+<p class="small em">
+
+What is the <span class="warning">uncertainty</span> of our <span class="success">slope</span> estimate?
+
+</p>
+
+<!-- MSE Calculation -->
+
+<div class="fragment grid-generic no-hang smaller" data-fragment-index="1" style="grid-template-columns: 1fr auto;">
+
+<p><span class="em">Mean Squared Error (MSE):</span></p>
+
+<div class="smallest">$$ MSE = \frac{148.72}{155} \approx 0.9595 $$</div>
+
+</div>
+
+<!-- SE for Slope (b1) -->
+
+<div class="fragment grid-generic no-hang smaller" data-fragment-index="2" style="grid-template-columns: 1fr auto;">
+
+<p><span class="em">Standard Error of Slope \( \hat{\beta}_1 \):</span></p>
+
+<div class="smallest">$$ SE(\hat{\beta}_1) = \sqrt{\frac{0.9595}{147.80 \times 156}} \approx \sqrt{\frac{0.9595}{23056.8}} \approx 0.0065 $$</div>
+
+</div>
+
+<!-- CI for Slope (b1) -->
+
+<div class="fragment grid-generic no-hang smaller" data-fragment-index="3" style="grid-template-columns: 1fr auto;">
+
+<p><span class="em">95% Confidence Interval for Slope \( \hat{\beta}_1 \):</span></p>
+
+<div class="smallest">
+
+$$ CI = 0.1822 \pm 1.975 \times 0.0065 \approx (0.1822 \pm 0.0128) $$
+
+$$ CI \approx (0.1694, 0.1950) $$
+
+</div>
+
+</div>
+
+</div>
+
+<div class="framed border-info bg-info-alpha-02 fragment" style="grid-column:1/3;grid-row:3/4;" data-fragment-index="5">
+
+<p class="fragment em smaller" data-fragment-index="2">
+
+The slope of 0.1822, with a 95% confidence interval of (0.1694, 0.1950),
+
+suggests a positive relationship between the bill amount and the tip
+
+amount. Specifically, it indicates that, on average, a one-dollar
+
+increase in the bill is associated with an increase in the tip
+
+amount by approximately 0.1822 dollars. The fact that the confidence
+
+interval does not include 0 reinforces the statistical significance
+
+of this relationship, suggesting that the bill amount is a meaningful
+
+predictor of the tipping amount within the context of this model.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Emphasize the practical meaning of the slope's confidence interval.
+
+It's not just about the numbers; it's about the certainty we have
+
+regarding the true effect of the bill amount on the tip given.
+
+Also, remind the audience that the wider the confidence interval,
+
+the less precise our estimate is. This can be due to small sample
+
+size, high variability in the data, or both.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Tipping Pattern: Intercept 95%CI Calculation -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Tipping Pattern Data</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic no-hang" style="grid-template-columns:1fr 2.5fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div style="grid-column:1/2;grid-row:2/3;align-self:center;">
+
+<svg width="100%" viewBox="0 0 432 306">
+
+<use xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_1"></use>
+
+<use xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_2"></use>
+
+<use xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_5"></use>
+
+<use xlink:href="lib/img/regression-tipping-data-tip-vs-bill.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+<div style="grid-column:2/3;grid-row:2/3;text-align:left;">
+
+<p class="u em center-justify">
+
+We want to predict the <span class="info">tip amount</span> based on the <span class="danger">bill amount</span>.
+
+</p>
+
+<p class="smaller">
+
+The statistical model (linear): $\hat{y} = \beta_0 + \beta_1 x = -0.2923 + 0.1822x$
+
+</p>
+
+<p class="small em">
+
+What is the <span class="warning">uncertainty</span> of our <span class="pop">intercept</span> estimate?
+
+</p>
+
+<!-- SE for Intercept (b0) -->
+
+<div class="fragment no-hang smaller" data-fragment-index="1">
+
+<p><span class="em">Standard Error of Intercept \( \hat{\beta}_0 \):</span></p>
+
+<div class="smallest">$$ SE(\hat{\beta}_0) = \sqrt{MSE \left(\frac{1}{n} + \frac{\bar{x}^2}{\sum (x_i - \bar{x})^2}\right)} = \sqrt{0.9595 \left(\frac{1}{157} + \frac{22.73^2}{23056.54}\right)} \approx 0.166 $$</div>
+
+</div>
+
+<!-- CI for Intercept (b0) -->
+
+<div class="fragment no-hang smaller" data-fragment-index="2">
+
+<p><span class="em">95% Confidence Interval for Intercept \( \hat{\beta}_0 \):</span></p>
+
+<div class="smallest">
+
+$$ CI = -0.2923 \pm 1.975 \times 0.166 \approx (-0.2923 \pm 0.3279)$$
+
+$$ \approx (-0.620, 0.036) $$
+
+</div>
+
+</div>
+
+</div>
+
+<div class="framed border-info bg-info-alpha-02 fragment" style="grid-column:1/3;grid-row:3/4;" data-fragment-index="3">
+
+<p class="fragment em smaller" data-fragment-index="2">
+
+The intercept of -0.2923, with a 95% confidence interval of
+
+approximately (-0.620, 0.036), indicates the expected tip amount
+
+when the bill is $0. The inclusion of 0 in this interval suggests
+
+that we cannot conclusively assert a nonzero base tip amount independent
+
+of the bill's value. In other words, while the model suggests a
+
+potential base tip, the data does not provide strong enough evidence
+
+to confirm this is always the case regardless of the bill amount.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Is this model really a reflection on reality? What could we do with this model
+
+and how could we "test" it (ask another word for "test").
+
+</p>
+
+<p>
+
+Think about base tip amount, or liken to a threshold of the model or a
+
+threshold to consider, i.e., $1.60 bill is the minimum bill, above which the
+
+model predicts a tip.
+
+</p>
+
+<p>
+
+When discussing the intercept's confidence interval, emphasize that its
+
+inclusion of zero means we can't definitively state there's a base tip
+
+amount that's always present regardless of the bill's size. This nuance
+
+is crucial for understanding the limits of what our model can tell us
+
+about tipping behavior when the bill amount is zero. It's an invitation
+
+to consider other factors that might influence tipping or to gather more
+
+data to refine our understanding. Highlight that while the model suggests
+
+a potential baseline tipping behavior, the evidence isn't strong enough
+
+to establish this as a consistent pattern across all possible scenarios.
+
+</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+      </div>
+      <footer class="main-footer">
+        <span>
+          Lecture 14
+        </span>
+        <span style="text-align:center;">
+        </span>
+        <span style="text-align:right;">
+          <a href="https:\\khrisgriffis.com" target="_blank" rel="noopener noreferrer">Khris Griffis &#169;2025</a>
+        </span>
+      </footer>
+    </div>
+    <script src="./src/reveal.js">
+    </script>
+    <script src="./src/plugin/notes/notes.js">
+    </script>
+    <script src="./src/plugin/highlight/highlight.js">
+    </script>
+    <script src="./src/plugin/math/math.js">
+    </script>
+    <script src="./src/plugin/reveal-splash/reveal-splash.js">
+    </script>
+    <script src="./src/plugin/vizzy-reveal/vizzy.js">
+    </script>
+    <script>
+      Reveal.initialize({
+autoSlide: 0,
+center: true,
+controls: true,
+controlsBackArrows: "faded",
+controlsLayout: "bottom-right",
+display: "block",
+fragments: true,
+fragmentInURL: true,
+hash: true,
+hideCursorTime: 5000,
+keyboard: true,
+mobileViewDistance: 3,
+mouseWheel: false,
+navigationMode: "linear",
+overview: true,
+pdfMaxPagesPerSlide: 1,
+pdfSeparateFragments: false,
+preloadIframes: null,
+progress: false,
+showNotes: false,
+showSlideNumber: "print",
+sortFragmentsOnSync: true,
+touch: true,
+transition: "fade",
+transitionSpeed: "default",
+viewDistance: 3,
+backgroundTransition: "fade",
+controlsTutorial: false,
+embedded: false,
+help: true,
+hideInactiveCursor: true,
+history: false,
+loop: false,
+previewLinks: false,
+rtl: false,
+shuffle: false,
+slideNumber: false,
+width: 1920,
+height: 1080,
+margin: 0.081,
+minScale: 0.08,
+maxScale: 1.67,
+mathjax3: {
+mathjax: "https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-mml-chtml.js",
+loader: {
+load: [
+"[tex]/html",
+],
+},
+tex: {
+packages: {
+'[+]': [
+"html",
+],
+},
+inlineMath: [
+["$", "$"],
+["\\(", "\\)"],
+],
+processEscapes: true,
+processEnvironments: true,
+},
+options: {
+skipHtmlTags: [
+"script",
+"noscript",
+"style",
+"textarea",
+"pre",
+],
+enableMenu: false,
+},
+chtml: {
+scale: 0.8,
+minScale: 0.4,
+},
+Safe: {
+sizeMin: 0.4,
+sizeMax: 1.25,
+},
+output: {
+linebreaks: {
+inline: true,
+width: "100%",
+lineleading: 0.2,
+LinebreakVisitor: null,
+},
+},
+},
+notes: {
+
+},
+highlight: {
+
+},
+vizzy: {
+autoRunTransitions: true,
+autoTransitionDelay: 100,
+devMode: false,
+onSlideChangedDelay: 0,
+},
+splash: {
+splashImage: "lib/img/ME3040_splash.png",
+text: "Welcome to ME3040!",
+minimumDisplay: 2,
+},
+plugins: [RevealNotes, RevealHighlight, RevealMath.MathJax3, Splash, Vizzy]
+});
+    </script>
+  </body>
+</html>

@@ -1,0 +1,3215 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="notranslate" name="google"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>
+      Proportional Relationships Introduction to $\chi^2$
+    </title>
+    <link href="lib\favicon.png" rel="icon" type="image/x-icon"/>
+    <link href="./src/css/reset.css" rel="stylesheet"/>
+    <link href="./src/css/reveal.css" rel="stylesheet"/>
+    <link href="./src/css/revealpack.css" rel="stylesheet"/>
+    <link href="./src/theme/drG.css" id="theme" rel="stylesheet"/>
+    <!-- highlight.js theme -->
+    <link href="./src/theme/vs.css" id="highlight-theme" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <!-- Custom Scripts -->
+    <!-- Print PDF script -->
+    <script>
+      var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match(/print-pdf/gi) ? './src/css/print/pdf.css' : './src/css/print/paper.css';
+document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!-- Deck CSS Injections -->
+    <!-- Deck Script Injections -->
+    <!-- Deck Raw Injections -->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-image="lib/img/chi-squared-bg.png" data-background-size="cover" id="deck-title-slide">
+          <div class="title-slide background">
+            <div class="headline">
+              <h2 class="r-fit-text">
+                Proportional Relationships
+              </h2>
+              <h3>
+                Introduction to $\chi^2$
+              </h3>
+            </div>
+            <div class="sub-header">
+              <p class="by">
+                Khris Griffis, Ph.D.
+              </p>
+            </div>
+            <div class="byline">
+              <p class="byinfo">
+                Lecture 20
+              </p>
+              <p class="byinfo">
+                CSULA: ME3040
+              </p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Today's Objectives</h2>
+
+</div>
+
+<div class="content">
+
+<div
+
+class="grid-generic full-width left-justify big"
+
+style="grid-template-columns: 1fr; grid-auto-rows: auto; row-gap: 5vmin"
+
+>
+
+<div class="border-bottom fragment" data-fragment-index="1">
+
+<p><i class="target"></i> Brief methods recap</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="2">
+
+<p><i class="target"></i> Introduction to generalized analysis of categorical data</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="3">
+
+<p><i class="target"></i> $\chi^2$ goodness of fit test</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p></p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section data-background-gradient="radial-gradient(#0066ff, #ff6600)" id="section-title-1">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-1">
+              <div class="section-number">
+                <span class="large-number">
+                  1
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Interlude:
+                </h2>
+                <h3>
+                  A Brief Recap Of Methods
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-1.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Section Notes</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- Methods So Far... -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Methods So Far...</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr 1fr;grid-auto-rows:1fr;gap:1vmin;">
+
+<!-- left column -->
+
+<div class="framed border-info fragment smaller" style="height:100%;" data-fragment-index=1>
+
+<div class="no-hang">
+
+<h4>Proportional</h4>
+
+<p>(one variable)</p>
+
+</div>
+
+<ul>
+
+<li role="fa" data-icon="&#xf0c3;" class="fragment">Observe number of simple events over the course of an experiment.</li>
+
+<li role="fa" data-icon="&#xf080;" class="fragment">Use a histogram, or frequency table, or dotplot, to "tally" or visualize the relative frequencies.</li>
+
+<li role="fa" data-icon="&#xf1ec;" class="fragment">Construct a Null distribution and determine the relationship between the <span class="info">observed frequency</span> and the <span class="orange">expected frequency</span>.</li>
+
+</ul>
+
+<p class="normal info fragment">We ask whether the proportion of events we observe is related to, i.e. governed by, the probability of <span class="success">happening by random chance</span>.</p>
+
+</div>
+
+<!-- middle -->
+
+<div class="framed border-info fragment smaller" style="height:100%;" data-fragment-index=2>
+
+<div class="no-hang">
+
+<h4>Inferential</h4>
+
+<p class="danger">(one or two variables)</p>
+
+</div>
+
+<ul>
+
+<li role="fa" data-icon="&#xf0c3;" class="fragment">Measure some <span class="success">quantitative</span> variables and analyze the values.</li>
+
+<li role="fa" data-icon="&#xf080;" class="fragment">We use a dot plot, or histogram, to visualize the <span class="purple">shape</span> of the distribution(s). For bivariate data, we can use a scatter plot to visualize the <span class="purple">shape</span> of the relationship.</li>
+
+<li role="fa" data-icon="&#xf1ec;" class="fragment">Construct a confidence interval around <span class="info">statistics</span> that <em>describe</em> the data, e.g. median, MAD, mode, \(\rho\).</li>
+
+</ul>
+
+<p class="fragment">We consider the possible range over which our chosen <span class="info">statistics</span> are related to the population <span class="danger">parameters</span>.</p>
+
+</div>
+
+
+
+<!-- right column -->
+
+<div class="framed border-info fragment smaller" style="height:100%;" data-fragment-index=3>
+
+<div class="no-hang">
+
+<h4>Predictive</h4>
+
+<p>(two or more variables)</p>
+
+</div>
+
+<ul>
+
+<li role="fa" data-icon="&#xf0c3;" class="fragment">Measure some <span class="success">quantitative</span> variables, construct a statistical model describing the observed relationship and then <span class="info">predict</span> new outcomes based on new data.</li>
+
+<li role="fa" data-icon="&#xf080;" class="fragment">We enhance visualizations with curves, lines and dimensions to show <span class="info">relationship details</span>.</li>
+
+<li role="fa" data-icon="&#xf1ec;" class="fragment">Construct a confidence interval around <span class="info">fit-parameters</span> that <em>describe</em> the relationship.</li>
+
+</ul>
+
+<p class="fragment">We consider the possible range over which our <span class="orange">model</span>, i.e. the regression line, can explain the <span class="info">variance </span> in our response variable using our measured predictors.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Proportional can be thought of as the coin flip example, or dice roll, where we used a geometric or binomial distribution to assess the empirical probability</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Analyses Recap -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Analyses Recap</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<!-- left -->
+
+<div>
+
+<ul>
+
+<li role="fa" data-icon="&#xf1ec;" class="big orange fragment" data-fragment-index="1">Null Hypothesis Significance Testing</li>
+
+<ul class="small" style="min-height: 15em;">
+
+<li class="fragment" data-fragment-index="3">Testing if a proportion differs from chance</li>
+
+<li class="fragment" data-fragment-index="4">Testing if a mean differs from a reference value (z-test with known $\sigma$, t-test with unknown $\sigma$)</li>
+
+<li class="fragment" data-fragment-index="5">Testing if two independent groups differ (Student's t-test, Welch's t-test)</li>
+
+<li class="fragment" data-fragment-index="5">Testing if paired measurements differ (paired t-test)</li>
+
+<li class="fragment" data-fragment-index="6">Testing if a correlation exists (Pearson's r, Spearman's rho)</li>
+
+<li class="fragment" data-fragment-index="7">Testing if regression coefficients differ from zero</li>
+
+<li class="fragment" data-fragment-index="8">Testing if group means differ (one-way ANOVA)</li>
+
+</ul>
+
+</ul>
+
+</div>
+
+<!-- right -->
+
+<div>
+
+<ul>
+
+<li role="fa" data-icon="&#xf1ec;" class="big info fragment" data-fragment-index="2">Confidence Intervals for Effects</li>
+
+<ul class="small" style="min-height: 15em;">
+
+<li class="fragment" data-fragment-index="3">95% CI on the observed proportion<br><br><br></li>
+
+<li class="fragment" data-fragment-index="5">95% CI on the mean difference between groups<br><br></li>
+
+<li class="fragment" data-fragment-index="5">95% CI on the mean of paired differences<br><br></li>
+
+<li class="fragment" data-fragment-index="6">95% CI on the correlation coefficient<br><br></li>
+
+<li class="fragment" data-fragment-index="7">95% CI on regression parameters</li>
+
+<li class="fragment" data-fragment-index="8">95% CI on contrasts between groups</li>
+
+</ul>
+
+</ul>
+
+</div>
+
+<!-- bottom -->
+
+<div class="framed border-success fragment" style="grid-column:1/3;" data-fragment-index="9">
+
+<p data-fragment-index="10">Notice that we have taken two approaches for every test case. What is left to cover?</p>
+
+<p class="fragment info center" data-fragment-index="11">Testing 2 (or more) proportions.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<!-- Generalized Analytics -->
+
+<section data-transition="slide-in">
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Generalized Analytics</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p>
+
+So far, we have explored tests of significance, confidence intervals, generalization, and causation for situations limited to the <span class="danger">analysis of a single variable</span> (categorical or quantitative), or to the <span class="danger">comparison of two groups</span>.
+
+</p>
+
+<p class="fragment" data-fragment-index="1">
+
+With linear regression, we've started to study <span class="pop">more complex situations</span>: the explanatory variable could actually get more than only two values, and we could make inference about an association of two quantitative variables.
+
+</p>
+
+<p class="fragment framed border=danger" data-fragment-index="2">
+
+<i class="fa fa-arrow-circle-right danger"></i>
+
+Today, we will continue to study more <span class="danger">general situations</span>,
+
+and see how we can deal with situations in which we have to analyze <span class="danger">more than
+
+two proportions</span>.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Slide Title -->
+
+<section data-transition="slide-out">
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Generalized Analytics</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:0.4fr 9.6fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="height:100%;">
+
+<svg viewBox="-3 0 35 520" height="80%">
+
+<defs>
+
+<marker id="arrow" markerWidth="15" markerHeight="15" refX="0" refY="3" orient="auto" markerUnits="strokeWidth" viewBox="0 0 20 20">
+
+<path d="M0,0 L0,6 L9,3 z" fill="#000" />
+
+</marker>
+
+</defs>
+
+<line x1="20" y1="30" x2="20" y2="420" stroke="#000" stroke-width="3" marker-end="url(#arrow)"/>
+
+<text transform="translate(12, 210), rotate(-90)" style="text-anchor: middle; font-size: 0.5em;">More general situations</text>
+
+</svg>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div style="height:100%;">
+
+<div>
+
+<p class="framed border-danger bg-danger-light full-width">
+
+Significance testing
+
+</p>
+
+</div>
+
+<div class="left-justify">
+
+<p class="small">
+
+One proportion (probabilistic model)
+
+</p>
+
+<p class="small">
+
+One quantitative variable (z-test)
+
+</p>
+
+<p class="small">
+
+Difference between two groups (proportions, Student/Welch t-test)
+
+</p>
+
+<p class="small">
+
+Difference between before/after treatment (paired)
+
+</p>
+
+<p class="small">
+
+Bivariate data, quantitative relationship (Pearson/Spearman correlation)
+
+</p>
+
+<p class="small">
+
+Model of association (linear regression)
+
+</p>
+
+<p class="small">
+
+Differences between multiple groups (ANOVA)
+
+</p>
+
+</div>
+
+</div>
+
+<div style="height:100%;">
+
+<div>
+
+<p class="framed border-info bg-info-light full-width">
+
+Effect size (confidence intervals)
+
+</p>
+
+</div>
+
+<div class="left-justify">
+
+<p class="small">
+
+Estimate of true proportion/mean
+
+</p>
+
+<p class="small">
+
+Estimate of effect size (difference between two groups, categorical or quantitative)
+
+</p>
+
+<p class="small">
+
+Estimate of effect size when paired structure
+
+</p>
+
+<p class="small">
+
+Estimate of true correlation
+
+</p>
+
+<p class="small">
+
+Estimate of true parameters for association model
+
+</p>
+
+<p>
+
+Estimate of variance contributions ($\eta^2,\,\eta^2_p$)
+
+</p>
+
+</div>
+
+</div>
+
+<div class="framed border-pop fragment" style="grid-column:1/3;">
+
+<p>
+
+<i class="fa fa-arrow-circle-right pop"></i>
+
+Today, we will continue to study more <span class="pop">general situations</span>,
+
+and see how we can deal with situations in which we have to analyze <span class="pop">more than
+
+two proportions</span> (multiple explanatory and response variable, all categorical).
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/bg-mice-examine-dark-03.webp" id="section-title-2">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-2">
+              <div class="section-number">
+                <span class="large-number">
+                  2
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Categorical Data
+                </h2>
+                <h3>
+                  Comparing Counts
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-2.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Section Notes</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- Categorical Variables -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Categorical Variables</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:4fr 6fr;grid-auto-rows:auto;gap:5vmin;">
+
+<!-- top -->
+
+<div style="grid-column: 1/3;">
+
+<p>Categorical variables have discrete bins, usually used for counting events, like a <span class="em">coin flip</span>.</p>
+
+</div>
+
+<!-- left -->
+
+<div style="height:100%;">
+
+<p class="smaller u em">
+
+Single categorical variable
+
+</p>
+
+<table class="center small push-left">
+
+<tbody>
+
+<tr>
+
+<td class="bg-info-light border-right" rowspan=2>Response <br>variable</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-danger-light">Cat. #1</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">Yes</td>
+
+<td class="border-nobottom">50</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">No</td>
+
+<td class="border-nobottom">30</td>
+
+</tr>
+
+<tr class="fragment" data-fragment-index=1>
+
+<td class="bg-info-light border-nobottom border-right">Maybe</td>
+
+<td class="border-nobottom">20</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="fragment no-hang" data-fragment-index="2" style="display: grid; grid-template-columns: 1fr; grid-auto-rows:auto; align-items: start; gap: 10px; margin-top: 0.5em;">
+
+<p style="margin: 0;"> <!-- Assuming you want to keep text styles minimal -->
+
+<span class="u em">Ex:</span> Are the six colors of M&Ms equally likely in a pack?
+
+</p>
+
+<div>
+
+<img src="lib/img/m&ms-pic.png"  style="width: auto; height: 15vh;" alt="mm-pic">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- right -->
+
+<div style="height:100%;">
+
+<p class="smaller u em">
+
+Two (or more) categorical variables
+
+</p>
+
+<table class="small center push-left">
+
+<tbody>
+
+<tr>
+
+<td class="bg-info-light border-right" rowspan=2>Response<br>variable</td>
+
+<td class="bg-danger-light border-nobottom border-right" colspan=3>Explanatory variable</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-danger-light">Cat. #1</td>
+
+<td class="bg-danger-light">Cat. #2</td>
+
+<td class="bg-danger-light border-right fragment" data-fragment-index=3>Cat. #3</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">Yes</td>
+
+<td class="border-nobottom">50</td>
+
+<td class="border-nobottom">65</td>
+
+<td class="fragment border-nobottom border-right" data-fragment-index=3>35</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">No</td>
+
+<td class="border-nobottom">30</td>
+
+<td class="border-nobottom">45</td>
+
+<td class="fragment border-right border-nobottom" data-fragment-index=3>15</td>
+
+</tr>
+
+<tr class="fragment" data-fragment-index=5>
+
+<td class="bg-info-light border-nobottom border-right">Maybe</td>
+
+<td class="border-nobottom">20</td>
+
+<td class="border-nobottom">10</td>
+
+<td class="border-nobottom border-right">10</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="fragment no-hang" data-fragment-index="4" style="display: grid; grid-template-columns: 1fr; grid-auto-rows:auto; align-items: start; gap: 10px; margin-top: 0.5em;">
+
+<p style="margin: 0;"> <!-- Assuming you want to keep text styles minimal -->
+
+<span style="font-style: italic; font-weight: bold;">Ex:</span> Which treatment increases the survival rate of the patients?
+
+</p>
+
+<div>
+
+<img src="lib/img/heart-ekg.svg" style="width: auto; height: 15vh;" alt="Heart EKG">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Chi-Squared ($\chi^2$) -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Chi-Squared ($\chi^2$)</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<p class="quoted down-3">
+
+A statistic that is widely used to describe the <span class="danger">difference in distribution patterns of categorical variable(s)</span> is the square of the relative differences of each observed frequencies compared to the expected frequencies. This is known as the <span class="strong">Chi-Squared statistic</span> for comparing frequencies of a categorical variable.
+
+</p>
+
+<p>
+
+$\chi^2=\sum_{i=1}^n\frac{(\mathrm{Observed}_i-\mathrm{Expected}_i)^2}{\mathrm{Expected}_i}$
+
+</p>
+
+<p>
+
+$\chi^2$ summarizes the <span class="u danger">discrepancy between observed and expected frequencies</span>:
+
+</p>
+
+<ul class="small">
+
+<li>
+
+The <span class="orange">smaller the overall discrepancy</span> between the observed and expected scores, the <span class="orange">smaller the value of the $\chi^2$</span>.
+
+</li>
+
+<li>
+
+Conversely, the <span class="pop">larger the discrepancy</span> between the observed and expected scores, the <span class="pop">larger the value of the $\chi^2$</span>.
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Recall, chi-squared is the statistic we use to sum up the relative differences in COUNTS from corresponding bins of 2 distributions.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Differences Between Bins -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Differences Between Bins</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div class="left-justify" style="gap:5vmin;">
+
+<p class="small">
+
+Calculating a \( \chi^2 \) statistic is similar to determining normalized squared residuals in a linear regression model, applied to categorical data in histograms. It assesses deviations of observed categories from expected outcomes under a hypothesis.
+
+</p>
+
+<p class="small">
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+How significantly does the <span class="danger">distribution pattern</span> of observed frequencies differ from the theoretical distribution? This analysis mirrors the evaluation of sum of squares between groups in ANOVA, which measures variance due to different groupings within the data.
+
+</p>
+
+</div>
+
+<div style="height:100%;align-items:center;">
+
+<svg width="100%" viewBox="0 0 432 288" style="align-self:center;">
+
+<use xlink:href="lib/img/rock-paper-scissors-bars.svg#axes_1"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-bars.svg#axes_2"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-bars.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+<div class="grid-generic box-width left-justify" style="grid-template-columns:auto 1fr;grid-auto-rows:auto;gap:1vmin;grid-column:1/3;">
+
+<div style="height:100%;align-content:center;" class="big center-justify">
+
+<p class="u small">Key idea</p>
+
+<i class="fas fa-lightbulb"></i>
+
+</div>
+
+<p>
+
+When we calculate a \( \chi^2 \) statistic to compare distribution patterns of categorical variables, this is called a <span class="em">\( \chi^2 \) goodness of fit test.</span>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Note that here we compare our data to a theoretical distribution, when else did we do that?</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/bg-mice-examine-dark-04.webp" id="section-title-3">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-3">
+              <div class="section-number">
+                <span class="large-number">
+                  3
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  $\chi^2$ Goodness Of Fit
+                </h2>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-3.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Section Notes</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- $\chi^2$ Goodness Of Fit -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>$\chi^2$ Goodness Of Fit</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic box-width" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<p class="quoted">
+
+When calculating the \( \chi^2 \) statistic to assess the compatibility of observed with expected distribution frequencies of categorical variables, the procedure is termed a <strong>\( \chi^2 \) goodness of fit test</strong>.
+
+</p>
+
+<div class="bigger">
+
+$$\chi^2=\sum_{i=1}^n\frac{(\mathrm{Observed}_i-\mathrm{Expected}_i)^2}{\mathrm{Expected}_i}$$
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>How well does our data "Fit" the theoretical model?</p>
+
+</aside>
+
+<!-- </section> -->
+
+<!-- rps example here -->
+        </section>
+        <section>
+          <!-- $\chi^2$ Introduction -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>$\chi^2$ Introduction</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<h4>Let's start with a simple example</h4>
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div style="height:100%;">
+
+<p class="u">Rock-Paper-Scissors (RPS) tournament</p>
+
+<p class="left-justify">
+
+Entering a Rock-Paper-Scissors competition comes with unpredictability-unless we can find a pattern!
+
+</p>
+
+<p class="question fragment" data-fragment-index="1">
+
+Do competitors favor rock, paper, or scissors
+
+</p>
+
+<div class="framed border-muted left-justify fragment no-hang" data-fragment-index="2">
+
+<ul>
+
+<li><strong>Question:</strong> Do players equally use each hand sign?</li>
+
+<li><strong>Hypothesis:</strong> One sign is favored over others.</li>
+
+</ul>
+
+</div>
+
+<p class="fragment" data-fragment-index="3">
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+How could we analyze this?
+
+</p>
+
+</div>
+
+<div  style="height:100%;">
+
+<img src="lib/img/rock-paper-scissors-game.svg" width=100%>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Rock Paper Scissors 1 -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Rock Paper Scissors</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:3fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<p class="left-justify big">
+
+A study analyzed the distribution of hand signs used by a group of students during a total of <span class="success">381</span> games.
+
+</p>
+
+<table class="small center-justify latex-style-table-row-labels">
+
+<col width=25%>
+
+<col width=20%>
+
+<col width=20%>
+
+<col width=20%>
+
+<col width=20%>
+
+<tr>
+
+<td></td>
+
+<td class="bg-danger-light border-left">Rock</td>
+
+<td class="bg-info-light">Paper</td>
+
+<td class="bg-warning-light border-right">Scissors</td>
+
+<td>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Observed count</td>
+
+<td >107</td>
+
+<td >124</td>
+
+<td class="border-right">150</td>
+
+<td >381</td>
+
+</tr>
+
+<tr class="fragment border-bottom" data-fragment-index="1">
+
+<td class="border-right">Observed proportion</td>
+
+<td>0.281</td>
+
+<td>0.325</td>
+
+<td class="border-right">0.394</td>
+
+<td>1</td>
+
+</tr>
+
+</table>
+
+<div class="fragment framed padded border-muted" data-fragment-index="1">
+
+<p class="big em">
+
+Is the proportion of each sign equal?
+
+</p>
+
+<p class="fragment left-justify" data-fragment-index="2">
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+What is the probability of observing such a distribution of proportions if there were an equal chance for the 3 hand signs to be played?
+
+</p>
+
+</div>
+
+</div>
+
+<div  style="height:100%;align-items:center;">
+
+<img src="lib/img/rock-paper-scissors-game.svg" width=100%>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Rock Paper Scissors 2 -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Rock Paper Scissors</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:3fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<p class="left-justify big">
+
+A study analyzed the distribution of hand signs used by a group of students during a total of <span class="success">381</span> games.
+
+</p>
+
+<table class="small center-justify latex-style-table-row-labels">
+
+<col width=25%>
+
+<col width=20%>
+
+<col width=20%>
+
+<col width=20%>
+
+<col width=20%>
+
+<tr>
+
+<td></td>
+
+<td class="bg-danger-light border-left">Rock</td>
+
+<td class="bg-info-light">Paper</td>
+
+<td class="bg-warning-light border-right">Scissors</td>
+
+<td>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Observed count</td>
+
+<td >107</td>
+
+<td >124</td>
+
+<td class="border-right">150</td>
+
+<td >381</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td class="border-right">Observed proportion</td>
+
+<td>0.281</td>
+
+<td>0.325</td>
+
+<td class="border-right">0.394</td>
+
+<td>1</td>
+
+</tr>
+
+</table>
+
+<div class="sided-no-bg border-muted fragment" data-fragment-index="1">
+
+<p class="big em left-justify">
+
+$H_0: \pi_\class{danger}{\mathrm{rock}} = \pi_\class{info}{\mathrm{paper}} = \pi_\class{warning-dark}{\mathrm{scissor}}=\frac{1}{3}$
+
+</p>
+
+<p class="fragment left-justify" data-fragment-index="2">
+
+$H_a:$ at least one of the 3 $\pi_\mathrm{sign}$ is different from the others.
+
+</p>
+
+</div>
+
+</div>
+
+<div  style="height:100%;align-items:center;">
+
+<img src="lib/img/rock-paper-scissors-game.svg" width=100%>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Recall The Binary Case -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Recall The Binary Case</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic box-width" style="grid-template-columns:3fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<p class="left-justify big">
+
+When we were studying the distribution of a single categorical variable with <span class="danger">only two possible outcomes</span>, we were comparing our observed proportion of success/failure to a null hypothesis (usually a binomial or geometric distribution).
+
+</p>
+
+<table class="small center-justify latex-style-table-row-labels">
+
+<col width=34%>
+
+<col width=22%>
+
+<col width=22%>
+
+<col width=22%>
+
+<tr>
+
+<td></td>
+
+<td class="bg-danger-light">Head</td>
+
+<td class="bg-info-light">Tail</td>
+
+<td>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Observed count</td>
+
+<td>10</td>
+
+<td class="border-right">6</td>
+
+<td>16</td>
+
+</tr>
+
+<tr class='border-bottom'>
+
+<td class="border-right">Observed proportion</td>
+
+<td>0.625</td>
+
+<td class="border-right">0.375</td>
+
+<td>1</td>
+
+</tr>
+
+</table>
+
+<div class="padded fragment" data-fragment-index="1">
+
+<p class="big em left-justify">
+
+$H_0: \class{danger}{\pi_\mathrm{head}}=\frac{1}{2}$
+
+</p>
+
+</div>
+
+</div>
+
+<div  style="height:100%;align-items:center;">
+
+<img src="lib/img/coin-flipping.svg" width=100%>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Recall The Binary Case -->
+
+<section data-auto-animate data-transition="fade-out">
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Recall The Binary Case</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic box-width" style="grid-template-columns:3fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<p class="left-justify big">
+
+When we were studying the distribution of a single categorical variable with <span class="danger">only two possible outcomes</span>, we were comparing our observed proportion of success/failure to a null hypothesis (usually a binomial or geometric distribution).
+
+</p>
+
+<table class="small center-justify latex-style-table-row-labels">
+
+<col width=34%>
+
+<col width=22%>
+
+<col width=22%>
+
+<col width=22%>
+
+<tr>
+
+<td></td>
+
+<td class="bg-warning-light">Correct</td>
+
+<td class="bg-success-light">Incorrect</td>
+
+<td>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Observed count</td>
+
+<td>16</td>
+
+<td class="border-right">5</td>
+
+<td>21</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td class="border-right">Observed proportion</td>
+
+<td>0.76</td>
+
+<td class="border-right">0.24</td>
+
+<td>1</td>
+
+</tr>
+
+</table>
+
+<div class="padded fragment" data-fragment-index="1">
+
+<p class="big em left-justify">
+
+$H_0: \class{pop}{\pi_\mathrm{head}}=\frac{1}{3}$
+
+</p>
+
+</div>
+
+</div>
+
+<div  style="height:100%;align-items:center;">
+
+<img src="lib/img/police-dog-luggages-choice.svg" width=100%>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Note that the expected probability doesn't always have to be 1/2, recall the sum of dice faces.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Rock Paper Scissors 3 -->
+
+<section data-auto-animate data-transition="fade-in">
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Rock Paper Scissors</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:3fr 2fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p style="grid-column:1/3;">
+
+Could we apply the same strategy here?
+
+</p>
+
+<!-- left -->
+
+<div>
+
+<p class="big">
+
+<i class="fas fa-arrow-circle-right success"></i>
+
+Couldn't we just <span class="success-dark">test independently</span> for all three possible outcomes?
+
+</p>
+
+<p class="left-justify fragment sided-no-bg border-danger" data-fragment-index="0">
+
+$H_0: \pi_\mathrm{sign}=\frac{1}{3}$
+
+</p>
+
+<table class="small center-justify latex-style-table-row-labels">
+
+<col width=25%>
+
+<col width=20%>
+
+<col width=20%>
+
+<col width=20%>
+
+<col width=20%>
+
+<tr class="small">
+
+<td></td>
+
+<td class="bg-danger-light">Rock</td>
+
+<td class="bg-info-light">Paper</td>
+
+<td class="bg-warning-light">Scissors</td>
+
+<td>Total</td>
+
+</tr>
+
+<tr class="small">
+
+<td>Observed count</td>
+
+<td>107</td>
+
+<td>124</td>
+
+<td>150</td>
+
+<td>381</td>
+
+</tr>
+
+<tr class="small">
+
+<td>Observed proportion</td>
+
+<td>0.281</td>
+
+<td>0.325</td>
+
+<td>0.394</td>
+
+<td>1</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<!-- right -->
+
+<div style="align-self:center;align-items:center;align-content:center;display:grid;">
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-multiple-testing.svg#axes_1"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-multiple-testing.svg#axes_2" class="fragment" data-fragment-index="1"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-multiple-testing.svg#axes_3" class="fragment" data-fragment-index="0"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-multiple-testing.svg#axes_4" class="fragment" data-fragment-index="2"></use>
+
+</svg>
+
+</div>
+
+<div class="grid-generic box-width left-justify" style="grid-template-columns:auto 1fr;grid-auto-rows:auto;gap:1vmin;grid-column:1/3;">
+
+<div style="height:100%;align-content:center;" class="fragment bigger" data-fragment-index="3">
+
+<i class="fas fa-exclamation-triangle danger"></i>
+
+</div>
+
+<p class="fragment" data-fragment-index="3">
+
+No! Conducting 3 independent tests increases the risk of Type I errors, leading to incorrect conclusions due to the <span class="danger">multiple testing problem</span>.
+
+</p>
+
+<div style="height:100%;align-content:center;" class="fragment bigger" data-fragment-index="4">
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+</div>
+
+<p class="fragment" data-fragment-index="4">
+
+We want to compare our data to a <span class="pop">single distribution pattern</span> ($\frac{1}{3}/\frac{1}{3}/\frac{1}{3}$), so we need to find a way to perform the analysis in a <span class="pop">single test</span>.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Rock Paper Scissors 4 -->
+
+<section data-auto-animate data-transition="fade-out">
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Rock Paper Scissors</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:3fr 2fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p style="grid-column:1/3;">
+
+Could we apply the same strategy here?
+
+</p>
+
+<!-- left -->
+
+<div>
+
+<p class="big">
+
+<i class="fas fa-arrow-circle-right success"></i>
+
+Couldn't we just <span class="success-dark">test independently</span> for all three possible outcomes?
+
+</p>
+
+<p class="left-justify sided-no-bg border-danger">
+
+$H_0: \pi_\mathrm{sign}=\frac{1}{3}$
+
+</p>
+
+<table class="small center-justify latex-style-table-row-labels">
+
+<col width=25%>
+
+<col width=20%>
+
+<col width=20%>
+
+<col width=20%>
+
+<col width=20%>
+
+<tr class="small">
+
+<td></td>
+
+<td class="bg-danger-light">Rock</td>
+
+<td class="bg-info-light">Paper</td>
+
+<td class="bg-warning-light">Scissors</td>
+
+<td>Total</td>
+
+</tr>
+
+<tr class="small">
+
+<td>Observed count</td>
+
+<td>107</td>
+
+<td>124</td>
+
+<td>150</td>
+
+<td>381</td>
+
+</tr>
+
+<tr class="small">
+
+<td>Observed proportion</td>
+
+<td>0.281</td>
+
+<td>0.325</td>
+
+<td>0.394</td>
+
+<td>1</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<!-- right -->
+
+<div style="align-self:center;align-items:center;align-content:center;display:grid;">
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-multiple-testing.svg#axes_1"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-multiple-testing.svg#axes_2"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-multiple-testing.svg#axes_3"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-multiple-testing.svg#axes_4"></use>
+
+</svg>
+
+</div>
+
+<div class="grid-generic box-width left-justify" style="grid-template-columns:auto 1fr;grid-auto-rows:auto;gap:1vmin;grid-column:1/3;">
+
+<div style="height:100%;align-content:center;" class="bigger">
+
+<i class="fas fa-question info"></i>
+
+</div>
+
+<p>
+
+How do we compare the observed pattern to a theoretical pattern?
+
+</p>
+
+<div style="height:100%;align-content:center;" class="bigger">
+
+<i class="fas fa-question info"></i>
+
+</div>
+
+<p>
+
+How far are the observed counts from the expected (theoretical) counts if the null hypothesis ($\pi_{\text{rock}} = \pi_{\text{paper}} = \pi_{\text{scissors}}$) is true?
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Expected Frequency -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Expected Frequency</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<p>
+
+The <span class="pop">expected counts</span> are the amounts we should see in  each category (cell) <span class="pop">if the null hypothesis was true</span> for that sample size.
+
+</p>
+
+<div class="border-pop bg-pop-light black framed normal center">
+
+$\mathrm{Expected}_i = n_\mathrm{total}\times\pi_i$
+
+</div>
+
+<p>
+
+For each cell, the expected count is the total sample size ($n_\mathrm{total}$) times the null proportion for each hand sign, $\pi_\mathrm{i}$.
+
+</p>
+
+</div>
+
+<div>
+
+<table class="center-justify latex-style-table-row-labels">
+
+<col width=25%>
+
+<col width=20%>
+
+<col width=20%>
+
+<col width=20%>
+
+<col width=20%>
+
+<tr>
+
+<td></td>
+
+<td class="bg-danger-light">Rock</td>
+
+<td class="bg-info-light">Paper</td>
+
+<td class="bg-warning-light">Scissors</td>
+
+<td>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Observed count</td>
+
+<td>107</td>
+
+<td>124</td>
+
+<td class="border-right">150</td>
+
+<td>381</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Observed proportion</td>
+
+<td>0.281</td>
+
+<td>0.325</td>
+
+<td class="border-right">0.394</td>
+
+<td>1</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Expected proportion</td>
+
+<td>$\frac{1}{3}$</td>
+
+<td>$\frac{1}{3}$</td>
+
+<td class="border-right">$\frac{1}{3}$</td>
+
+<td>1</td>
+
+</tr>
+
+<tr class="fragment pop border-bottom">
+
+<td class="border-right">Expected count</td>
+
+<td>127</td>
+
+<td>127</td>
+
+<td class="border-right">127</td>
+
+<td>381</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Expected Frequency: Analysis -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Expected Frequency: Analysis</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="left-justify">
+
+<p>
+
+We have the <span class="orange">observed</span> and <span class="pop">expected</span> counts, now what could we do with these?
+
+</p>
+
+<p class="fragment" data-fragment-index=1>
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+Typically, we can calculate the difference between observed and expected
+
+</p>
+
+<p class="fragment em" data-fragment-index=5>
+
+How could we <span class="strong">combine</span> those 3 differences into a <span class="success">single statistic</span> of interest?
+
+Add them up? Average them?
+
+</p>
+
+</div>
+
+<div>
+
+<table class="small center">
+
+<col width=34%>
+
+<col width=22%>
+
+<col width=22%>
+
+<col width=22%>
+
+<tr>
+
+<td></td>
+
+<td class="bg-danger-light">Rock</td>
+
+<td class="bg-info-light">Paper</td>
+
+<td class="bg-warning-light">Scissors</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td>Observed</td>
+
+<td>107</td>
+
+<td>124</td>
+
+<td>150</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td>Expected</td>
+
+<td>127</td>
+
+<td>127</td>
+
+<td>127</td>
+
+</tr>
+
+</table>
+
+<div class="grid-generic" style="grid-template-columns:3fr 7fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="justify-content:end;" class="right-justify">
+
+<p class="fragment u em danger" data-fragment-index=2>Rock:</p>
+
+<p class="fragment u em info" data-fragment-index=3>Paper:</p>
+
+<p class="fragment u em warning" data-fragment-index=4>Scissors:</p>
+
+</div>
+
+<div style="justify-content:start;" class="left-justify">
+
+<p class="fragment danger" data-fragment-index=2>$d_1 = 107-127=-20$</p>
+
+<p class="fragment info" data-fragment-index=3>$d_2 = 124-127=-3$</p>
+
+<p class="fragment warning" data-fragment-index=4>$d_3 = 150-127=23$</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div style="grid-column:1/3;" class="left-justify">
+
+<p class="fragment framed border-success center-justify" data-fragment-index=7>
+
+What could we do so we don't get a sum of zero?
+
+</p>
+
+<ul class="fragment small padded" data-fragment-index=8>
+
+<li>
+
+Compute the Mean Absolute Difference of the proportions (called <span class="strong">MAD</span>, <span class="u">no theoretical distribution</span>)
+
+</li>
+
+<li>
+
+Compute a <span class="em">standardized</span> statistic: $\chi^2$ (theory exists)
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- $\chi^2$ Goodness Of Fit -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>$\chi^2$ Goodness Of Fit</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic box-width" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<p class="quoted" style="grid-column: 1/3;">
+
+When we calculate a $\chi^2$ statistic to compare distribution patterns of categorical variables, this is called a <span class="strong">$\chi^2$ goodness of fit test.</span>
+
+</p>
+
+<p class="small">
+
+$\chi^2=\sum_{i=1}^n\frac{(\mathrm{Observed}_i-\mathrm{Expected}_i)^2}{\mathrm{Expected}_i}$
+
+</p>
+
+<div>
+
+<table class="small center">
+
+<col width=34%>
+
+<col width=22%>
+
+<col width=22%>
+
+<col width=22%>
+
+<tr>
+
+<td></td>
+
+<td class="bg-danger-light">Rock</td>
+
+<td class="bg-info-light">Paper</td>
+
+<td class="bg-warning-light">Scissors</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td>Observed</td>
+
+<td>107</td>
+
+<td>124</td>
+
+<td>150</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td>Expected</td>
+
+<td>127</td>
+
+<td>127</td>
+
+<td>127</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-auto-rows:auto;gap:5vmin;grid-column:1/3;">
+
+<div class="left-justify">
+
+<p>
+
+$\chi^2=\frac{(107-127)^2}{127}+\frac{(124-127)^2}{127}+\frac{(150-127)^2}{127}$
+
+</p>
+
+<p>
+
+$\chi^2=3.150+0.071+4.165$
+
+</p>
+
+<p class="pop">
+
+$\chi^2=7.386$
+
+</p>
+
+</div>
+
+<p class="framed border-pop" style="align-self:center;justify-self:center;">
+
+What does a $\chi^2$ of 7.386 mean? Is it a large or a small value?
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- $\chi^2$ Sampling Distribution -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>$\chi^2$ Sampling Distribution</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic box-width left-justify" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p>
+
+What values of $\chi^2$ would we observe for a multitude of samples coming from the null distribution?
+
+</p>
+
+<p>
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+We need to compare the $\chi^2$ that we calculated to the <span class="pop">distribution of this statistic assuming $H_0$ is true</span>.
+
+</p>
+
+<p class="u em down-5">
+
+How do we get this?
+
+</p>
+
+<ul class="small push-left">
+
+<li>Simulation</li>
+
+<li>Theoretical distribution (<span class="warning">Requires assumptions!</span>)</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- $\chi^2$ Distribution -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>$\chi^2$ Distribution: Simulation</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div style="gap:5vmin;">
+
+<p>
+
+Rock-Paper-Scissors $\chi^2$ randomization distribution
+
+</p>
+
+<p class="framed">
+
+<span class="u em small faded">Note:</span> Like $\operatorname{F}$, $\chi^2$ will always be positive. Always use the <span class="danger">right tail</span> to find a p-value.
+
+</p>
+
+<p>
+
+<span class="em">Observed $\chi^2$:</span> 7.39
+
+</p>
+
+<p class="fragment" data-fragment-index=1>
+
+<span class="danger">$\textrm{p-value} < 0.05$
+
+</p>
+
+</div>
+
+<div>
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-chi2.svg#axes_1"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-chi2.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/rock-paper-scissors-simulation-chi2.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+<div style="grid-column: 1/3;">
+
+<p class="fragment" data-fragment-index=1>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+We have strong evidence against the null hypothesis. At least one of the hand signs frequency can be considered statistically different to the expected frequency of this hand sign if the probability of choosing either hand sign was $\frac{1}{3}$.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- $\chi^2$ Distribution: Theory -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>$\chi^2$ Distribution: Theory</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<p class="left-justify">
+
+<span class="strong">If each of the expected counts are at least 10</span> (validity condition), AND if the null hypothesis is true, then the $\chi^2$ statistic follows a $\chi^2$-distribution, with degrees of freedom equal to:
+
+</p>
+
+<p class="small danger">$df = (\textrm{number of categories} - 1)$</p>
+
+<div class="grid-generic box-width" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="framed" style="max-height:500vh;justify-items:center;justify-content:center;">
+
+<img src="lib/img/chi2-table.png" width=100%>
+
+</div>
+
+<div style="max-height:500vh;">
+
+<img src="lib/img/chi2-distribution.svg" width=100%>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- $\chi^2$ Distribution: RPS -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>$\chi^2$ Distribution: RPS</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<p class="left-justify">
+
+<span class="u">For Rock-Paper-Scissors:</span><br>
+
+df = 3 - 1 = 2
+
+</p>
+
+<div class="grid-generic box-width" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="height:50vh;justify-items:center;justify-content:center;">
+
+<p class="smaller em">Simulation</p>
+
+<svg width="100%" viewBox="0 0 432 288" style="height:50vh;">
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-chi2.svg#axes_1"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-chi2.svg#axes_2"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-chi2.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+<div style="height:50vh;justify-items:center;justify-content:center;">
+
+<p class="smaller em">Theoretical distribution</p>
+
+<svg width="100%" viewBox="0 0 432 288" style="height:50vh;">
+
+<use xlink:href="lib/img/rock-paper-scissors-theory-chi2.svg#axes_1"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-theory-chi2.svg#axes_2"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- $\chi^2$ Distribution: RPS -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>$\chi^2$ Distribution: RPS</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:5fr 2.5fr;grid-auto-rows:auto;gap:2vmin;">
+
+<div style="height:100%;">
+
+<p class="left-justify">
+
+<span class="u">For Rock-Paper-Scissors:</span> df = 3 - 1 = 2
+
+</p>
+
+<!-- explanation -->
+
+<p class="left-justify smaller">
+
+With an observed $\chi^2$ of 7.386 and p-values below 0.05, the data
+
+indicates a statistically significant preference in hand sign choices,
+
+diverging from random distribution. That is, these results suggest a
+
+<span class="pop em">less common outcome under the null hypothesis</span>
+
+of no preference among Rock, Paper, or Scissors.
+
+</p>
+
+<p class="left-justify fragment smaller">
+
+This is reflected in the small p-values of 0.023 (simulation) and
+
+0.025 (theoretical), both of which are below the typical significance
+
+level of 0.05. This implies that the observed hand sign distribution is
+
+<span class="info">statistically unlikely to be due to
+
+random chance</span>, <span class="strong">suggesting a pattern or preference</span>
+
+in the players' choices that could be strategically important in a
+
+RPS competition.
+
+</p>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<div style="display:flex;flex-direction:column;align-items:center;width:100%">
+
+<p class="smaller em">Simulation</p>
+
+<div style="width:90%;margin:0 auto;">
+
+<svg width="100%" height="100%" viewBox="0 0 432 288" preserveAspectRatio="xMidYMid meet">
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-chi2.svg#axes_1"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-chi2.svg#axes_2"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-chi2.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+<div style="display:flex;flex-direction:column;align-items:center;width:100%">
+
+<p class="smaller em">Theoretical distribution</p>
+
+<div style="width:90%;margin:0 auto;">
+
+<svg width="100%" height="100%" viewBox="0 0 432 288" preserveAspectRatio="xMidYMid meet">
+
+<use xlink:href="lib/img/rock-paper-scissors-theory-chi2.svg#axes_1"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-theory-chi2.svg#axes_2"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>note here</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Follow Up -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Follow Up</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<p class="em left-justify">
+
+We found a difference in distribution pattern that may be considered statistically significant.
+
+</p>
+
+<p class="question big">
+
+So, what's next
+
+</p>
+
+<p class="left-justify">
+
+The $\chi^2$ test tells you whether you have an overall difference between the observed and expected pattern, but <span class="strong">it does not tell you which specific groups differ</span>: <span class="danger u">post hoc tests</span> do.
+
+</p>
+
+<p class="left-justify">
+
+<span class="muted u em">Note:</span>
+
+Because post hoc tests are run to confirm where the differences occurred between groups, they should only be run when you have shown an overall statistically significant difference. Post hoc tests are termed <span class="strong">a posteriori tests</span>, that is, performed after the event (the event in this case being the overall analysis).
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Follow Up -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Follow Up</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="em  left-justify">
+
+We found a difference in the distributional pattern considered statistically significant ($\text{p-value}\lt 0.05$)
+
+</p>
+
+<p class="question big">
+
+So, what's next
+
+</p>
+
+<div class="left-justify">
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+<span class="danger">No standard approach</span> to follow, there are many different follow-up approaches possible.
+
+</p>
+
+<p class="framed border-pop">
+
+We want to know if one of the hand sign (rock, paper, scissors) is used more often compared to the others so we could play the opposite sign more often to get an advantage.
+
+</p>
+
+</div>
+
+<p class="fragment">
+
+<i class="fas fa-arrow-circle-right pink"></i>
+
+Now that we know that there is a statistical difference in the distribution pattern of the signs, we could use <span class="pink">pairwise analysis of difference in proportions</span> to determine exactly which signs are more often played (i.e.: <span class="em">Tukey post hoc test</span>).
+
+</p>
+
+<div class="grid-generic fragment" style="grid-template-columns:1fr 1fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<p class="framed border-muted fragment highlight-bg-warning-light black full-width padded">
+
+Paper vs Scissors <br> $d=-0.068$ <br> pvalue=0.0583
+
+</p>
+
+<p class="framed border-muted full-width padded fragment highlight-bg-danger-light black">
+
+Paper vs Rock <br> $d=0.045$ <br> pvalue=0.2058
+
+</p>
+
+<p class="framed border-muted fragment highlight-bg-success-light black full-width padded">
+
+Rock vs Scissors <br> $d=-0.113$ <br> pvalue=0.0010
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Which hand would you want to throw more often if you wanted to WIN?</p>
+
+<p>
+
+Recall that the hypothesis was that all probabilities were equal, which we call UNIFORM.
+
+What about when the probabilities of each category level are non-uniform?
+
+</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- Chi-Squared Definitions -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Definitions: $\chi^2$</h2>
+
+</div>
+
+<div class="content">
+
+<div
+
+class="grid-generic full-width left-justify"
+
+style="
+
+grid-template-columns: 2.5fr 7.5fr;
+
+grid-auto-rows: auto;
+
+row-gap: 1vmin;
+
+column-gap: 0;
+
+"
+
+>
+
+<!-- Term 1 -->
+
+<div
+
+class="fragment small border-bottom"
+
+data-fragment-index="1"
+
+style="height: 100%; align-items: center"
+
+>
+
+<p><i class="fa-solid fa-file-contract"></i> Chi-Squared Test</p>
+
+</div>
+
+<div
+
+class="fragment small border-bottom"
+
+data-fragment-index="1"
+
+style="height: 100%; align-items: center"
+
+>
+
+<p>
+
+A statistical test used to determine if there is a significant
+
+difference between the expected frequencies and the observed
+
+frequencies in one or more categories.
+
+</p>
+
+</div>
+
+<!-- Term 2 -->
+
+<div
+
+class="fragment small border-bottom"
+
+data-fragment-index="2"
+
+style="height: 100%; align-items: center"
+
+>
+
+<p><i class="fa-solid fa-file-contract"></i> Expected Frequency</p>
+
+</div>
+
+<div
+
+class="fragment small border-bottom"
+
+data-fragment-index="2"
+
+style="height: 100%; align-items: center"
+
+>
+
+<p>
+
+The frequency expected in a category if the null hypothesis is true,
+
+calculated as the total sample size multiplied by the expected
+
+proportion under the null hypothesis.
+
+</p>
+
+</div>
+
+<!-- Term 3 -->
+
+<div
+
+class="fragment small border-bottom"
+
+data-fragment-index="3"
+
+style="height: 100%; align-items: center"
+
+>
+
+<p><i class="fa-solid fa-file-contract"></i> Observed Frequency</p>
+
+</div>
+
+<div
+
+class="fragment small border-bottom"
+
+data-fragment-index="3"
+
+style="height: 100%; align-items: center"
+
+>
+
+<p>The actual frequency observed in the sample for a category.</p>
+
+</div>
+
+<!-- Term 4 -->
+
+<div
+
+class="fragment small border-bottom"
+
+data-fragment-index="4"
+
+style="height: 100%; align-items: center"
+
+>
+
+<p><i class="fa-solid fa-file-contract"></i> Chi-Squared Statistic</p>
+
+</div>
+
+<div
+
+class="fragment small border-bottom"
+
+data-fragment-index="4"
+
+style="height: 100%; align-items: center"
+
+>
+
+<p>
+
+A measure of the discrepancy between the observed and expected
+
+frequencies, calculated using the formula: \( \chi^2 = \sum
+
+\frac{{(Observed - Expected)^2}}{Expected} \).
+
+</p>
+
+</div>
+
+<!-- Term 5 -->
+
+<div
+
+class="fragment small border-bottom"
+
+data-fragment-index="5"
+
+style="height: 100%; align-items: center"
+
+>
+
+<p><i class="fa-solid fa-file-contract"></i> Degrees of Freedom</p>
+
+</div>
+
+<div
+
+class="fragment small border-bottom"
+
+data-fragment-index="5"
+
+style="height: 100%; align-items: center"
+
+>
+
+<p>
+
+In the context of the chi-squared test, the number of degrees of
+
+freedom is the number of categories minus one.
+
+</p>
+
+</div>
+
+<!-- Term 6 -->
+
+<div
+
+class="fragment small border-bottom"
+
+data-fragment-index="6"
+
+style="height: 100%; align-items: center"
+
+>
+
+<p><i class="fa-solid fa-file-contract"></i> Goodness of Fit</p>
+
+</div>
+
+<div
+
+class="fragment small border-bottom"
+
+data-fragment-index="6"
+
+style="height: 100%; align-items: center"
+
+>
+
+<p>
+
+A type of chi-squared test that assesses how well the observed
+
+distribution of data matches with the expected distribution if no
+
+relationship exists in the population.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+This slide covers fundamental terms and definitions in Chi-Squared testing,
+
+suitable for study and reference, aiding students in understanding key
+
+concepts and their applications in statistical analysis.
+
+</aside>
+
+<!-- </section> -->
+        </section>
+      </div>
+      <footer class="main-footer">
+        <span>
+          Lecture 20
+        </span>
+        <span style="text-align:center;">
+        </span>
+        <span style="text-align:right;">
+          <a href="https:\\khrisgriffis.com" target="_blank" rel="noopener noreferrer">Khris Griffis &#169;2025</a>
+        </span>
+      </footer>
+    </div>
+    <script src="./src/reveal.js">
+    </script>
+    <script src="./src/plugin/notes/notes.js">
+    </script>
+    <script src="./src/plugin/highlight/highlight.js">
+    </script>
+    <script src="./src/plugin/math/math.js">
+    </script>
+    <script src="./src/plugin/reveal-splash/reveal-splash.js">
+    </script>
+    <script src="./src/plugin/vizzy-reveal/vizzy.js">
+    </script>
+    <script>
+      Reveal.initialize({
+autoSlide: 0,
+center: true,
+controls: true,
+controlsBackArrows: "faded",
+controlsLayout: "bottom-right",
+display: "block",
+fragments: true,
+fragmentInURL: true,
+hash: true,
+hideCursorTime: 5000,
+keyboard: true,
+mobileViewDistance: 3,
+mouseWheel: false,
+navigationMode: "linear",
+overview: true,
+pdfMaxPagesPerSlide: 1,
+pdfSeparateFragments: false,
+preloadIframes: null,
+progress: false,
+showNotes: false,
+showSlideNumber: "print",
+sortFragmentsOnSync: true,
+touch: true,
+transition: "fade",
+transitionSpeed: "default",
+viewDistance: 3,
+backgroundTransition: "fade",
+controlsTutorial: false,
+embedded: false,
+help: true,
+hideInactiveCursor: true,
+history: false,
+loop: false,
+previewLinks: false,
+rtl: false,
+shuffle: false,
+slideNumber: false,
+width: 1920,
+height: 1080,
+margin: 0.081,
+minScale: 0.08,
+maxScale: 1.67,
+mathjax3: {
+mathjax: "https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-mml-chtml.js",
+loader: {
+load: [
+"[tex]/html",
+],
+},
+tex: {
+packages: {
+'[+]': [
+"html",
+],
+},
+inlineMath: [
+["$", "$"],
+["\\(", "\\)"],
+],
+processEscapes: true,
+processEnvironments: true,
+},
+options: {
+skipHtmlTags: [
+"script",
+"noscript",
+"style",
+"textarea",
+"pre",
+],
+enableMenu: false,
+},
+chtml: {
+scale: 0.8,
+minScale: 0.4,
+},
+Safe: {
+sizeMin: 0.4,
+sizeMax: 1.25,
+},
+output: {
+linebreaks: {
+inline: true,
+width: "100%",
+lineleading: 0.2,
+LinebreakVisitor: null,
+},
+},
+},
+notes: {
+
+},
+highlight: {
+
+},
+vizzy: {
+autoRunTransitions: true,
+autoTransitionDelay: 100,
+devMode: false,
+onSlideChangedDelay: 0,
+},
+splash: {
+splashImage: "lib/img/ME3040_splash.png",
+text: "Welcome to ME3040!",
+minimumDisplay: 2,
+},
+plugins: [RevealNotes, RevealHighlight, RevealMath.MathJax3, Splash, Vizzy]
+});
+    </script>
+  </body>
+</html>

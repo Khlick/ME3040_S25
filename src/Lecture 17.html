@@ -1,0 +1,3158 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="notranslate" name="google"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>
+      Analysis of Variance 2 Diving Deeper
+    </title>
+    <link href="lib\favicon.png" rel="icon" type="image/x-icon"/>
+    <link href="./src/css/reset.css" rel="stylesheet"/>
+    <link href="./src/css/reveal.css" rel="stylesheet"/>
+    <link href="./src/css/revealpack.css" rel="stylesheet"/>
+    <link href="./src/theme/drG.css" id="theme" rel="stylesheet"/>
+    <!-- highlight.js theme -->
+    <link href="./src/theme/vs.css" id="highlight-theme" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <!-- Custom Scripts -->
+    <!-- Print PDF script -->
+    <script>
+      var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match(/print-pdf/gi) ? './src/css/print/pdf.css' : './src/css/print/paper.css';
+document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!-- Deck CSS Injections -->
+    <!-- Deck Script Injections -->
+    <!-- Deck Raw Injections -->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-image="lib/img/multigroup_3.png" id="deck-title-slide">
+          <div class="title-slide background">
+            <div class="headline">
+              <h2 class="r-fit-text">
+                Analysis Of Variance 2
+              </h2>
+              <h3>
+                Diving Deeper
+              </h3>
+            </div>
+            <div class="sub-header">
+              <p class="by">
+                Khris Griffis, Ph.D.
+              </p>
+            </div>
+            <div class="byline">
+              <p class="byinfo">
+                Lecture 17
+              </p>
+              <p class="byinfo">
+                CSULA: ME3040
+              </p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Today's Objectives</h2>
+
+</div>
+
+<div class="content">
+
+<div
+
+class="grid-generic full-width left-justify big"
+
+style="grid-template-columns: 1fr; grid-auto-rows: auto; row-gap: 5vmin"
+
+>
+
+<div class="border-bottom fragment" data-fragment-index="1">
+
+<p><i class="target"></i> Recap ANOVA</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="2">
+
+<p><i class="target"></i> ANOVA Example</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="3">
+
+<p><i class="target"></i> <span class="em">post hoc</span> testing</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="4">
+
+<p><i class="target"></i> Repeated Measures ANOVA</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Let's recap some of the concepts of ANOVA.</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- ANOVA -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Last Time...</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="grid-generic" style="grid-template-columns:6fr 1fr 6fr 1fr 6fr;grid-template-rows:1fr;gap:5px;">
+
+<div class="framed border-warning" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+Total Variance $SS_{\mathrm{Total}}$
+
+</p>
+
+</div>
+
+<div>
+
+$$\phantom{ }=\phantom{ }$$
+
+</div>
+
+<div class="framed border-danger" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+Between Groups Variance $SS_{\mathrm{Group}}$ (a.k.a $SS_{\mathrm{Between}}$)
+
+</p>
+
+</div>
+
+<div>
+
+$$\phantom{ }+\phantom{ }$$
+
+</div>
+
+<div class="framed border-info" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+"Error" Variance $SS_{\mathrm{Error}}$ (a.k.a. $SS_{\mathrm{Within}}$)
+
+</p>
+
+</div>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:6fr 1fr 6fr 1fr 6fr;grid-template-rows:1fr;gap:5px;">
+
+<div class="framed border-warning" style="height:100%;display:grid;align-content:center;">
+
+<p >
+
+$$\sum_{i=1}^{n}(x_{i}-\hat{x})^2$$
+
+</p>
+
+</div>
+
+<div style="height:100%;display:grid;align-content:center;">
+
+$$\phantom{ }=\phantom{ }$$
+
+</div>
+
+<div class="framed border-danger" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+$$\sum_{g=1}^{k}n_{g}(\bar{x}_{g}-\hat{x})^2$$
+
+</p>
+
+</div>
+
+<div style="height:100%;display:grid;align-content:center;">
+
+$$\phantom{ }+\phantom{ }$$
+
+</div>
+
+<div class="framed border-info" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+$$\sum_{g=1}^{k}\sum_{i=1}^{n_g}(x_{gi}-\bar{x}_{g})^2$$
+
+</p>
+
+</div>
+
+</div>
+
+<p class="quoted no-margin-top" style="font-size:90%;">
+
+<span class="strong">ANOVA</span> tests if <span class="em danger">at least one</span> mean
+
+of 3 or more groups is <span class="em danger">significantly different</span> from the rest.
+
+</p>
+
+<p style="font-size:90%;">
+
+<span class="strong">ANOVA</span> examines the <span class="em">variances</span>
+
+<span class="danger">between</span> and <span class="info">within</span> the groups.
+
+</p>
+
+<p style="font-size:90%;">
+
+The <span class="strong">$f$-statistic</span> is calculated to determine if the
+
+<span class="u-danger">between group variability</span> is greater than expected by chance.
+
+</p>
+
+<p style="font-size:60%;">
+
+<i class="fa fa-arrow-circle-right danger"></i> Note: <span class="em">by chance</span>
+
+for the $f$-statistic is a random variable that is $\mathbb{F}(f,\nu_1,\nu_2)$ distributed!
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- F-statistic 2 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>The $\operatorname{F}$-statistic</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-template-rows:1fr;gap:5px;">
+
+<div style="text-align:center;justify-self:center;">
+
+<p class="big">
+
+$
+
+F=\frac{
+
+\class{danger}{\frac{\textrm{SS}_{Group}}{(k-1)}}
+
+}{
+
+\class{info}{\frac{\textrm{SS}_{Error}}{(n-k)}}
+
+}=\frac{
+
+\class{danger}{\frac{\sum_{g=1}^{k}n_{g}(\bar{x}_{g}-\hat{x})^2}{(k-1)}}
+
+}{
+
+\class{info}{\frac{
+
+\class{success}{\sum_{g=1}^{k}\sum_{i=1}^{n_g}(x_{gi}-\bar{x}_{g})^2}
+
+}{
+
+(n-k)
+
+}}
+
+}
+
+$
+
+</p>
+
+</div>
+
+<div style="text-align:left;justify-self:center;" class="smallest">
+
+<p>
+
+$\bar{x}_g$: the mean of each group <br>
+
+$n_g$: sample size for each group <br>
+
+$\hat{x}$: Grand mean
+
+</p>
+
+</div>
+
+</div>
+
+<div style="font-size:100%">
+
+<ul>
+
+<li class="fragment" data-fragment-index="1">
+
+The $F$-statistic is a <span class="em pop">standardized</span> statistic (like all the others we've discussed).
+
+</li>
+
+<li class="fragment" data-fragment-index="2">
+
+Many software packages can do the parametric testing for you!
+
+</li>
+
+</ul>
+
+</div>
+
+<div style="grid-column: 1/3;">
+
+<hr>
+
+</div>
+
+<div class="left-justify smaller">
+
+<p>
+
+While sum of squares is the most common approach, we can also use absolute deviations from the median instead.
+
+</p>
+
+<p>
+
+This creates a more robust statistic that is less sensitive to outliers, since we're using medians instead of means and absolute differences instead of squared differences.
+
+</p>
+
+<p>
+
+The resulting $F_{abs}$ statistic follows a similar interpretation - comparing between-group variation to within-group variation.
+
+</p>
+
+</div>
+
+<div style="text-align:center;justify-self:center;">
+
+<p class="big">
+
+$
+
+F_{abs}=\frac{
+
+\class{danger}{\frac{\textrm{MAD}_{Group}}{(k-1)}}
+
+}{
+
+\class{info}{\frac{\textrm{MAD}_{Error}}{(n-k)}}
+
+}=\frac{
+
+\class{danger}{\frac{\sum_{g=1}^{k}n_{g}|\tilde{x}_{g}-\tilde{x}|}{(k-1)}}
+
+}{
+
+\class{info}{\frac{
+
+\class{success}{\sum_{g=1}^{k}\sum_{i=1}^{n_g}|x_{gi}-\tilde{x}_{g}|}
+
+}{
+
+(n-k)
+
+}}
+
+}
+
+$
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Notice where $n_g$ is? Inside the sum, this indicates that the number of samples in each group can be different, "unbalanced".
+
+For a balanced design, we can keep the count inside, but usually you'll see it brought out as just $n$.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- ANOVA Interactive -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Analysis Of Variance</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:5px;">
+
+<div class="grid-generic" style="grid-template-columns:5fr 6fr 1fr 6fr 1fr 6fr;grid-template-rows:1fr;gap:5px;">
+
+<div style="align-content:center;display:grid;height:100%">
+
+<p>
+
+$F=\frac{\class{danger}{\textrm{Mean SS}_{Group}}}{\class{info}{\textrm{Mean SS}_{Error}}}$
+
+</p>
+
+</div>
+
+<div class="framed border-warning" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+$$\sum_{i=1}^{n}(x_{i}-\hat{x})^2$$
+
+</p>
+
+</div>
+
+<div>
+
+$$\phantom{ }=\phantom{ }$$
+
+</div>
+
+<div class="framed border-danger" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+$$\sum_{g=1}^{k}n_{g}(\bar{x}_{g}-\hat{x})^2$$
+
+</p>
+
+</div>
+
+<div>
+
+$$\phantom{ }+\phantom{ }$$
+
+</div>
+
+<div class="framed border-info" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+$$\sum_{g=1}^{k}\sum_{i=1}^{n_g}(x_{gi}-\bar{x}_{g})^2$$
+
+</p>
+
+</div>
+
+</div>
+
+<!-- <div class="fig-container box-width"  data-file="lib/interactive/anova-variability.html" style="height:60vh;"></div> -->
+
+<vizzy data-src="lib/interactive/anova-variability.html" style="height:60vh;display:grid;align-items: start;justify-items: center;grid-template-columns: 1fr 2.3fr 1fr;" data-style="grid-column: 2/3;"></vizzy>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- Comparing multiple means -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Comparing Multiple Means</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p>
+
+We have 3 groups.
+
+Why not just carry out a bunch of pair-wise analyses of the difference in mean?
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto;gap:1vmin;">
+
+<div>
+
+<p class="framed center" style="padding-top: 0.2em; padding-bottom: 0.2em;">
+
+$H_0:\, \mu_\class{warning}{1}=\mu_\class{info}{2}$
+
+</p>
+
+</div>
+
+<div>
+
+<p class="framed center" style="padding-top: 0.2em; padding-bottom: 0.2em;">
+
+$H_0:\, \mu_\class{warning}{1}=\mu_\class{danger}{3}$
+
+</p>
+
+</div>
+
+<div>
+
+<p class="framed center" style="padding-top: 0.2em; padding-bottom: 0.2em;">
+
+$H_0:\, \mu_\class{info}{2}=\mu_\class{danger}{3}$
+
+</p>
+
+</div>
+
+</div>
+
+<div class="full-width" style="justify-items: center;">
+
+<img src="lib/img/multi-testing-angel-demon.svg" width="50%">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Now, the question is, which filling or fillings are the ants in love with?</p>
+
+<p>We have to consider what the false positive rate means.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Type 1 Error: -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Controlling For Type 1 Errors</h2>
+
+</div>
+
+<div class="content">
+
+<div class="box-width">
+
+<p>
+
+Each test is carried out at $\alpha=0.05$, so the risk of <span class="danger">making a Type I error</span> (rejecting the null when we should not) is <span class="danger">$5\%$ <span class="u">each time</span></span>.
+
+</p>
+
+<p>
+
+The risk of making a Type I errors increases as we multiply the number of tests on the same data:
+
+</p>
+
+
+
+<ul style="font-size: 90%; margin-bottom:2vmin;">
+
+<li>
+
+At the $5\%$ significance level, the probability of making at least one type I error for <span class="strong">3 tests</span> would be <span class="strong">$14\%$</span>
+
+</li>
+
+<li>
+
+Comparing <span class="strong">4 means</span> (6 tests), this jumps to <span class="strong">$26\%$</span>
+
+</li>
+
+<li>
+
+Comparing <span class="strong">5 means</span> (10 tests), this jumps to <span class="strong">$40\%$</span>
+
+</li>
+
+</ul>
+
+
+
+<p class="framed bg-warning-light black" style="font-size: 80%;">
+
+We need to make multiple comparisons with an <span class="danger">overall</span> Type I error of $\alpha=0.05$ (or whichever level is specified). We need an alternative approach that uses one overall test that compares all means at once.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Type 1 Error for multiple tests -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Type 1 Errors Accumulate Rapidly</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 2fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="full-width smaller" style="text-align:left;">
+
+<p class="mutedBlue">
+
+In a test at $\alpha = 0.05$, there is a 5% chance of getting a
+
+<span class="danger">false positive</span> if the null hypothesis is true.
+
+In 100 tests, each at $\alpha = 0.05$, we "expect 5 false positives" if all
+
+100 null hypotheses are true, but really, the probability of getting
+
+$k$ false-positives is determinable through the binomial distribution,
+
+$p(k\, |\, \alpha)$.
+
+</p>
+
+<p>
+
+We can calculate the probability of getting
+
+<span class="strong">exactly one</span> false positive, but we rarely care if there's only 1.
+
+</p>
+
+<p>
+
+Instead, we care usually if <span class="strong">one or more</span> false positives occur.
+
+</p>
+
+</div>
+
+<div>
+
+<svg width="100%" version="1.1"  viewBox="0 0 730 442" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<defs>
+
+<style type="text/css">
+
+*{stroke-linecap:butt;stroke-linejoin:round;}
+
+</style>
+
+</defs>
+
+<use xlink:href="lib/img/ALPHA_runningProb.svg#axes_1"></use>
+
+<use xlink:href="lib/img/ALPHA_runningProb.svg#axes_2"></use>
+
+<use xlink:href="lib/img/ALPHA_runningProb.svg#axes_3"></use>
+
+<use xlink:href="lib/img/ALPHA_runningProb.svg#axes_4"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- Post-hoc: Looking at the means -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Comparing Multiple Means</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p>
+
+If we have <span class="strong">two means to compare</span>, we just need to look at their <span class="strong">difference</span> (or ratio) to measure how far apart they are. Let's see if we can use a similar approach for three means.
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<svg width="100%" viewBox="0 -20 432 164">
+
+<use xlink:href="lib/img/ants-sandwich-mad.svg#layer1"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/ants-sandwich-mad.svg#layer2"></use>
+
+<use class="fragment" data-fragment-index=2 xlink:href="lib/img/ants-sandwich-mad.svg#layer3"></use>
+
+<use class="fragment" data-fragment-index=3 xlink:href="lib/img/ants-sandwich-mad.svg#layer4"></use>
+
+</svg>
+
+</div>
+
+<div>
+
+<table id="ant-table">
+
+<tr>
+
+<td></td>
+
+<td>$\bar{x}$</td>
+
+<td>$s$</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td class="bg-warning-light">Vegemite</td>
+
+<td class="border-nobottom warning">30.75</td>
+
+<td class="border-nobottom warning">9.25</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td class="bg-info-light">Peanut Butter</td>
+
+<td class="border-nobottom info">34.0</td>
+
+<td class="border-nobottom info">14.63</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-danger-light">Ham & Pickles</td>
+
+<td class="danger">49.25</td>
+
+<td class="danger">10.79</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.5fr;grid-template-rows:auto;gap:1vmin;">
+
+<div>
+
+<p class="smaller fragment" data-fragment-index=1>
+
+$d_1=30.75-34.0=\class{success}{-3.25}$
+
+</p>
+
+<p class="smaller fragment" data-fragment-index=2>
+
+$d_2=34.0-49.25=\class{success}{-15.25}$
+
+</p>
+
+<p class="smaller fragment" data-fragment-index=3>
+
+$d_3=49.25-30.75=\class{success}{18.5}$
+
+</p>
+
+</div>
+
+<div>
+
+<p class="fragment rounded bg-success-light black em">
+
+How could we compare these differences to determine which means are having the main effect?
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Post-hoc definition -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2><span class="em">Post-hoc</span> Analysis</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic box-width" style="grid-template-columns:1fr;grid-template-rows:auto;gap:1vmin;justify-content:start;">
+
+<p>
+
+If we determine a <span class="success">significant</span> differnce in our ANOVA <span class="em">omnibus</span> test,
+
+we can investigate "<span class="info">which groups are different?</span>"
+
+</p>
+
+<p>Many <span class="em">post hoc</span> (latin for <span class="em">after the fact</span>) exist. Let's look at a few.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- TUKEY Kramer -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Tukey-Kramer</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column:1/3;" class="smallest">
+
+<p>
+
+The Tukey-Kramer post hoc test compares all possible pairs of group means
+
+to determine if they are significantly different from each other.
+
+This test is particularly useful when group sizes are <span class="em">unequal</span>.
+
+The Tukey-Kramer test is a conservative approach to multiple comparisons,
+
+ensuring that the probability of making at least one type I error
+
+(false positive) is kept at the desired significance level across all
+
+comparisons.
+
+</p>
+
+</div>
+
+<div style="display:flex;flex-wrap:wrap;align-content:center;justify-content:center;">
+
+<p class="smaller">
+
+$$\begin{align}
+
+d_1&= |30.75-34.0|&=\class{danger}{3.25}\\
+
+d_2&= |34.0-49.25|&=\class{success}{15.25}\\
+
+d_3&= |49.25-30.75|&=\class{success}{18.5}
+
+\end{align}$$
+
+</p>
+
+</div>
+
+<div>
+
+<table id="ant-table">
+
+<tr>
+
+<td></td>
+
+<td>$\bar{x}$</td>
+
+<td>$s$</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td class="bg-warning-light">Vegemite</td>
+
+<td class="border-nobottom warning">30.75</td>
+
+<td class="border-nobottom warning">9.25</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td class="bg-info-light">Peanut Butter</td>
+
+<td class="border-nobottom info">34.0</td>
+
+<td class="border-nobottom info">14.63</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-danger-light">Ham & Pickles</td>
+
+<td class="danger">49.25</td>
+
+<td class="danger">10.79</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<div class="smallest fragment" data-fragment-index="1">
+
+<p>
+
+Key Aspects of the procedure:
+
+<ul>
+
+<li><span class="strong">Multiple Comparison Adjustment:</span> It adjusts for multiple comparisons to control the overall type I error rate.</li>
+
+<li><span class="strong">Pairwise Comparisons:</span>  It compares the mean of each group with every other group.</li>
+
+<li><span class="strong">Range Statistic:</span> Uses the studentized range distribution (q-distribution) to compute critical values.</li>
+
+<li><span class="strong">Confidence Intervals:</span>  Provides confidence intervals for the differences between group means, aiding in interpretation of results.</li>
+
+</ul>
+
+</p>
+
+</div>
+
+<div class="fragment" data-fragment-index="2">
+
+<p>
+
+Calculations:
+
+<ul class="tiny">
+
+<li class="emoji-brain">Critical value: $Q=q_u\sqrt{\frac{MSW}{2}\left( \frac{1}{n_j}+\frac{1}{n_j}\right)}$</li>
+
+<li class="emoji-lightbulb">where $q_u$ is from the <span class="em">Studentized range</span> q-table, and $n_j$ is the number of n in each comparison group.</li>
+
+<li class="emoji-brain">For our experiment, $Q=3.565\sqrt{\frac{138.71}{2}(\frac{1}{8}+\frac{1}{8})}=\class{danger}{14.845}$</li>
+
+</ul>
+
+</p>
+
+<p class="bordered border-success fragment" data-fragment-index="3">
+
+Ham and Pickles are a success at Ant parties!
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>But, what are some other post hoc methods? We can look at effect size.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Other methods of assessing the mean differences -->
+
+<!-- Welch's t-interval confidence interval -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Welch's t-interval in Post Hoc Testing</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="smallest" style="align-content:start;justify-content:start;text-align:left;">
+
+<p>
+
+Welch's t-interval is a valuable tool for post hoc analysis in ANOVA,
+
+particularly when dealing with unequal variances and sample sizes among groups.
+
+It modifies the standard Student's t-interval by adjusting the degrees of
+
+freedom, resulting in a more accurate estimate for the confidence interval.
+
+This interval is crucial for understanding the range and significance of
+
+the mean differences, offering a clear, statistical way to compare group
+
+means.
+
+</p>
+
+<ul style="font-size:110%" class="fragment" data-fragment-index="1">
+
+<li>Welch's t-interval is more suitable than the standard t-interval
+
+in cases of <span class="em">unequal variances</span> and <span class="em">sample sizes</span>.</li>
+
+<li class="fragment" data-fragment-index="2">It offers a nuanced estimation by adjusting the degrees of freedom
+
+according to the sample data.</li>
+
+<li class="fragment" data-fragment-index="3">The 95% confidence interval provides a range within which the true
+
+mean difference is likely to lie.</li>
+
+<li class="fragment" data-fragment-index="4">This method enhances the reliability and accuracy of post hoc
+
+comparisons in ANOVA.</li>
+
+</ul>
+
+</div>
+
+<div class="smaller fragment" data-fragment-index="5">
+
+<p>
+
+The Welch's t-interval is calculated as follows:
+
+\[
+
+\bar{X}_1 - \bar{X}_2 \pm t_{\alpha/2, \nu} \times \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}
+
+\]
+
+</p>
+
+<p class="fragment" data-fragment-index="6">
+
+Where:
+
+<ul>
+
+<li>\(\bar{X}_1, \bar{X}_2\) are the sample means,</li>
+
+<li>\(s_1^2, s_2^2\) are the sample variances,</li>
+
+<li>\(n_1, n_2\) are the sample sizes,</li>
+
+<li>\(t_{\alpha/2, \nu}\) is the t-value from the t-distribution for the
+
+desired confidence level (95% in this case) and adjusted degrees of
+
+freedom \(\nu\).</li>
+
+<li>Given \( \nu =
+
+\frac{
+
+\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}\right)^2
+
+}
+
+{
+
+\frac{\left(\frac{s_1^2}{n_1}\right)^2}{n_1 - 1} + \frac{\left(\frac{s_2^2}{n_2}\right)^2}{n_2 - 1}
+
+}\), where \(s_1^2\) and \(s_2^2\) are the variances of the two samples, and \(n_1\) and \(n_2\) are the respective sample sizes.</li>
+
+</ul>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Welch's Confidence Interval: Ants -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Welch's Confidence Interval</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column:1/3;" class="smallest">
+
+<p>
+
+Welch's t-interval is a valuable tool for post hoc analysis in ANOVA,
+
+particularly when dealing with <span class="em">unequal variances</span> and <span class="em">sample sizes</span>.
+
+</p>
+
+</div>
+
+<div style="display:flex;flex-wrap:wrap;align-content:center;justify-content:center;">
+
+<table class="font-size:60%;" id="ant-table">
+
+<thead>
+
+<tr>
+
+<th>Group</th>
+
+<th>$n$</th>
+
+<th>$\bar{x}$</th>
+
+<th>$s^2$</th>
+
+<th>$s$</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>Ham &amp; Pickles</td>
+
+<td>8</td>
+
+<td>49.25</td>
+
+<td>116.50</td>
+
+<td>10.79</td>
+
+</tr>
+
+<tr>
+
+<td>Peanut Butter</td>
+
+<td>8</td>
+
+<td>34.00</td>
+
+<td>214.00</td>
+
+<td>14.63</td>
+
+</tr>
+
+<tr>
+
+<td>Vegemite</td>
+
+<td>8</td>
+
+<td>30.75</td>
+
+<td>85.64</td>
+
+<td>9.25</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div>
+
+<table id="ant-table" style="font-size:60%;">
+
+<thead>
+
+<tr>
+
+<th>Group1</th>
+
+<th>Group2</th>
+
+<th>Mean Difference</th>
+
+<th>95% CI Lower</th>
+
+<th>95% CI Upper</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr class="fragment highlight-bg-warning" data-fragment-index="2">
+
+<td>Ham &amp; Pickles</td>
+
+<td>Peanut Butter</td>
+
+<td>15.25</td>
+
+<td>1.351</td>
+
+<td>29.149</td>
+
+</tr>
+
+<tr class="fragment highlight-bg-success-white" data-fragment-index="3">
+
+<td>Ham &amp; Pickles</td>
+
+<td>Vegemite</td>
+
+<td>18.50</td>
+
+<td>7.695</td>
+
+<td>29.305</td>
+
+</tr>
+
+<tr class="fragment highlight-bg-danger-white" data-fragment-index="4">
+
+<td>Peanut Butter</td>
+
+<td>Vegemite</td>
+
+<td>3.25</td>
+
+<td>-10.106</td>
+
+<td>16.606</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div>
+
+<p>
+
+Key Aspects of the procedure:
+
+<ul class="tiny">
+
+<li><strong>Handling Unequal Variances:</strong> Welch's t-interval is more robust for datasets with unequal variances.</li>
+
+<li><strong>Adjustment of Degrees of Freedom:</strong> Welch's t-test adjusts degrees of freedom for more accurate confidence intervals, especially with unequal sample sizes.</li>
+
+<li><strong>95% Confidence Interval:</strong> This interval shows the range where the true mean difference lies with 95% confidence.</li>
+
+<li><strong>Applicability in Multiple Comparisons:</strong> Useful in ANOVA post hoc testing for reliable pairwise group comparisons.</li>
+
+</ul>
+
+</p>
+
+<p class="fragment bordered border-success" data-fragment-index="5">
+
+Ham and Pickles are a success at Ant parties!
+
+</p>
+
+</div>
+
+<div>
+
+<p>
+
+Calculations:
+
+<ul class="tiny">
+
+<li class="emoji-lightbulb">Welch's t-interval: $\bar{x}_1 - \bar{x}_2 \pm t_{\alpha/2, \nu} \times \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}$ where $t_{\alpha/2, \nu}$ is the critical value from the t-distribution for the desired confidence level (typically 95%) and degrees of freedom $\nu$.</li>
+
+<li class="emoji-brain">For comparing 'Ham & Pickles' and 'Vegemite', \(\nu = \frac{\left(\frac{116.50}{8} + \frac{85.64}{8}\right)^2}{\frac{\left(\frac{116.50}{8}\right)^2}{8 - 1} + \frac{\left(\frac{85.64}{8}\right)^2}{8 - 1}}=13.68\).</li>
+
+<li class="emoji-brain">For comparing 'Ham & Pickles' and 'Vegemite', Welch's t-interval is:
+
+\[\begin{align}
+
+d_2\pm 95\%CI &=& (49.25 - 30.75) \pm 2.149 \times \sqrt{\frac{116.50}{8} + \frac{85.64}{8}}\\
+
+&=& 18.50 \pm 10.805\\
+
+&\therefore& \class{success}{18.50\, (7.695,\, 29.305)}.
+
+\end{align}\]
+
+</li>
+
+</ul>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Why am I using the t-interval here? Because we are comparing a difference in means,
+
+which we know to be t-distributed.
+
+</p>
+
+<p>
+
+Why Welch? Because low N (8), also have a look at the variances, would it be
+
+reasonable to think all 3 are the same?
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+
+
+<!-- P-value Correction -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Correcting For Type I Errors</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic smaller" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<div class="left-justify small border-left-5x border-info" style="grid-column:1/3;">
+
+<p>
+
+P-value correction is a statistical technique used to adjust the significance
+
+levels of hypothesis tests when multiple comparisons are made. This adjustment is
+
+crucial to mitigate the problem of inflated Type I errors. In essence,
+
+p-value correction methods recalibrate the threshold for statistical
+
+significance to account for the number and nature of comparisons, ensuring
+
+that findings are not erroneously deemed significant due to chance alone.
+
+</p>
+
+</div>
+
+<div class="fragment" data-fragment-index="1">
+
+<h4>Family-Wise Error Rate (FWER) Methods</h4>
+
+<p>Aim to control the probability of making one or more type I errors in a family of comparisons.</p>
+
+<ul>
+
+<li><strong>Bonferroni Correction:</strong> Simplest FWER method. Multiplies each p-value by the number of comparisons. Best for small numbers of tests; can be overly conservative.</li>
+
+<li><strong>Holm-Bonferroni Method:</strong> Step-down procedure. Adjusts p-values in ascending order, less conservative than Bonferroni, better for medium numbers of tests.</li>
+
+</ul>
+
+</div>
+
+<div class="fragment" data-fragment-index="2">
+
+<h4>False Discovery Rate (FDR) Methods</h4>
+
+<p>Aim to control the expected proportion of false discoveries among the rejected hypotheses.</p>
+
+<ul>
+
+<li><span class="fragment highlight-pop" data-fragment-index="4"><strong>Benjamini-Hochberg Procedure:</strong> Step-up method for controlling FDR. Good for larger numbers of tests; balances discovery with error control.</span></li>
+
+<li><strong>Benjamini-Yekutieli Procedure:</strong> An extension of Benjamini-Hochberg, accounting for dependency between tests. Suitable when test statistics are not independent.</li>
+
+</ul>
+
+</div>
+
+<div class="fragment" data-fragment-index="3" style="grid-column:1/3;">
+
+<h4>Permutation-Based Corrections</h4>
+
+<p>Use permutation of the data to determine the distribution of the test statistic under the null hypothesis.</p>
+
+<ul>
+
+<li><strong>Westfall-Young Procedure:</strong> A permutation-based, step-down method. Particularly effective for correlated and dependent tests.</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Wrap up -->
+
+
+
+<section>
+
+<style>
+
+#ant-ttable, #ant-ttable table, #ant-ttable td, #ant-ttable th {
+
+font-size: 80%;
+
+text-align: center;
+
+vertical-align: middle;
+
+padding: 4px;
+
+}
+
+</style>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>P-Value Adjustment in Multiple Comparisons (<span class="em">Ants!</span>)</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column:1/3;" class="smaller">
+
+<p>
+
+In multiple comparisons, like pairwise testing using Welch's t-test,
+
+p-value adjustment is crucial to control for false discovery rates.
+
+This adjustment reduces the chances of incorrectly declaring a result
+
+significant due to random chance in multiple tests.
+
+</p>
+
+</div>
+
+<div class="smallest" style="align-self:center;">
+
+<ul>
+
+<li class="fragment" data-fragment-index="1"><strong>Welch's t-Test:</strong> Used for each pairwise comparison to calculate p-values, accounting for unequal variances and sample sizes.</li>
+
+<li class="fragment" data-fragment-index="2"><strong>Benjamini-Hochberg Method:</strong> Recommended for controlling the false discovery rate (FDR) in multiple hypothesis testing. This method is particularly suitable for a small number of comparisons, like in our case with three tests.</li>
+
+<li class="fragment" data-fragment-index="3"><strong>Adjustment Process:</strong> The method ranks the p-values, adjusts them based on their rank and the total number of tests, providing a balance between discovering significant results and controlling for type I errors.</li>
+
+<li class="fragment" data-fragment-index="4"><strong>Result Interpretation:</strong> Adjusted p-values provide a more reliable basis for determining statistical significance in the context of multiple comparisons.</li>
+
+</ul>
+
+</div>
+
+<div>
+
+<table id="ant-ttable" class="fragment" data-fragment-index="5">
+
+<thead>
+
+<tr>
+
+<th>Group1</th>
+
+<th>Group2</th>
+
+<th>t-statistic</th>
+
+<th>p-value</th>
+
+<th>Adjusted p-value</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr class="fragment highlight-bg-warning" data-fragment-index="7">
+
+<td>Ham &amp; Pickles</td>
+
+<td>Peanut Butter</td>
+
+<td>2.372625</td>
+
+<td>0.033934</td>
+
+<td>0.050901</td>
+
+</tr>
+
+<tr class="fragment highlight-bg-success-white" data-fragment-index="8">
+
+<td>Ham &amp; Pickles</td>
+
+<td>Vegemite</td>
+
+<td>3.680336</td>
+
+<td>0.002561</td>
+
+<td>0.007682</td>
+
+</tr>
+
+<tr class="fragment highlight-bg-danger-white" data-fragment-index="6">
+
+<td>Peanut Butter</td>
+
+<td>Vegemite</td>
+
+<td>0.531039</td>
+
+<td>0.605219</td>
+
+<td>0.605219</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="smallest fragment" style="padding-top: 2vmin;" data-fragment-index="3">
+
+<h4>
+
+Benjamini-Hochberg (BH) Procedure:
+
+</h4>
+
+<ol>
+
+<li>Rank the individual p-values in ascending order: \(p_{(1)}, p_{(2)}, \ldots, p_{(m)}\).</li>
+
+<li>For each p-value, calculate its BH critical value: \(\frac{i}{m} \times \alpha\), where \(i\) is the rank, \(m\) is the total number of tests, and \(\alpha\) is the desired FDR level.</li>
+
+<li>Find the largest \(p_{(i)}\) such that \(p_{(i)} \leq \frac{i}{m} \times \alpha\).</li>
+
+<li>Reject all null hypotheses corresponding to \(p_{(1)}, \ldots, p_{(i)}\).</li>
+
+</ol>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/rmanova-intro-1.png" id="section-title-1">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-1">
+              <div class="section-number">
+                <span class="large-number">
+                  1
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Repeated Measures Anova
+                </h2>
+                <h3>
+                  How Subject-Variance Affects The Result
+                </h3>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-1.section-title-content {
+
+background-color: rgba(240,240,240,0.7) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240,240,240,0.7) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Now we get into some more complicated procedures.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- One-way recap -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>One-Way ANOVA</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<p>
+
+Comparing multiple quantitative groups (multiple means)
+
+</p>
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+<span class="u-danger">One-way ANOVA</span>
+
+</p>
+
+<ul class="smaller down-5">
+
+<li>
+
+ANOVA is short for <span class="strong">AN</span>alysis <span class="strong">O</span>f <span class="strong">VA</span>riance.
+
+</li>
+
+<li>
+
+The "One" refers to the number of independent <span class="em">factors</span>.
+
+</li>
+
+</ul>
+
+</div>
+
+<div>
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/anova-family-on-noise-data.svg#axes_1"></use>
+
+<use xlink:href="lib/img/anova-family-on-noise-data.svg#axes_2"></use>
+
+<use xlink:href="lib/img/anova-family-on-noise-data.svg#axes_6"></use>
+
+</svg>
+
+</div>
+
+<div class="framed border-info" style="grid-column:1/3;" data-id="framed-div">
+
+<p class="em muted u strong">
+
+ANOVA Terminology:
+
+</p>
+
+<ul class="small">
+
+<li>
+
+The independent variables are called <span class="strong">factors</span> (e.g.: Noise)
+
+</li>
+
+<li>
+
+The different categories inside a factor are called <span class="strong">levels</span> (e.g.: None, Low, High, etc ...).
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</section>
+
+
+
+<!-- One-way recap -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>One-Way ANOVA</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<p>
+
+ANOVA relies on the study of the <span class="strong">different aspects of
+
+variability in a dataset</span> to compare two or more quantitative groups
+
+with each other.
+
+</p>
+
+<p class="center down-4">
+
+$F=\frac{\textrm{Mean SS}_{Group}}{\textrm{Mean SS}_{Error}}=\frac{
+
+\frac{\textrm{SS}_{Group}}{(k-1)}
+
+}{
+
+\frac{\textrm{SS}_{Error}}{(n-k)}
+
+}$
+
+</p>
+
+</div>
+
+<div>
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/anova-family-on-noise-data.svg#axes_1"></use>
+
+<use xlink:href="lib/img/anova-family-on-noise-data.svg#axes_2"></use>
+
+<use xlink:href="lib/img/anova-family-on-noise-data.svg#axes_6"></use>
+
+</svg>
+
+</div>
+
+<div class="left-justify" style="grid-column:1/3;" data-id="framed-div">
+
+<ul class="small">
+
+<li>
+
+Between group variability, <span class="strong">$SS_{Groups}$</span> : variability due to
+
+the difference in means <br> (<span class="em">How far each mean is from the
+
+<span class="orange">Grand mean</span>?</span>).
+
+</li>
+
+<li>
+
+Within group variability, <span class="strong">$SS_{Error}$</span> : variability due to
+
+the difference in values within each group. (<span class="em">How far each data point
+
+is from its respective <span class="pop">group mean</span>?</span>)
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- One-way recap -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>One-Way ANOVA</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/anova-family-on-noise-data-one-way.svg#axes_1"></use>
+
+<use xlink:href="lib/img/anova-family-on-noise-data-one-way.svg#axes_2"></use>
+
+<use xlink:href="lib/img/anova-family-on-noise-data-one-way.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+<div>
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/anova-family-on-noise-data.svg#axes_1"></use>
+
+<use xlink:href="lib/img/anova-family-on-noise-data.svg#axes_2"></use>
+
+<use xlink:href="lib/img/anova-family-on-noise-data.svg#axes_6"></use>
+
+</svg>
+
+</div>
+
+<div style="grid-column:1/3;" data-id="framed-div">
+
+<p class="left-justify">
+
+The $F$-statistic is just like any other statistic of interest, we can assess
+
+a p-value or confidence intervals.
+
+</p>
+
+<p class="left-justify">
+
+<i class="fas fa-arrow-circle-right"></i>
+
+Need to follow up with <span class="em">post hoc</span> tests.
+
+</p>
+
+<p class="small warning fragment">
+
+Don't forget to correct for multiple-testing errors!
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ANOVA Family -->
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>ANOVA</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:2px;">
+
+<div class="grid-generic" style="grid-template-columns:6fr 1fr 6fr 1fr 6fr;grid-template-rows:1fr;gap:5px;">
+
+<div class="framed border-success" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+Total Variability
+
+</p>
+
+</div>
+
+<div>
+
+$$\phantom{ }=\phantom{ }$$
+
+</div>
+
+<div class="framed border-warning" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+Variability Between Groups
+
+</p>
+
+</div>
+
+<div>
+
+$$\phantom{ }+\phantom{ }$$
+
+</div>
+
+<div class="framed border-info" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+Variability Of "Errors" or "Effects"
+
+</p>
+
+</div>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:6fr 1fr 6fr 1fr 6fr;grid-template-rows:1fr;gap:5px;">
+
+<div class="framed border-success" style="height:100%;display:grid;align-content:center;">
+
+<p >
+
+$$\sum_{i=1}^{n}(x_{i}-\hat{x})^2$$
+
+</p>
+
+</div>
+
+<div style="height:100%;display:grid;align-content:center;">
+
+$$\phantom{ }=\phantom{ }$$
+
+</div>
+
+<div class="framed border-warning" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+$$\sum_{g=1}^{k}n_{g}(\bar{x}_{g}-\hat{x})^2$$
+
+</p>
+
+</div>
+
+<div style="height:100%;display:grid;align-content:center;">
+
+$$\phantom{ }+\phantom{ }$$
+
+</div>
+
+<div class="framed border-info" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+$$\sum_{g=1}^{k}\sum_{i=1}^{n_g}(x_{gi}-\bar{x}_{g})^2$$
+
+</p>
+
+</div>
+
+</div>
+
+<p class="fragment full-width bg-black inverted border-left-5x border-right-5x border-info" style="font-size:90%;">
+
+Measuring the same <span class="em">subject</span> over <span class="em">time</span> or <span class="em">condition?</span><br>
+
+Use the <span class="em strong danger">Repeated Measures</span> version:
+
+</p>
+
+<div class="fragment grid-generic" style="grid-template-columns:6fr 1fr 6fr 1fr 6fr;grid-template-rows:1fr;gap:5px;">
+
+<div class="framed border-success" style="height:100%;display:grid;align-content:center;">
+
+<p >
+
+$$\sum_{i=1}^{n}(x_{i}-\hat{x})^2$$
+
+</p>
+
+</div>
+
+<div style="height:100%;display:grid;align-content:center;">
+
+$$\phantom{ }=\phantom{ }$$
+
+</div>
+
+<div class="framed border-warning" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+$$\sum_{g=1}^{k}n_{g}(\bar{x}_{g}-\hat{x})^2$$
+
+</p>
+
+</div>
+
+<div style="height:100%;display:grid;align-content:center;">
+
+$$\phantom{ }+\phantom{ }$$
+
+</div>
+
+<div class="fragment framed border-pop small no-hang" style="height:100%;display:grid;align-content:center;">
+
+<p>
+
+$$\sum_{g=1}^{k}\sum_{i=1}^{n_g}(x_{gi}-\bar{x}_{g})^2 - \class{pop}{\sum_{s=1}^{S}k_s(\bar{x}_s-\hat{x})^2}$$
+
+</p>
+
+</div>
+
+</div>
+
+<div class="fragment framed border-muted">
+
+<p style="font-size:50%">
+
+$\hat{x}$: Grand Mean; $\bar{x}_g$: Group Mean; $\bar{x}_s$: Subject Mean; $n$: Total number of measurements; $n_g$: Number in $g^{\text{th}}$ group; $k_s$: Number of conditions or time-points in $s^{\text{th}}$ subject.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<ul>
+
+<li>\( \hat{x} \): Grand Mean</li>
+
+<li>\( \bar{x}_g \): Group Mean</li>
+
+<li>\( \bar{x}_s \): Subject Mean</li>
+
+<li>\( n \): Total number of measurements</li>
+
+<li>\( n_g \): Number in \( g^{\text{th}} \) group</li>
+
+<li>\( k_s \): Number of conditions or time-points in \( s^{\text{th}} \) subject</li>
+
+</ul>
+
+</aside>
+
+</section>
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Adjusting the $SS$ Terms</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width smallest" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:2px;">
+
+<!-- top left column -->
+
+<div class="no-top-margin fragment framed border-muted smaller" data-fragment-index="1">
+
+<p class="muted left-justify">
+
+Statistic:
+
+</p>
+
+<p>
+
+$$\mathcal{F}=\frac{\color{orange}{SS_{between}}}{\color{lightblue}
+
+{SS_{Within}}}=\frac{\color{orange}{\partial^2(fit,null)}}
+
+{\color{lightblue}{\partial^2(fit,data)}}$$
+
+</p>
+
+<p class="muted left-justify fragment" data-fragment-index="1">Effect Size:</p>
+
+<p class="fragment" data-fragment-index="1">
+
+$$R^2=\frac{\color{orange}{\partial^2(fit,null)}}{\color{seagreen}{\partial^2(data,null)}}$$
+
+</p>
+
+</div>
+
+
+
+<!-- top right column -->
+
+<div class="no-top-margin fragment framed border-muted smaller" data-fragment-index="2">
+
+<p class="muted left-justify">
+
+Statistic:
+
+</p>
+
+<p class="fragment" data-fragment-index="2">
+
+$$\mathcal{F}=\frac{\color{orange}{\partial^2(fit,null)}}{\color{lightblue}{\partial^2(fit,\color{purple}{reduced})}}$$
+
+</p>
+
+<p class="muted left-justify fragment" data-fragment-index="2">Effect Size:</p>
+
+<p class="fragment" data-fragment-index="2">
+
+$$\eta^2_{p}=\frac{\color{orange}{\partial^2(fit,null)}}{\color{purple}{\partial^2(reduced,null)}}=\frac{SS_{Between}}{SS_{Total}}$$
+
+</p>
+
+</div>
+
+
+
+<!-- Bottom -->
+
+<div class="grid-generic no-top-margin fragment" data-fragment-index="1" style="grid-column:1/3;justify-content:center;justify-self:center;grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="justify-content:center;">
+
+<svg version="1.1" viewBox="0 50 412 395" height="50vh" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<defs>
+
+<style type="text/css">
+
+*{stroke-linecap:butt;stroke-linejoin:round;}
+
+</style>
+
+</defs>
+
+<use xlink:href="lib/img/f-stat-geom-standard.svg#axes_1"></use>
+
+<use xlink:href="lib/img/f-stat-geom-standard.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index="1" xlink:href="lib/img/f-stat-geom-standard.svg#axes_3"></use>
+
+<use class="fragment" data-fragment-index="1" xlink:href="lib/img/f-stat-geom-standard.svg#axes_4"></use>
+
+</svg>
+
+</div>
+
+<div style="justify-content:center;">
+
+<svg version="1.1" viewBox="0 50 412 395" height="50vh" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<defs>
+
+<style type="text/css">
+
+*{stroke-linecap:butt;stroke-linejoin:round;}
+
+</style>
+
+</defs>
+
+<use xlink:href="lib/img/f-stat-geom-RM.svg#axes_1"></use>
+
+<use xlink:href="lib/img/f-stat-geom-RM.svg#axes_2"></use>
+
+<use class="fragment" data-fragment-index="4" xlink:href="lib/img/f-stat-geom-RM.svg#axes_3"></use>
+
+<use class="fragment" data-fragment-index="3" xlink:href="lib/img/f-stat-geom-RM.svg#axes_4"></use>
+
+<use class="fragment" data-fragment-index="5 " xlink:href="lib/img/f-stat-geom-RM.svg#axes_5"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+F = SSB/SSW.
+
+
+
+So then, when F is large, then $\partial^2(fit,null) > \partial^2(fit,data)$ and
+
+when F is small (less than 1) then $\partial^2(fit,null) < \partial^2(fit,data)$.
+
+
+
+And the same case can be said about the reduced, we are just correcting the _data_
+
+term for "mixed" effects.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Repeated-Measures Lead-in 1 -->
+
+
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Repeated Measures ANOVA</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div data-id="info-box">
+
+<p>
+
+Repeated measures design uses the <span class="strong">same subjects with every condition</span> of the research, including the control.
+
+</p>
+
+<p class="smaller">
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+In this design, data for a particular dependent variable (factor) are collected more than once (different levels) on the same observational units.
+
+</p>
+
+</div>
+
+<div>
+
+<img src="lib/img/anova-repeated-measures.svg">
+
+</div>
+
+<div class="small" style="grid-column:1/3;" data-id="details-box">
+
+<p class='u em'>
+
+Investigating <span class="strong">changes</span> in mean scores over three or more time points:
+
+</p>
+
+<p class="smaller">
+
+You want to study the effect of a 6-month exercise training program on blood pressure and want to measure blood pressure at 3 separate time points (pre-, midway and post-exercise intervention), which would allow you to develop a time-course for any exercise effect.
+
+</p>
+
+<p class='u em down-2'>
+
+Investigating differences in mean scores under three or more <span class="strong">different conditions</span>:
+
+</p>
+
+<p class="smaller">
+
+You might get the same subjects to eat different types of cake (chocolate, caramel and lemon) and rate each one for taste, rather than having different people taste each different cake.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Repeated-Measures Lead-in 2 -->
+
+
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Repeated Measures ANOVA</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div data-id="info-box">
+
+<p>
+
+<span class="em muted u">Note:</span>
+
+The repeated measures ANOVA will usually gives you more statistical power since the within-group variation, which is a source of measurement errors, will be identified and excluded from the analysis.
+
+</p>
+
+</div>
+
+<div>
+
+<img src="lib/img/anova-repeated-measures.svg">
+
+</div>
+
+<div class="small" style="grid-column:1/3;" data-id="details-box">
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+Performing a repeated measures ANOVA allows to account for <span class="danger">individual differences in baselines</span> of the participants of the study.
+
+</p>
+
+<p class="smaller em">
+
+Consider a drug trial, in which participants have individual differences that impact the detectable effect of the drug (e.g.: blood pressure, age, gender).
+
+</p>
+
+<ul class="smaller">
+
+<li>
+
+The typical drug trial splits all participants into a control and the treatment group and measures the effect of the drug in month 1-18.
+
+</li>
+
+<li>
+
+The repeated measures ANOVA can correct for the individual differences or baselines and analyzes the effect of the drug while excluding the influence of different baseline levels of health when the trial began.
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Memory Performance And Noise 1 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Effect Of Noise On Memory</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1.5fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<p class="em u">
+
+Example:
+
+</p>
+
+<p>
+
+We have measured the performance scores for a memorization task of a group of subjects in different conditions of noise.
+
+</p>
+
+<p class="fragment" data-fragment-index=1>
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+<span class="strong">Same subjects over all conditions</span>
+
+</p>
+
+</div>
+
+<div>
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/anova-family-on-noise-data.svg#axes_1"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/anova-family-on-noise-data.svg#axes_3"></use>
+
+<use class="fragment" xlink:href="lib/img/anova-family-on-noise-data.svg#axes_4"></use>
+
+<use xlink:href="lib/img/anova-family-on-noise-data.svg#axes_2"></use>
+
+</svg>
+
+</div>
+
+<div class="small" style="grid-column:1/3;">
+
+<p class="fragment">
+
+Applying a repeated measure ANOVA to analyze the data will allow us to account for individual inner ability for memorization, and isolate the effect of the different levels of the factor.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Remove Subject Variability 1 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Accounting For Subject-Variability</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1.2fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="left-justify">
+
+<p class="em u">
+
+One way ANOVA:
+
+</p>
+
+<p>
+
+$SS_{Total}=\sum_{i=1}^{n}(x_{i}-\hat{x})^2$
+
+</p>
+
+<p class="smaller">
+
+$SS_{Groups}=\sum_{g=1}^{k}n_{g}(\bar{x}_{g}-\hat{x})^2$
+
+</p>
+
+<p class="smaller">
+
+$SS_{Within}=\sum_{g=1}^{k}\sum_{i=1}^{n_g}(x_{gi}-\bar{x}_{g})^2$
+
+</p>
+
+<p class="em u down-8 fragment" data-fragment-index=2>
+
+Repeated measures ANOVA:
+
+</p>
+
+<p class="smaller fragment pop" data-fragment-index=2>
+
+$SS_{Subject}=\sum_{s=1}^{S}k_s(\bar{x}_s-\hat{x})^2$
+
+</p>
+
+<p class="smaller fragment" data-fragment-index=2>
+
+$SS_{Error} = SS_{Within}-SS_{Subject}$
+
+</p>
+
+<p class="smaller fragment" data-fragment-index=2>
+
+$k$: number of levels for the factor
+
+</p>
+
+</div>
+
+<div>
+
+<svg width="100%" viewBox="16 5 510 311">
+
+<use xlink:href="lib/img/anova-variabilities.svg#independent"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/anova-variabilities.svg#dependent"></use>
+
+<use class="fragment" data-fragment-index=1 xlink:href="lib/img/anova-variabilities.svg#labels"></use>
+
+<use class="fragment" data-fragment-index=3 xlink:href="lib/img/anova-variabilities.svg#cross"></use>
+
+</svg>
+
+</div>
+
+<div class="small" style="grid-column: 1/3;">
+
+<p class="fragment" data-fragment-index=3>
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+Now, we're not interested in how the scores differ between subjects. We therefore "correct" for this variability.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Remove Subject Variability 2 -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Accounting For Subject-Variability</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="q3-width" style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;align-items:start;justify-items:center;">
+
+<div class="full-width" style="grid-column:1/3;grid-row:1/3;justify-content:center;">
+
+<svg width="100%" viewBox="0 0 576 288">
+
+<use xlink:href="lib/img/anova-family-on-noise-ss-subjects.svg#axes_1"></use>
+
+<use xlink:href="lib/img/anova-family-on-noise-ss-subjects.svg#axes_2"></use>
+
+<use xlink:href="lib/img/anova-family-on-noise-ss-subjects.svg#axes_3"></use>
+
+<use xlink:href="lib/img/anova-family-on-noise-ss-subjects.svg#axes_4"></use>
+
+<use xlink:href="lib/img/anova-family-on-noise-ss-subjects.svg#axes_5"></use>
+
+</svg>
+
+</div>
+
+<div style="grid-row:2/3;grid-column:2/3;justify-self:end;align-self:center;justify-content:end;align-content:end;">
+
+$F=\frac{\textrm{Mean SS}_{Group}}{\textrm{Mean SS}_{Error}}=
+
+\frac{\frac{\textrm{SS}_{Group}}{(k-1)}}{\frac{\textrm{SS}_{Error}}{\class{danger}{(s-1)(k-1)}}}$
+
+</div>
+
+</div>
+
+<p class="smaller fragment left-justify">
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+Note the degrees of freedom go from $(n - k)$ to $(s - 1)(k - 1)$ for our <span class="success">Mean Squared Error</span> term.
+
+</p>
+
+<p class="smaller fragment left-justify">
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+Like One-Way ANOVA, if we get a significant F-statistic, we follow up with <span class="em">post hoc</span> testing.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<aside class="notes">
+
+<p>
+
+Where s is our number of subjects and k is our number of factor levels.
+
+</p>
+
+<p>
+
+This is as far as we take the repeated measures ANOVA. Here, post hoc is the same
+
+as previously, we test effects of noise at each time point.
+
+</p>
+
+</aside>
+
+
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- ANOVA Does Even More -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>ANOVA Does Even More</h2>
+
+</div>
+
+<div class="content no-hang">
+
+<div class="grid-generic full-width" style="grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr 0.5fr;gap:6px;">
+
+<!-- top left column -->
+
+<div class="no-top-margin framed border-muted no-hang" style="height:100%;">
+
+<p class="strong">One-Way ANOVA</p>
+
+<p class="smallest">
+
+One-Way ANOVA considers multiple groups belonging to a single categorical
+
+family called a <span class="info-muted">factor level</span>, i.e. sandwiches,
+
+treatment types, etc.
+
+</p>
+
+<div class="smallest no-hang">
+
+$$\mathcal{F}=\frac{\color{orange}{SS_{between}}}{\color{lightblue}{SS_{Within}}}$$
+
+</div>
+
+</div>
+
+
+
+<!-- top right column -->
+
+<div class="col-50 no-top-margin framed border-orange no-hang" style="height:100%;">
+
+<p class="strong">Repeated Measures ANOVA</p>
+
+<p class="smallest">
+
+Just as we discussed with <span class="orange">before $\sim$ after</span>
+
+in two-group NHST, ANOVA has special methods for dealing with repeatedly
+
+measuring from a single subject. It takes the form of:
+
+</p>
+
+<div class="smallest no-hang">
+
+$$\mathcal{F}=\frac{\color{orange}{SS_{between}}}{\color{lightblue}{(SS_{Within}-
+
+SS_{random})}}=\frac{SS_{between.timepoints}}{SS_{fixed}}$$
+
+</div>
+
+</div>
+
+
+
+<!-- bottom left column -->
+
+<div class="col-50 no-top-margin framed border-info no-hang" style="height:100%;">
+
+<p class="strong">N-Way ANOVA</p>
+
+<p class="smallest">We aren't limited to one level (plus time) and can model multiple factors,
+
+though it starts getting complicated because we have new
+
+<span class="info-muted">kinds</span> of terms to discuss called
+
+<span class="orange">interactions</span>. Note that each new factor
+
+level will get its own $\mathcal{F}$-statistic.</p>
+
+<div class="smallest no-hang">$$\mathcal{F}=\frac{\{ SS_{b.group1},\, SS_{b.group2},\,
+
+\ldots ,\, SS_{b.groupN},\, \{ SS_{\color{orange}{interactions}}\} \} }
+
+{SS_{Within}}$$
+
+</div>
+
+</div>
+
+
+
+<!-- bottom right column -->
+
+<div class="col-50 no-top-margin framed border-pink no-hang" style="height:100%;">
+
+<p class="strong">N-Way Repeated Measures ANOVA</p>
+
+<p class="smallest">Just like in the One-Way approach, we now have to consider the effects of
+
+time and remove the <span class="info-muted">random</span> effects, i.e.
+
+the <span class="info-muted">within subject</span> variation.</p>
+
+<div class="smallest no-hang">$$\mathcal{F}=\frac{\{ SS_{b.time},\, SS_{b.group2},\,
+
+\ldots ,\, SS_{b.groupN},\, \{ SS_{\color{orange}{interactions}}\} \} }
+
+{SS_{Within}-SS_{random}}$$
+
+</div>
+
+</div>
+
+
+
+<!-- What are factors -->
+
+<p class="full-width em smaller" style="grid-column:1/3;">
+
+Note: As we add more and more <span class="info">factors</span>, we stop calling it ANOVA
+
+and just say "Factor Analysis", and it starts taking on a different purpose.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Namely, Factor Analysis is a way of reducing data dimensionality by merging variables with highly explained variance.</p>
+
+</aside>
+        </section>
+      </div>
+      <footer class="main-footer">
+        <span>
+          Lecture 17
+        </span>
+        <span style="text-align:center;">
+        </span>
+        <span style="text-align:right;">
+          <a href="https:\\khrisgriffis.com" target="_blank" rel="noopener noreferrer">Khris Griffis &#169;2025</a>
+        </span>
+      </footer>
+    </div>
+    <script src="./src/reveal.js">
+    </script>
+    <script src="./src/plugin/notes/notes.js">
+    </script>
+    <script src="./src/plugin/highlight/highlight.js">
+    </script>
+    <script src="./src/plugin/math/math.js">
+    </script>
+    <script src="./src/plugin/reveal-splash/reveal-splash.js">
+    </script>
+    <script src="./src/plugin/vizzy-reveal/vizzy.js">
+    </script>
+    <script>
+      Reveal.initialize({
+autoSlide: 0,
+center: true,
+controls: true,
+controlsBackArrows: "faded",
+controlsLayout: "bottom-right",
+display: "block",
+fragments: true,
+fragmentInURL: true,
+hash: true,
+hideCursorTime: 5000,
+keyboard: true,
+mobileViewDistance: 3,
+mouseWheel: false,
+navigationMode: "linear",
+overview: true,
+pdfMaxPagesPerSlide: 1,
+pdfSeparateFragments: false,
+preloadIframes: null,
+progress: false,
+showNotes: false,
+showSlideNumber: "print",
+sortFragmentsOnSync: true,
+touch: true,
+transition: "fade",
+transitionSpeed: "default",
+viewDistance: 3,
+backgroundTransition: "fade",
+controlsTutorial: false,
+embedded: false,
+help: true,
+hideInactiveCursor: true,
+history: false,
+loop: false,
+previewLinks: false,
+rtl: false,
+shuffle: false,
+slideNumber: false,
+width: 1920,
+height: 1080,
+margin: 0.081,
+minScale: 0.08,
+maxScale: 1.67,
+mathjax3: {
+mathjax: "https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-mml-chtml.js",
+loader: {
+load: [
+"[tex]/html",
+],
+},
+tex: {
+packages: {
+'[+]': [
+"html",
+],
+},
+inlineMath: [
+["$", "$"],
+["\\(", "\\)"],
+],
+processEscapes: true,
+processEnvironments: true,
+},
+options: {
+skipHtmlTags: [
+"script",
+"noscript",
+"style",
+"textarea",
+"pre",
+],
+enableMenu: false,
+},
+chtml: {
+scale: 0.8,
+minScale: 0.4,
+},
+Safe: {
+sizeMin: 0.4,
+sizeMax: 1.25,
+},
+output: {
+linebreaks: {
+inline: true,
+width: "100%",
+lineleading: 0.2,
+LinebreakVisitor: null,
+},
+},
+},
+notes: {
+
+},
+highlight: {
+
+},
+vizzy: {
+autoRunTransitions: true,
+autoTransitionDelay: 100,
+devMode: false,
+onSlideChangedDelay: 0,
+},
+splash: {
+splashImage: "lib/img/ME3040_splash.png",
+text: "Welcome to ME3040!",
+minimumDisplay: 2,
+},
+plugins: [RevealNotes, RevealHighlight, RevealMath.MathJax3, Splash, Vizzy]
+});
+    </script>
+  </body>
+</html>

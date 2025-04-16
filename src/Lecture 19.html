@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="notranslate" name="google"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>
+      Multiple Testing Problems Accumulation Of Errors
+    </title>
+    <link href="lib\favicon.png" rel="icon" type="image/x-icon"/>
+    <link href="./src/css/reset.css" rel="stylesheet"/>
+    <link href="./src/css/reveal.css" rel="stylesheet"/>
+    <link href="./src/css/revealpack.css" rel="stylesheet"/>
+    <link href="./src/theme/drG.css" id="theme" rel="stylesheet"/>
+    <!-- highlight.js theme -->
+    <link href="./src/theme/vs.css" id="highlight-theme" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <!-- Custom Scripts -->
+    <!-- Print PDF script -->
+    <script>
+      var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match(/print-pdf/gi) ? './src/css/print/pdf.css' : './src/css/print/paper.css';
+document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!-- Deck CSS Injections -->
+    <!-- Deck Script Injections -->
+    <!-- Deck Raw Injections -->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-image="lib/img/power_1.png" data-background-size="cover" id="deck-title-slide">
+          <div class="title-slide background">
+            <div class="headline">
+              <h2 class="r-fit-text">
+                Multiple Testing Problems
+              </h2>
+              <h3>
+                Accumulation Of Errors
+              </h3>
+            </div>
+            <div class="sub-header">
+              <p class="by">
+                Khris Griffis, Ph.D.
+              </p>
+            </div>
+            <div class="byline">
+              <p class="byinfo">
+                Lecture 19
+              </p>
+              <p class="byinfo">
+                CSULA: ME3040
+              </p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Today's Objectives</h2>
+
+</div>
+
+<div class="content">
+
+<div
+
+class="grid-generic full-width left-justify big"
+
+style="grid-template-columns: 1fr; grid-auto-rows: auto; row-gap: 5vmin"
+
+>
+
+<div class="border-bottom fragment" data-fragment-index="1">
+
+<p><i class="target"></i> ANOVA, The F-Statistic, and Linear Regression</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="2">
+
+<p><i class="target"></i> The problems with multiple testing</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="3">
+
+<p><i class="target"></i> Quiz 9</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Let's recap some of the concepts of ANOVA.</p>
+
+</aside>
+        </section>
+        <section data-background-image="lib/img/multigroup_5.png" id="section-title-1">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-1">
+              <div class="section-number">
+                <span class="large-number">
+                  1
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Anova
+                </h2>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-1.section-title-content {
+
+background-color: rgba(240, 240, 240, 0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240, 240, 240, 0.6) !important;
+
+}
+
+</style>
+
+<aside class="notes">
+
+<p>Section Notes</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>ANOVA Does Even More</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic full-width" style="grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr auto;gap:6px;">
+
+<!-- top left column -->
+
+<div class="no-top-margin framed border-muted no-hang" style="height:100%;">
+
+<h4>One-Way ANOVA</h4>
+
+<p class="smallest">
+
+One-Way ANOVA considers multiple groups belonging to a single categorical
+
+family called a <span class="info-muted">factor level</span>, i.e. sandwiches,
+
+treatment types, etc.
+
+</p>
+
+<p class="smallest no-hang">
+
+$$\mathcal{F}=\frac{\color{orange}{SS_{between}}}{\color{lightblue}{SS_{Within}}}$$
+
+</p>
+
+</div>
+
+
+
+<!-- top right column -->
+
+<div class="col-50 no-top-margin framed border-orange no-hang" style="height:100%;">
+
+<h4>One-Way Repeated Measures ANOVA</h4>
+
+<p class="smallest">
+
+Just as we discussed with <span class="orange">before $\sim$ after</span>
+
+in two-group NHST, ANOVA has special methods for dealing with repeatedly
+
+measuring from a single subject. It takes the form of:
+
+</p>
+
+<p class="smallest no-hang">
+
+$$\mathcal{F}=\frac{\color{orange}{SS_{between}}}{\color{lightblue}{(SS_{Within}-
+
+SS_{random})}}=\frac{SS_{between.timepoints}}{SS_{fixed}}$$
+
+</p>
+
+</div>
+
+
+
+<!-- bottom left column -->
+
+<div class="col-50 no-top-margin framed border-info no-hang" style="height:100%;">
+
+<h4>N-Way ANOVA</h4>
+
+<p class="smallest">We aren't limited to one level (plus time) and can model multiple factors,
+
+though it starts getting complicated because we have new
+
+<span class="info-muted">kinds</span> of terms to discuss called
+
+<span class="orange">interactions</span>. Note that each new factor
+
+level will get its own $\mathcal{F}$-statistic.</p>
+
+<p class="smallest no-hang">$$\mathcal{F}=\frac{\{ SS_{b.group1},\, SS_{b.group2},\,
+
+\ldots ,\, SS_{b.groupN},\, \{ SS_{\color{orange}{interactions}}\} \} }
+
+{SS_{Within}}$$
+
+</p>
+
+</div>
+
+
+
+<!-- bottom right column -->
+
+<div class="col-50 no-top-margin framed border-pink no-hang" style="height:100%;">
+
+<h4>N-Way Repeated Measures ANOVA</h4>
+
+<p class="smallest">Just like in the One-Way approach, we now have to consider the effects of
+
+time and remove the <span class="info-muted">random</span> effects, i.e.
+
+the <span class="info-muted">within subject</span> variation.</p>
+
+<p class="smallest no-hang">$$\mathcal{F}=\frac{\{ SS_{b.time},\, SS_{b.group2},\,
+
+\ldots ,\, SS_{b.groupN},\, \{ SS_{\color{orange}{interactions}}\} \} }
+
+{SS_{Within}-SS_{random}}$$
+
+</p>
+
+</div>
+
+
+
+<!-- What are factors -->
+
+<div style="grid-column:1/3;" class="box-width">
+
+<p class="full-width em smallest">
+
+Note: As we add more and more <span class="info">factors</span>, we stop calling it ANOVA
+
+and just say "Factor Analysis", and it starts taking on a different purpose.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Namely, Factor Analysis is a way of reducing data dimensionality by merging variables with highly explained variance.</p>
+
+<p>The point here, is we use the F-Statistic to compare the residual error of our model to the variation between our groups. Where else do we see this? Linear Regression!</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- F-Statistic in Linear Regression -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>F-Statistic in Linear Regression</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column:1/3;">
+
+<p class="small">
+
+The F-statistic is used to determine the overall significance of the regression model, testing the null hypothesis that all regression coefficients are equal to zero versus at least one differs.
+
+</p>
+
+</div>
+
+<div>
+
+<p class="small">
+
+For linear regression, the F-statistic is calculated as:
+
+</p>
+
+<p class="small">
+
+$$ F = \frac{MSR}{MSE} $$
+
+</p>
+
+</div>
+
+<div>
+
+<p class="left-justify no-hang small">
+
+Where:
+
+</p>
+
+<ul class="small">
+
+<li>\(MSR\) (Mean Square Regression) = \(\frac{SSR}{DFR}\) and \(DFR = 1\) for simple linear regression</li>
+
+<li>\(MSE\) (Mean Square Error) = \(\frac{SSE}{DFE}\) with \(DFE = n - p - 1\)</li>
+
+<li>\(SSR\) (Sum of Squares for Regression) = \(SST - SSE\)</li>
+
+<li>\(SST\) (Total Sum of Squares) = \(\sum(y_i - \bar{y})^2\)</li>
+
+<li>\(SSE\) (Error Sum of Squares) = \(\sum(y_i - \hat{y}_i)^2\)</li>
+
+</ul>
+
+</div>
+
+<div class="framed border-success fragment" style="grid-column: 1/3;">
+
+<p>
+
+The F-statistic allows us to assess whether our model provides a better fit to the data than a model with no predictors (only an intercept).
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+The F-statistic in simple linear regression helps to test the overall significance of the model. It's a way to see if our predictive model is better than an average value model.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- F-Statistic in Linear Regression -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>F-Statistic in Linear Regression</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column: 1/3;">
+
+<p class="small">
+
+Let's calculate the F-statistic for a simple linear regression model using a hypothetical dataset related material testing.
+
+</p>
+
+</div>
+
+<div>
+
+<ul>
+
+<li>\(SST = 60\) (total sum of squares)</li>
+
+<li>\(SSE = 45\) (residual sum of squares)</li>
+
+<li>\(n = 25\) (sample size)</li>
+
+<li>\(p = 1\) (number of predictors)</li>
+
+</ul>
+
+</div>
+
+<div>
+
+<p class="small fragment">
+
+First, calculate \(SSR\) and then \(MSE\) and \(MSR\):
+
+</p>
+
+<p class="small fragment">
+
+\(SSR = SST - SSE = 60 - 45 = 15\)
+
+</p>
+
+<p class="small fragment">
+
+\(MSE = \frac{SSE}{n - p - 1} = \frac{45}{23} \approx 1.96\)
+
+</p>
+
+<p class="small fragment">
+
+\(MSR = \frac{SSR}{DFR} = \frac{15}{1} = 15\)
+
+</p>
+
+</div>
+
+<div style="grid-column: 1/3;" class="fragment">
+
+<p class="small">
+
+Finally, the F-statistic is calculated as:
+
+</p>
+
+<p class="small">
+
+\(F = \frac{MSR}{MSE} = \frac{15}{1.96} \approx 7.65\)
+
+</p>
+
+<p class="small fragment">
+
+Since \(F = 7.65\) is slightly larger than the critical value of \(F(1, 23) \approx 4.28\), we reject the null hypothesis, but the model's significance is only moderate.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+In this example, the F-statistic of 7.65 is moderately above the critical value, suggesting that the predictor is likely significant but with limited strength. This can happen in mechanical engineering when testing material properties where a weak relationship exists.
+
+</p>
+
+<p>
+
+The F-statistic is used to assess the overall goodness of fit in a regression model, particularly when comparing how well the model with predictors fits the data compared to a model with only an intercept (i.e., no predictors). Use the F-statistic when:
+
+<ul>
+
+<li>You want to test the overall significance of your regression model.</li>
+
+<li>You're comparing a full model (with predictors) to a reduced model (no predictors or only an intercept).</li>
+
+<li>Evaluating if the inclusion of predictors improves the model's fit.</li>
+
+</ul>
+
+</p>
+
+<p>
+
+When interpreting the F-statistic:
+
+<ul>
+
+<li>A high F-statistic suggests that the model fits significantly better than a model with no predictors.</li>
+
+<li>A borderline F-statistic (like this example) might indicate some model utility, but additional evidence or a larger dataset might be needed to confirm the relationship.</li>
+
+<li>A low F-statistic means that the predictors do not significantly improve the fit of the model, leading to retention of the null hypothesis.</li>
+
+</ul>
+
+</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section data-background-image="lib/img/multiple-testing_1.png" id="section-title-2">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-2">
+              <div class="section-number">
+                <span class="large-number">
+                  2
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  The Problem With Multiple Testing
+                </h2>
+              </div>
+            </div>
+          </div>
+          <style>
+
+#section-content-2.section-title-content {
+
+background-color: rgba(240,240,240,0.6) !important;
+
+border-radius: 2rem !important;
+
+box-shadow: 0 0 2rem 2rem rgba(240,240,240,0.6) !important;
+
+}
+
+</style>
+
+</section>
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Ant Sandwich Preference</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<p>
+
+University student Dominic Kelly chose to study ant dietary preference as a
+
+final term paper for his statistics course.
+
+</p>
+
+<p>
+
+He recalled being a kid and noticing ants would always find their way to
+
+his friend's sandwich, but only sometimes found their way to his own.
+
+He decided to throw in a common australian sandwich as well.
+
+</p>
+
+<p>
+
+He chose sandwiches with fillings:
+
+<ul>
+
+<li>Vegemite</li>
+
+<li>Peanut Butter</li>
+
+<li>Ham and Pickles</li>
+
+</ul>
+
+</p>
+
+</div>
+
+<div class="full-width">
+
+<img src="lib/img/ants-sandwich.png" width=100%>
+
+</div>
+
+<div style="grid-column:1/3;justify-items:right;display:grid">
+
+<p class="muted" style="text-align:right; font-size:60%">
+
+Mackisack, M., <span class="em">"Favourite Experiments: An Addendum to
+
+What Is the Use of Experiments Conducted by Statistics Students?"</span>
+
+Journal of Statistics Education, 1994 <br>
+
+<a href="https://ww2.amstat.org/publications/jse/v2n1/mackisack.supp.html">http://www.amstat.org/publications /jse/v2n1/mackisack.supp.html</a>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Recall our ants and their sandwich preference.</p>
+
+</aside>
+
+</section>
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Comparing Multiple Means</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p>
+
+We have 3 groups.
+
+Why not just carry out a bunch of pair-wise analyses of the difference in mean?
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto;gap:1vmin;">
+
+<div>
+
+<p class="framed center" style="padding-top: 0.2em; padding-bottom: 0.2em;">
+
+$H_0:\, \mu_\class{warning}{1}=\mu_\class{info}{2}$
+
+</p>
+
+</div>
+
+<div>
+
+<p class="framed center" style="padding-top: 0.2em; padding-bottom: 0.2em;">
+
+$H_0:\, \mu_\class{warning}{1}=\mu_\class{danger}{3}$
+
+</p>
+
+</div>
+
+<div>
+
+<p class="framed center" style="padding-top: 0.2em; padding-bottom: 0.2em;">
+
+$H_0:\, \mu_\class{info}{2}=\mu_\class{danger}{3}$
+
+</p>
+
+</div>
+
+</div>
+
+<div class="full-width" style="justify-items: center;">
+
+<img src="lib/img/multi-testing-angel-demon.svg" width="50%">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Now, the question is, which filling or fillings are the ants in love with?</p>
+
+<p>We have to consider what the false positive rate means.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Type 1 Error: -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Controlling For Type 1 Errors</h2>
+
+</div>
+
+<div class="content">
+
+<div class="box-width">
+
+<p>
+
+Each test is carried out at $\alpha=0.05$, so the risk of <span class="danger">making a Type I error</span> (rejecting the null when we should not) is <span class="danger">$5\%$ <span class="u">each time</span></span>.
+
+</p>
+
+<p>
+
+The risk of making a Type I errors increases as we multiply the number of tests on the same data:
+
+</p>
+
+
+
+<ul style="font-size: 90%; margin-bottom:2vmin;">
+
+<li>
+
+At the $5\%$ significance level, the probability of making at least one type I error for <span class="strong">3 tests</span> would be <span class="strong">$14\%$</span>
+
+</li>
+
+<li>
+
+Comparing <span class="strong">4 means</span> (6 tests), this jumps to <span class="strong">$26\%$</span>
+
+</li>
+
+<li>
+
+Comparing <span class="strong">5 means</span> (10 tests), this jumps to <span class="strong">$40\%$</span>
+
+</li>
+
+</ul>
+
+
+
+<p class="framed bg-warning-light black" style="font-size: 80%;">
+
+We need to make multiple comparisons with an <span class="danger">overall</span> Type I error of $\alpha=0.05$ (or whichever level is specified). We need an alternative approach that uses one overall test that compares all means at once.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Type 1 Error for multiple tests -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Type 1 Errors Accumulate Rapidly</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 2fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="full-width smaller" style="text-align:left;">
+
+<p class="mutedBlue">
+
+In a test at $\alpha = 0.05$, there is a 5% chance of getting a
+
+<span class="danger">false positive</span> if the null hypothesis is true.
+
+In 100 tests, each at $\alpha = 0.05$, we "expect 5 false positives" if all
+
+100 null hypotheses are true, but really, the probability of getting
+
+$k$ false-positives is determinable through the binomial distribution,
+
+$p(k\, |\, \alpha)$.
+
+</p>
+
+<p>
+
+We can calculate the probability of getting
+
+<span class="strong">exactly one</span> false positive, but we rarely care if there's only 1.
+
+</p>
+
+<p>
+
+Instead, we care usually if <span class="strong">one or more</span> false positives occur.
+
+</p>
+
+</div>
+
+<div>
+
+<svg width="100%" version="1.1"  viewBox="0 0 730 442" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<defs>
+
+<style type="text/css">
+
+*{stroke-linecap:butt;stroke-linejoin:round;}
+
+</style>
+
+</defs>
+
+<use xlink:href="lib/img/ALPHA_runningProb.svg#axes_1"></use>
+
+<use xlink:href="lib/img/ALPHA_runningProb.svg#axes_2"></use>
+
+<use xlink:href="lib/img/ALPHA_runningProb.svg#axes_3"></use>
+
+<use xlink:href="lib/img/ALPHA_runningProb.svg#axes_4"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+This is the probability of getting a false positive in a single test.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+
+
+<!-- The problem with multiple testing -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>The Multiple Testing Problem</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<div class="grid-generic bordered border-orange bg-orange-light black"
+
+style="grid-template-columns:1fr auto 2fr;grid-auto-rows:auto;gap:5vmin;grid-column:1/3;">
+
+<div>
+
+<p>
+
+The chance of a Type I error is $\alpha$
+
+</p>
+
+</div>
+
+<div>
+
+<i class="fas fa-arrow-right"></i>
+
+</div>
+
+<div>
+
+<p>
+
+$\alpha$ of all tests with true null hypotheses will yield <span class="strong">significant results just by chance</span>
+
+</p>
+
+</div>
+
+</div>
+
+<div class="left-justify" style="grid-column:1/3;">
+
+<p class="down-1 smaller">
+
+<span class="em u muted">ex:</span> If 100 tests are done with $\alpha=0.05$ and nothing is really going on (the null hypothesis is really true), 5% of them will yield significant results (reject the null), just by chance.
+
+</p>
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i> This is known as the <span class="danger">problem of multiple testing</span>
+
+</p>
+
+</div>
+
+<div class="fragment framed bg-success-light black" style="height:100%;">
+
+<p>
+
+<span class="em u">Consider a topic that is being investigated by research teams all over the world:</span>
+
+<br>
+
+Using $\alpha=0.05$, <span class="strong">5% of teams are going to find something significant, even if the null hypothesis is true</span>.
+
+</p>
+
+</div>
+
+<div class="fragment flex framed bg-pop-light black" style="height:100%;">
+
+<p>
+
+<span class="em u">Consider a research team or company doing many hypothesis tests:</span>
+
+<br>
+
+Using $\alpha=0.05$, <span class="strong">5% of the tests are going to be
+
+significant, even if the null hypotheses are all true</span>. (multiple hypothesis tests)
+
+</p>
+
+</div>
+
+<div class="small" style="grid-column:1/3;">
+
+<p class="fragment down-2">
+
+<i class="fas fa-arrow-circle-right orange"></i>
+
+When multiple tests are conducted, if the null hypotheses are all true,
+
+<span class="orange">the proportion of all the tests that will yield
+
+statistically significant results just by random chance is about
+
+$\alpha$</span>, the significance level.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Mating Choice In Fruit Flies -->
+
+
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>How Do We Know About Errors?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="small">
+
+Let's look at a study in <span class="em">Drosophila melanogaster</span> (common fruit flies).
+
+</p>
+
+<p class="fragment small" data-fragment-index="1">
+
+Scientist sought to understand if having the choice of a mate would have an effect on "fitness" of offspring.
+
+</p>
+
+<div class="box-width fragment" data-fragment-index="1">
+
+<img src="lib/img/fruit-flies-mating-choice.svg" width=100%>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Original Paper -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>How Do We Know About Errors?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="small" style="grid-column:1/3;">
+
+Paper published in <span class="em">Nature</span> with $\text{p-value}< 0.01$.
+
+</p>
+
+<div>
+
+<img src="lib/img/fruit-flies-nature1980-title.png" class="framed" width=100%>
+
+</div>
+
+<div>
+
+<img src="lib/img/fruit-flies-nature1980-table2.png" class="framed" width=100%>
+
+<div class="smaller fragment">
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+Concluded, based on the data, that mate choice improves offspring fitness (This went against conventional wisdom).
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Penn State Replication 1 -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>How Do We Know About Errors?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 0.7fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="small center bg-danger-light black" style="grid-column:1/3;">
+
+<i class="fas fa-user-md"></i> Researchers at Penn State tried to replicate the results&hellip;
+
+</p>
+
+<div data-id="content-box">
+
+<p class="em u">Penn State's Study</p>
+
+<p class="left-justify small">
+
+600 female fruit flies, <span class="pop">randomly divided</span>:
+
+</p>
+
+<ul class="smaller left-justify">
+
+<li>
+
+300 placed in a cage with 900 males (<span class="pop strong">mate choice</span>)
+
+</li>
+
+<li>
+
+300 placed in individual vials with only one male each (<span class="pop strong">no mate choice</span>)
+
+</li>
+
+</ul>
+
+<p class="small" style="margin-top: 10px;">
+
+After mating, females were separated from the males and put in egg-laying chambers.
+
+</p>
+
+<div class="smaller down-3 framed border-info left-justify">
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+200 larvae from each chamber were taken and placed in a cage with 200 mutant flies (for competition).
+
+<span class="info strong">Offspring survival rate</span> was measured.
+
+</div>
+
+</div>
+
+<div>
+
+<img src="lib/img/fruit-flies-genetics1984-protocol.png" class="framed" width=100%>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Penn State Replication 2 -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>How Do We Know About Errors?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 0.7fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="small center bg-danger-light black" style="grid-column:1/3;">
+
+<i class="fas fa-user-md"></i> Researchers at Penn State tried to replicate the results&hellip;
+
+</p>
+
+<div data-id="content-box">
+
+<p class="em u">Penn State's Study</p>
+
+<p class="small left-justify">
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+Experiment repeated 10 times per day for 5 consecutive days.
+
+</p>
+
+<p class="small left-justify">
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+A total of 50 runs, 10000 larvae tested in each group.
+
+</p>
+
+<table class="smaller down-5 center">
+
+<tbody>
+
+<tr>
+
+<td rowspan=2 class="border-right">Larvae <br>survived?</td>
+
+<td colspan=2 class="border-nobottom border-right">
+
+Mate choice?</td>
+
+<td class="border-nobottom"></td>
+
+</tr>
+
+<tr>
+
+<td>Yes</td>
+
+<td class="border-right">No</td>
+
+<td>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="border-nobottom border-right">
+
+Yes</td>
+
+<td class="border-nobottom">6067</td>
+
+<td class="border-nobottom border-right">5976</td>
+
+<td class="border-nobottom">12043</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">No</td>
+
+<td>3933</td>
+
+<td class="border-right">4024</td>
+
+<td>7957</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Total</td>
+
+<td>10000</td>
+
+<td class="border-right">10000</td>
+
+<td>20000</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<p class="sided border-danger down-5">
+
+<span class="u em">Difference in survival rate:</span>
+
+$d=\hat{p}_\textrm{choice}-\hat{p}_\textrm{no choice}$ <br>
+
+$d=0.6067-0.5976=0.009$
+
+</p>
+
+<p class="framed border-danger fragment">
+
+One-tail p-value = 0.102
+
+</p>
+
+</div>
+
+<div>
+
+<img src="lib/img/fruit-flies-genetics1984-protocol.png" class="framed" width=100%>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Conflicting Results? -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>How Do We Know About Errors?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<p class="strong" style="grid-column:1/3;">
+
+In mate choice and offspring "fitness", we saw 2 studies with different outcomes:
+
+</p>
+
+<div class="framed border-success" style="height:100%;">
+
+<p>
+
+One study found significant results,
+
+</p>
+
+<p>
+
+and they reported $p < 0.01$.
+
+</p>
+
+</div>
+
+<div class="framed border-danger" style="height:100%;">
+
+<p>
+
+One study found insignificant results,
+
+</p>
+
+<p>
+
+and they reported $p=0.102$.
+
+</p>
+
+</div>
+
+<p class="danger huge" style="grid-column:1/3;">Conflicting results?</p>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+How can this be? It turns out that while we focus a lot on the p-value
+
+(and the alpha, or type 1, error rate), there's more to the "error-story".
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Types Of Errors -->
+
+<style>
+
+#er-table td {
+
+text-align: center; /* Centers content horizontally */
+
+vertical-align: middle; /* Centers content vertically */
+
+font-size: 120%;
+
+}
+
+</style>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Types Of Significance Testing Errors</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div data-id="stay-put" class="box-width" style="grid-column:1/3;align-self:start;justify-self:center;">
+
+<p class="left-justify u em">
+
+Errors can, and do, happen!
+
+</p>
+
+<ul class="small left-justify">
+
+<li>A <span class="danger">Type I</span> error is rejecting a true null (false positive)</li>
+
+<li>A <span class="danger">Type II</span> error is not rejecting a false null (false negative)</li>
+
+</ul>
+
+</div>
+
+<div data-id="do-change" style="grid-column:1/3;">
+
+<table id="er-table">
+
+<tbody>
+
+<tr>
+
+<td class="border-nobottom"></td>
+
+<td class="border-nobottom"></td>
+
+<td colspan=2><span class="strong">Decision</span></td>
+
+</tr>
+
+<tr>
+
+<td class="border-nobottom"></td>
+
+<td class="border-right"></td>
+
+<td class="border-right bg-warning-light">Reject H$_0$</td>
+
+<td class="border-right bg-info-light">Do not reject H$_0$</td>
+
+</tr>
+
+<tr class="border-nobottom">
+
+<td rowspan=2 class="border-nobottom border-right">
+
+<span class="strong">Truth</span>
+
+</td>
+
+<td class="border-right bg-info-light">
+
+H$_0$ true
+
+</td>
+
+<td class="border-right">
+
+<span class="danger"><i class="fas fa-exclamation-triangle"></i> Type I</span> error
+
+</td>
+
+<td class="border-right">
+
+<i class="far fa-smile fa-2x"></i>
+
+</td>
+
+</tr>
+
+<tr class="border-nobottom">
+
+<td class="border-right border-bottom bg-warning-light">H$_0$ false</td>
+
+<td class="border-right border-bottom"><i class="far fa-smile fa-2x"></i></td>
+
+<td class="border-right border-bottom"><span class="danger"><i class="fas fa-exclamation-triangle"></i> Type II</span> error</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Types Of Significance Testing Errors</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div data-id="stay-put" class="box-width" style="align-self:start;justify-self:center;">
+
+<p class="left-justify u em">
+
+Errors can, and do, happen!
+
+</p>
+
+<ul class="small left-justify">
+
+<li>A <span class="danger">Type I</span> error is rejecting a true null (false positive)</li>
+
+<li>A <span class="danger">Type II</span> error is not rejecting a false null (false negative)</li>
+
+</ul>
+
+</div>
+
+<div data-id="do-change" class="q3-width" style="align-self:start;justify-self:center;">
+
+<img src="lib/img/type1-type2-error.svg" width=100%>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- So what are the options? -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>What Kind Of Error Was Made?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div class="bg-warning-light">
+
+<p>
+
+<span class="em u">Option #1:</span> <br>
+
+The original study (p-value < 0.01) made a <span class="strong">Type I error</span>, and H$_0$ is really true.
+
+</p>
+
+</div>
+
+<div class="bg-info-light">
+
+<p>
+
+<span class="em u">Option #2:</span> <br>
+
+The second study (p-value = 0.102) made a <span class="strong">Type II error</span>, and H$_a$ is really true.
+
+</p>
+
+</div>
+
+<div class="bg-danger-light">
+
+<p>
+
+<span class="em u">Option #3:</span> <br>
+
+<span class="strong">No errors</span> were made; different experimental settings yield different results.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Multiple replication -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>The Multiple Testing Problem</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<p class="em u">Penn State's Study</p>
+
+<p class="small left-justify">
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+Experiment repeated 10 times per day for 5 consecutive days.
+
+</p>
+
+<p class="small left-justify">
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+A total of 50 runs, 10000 larvae tested in each group.
+
+</p>
+
+</div>
+
+<div>
+
+<table class="small">
+
+<tbody>
+
+<tr>
+
+<td rowspan=2 class="border-right">Larvae <br>survived?</td>
+
+<td colspan=2 class="border-nobottom border-right">
+
+Mate choice?</td>
+
+<td class="border-nobottom"></td>
+
+</tr>
+
+<tr>
+
+<td>Yes</td>
+
+<td class="border-right">No</td>
+
+<td>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="border-nobottom border-right">
+
+Yes</td>
+
+<td class="border-nobottom">6067</td>
+
+<td class="border-nobottom border-right">5976</td>
+
+<td class="border-nobottom">12043</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">No</td>
+
+<td>3933</td>
+
+<td class="border-right">4024</td>
+
+<td>7957</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Total</td>
+
+<td>10000</td>
+
+<td class="border-right">10000</td>
+
+<td>20000</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<p class="em u" style="grid-column:1/3;">
+
+What if we had calculated the p-value for each run?
+
+</p>
+
+<div class="grid-generic fragment" data-fragment-index=0 style="grid-column:1/3;grid-template-columns:15fr 85fr;">
+
+<div>
+
+<p style="font-size: 0.6em" class="em u">
+
+50 <br>p-values
+
+</p>
+
+</div>
+
+<div class="smallest">
+
+<table>
+
+<tbody>
+
+<tr>
+
+<td>0.9570</td>
+
+<td>0.8498</td>
+
+<td>0.1376</td>
+
+<td>0.5407</td>
+
+<td>0.7640</td>
+
+<td>0.9845</td>
+
+<td>0.3334</td>
+
+<td>0.8437</td>
+
+<td>0.2080</td>
+
+<td>0.8912</td>
+
+</tr>
+
+<tr>
+
+<td>0.8879</td>
+
+<td>0.6615</td>
+
+<td>0.6695</td>
+
+<td>0.8764</td>
+
+<td class="fragment highlight-bg-info"
+
+data-fragment-index=1>1.0000</td>
+
+<td>0.0064</td>
+
+<td>0.9982</td>
+
+<td>0.7671</td>
+
+<td>0.9512</td>
+
+<td>0.2730</td>
+
+</tr>
+
+<tr>
+
+<td>0.5812</td>
+
+<td>0.1088</td>
+
+<td>0.0181</td>
+
+<td>0.0013</td>
+
+<td>0.6242</td>
+
+<td>0.0131</td>
+
+<td>0.7882</td>
+
+<td>0.0777</td>
+
+<td class="fragment highlight-bg-info"  data-fragment-index=1>0.0001</td>
+
+<td>0.9641</td>
+
+</tr>
+
+<tr>
+
+<td>0.8851</td>
+
+<td>0.1280</td>
+
+<td>0.3421</td>
+
+<td>0.1805</td>
+
+<td>0.1121</td>
+
+<td>0.6562</td>
+
+<td>0.0133</td>
+
+<td>0.3082</td>
+
+<td>0.6923</td>
+
+<td>0.1925</td>
+
+</tr>
+
+<tr>
+
+<td>0.4207</td>
+
+<td>0.0607</td>
+
+<td>0.3059</td>
+
+<td>0.2383</td>
+
+<td>0.2391</td>
+
+<td>0.1584</td>
+
+<td>0.1735</td>
+
+<td>0.0319</td>
+
+<td>0.0171</td>
+
+<td>0.1082</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<p class="question fragment" data-fragment-index=2 style="grid-column:1/3;">
+
+What if we just reported the run that yielded a p-value of 0.0001
+
+</p>
+
+<p class="question fragment" data-fragment-index=3 style="grid-column:1/3;">Is that ethical</p>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>We will cover this more in the lectures on statistical power.</p>
+
+<p>In the context of your careers, you may be tasked with running a suite of tests, let's say you're vibration testing a new propulsion system for a new spacecraft. Testing is complicated, and time consuming, and you already double checked your design calculations, so you take a shortcut. You run a single test, and it comes back with a p-value of 1.0, indicating the design is not sensitive to vibration. You report this as a success, and the project is greenlighted. But you've made a type 2 error, missing a fatal design flaw, and the spacecraft fails once deployed in space.</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section data-background-color="rgb(200,200,200)" id="section-title-3">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-3">
+              <div class="section-number">
+                <span class="large-number">
+                  3
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  Quiz 9
+                </h2>
+                <h3>
+                  Passcode: Anova
+                </h3>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <footer class="main-footer">
+        <span>
+          Lecture 19
+        </span>
+        <span style="text-align:center;">
+        </span>
+        <span style="text-align:right;">
+          <a href="https:\\khrisgriffis.com" target="_blank" rel="noopener noreferrer">Khris Griffis &#169;2025</a>
+        </span>
+      </footer>
+    </div>
+    <script src="./src/reveal.js">
+    </script>
+    <script src="./src/plugin/notes/notes.js">
+    </script>
+    <script src="./src/plugin/highlight/highlight.js">
+    </script>
+    <script src="./src/plugin/math/math.js">
+    </script>
+    <script src="./src/plugin/reveal-splash/reveal-splash.js">
+    </script>
+    <script src="./src/plugin/vizzy-reveal/vizzy.js">
+    </script>
+    <script>
+      Reveal.initialize({
+autoSlide: 0,
+center: true,
+controls: true,
+controlsBackArrows: "faded",
+controlsLayout: "bottom-right",
+display: "block",
+fragments: true,
+fragmentInURL: true,
+hash: true,
+hideCursorTime: 5000,
+keyboard: true,
+mobileViewDistance: 3,
+mouseWheel: false,
+navigationMode: "linear",
+overview: true,
+pdfMaxPagesPerSlide: 1,
+pdfSeparateFragments: false,
+preloadIframes: null,
+progress: false,
+showNotes: false,
+showSlideNumber: "print",
+sortFragmentsOnSync: true,
+touch: true,
+transition: "fade",
+transitionSpeed: "default",
+viewDistance: 3,
+backgroundTransition: "fade",
+controlsTutorial: false,
+embedded: false,
+help: true,
+hideInactiveCursor: true,
+history: false,
+loop: false,
+previewLinks: false,
+rtl: false,
+shuffle: false,
+slideNumber: false,
+width: 1920,
+height: 1080,
+margin: 0.081,
+minScale: 0.08,
+maxScale: 1.67,
+mathjax3: {
+mathjax: "https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-mml-chtml.js",
+loader: {
+load: [
+"[tex]/html",
+],
+},
+tex: {
+packages: {
+'[+]': [
+"html",
+],
+},
+inlineMath: [
+["$", "$"],
+["\\(", "\\)"],
+],
+processEscapes: true,
+processEnvironments: true,
+},
+options: {
+skipHtmlTags: [
+"script",
+"noscript",
+"style",
+"textarea",
+"pre",
+],
+enableMenu: false,
+},
+chtml: {
+scale: 0.8,
+minScale: 0.4,
+},
+Safe: {
+sizeMin: 0.4,
+sizeMax: 1.25,
+},
+output: {
+linebreaks: {
+inline: true,
+width: "100%",
+lineleading: 0.2,
+LinebreakVisitor: null,
+},
+},
+},
+notes: {
+
+},
+highlight: {
+
+},
+vizzy: {
+autoRunTransitions: true,
+autoTransitionDelay: 100,
+devMode: false,
+onSlideChangedDelay: 0,
+},
+splash: {
+splashImage: "lib/img/ME3040_splash.png",
+text: "Welcome to ME3040!",
+minimumDisplay: 2,
+},
+plugins: [RevealNotes, RevealHighlight, RevealMath.MathJax3, Splash, Vizzy]
+});
+    </script>
+  </body>
+</html>

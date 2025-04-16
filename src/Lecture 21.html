@@ -1,0 +1,3864 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="notranslate" name="google"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>
+      Categorical Tests Chi-Square Independence
+    </title>
+    <link href="lib\favicon.png" rel="icon" type="image/x-icon"/>
+    <link href="./src/css/reset.css" rel="stylesheet"/>
+    <link href="./src/css/reveal.css" rel="stylesheet"/>
+    <link href="./src/css/revealpack.css" rel="stylesheet"/>
+    <link href="./src/theme/drG.css" id="theme" rel="stylesheet"/>
+    <!-- highlight.js theme -->
+    <link href="./src/theme/vs.css" id="highlight-theme" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <!-- Custom Scripts -->
+    <!-- Print PDF script -->
+    <script>
+      var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match(/print-pdf/gi) ? './src/css/print/pdf.css' : './src/css/print/paper.css';
+document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <!-- Deck CSS Injections -->
+    <!-- Deck Script Injections -->
+    <!-- Deck Raw Injections -->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-image="lib/img/bg_ps200_6.jpg" data-background-size="cover" id="deck-title-slide">
+          <div class="title-slide background">
+            <div class="headline">
+              <h2 class="r-fit-text">
+                Categorical Tests
+              </h2>
+              <h3>
+                Chi-Square Independence
+              </h3>
+            </div>
+            <div class="sub-header">
+              <p class="by">
+                Khris Griffis, Ph.D.
+              </p>
+            </div>
+            <div class="byline">
+              <p class="byinfo">
+                Lecture 21
+              </p>
+              <p class="byinfo">
+                CSULA: ME3040
+              </p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Today's Objectives</h2>
+
+</div>
+
+<div class="content">
+
+<div
+
+class="grid-generic full-width left-justify big"
+
+style="grid-template-columns: 1fr; grid-auto-rows: auto; row-gap: 5vmin"
+
+>
+
+<div>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="1">
+
+<p><i class="target"></i> $\chi^2$ goodness of fit: non-uniform theoretical distribution</p>
+
+</div>
+
+<div class="border-bottom fragment" data-fragment-index="2">
+
+<p><i class="target"></i> $\chi^2$ Test of Independence</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p></p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section data-background-color="rgb(255,255,255)" id="section-title-1">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-1">
+              <div class="section-number">
+                <span class="large-number">
+                  1
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  $\chi^2$ Goodness Of Fit
+                </h2>
+                <h3>
+                  Fitting Distributions
+                </h3>
+              </div>
+            </div>
+          </div>
+          <aside class="notes">
+
+<p>How did we assess frequency tables with more than 2 levels in a category?</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- Chi-Squared ($\chi^2$) -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Chi-Squared ($\chi^2$)</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<p class="quoted down-3">
+
+A statistic that is widely used to describe the <span class="danger">difference in distribution patterns of categorical variable(s)</span> is the square of the relative differences of each observed frequencies compared to the expected frequencies. This is known as the <span class="strong">Chi-Squared statistic</span> for comparing frequencies of a categorical variable.
+
+</p>
+
+<p>
+
+$\chi^2=\sum_{i=1}^n\frac{(\mathrm{Observed}_i-\mathrm{Expected}_i)^2}{\mathrm{Expected}_i}$
+
+</p>
+
+<p>
+
+$\chi^2$ summarizes the <span class="u danger">discrepancy between observed and expected frequencies</span>:
+
+</p>
+
+<ul class="small">
+
+<li>
+
+The <span class="orange">smaller the overall discrepancy</span> between the observed and expected scores, the <span class="orange">smaller the value of the $\chi^2$</span>.
+
+</li>
+
+<li>
+
+Conversely, the <span class="pop">larger the discrepancy</span> between the observed and expected scores, the <span class="pop">larger the value of the $\chi^2$</span>.
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Recall, chi-squared is the statistic we use to sum up the relative differences in COUNTS from corresponding bins of 2 distributions.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Differences Between Bins -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Differences Between Bins</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div class="left-justify" style="gap:5vmin;">
+
+<p class="small">
+
+Calculating a \( \chi^2 \) statistic is similar to determining normalized squared residuals in a linear regression model, applied to categorical data in histograms. It assesses deviations of observed categories from expected outcomes under a hypothesis.
+
+</p>
+
+<p class="small">
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+How significantly does the <span class="danger">distribution pattern</span> of observed frequencies differ from the theoretical distribution? This analysis mirrors the evaluation of sum of squares between groups in ANOVA, which measures variance due to different groupings within the data.
+
+</p>
+
+</div>
+
+<div style="height:100%;align-items:center;">
+
+<svg width="100%" viewBox="0 0 432 288" style="align-self:center;">
+
+<use xlink:href="lib/img/rock-paper-scissors-bars.svg#axes_1"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-bars.svg#axes_2"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-bars.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+<div class="grid-generic box-width left-justify" style="grid-template-columns:auto 1fr;grid-auto-rows:auto;gap:1vmin;grid-column:1/3;">
+
+<div style="height:100%;align-content:center;" class="big center-justify">
+
+<p class="u small">Key idea</p>
+
+<i class="fas fa-lightbulb"></i>
+
+</div>
+
+<p>
+
+When we calculate a \( \chi^2 \) statistic to compare distribution patterns of categorical variables, this is called a <span class="em">\( \chi^2 \) goodness of fit test.</span>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Note that here we compare our data to a theoretical distribution, when else did we do that?</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- $\chi^2$ Goodness Of Fit -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>$\chi^2$ Goodness Of Fit</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic box-width" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<p class="quoted" style="grid-column: 1/3;">
+
+When calculating the \( \chi^2 \) statistic to assess the compatibility of observed with expected distribution frequencies of categorical variables, the procedure is termed a <strong>\( \chi^2 \) goodness of fit test</strong>.
+
+</p>
+
+<p class="small">
+
+$\chi^2=\sum_{i=1}^n\frac{(\mathrm{Observed}_i-\mathrm{Expected}_i)^2}{\mathrm{Expected}_i}$
+
+</p>
+
+<div>
+
+<table class="small center">
+
+<col width=34%>
+
+<col width=22%>
+
+<col width=22%>
+
+<col width=22%>
+
+<tr>
+
+<td></td>
+
+<td class="bg-danger-light">Rock</td>
+
+<td class="bg-info-light">Paper</td>
+
+<td class="bg-warning-light">Scissors</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td>Observed</td>
+
+<td>107</td>
+
+<td>124</td>
+
+<td>150</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td>Expected</td>
+
+<td>127</td>
+
+<td>127</td>
+
+<td>127</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:2fr 1fr;grid-auto-rows:auto;gap:5vmin;grid-column:1/3;">
+
+<div class="left-justify">
+
+<p>
+
+$\chi^2=\frac{(107-127)^2}{127}+\frac{(124-127)^2}{127}+\frac{(150-127)^2}{127}$
+
+</p>
+
+<p>
+
+$\chi^2=3.150+0.071+4.165$
+
+</p>
+
+<p class="pop">
+
+$\chi^2=7.386$
+
+</p>
+
+</div>
+
+<p class="framed border-pop" style="align-self:center;justify-self:center;">
+
+What does a $\chi^2$ of 7.386 mean? Is it a large or a small value?
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>How well does our data "Fit" the theoretical model?</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- $\chi^2$ Distribution: RPS -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>$\chi^2$ Distribution: RPS</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:5fr 2.5fr;grid-auto-rows:auto;gap:2vmin;">
+
+<div style="height:100%;">
+
+<p class="left-justify">
+
+<span class="u">For Rock-Paper-Scissors:</span> df = 3 - 1 = 2
+
+</p>
+
+<!-- explanation -->
+
+<p class="left-justify smaller">
+
+With an observed $\chi^2$ of 7.386 and p-values below 0.05, the data
+
+indicates a statistically significant preference in hand sign choices,
+
+diverging from random distribution. That is, these results suggest a
+
+<span class="pop em">less common outcome under the null hypothesis</span>
+
+of no preference among Rock, Paper, or Scissors.
+
+</p>
+
+<p class="left-justify fragment smaller">
+
+This is reflected in the small p-values of 0.023 (simulation) and
+
+0.025 (theoretical), both of which are below the typical significance
+
+level of 0.05. This implies that the observed hand sign distribution is
+
+<span class="info">statistically unlikely to be due to
+
+random chance</span>, <span class="strong">suggesting a pattern or preference</span>
+
+in the players' choices that could be strategically important in a
+
+RPS competition.
+
+</p>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:2vmin;">
+
+<div style="display:flex;flex-direction:column;align-items:center;width:100%">
+
+<p class="smaller em">Simulation</p>
+
+<div style="width:90%;margin:0 auto;">
+
+<svg width="100%" height="100%" viewBox="0 0 432 288" preserveAspectRatio="xMidYMid meet">
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-chi2.svg#axes_1"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-chi2.svg#axes_2"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-simulation-chi2.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+<div style="display:flex;flex-direction:column;align-items:center;width:100%">
+
+<p class="smaller em">Theoretical distribution</p>
+
+<div style="width:90%;margin:0 auto;">
+
+<svg width="100%" height="100%" viewBox="0 0 432 288" preserveAspectRatio="xMidYMid meet">
+
+<use xlink:href="lib/img/rock-paper-scissors-theory-chi2.svg#axes_1"></use>
+
+<use xlink:href="lib/img/rock-paper-scissors-theory-chi2.svg#axes_2"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>note here</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Follow Up -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Follow Up</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<p class="em left-justify">
+
+We found a difference in distribution pattern that may be considered statistically significant.
+
+</p>
+
+<p class="question big">
+
+So, what's next
+
+</p>
+
+<p class="left-justify">
+
+The $\chi^2$ test tells you whether you have an overall difference between the observed and expected pattern, but <span class="strong">it does not tell you which specific groups differ</span>: <span class="danger u">post hoc tests</span> do.
+
+</p>
+
+<p class="left-justify">
+
+<span class="muted u em">Note:</span>
+
+Because post hoc tests are run to confirm where the differences occurred between groups, they should only be run when you have shown an overall statistically significant difference. Post hoc tests are termed <span class="strong">a posteriori tests</span>, that is, performed after the event (the event in this case being the overall analysis).
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- When Theory Isn't Uniform: Mendel's Pea -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>When Theory Isn't Uniform</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic no-hang" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<p>
+
+A $\chi^2$ goodness-of-fit test assesses the <span class="info">total distance between the observed and theoretical distribution</span>, a sum of the squared, relative differences!
+
+</p>
+
+<p class="framed framed border-pop bg-pop-alpha-02">
+
+Note that the <span class="strong">theoretical proportions</span> for each category <span class="strong">do not have to be the same</span>!
+
+</p>
+
+<hr style="clear:both;display:block;width:100%;height:2px;">
+
+<div class="grid-generic small" style="grid-template-columns:1fr auto 1fr auto;grid-auto-rows:auto;gap:5vmin;">
+
+<p class="no-margin-top fragment" data-fragment-index="1">
+
+<span class="u em">Ex:</span> Are the six colors (green, orange, blue, red, yellow, brown) of M&Ms equally likely in a pack?
+
+</p>
+
+<div style="height:100%;" class="fragment" data-fragment-index="1">
+
+<img src="lib/img/m&ms-pic.png" width=100%>
+
+</div>
+
+<p class="no-margin-top fragment" data-fragment-index="2">
+
+<span class="u em">Ex:</span> Does the grade distribution of the class
+
+follow the usual pattern?
+
+</p>
+
+<div style="height:100%;" class="fragment" data-fragment-index="2">
+
+<img src="lib/img/multiple-proportions-grades.svg" width=100%>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Recall that the theoretical distribution for the RPS was uniform: 1/3 across.
+
+But this isn't always the case, consider expected final grades distribution.
+
+</p>
+
+<p>
+
+Suppose you had some other theoretical distribution to test against.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Mendel's Peas -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2 data-id="mlab">Mendel's Peas</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 0.9fr;grid-auto-rows:auto;gap:3vmin;">
+
+<div class="left-justify small" style="gap:5vmin;">
+
+<p data-id="mtop">
+
+In his groundbreaking 1866 work, <span class="strong">Gregor Mendel</span>, often hailed as the "father of genetics," meticulously cataloged the inheritance patterns of pea plants. Through careful cross-breeding experiments, Mendel deduced foundational genetic laws, quantifying inheritance through phenotypic ratios.
+
+</p>
+
+<p data-id="mbot">
+
+His rigor in experimentation yielded phenotypic distributions that <span class="pop">remarkably aligned with the ratios his genetic models predicted</span>. These models proposed discrete units of inheritance (now known as alleles) and the concepts of dominant and recessive traits, which laid the groundwork for the modern understanding of genetic inheritance.
+
+</p>
+
+</div>
+
+<div style="height:100%;"  data-id="mright">
+
+<img class="framed" src="lib/img/mendel-pea-genetics.png" width=100%>
+
+<img class="framed fragment" src="lib/img/mendel-pea-results.png">
+
+</div>
+
+<div style="grid-column:1/3;" data-id="mfoot">
+
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Introduce Gregor Mendel as a meticulous experimenter whose work in the mid-19th century laid the foundation for our understanding of genetic inheritance.</p>
+
+<p>Explain how Mendel's methodical cross-breeding of pea plants allowed him to observe patterns of inheritance that were predictable and quantifiable, challenging the prevailing blending theories of the time.</p>
+
+<p>Highlight that Mendel's discovery of dominant and recessive traits, and the consistent 3:1 ratio observed in the second filial (F2) generation, was revolutionary. It was this clear mathematical pattern that indicated the presence of underlying principles governing inheritance.</p>
+
+<p>Discuss the importance of Mendel's ratios, which emerged from analyzing large sample sizes—key to validating his genetic models. Emphasize the engineering parallels in systematic data collection and validation of theoretical models against empirical data.</p>
+
+<p>Finally, transition to how these historic findings form the basis of the Chi-Squared test, illustrating the segue into the topic of Chi-Squared analysis for the audience.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Mendel's Peas -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2 data-id="mlab">Mendel's Peas</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 0.9fr;grid-auto-rows:auto;gap:3vmin;">
+
+<div class="left-justify small" style="gap:5vmin;">
+
+<p data-id="mtop" class="framed padded">
+
+Does the observed experimental distribution match the
+
+theoretical distribution predicted by genetics?
+
+</p>
+
+<p data-id="mbot">
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+Let's test these data against the <span class="pop">null hypothesis of the proportions distribution</span> based on the theory of genetics.
+
+</p>
+
+</div>
+
+<div style="height:100%;"  data-id="mright">
+
+<table class="center-justify latex-style-table-row-labels small">
+
+<col width=44%>
+
+<col width=28%>
+
+<col width=28%>
+
+<tr class="bg-warning-light black">
+
+<td>Phenotype</td>
+
+<td>Theoretical proportion</td>
+
+<td>Observed count</td>
+
+</tr>
+
+<tr>
+
+<td>Round, Yellow</td>
+
+<td>$9/16$</td>
+
+<td>$315$</td>
+
+</tr>
+
+<tr>
+
+<td>Round, Green</td>
+
+<td>$3/16$</td>
+
+<td>$108$</td>
+
+</tr>
+
+<tr>
+
+<td>Wrinkled, Yellow</td>
+
+<td>$3/16$</td>
+
+<td>$101$</td>
+
+</tr>
+
+<tr>
+
+<td>Wrinkled, Green</td>
+
+<td>$1/16$</td>
+
+<td>$32$</td>
+
+</tr>
+
+<tr class="bg-muted-light black">
+
+<td>Total</td>
+
+<td>$1$</td>
+
+<td>$556$</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<div class="left-justify box-width" style="grid-column:1/3;justify-self:center;" data-id="mfoot">
+
+<p class="fragment">
+
+<span class="u em">Null Hypothesis:</span><br>
+
+$H_0: \pi_1=\frac{9}{16},\, \pi_2=\frac{3}{16},\, \pi_3=\frac{3}{16},\, \pi_4=\frac{1}{16}$
+
+</p>
+
+<p class="fragment">
+
+<span class="u em">Alternative Hypothesis:</span><br>
+
+$H_a:$ at least one $\pi_i$ is not as specified in $H_0$
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Mendel's Peas -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2 data-id="mlab">Mendel's Peas</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 0.9fr;grid-auto-rows:auto;gap:3vmin;">
+
+<div class="small" style="gap:5vmin;grid-column:1/3;">
+
+<p data-id="mtop" class="framed padded">
+
+What is the <span class="pop">expected count for each pea category</span>? ($n_\mathrm{total}\times\pi_i$)
+
+</p>
+
+</div>
+
+<div class="box-width" style="height:100%;grid-column:1/3;"  data-id="mright">
+
+<table class="center-justify latex-style-table-row-labels smaller">
+
+<col width=29%>
+
+<col width=18%>
+
+<col width=18%>
+
+<col width=35%>
+
+<thead>
+
+<tr class="bg-warning-light black">
+
+<td>Phenotype</td>
+
+<td>Theoretical proportion</td>
+
+<td>Observed count</td>
+
+<td>Expected count</td>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>Round, Yellow</td>
+
+<td>$9/16$</td>
+
+<td>$315$</td>
+
+<td>$556\times9/16=\class{pop}{312.75}$</td>
+
+</tr>
+
+<tr>
+
+<td>Round, Green</td>
+
+<td>$3/16$</td>
+
+<td>$108$</td>
+
+<td>$556\times3/16=\class{pop}{104.25}$</td>
+
+</tr>
+
+<tr>
+
+<td>Wrinkled, Yellow</td>
+
+<td>$3/16$</td>
+
+<td>$101$</td>
+
+<td>$556\times3/16=\class{pop}{104.25}$</td>
+
+</tr>
+
+<tr>
+
+<td>Wrinkled, Green</td>
+
+<td>$1/16$</td>
+
+<td>$32$</td>
+
+<td>$556\times1/16=\class{pop}{34.75}$</td>
+
+</tr>
+
+<tr class="bg-muted-light black">
+
+<td>Total</td>
+
+<td>$1$</td>
+
+<td>$556$</td>
+
+<td>$556$</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="left-justify box-width" style="grid-column:1/3;justify-self:center;" data-id="mfoot">
+
+<p class="u fragment" data-fragment-index=1>
+
+<i class="fas fa-arrow-circle-right info"></i>
+
+What is the calculated $\chi^2$ from these results?
+
+</p>
+
+<p class="fragment" data-fragment-index=2>
+
+$\chi^2=\frac{(315-312.75)^2}{312.75}+\frac{(108-104.25)^2}{104.25}+\frac{(101-104.25)^2}{104.25}+\frac{(32-34.75)^2}{34.75}$
+
+</p>
+
+<p class="fragment" data-fragment-index=2>
+
+$\chi^2=0.016+0.135+0.101+0.218$
+
+</p>
+
+<p class="fragment info" data-fragment-index=2>
+
+$\chi^2=0.470$
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Mendel's Pea Experiment -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Mendel's Pea Experiment</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic no-hang" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:3vmin;">
+
+<div class="grid-generic box-width" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;grid-row-gap:3vmin;">
+
+<div style="height:40vh;justify-items:center;justify-content:center;">
+
+<p class="smaller em">Simulation</p>
+
+<svg width="100%" viewBox="0 0 432 288" style="height:40vh;">
+
+<use xlink:href="lib/img/mendel-pea-simulation-chi2.svg#axes_1"></use>
+
+<use xlink:href="lib/img/mendel-pea-simulation-chi2.svg#axes_2"></use>
+
+<use xlink:href="lib/img/mendel-pea-simulation-chi2.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+<div style="height:40vh;justify-items:center;justify-content:center;">
+
+<p class="smaller em">Theoretical distribution</p>
+
+<svg width="100%" viewBox="0 0 432 288" style="height:40vh;">
+
+<use xlink:href="lib/img/mendel-pea-theory-chi2.svg#axes_1"></use>
+
+<use xlink:href="lib/img/mendel-pea-theory-chi2.svg#axes_2"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+<div class="icon-left smaller">
+
+<div class="fragment" data-fragment-index="2"><i class="fas fa-exclamation-triangle danger"></i></div>
+
+<div class="small">
+
+<p class="fragment smaller" data-fragment-index="1">Our p-value is 0.93, should we <span class="em">accept</span> the Null Hypothesis?</p>
+
+<p class="fragment left-justify small" data-fragment-index="2">
+
+No! You should never <span class="em">accept</span> the Null Hypothesis!<br />
+
+A high p-value doesn't &ldquo;prove&rdquo; the <span class="danger">Null Hypothesis</span> is true.
+
+</p>
+
+</div>
+
+</div>
+
+<p class="fragment smaller" data-fragment-index="3">
+
+This p-value only <span class="danger">suggests</span> that the obtained distribution of pea phenotypes <span class="danger">could have been observed if the null hypothesis was true</span>.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- $\chi^2$ Goodness Of Fit -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>$\chi^2$ Goodness Of Fit</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div class="icon-left">
+
+<div><i class="fa-solid fa-share-from-square danger"></i></div>
+
+<p>Characterize the discrepancy between the <span class="u">overall distribution pattern</span> of observed and theoretical <span class="danger strong u">counts</span>.</p>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:1fr 2fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div>
+
+<p class="smallest rounded bg-pink-light black">
+
+$\chi^2=\sum_{i=1}^n\frac{(\mathrm{Observed}_i-\mathrm{Expected}_i)^2}{\mathrm{Expected}_i}$
+
+</p>
+
+<p class="em u" style="margin-top: 30px;">
+
+Mendel's pea experiment
+
+</p>
+
+<ul class="smaller">
+
+<li>Obsv. units: each pea</li>
+
+<li>Variable: pea type<br>(4 possible outcomes)</li>
+
+</ul>
+
+<p class="smaller center pop">
+
+$\mathrm{Expected}_i = n_\mathrm{total}\times\pi_i$
+
+</p>
+
+</div>
+
+<div>
+
+<table class="center-justify latex-style-table-row-labels smaller">
+
+<col width=44%>
+
+<col width=28%>
+
+<col width=28%>
+
+<thead>
+
+<tr class="bg-warning-light black">
+
+<td>Phenotype</td>
+
+<td>Observed count</td>
+
+<td class="fragment danger bg-warning-light" data-fragment-index=2>Observed proportion</td>
+
+<td>Theoretical proportion</td>
+
+<td class="fragment bg-warning-light" data-fragment-index=1>Theoretical count</td>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>Round, Yellow</td>
+
+<td>$315$</td>
+
+<td class="fragment danger" data-fragment-index=2>$315/556$</td>
+
+<td>$9/16$</td>
+
+<td class="fragment" data-fragment-index=1>$315\times9/16=\class{pop}{312.75}$</td>
+
+</tr>
+
+<tr>
+
+<td>Round, Green</td>
+
+<td>$108$</td>
+
+<td class="fragment danger" data-fragment-index=2>$108/556$</td>
+
+<td>$3/16$</td>
+
+<td class="fragment" data-fragment-index=1>$108\times3/16=\class{pop}{104.25}$</td>
+
+</tr>
+
+<tr>
+
+<td>Wrinkled, Yellow</td>
+
+<td>$101$</td>
+
+<td class="fragment danger" data-fragment-index=2>$101/556$</td>
+
+<td>$3/16$</td>
+
+<td class="fragment" data-fragment-index=1>$101\times3/16=\class{pop}{104.25}$</td>
+
+</tr>
+
+<tr>
+
+<td>Wrinkled, Green</td>
+
+<td>$32$</td>
+
+<td class="fragment danger" data-fragment-index=2>$32/556$</td>
+
+<td>$1/16$</td>
+
+<td class="fragment" data-fragment-index=1>$32\times1/16=\class{pop}{34.75}$</td>
+
+</tr>
+
+<tr class="bg-muted-light black">
+
+<td>Total</td>
+
+<td>$556$</td>
+
+<td class="fragment danger bg-muted-light" data-fragment-index=2>$556/556$</td>
+
+<td>$1$</td>
+
+<td class="fragment bg-muted-light" data-fragment-index=1>$556\times1=\class{pop}{556}$</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<div class="icon-left small">
+
+<div><i class="fas fa-exclamation-triangle danger"></i></div>
+
+<p>
+
+<span class="danger">Use the counts, not the proportions</span> to calculate the $\chi^2$! <br>
+
+The <span class="u">sample size information is included in the counts</span>, not in the proportions ... a distribution of proportions <span class="as-code smaller">[1.0 / 0.0 / 0.0 / 0.0]</span> means very different things if it is from a sample of size 1 as opposed to  a sample of size 100.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>To review, we use the counts and not the proportions, as sample size has an impact we don't want to throw away.</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+        <section data-background-color="rgb(255,255,255)" id="section-title-2">
+          <div class="grid-wrapper">
+            <div class="section-title-content" id="section-content-2">
+              <div class="section-number">
+                <span class="large-number">
+                  2
+                </span>
+              </div>
+              <div class="headlines">
+                <h2 class="r-fit-text">
+                  $\chi^2$ Test For Association
+                </h2>
+                <h3>
+                  A Measure Of Independence
+                </h3>
+              </div>
+            </div>
+          </div>
+          <aside class="notes">
+
+<p>What happens when you do not have a "theoretical" distribution to test for? Let's discuss!</p>
+
+</aside>
+
+</section> <!-- End section title -->
+
+
+
+<!-- $\chi^2$ Is A Generalized Test -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>$\chi^2$ Is A Generalized Test</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="small">
+
+The $\chi^2$ is a statistic describing the discrepancy between an observed and an expected distribution pattern.
+
+</p>
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i> It could be calculated to study categorical variables with <span class="danger">any number of possible outcomes</span> (including coin flip-like experiments, with only 2 categories)
+
+</p>
+
+<p class="em smaller fragment no-hang">
+
+We flip a coin 20 times. We get 12 heads. Could we doubt the fairness of the coin?
+
+</p>
+
+<div class="grid-generic fragment" style="grid-template-columns:1f 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p class="no-hang">Probabilistic model</p>
+
+<p class="no-hang">$\chi^2$</p>
+
+<div style="justify-items:center;">
+
+<img src="lib/img/coin-toss-simulation-probabilitic-model.svg" height="100%" style="margin-top:0;">
+
+</div>
+
+<div style="justify-items:center;">
+
+<img src="lib/img/coin-toss-simulation-chi2.svg" height="100%" style="margin-top:0;">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- From Fit To Association -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>From Fit To Association</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:3fr 2fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p>
+
+<i class='fas fa-arrow-circle-right pop'></i>
+
+So far we have computed a $\chi^2$ to investigate how compatible an observed distribution pattern of a categorical variable was with the expected distribution pattern for this same categorical variable <span class="em">(how good is the fit between the observed and expected patterns?)</span>.
+
+</p>
+
+<div>
+
+<table class="center-justify smaller full-grid-table">
+
+<col width=30%>
+
+<col width=70%>
+
+<tr>
+
+<td class="bg-info-light border-right" rowspan=2>Response <br>variable</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-danger-light">Cat. #1</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">Yes</td>
+
+<td class="border-nobottom">50</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">No</td>
+
+<td class="border-nobottom">30</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">Maybe</td>
+
+<td class="border-nobottom">20</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<p class="fragment" data-fragment-index="1">
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+The statistics behind a $\chi^2$ can also be extended to test the difference between different explanatory groups <span class="em">(is there an association between the response and the explanatory variable? is there an effect of the explanatory variable on the response variable?)</span>.
+
+</p>
+
+<div class="fragment" data-fragment-index="1">
+
+<table class="smaller center full-grid-table">
+
+<col width=34%>
+
+<col width=22%>
+
+<col width=22%>
+
+<col width=22%>
+
+<tr>
+
+<td class="bg-info-light border-right" rowspan=2>Response<br>variable</td>
+
+<td class="bg-danger-light border-nobottom border-right" colspan=3>Explanatory variable</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-danger-light">Cat. #1</td>
+
+<td class="bg-danger-light">Cat. #2</td>
+
+<td class="bg-danger-light border-right">Cat. #3</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">Yes</td>
+
+<td class="border-nobottom">50</td>
+
+<td class="border-nobottom">65</td>
+
+<td class="border-nobottom border-right">35</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">No</td>
+
+<td class="border-nobottom">30</td>
+
+<td class="border-nobottom">45</td>
+
+<td class="border-right border-nobottom">15</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">Maybe</td>
+
+<td class="border-nobottom">20</td>
+
+<td class="border-nobottom">10</td>
+
+<td class="border-nobottom border-right">10</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- $\chi^2$ Test for Association -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>$\chi^2$ Test for Association</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p>
+
+The statistics behind a $\chi^2$ can also be used to test the difference between <span class="success">two or more explanatory groups</span> of a response variable with <span class="warning">two or more categories</span>.
+
+</p>
+
+<p class="quoted">
+
+A <span class="strong">$\chi^2$-test for association</span> (often called a <span class="strong">$\chi^2$-test for independence</span>) tests for an association between two or more categorical variables.
+
+</p>
+
+<table class="small center-justify full-grid-table" style="width:30%;">
+
+<tr>
+
+<td class="bg-warning-light border-right" rowspan=2>Response<br>variable</td>
+
+<td class="bg-success-light border-nobottom border-right" colspan=4>Explanatory variable</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-success-light">Cat. #1</td>
+
+<td class="bg-success-light">Cat. #2</td>
+
+<td class="bg-success-light">...</td>
+
+<td class="bg-success-light border-right">Cat. #n</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-warning-light border-nobottom border-right">Cat. #1</td>
+
+<td class="border-nobottom">50</td>
+
+<td class="border-nobottom">65</td>
+
+<td class="border-nobottom">...</td>
+
+<td class="border-nobottom border-right">43</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-warning-light border-nobottom border-right">Cat. #2</td>
+
+<td class="border-nobottom">30</td>
+
+<td class="border-nobottom">45</td>
+
+<td class="border-nobottom">...</td>
+
+<td class="border-nobottom border-right">27</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-warning-light border-nobottom border-right">...</td>
+
+<td class="border-nobottom">...</td>
+
+<td class="border-nobottom">...</td>
+
+<td class="border-nobottom">...</td>
+
+<td class="border-nobottom border-right">...</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-warning-light border-nobottom border-right">Cat. #n</td>
+
+<td class="border-nobottom">20</td>
+
+<td class="border-nobottom">10</td>
+
+<td class="border-nobottom">...</td>
+
+<td class="border-nobottom border-right">9</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Let's look at an example.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Soda Preference And Age -->
+
+<section data-transition="slide-in" data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Soda Preference And Age</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 3fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div data-id="ltab">
+
+<table class="smaller center-justify full-grid-table">
+
+<tbody>
+
+<tr>
+
+<td class="bg-info-light border-right" rowspan=2>Soda</td>
+
+<td class="bg-danger-light border-nobottom border-right" colspan=3>Age group</td>
+
+<td rowspan=2>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-danger-light">15-25</td>
+
+<td class="bg-danger-light">26-40</td>
+
+<td class="bg-danger-light border-right">41-55</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">
+
+Coke</td>
+
+<td class="border-nobottom">54</td>
+
+<td class="border-nobottom">45</td>
+
+<td class="border-nobottom border-right">69</td>
+
+<td class="border-nobottom">168</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">Pepsi</td>
+
+<td class="border-nobottom">19</td>
+
+<td class="border-nobottom">41</td>
+
+<td class="border-nobottom border-right">38</td>
+
+<td class="border-nobottom">98</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td class="bg-info-light border-nobottom border-right">Sprite</td>
+
+<td class="border-nobottom">19</td>
+
+<td class="border-nobottom">22</td>
+
+<td class="border-nobottom border-right">28</td>
+
+<td class="border-nobottom">69</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Total</td>
+
+<td>92</td>
+
+<td>108</td>
+
+<td class="border-right">135</td>
+
+<td>335</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div data-id="bot">
+
+<p>
+
+We are interested to know if the proportions of preferences for each soda is <span class="pop">dependent of (associated to)</span> the age group the person we asked the question to is in.
+
+</p>
+
+<p class="muted"><span class="u em">Note:</span> we are not asking which soda is the most chosen per age group.</p>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Importantly, we are testing whether there might be a preference for any soda
+
+type, and not testing WHICH AGE nor WHICH SODA. Hence, omnibus test.
+
+</p>
+
+</aside>
+
+</section>
+
+<!-- Soda Preference And Age 2 -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Soda Preference And Age</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 3fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div data-id="ltab">
+
+<table class="smaller center-justify full-grid-table">
+
+<tbody>
+
+<tr>
+
+<td class="bg-info-light border-right" rowspan=2>Soda</td>
+
+<td class="bg-danger-light border-nobottom border-right" colspan=3>Age group</td>
+
+<td rowspan=2>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-danger-light">15-25</td>
+
+<td class="bg-danger-light">26-40</td>
+
+<td class="bg-danger-light border-right">41-55</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">
+
+Coke</td>
+
+<td class="border-nobottom">54</td>
+
+<td class="border-nobottom">45</td>
+
+<td class="border-nobottom border-right">69</td>
+
+<td class="border-nobottom">168</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">Pepsi</td>
+
+<td class="border-nobottom">19</td>
+
+<td class="border-nobottom">41</td>
+
+<td class="border-nobottom border-right">38</td>
+
+<td class="border-nobottom">98</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td class="bg-info-light border-nobottom border-right">Sprite</td>
+
+<td class="border-nobottom">19</td>
+
+<td class="border-nobottom">22</td>
+
+<td class="border-nobottom border-right">28</td>
+
+<td class="border-nobottom">69</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Total</td>
+
+<td>92</td>
+
+<td>108</td>
+
+<td class="border-right">135</td>
+
+<td>335</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div style="gap:5vmin;" data-id="bot">
+
+<p class="sided-no-bg border-orange">
+
+<span class="u em orange">Null Hypothesis:</span> <br>
+
+$H_0$: Soda preference is not associated with age
+
+</p>
+
+<p class="sided-no-bg border-success">
+
+<span class="u em success">Alternative Hypothesis:</span> <br>
+
+$H_a$: Soda preference is associated with age
+
+</p>
+
+</div>
+
+<div style="grid-column:1/3;" data-id="low">
+
+<p class="smaller fragment down-2" data-fragment-index=1>
+
+The $\chi^2$-test for independence also compares expected and observed counts. However, here there is no expected probabilities and the computation for the expected counts is based on the rows and columns totals:
+
+</p>
+
+<div class="framed border-pop bg-pop-light black center-justify fragment padded" data-fragment-index=1 style="padding-top: 10px">
+
+$\textrm{Expected Count}=\frac{\textrm{Row total}\times\textrm{Column total}}{\textrm{Sample size}}$
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Importantly, we are testing whether there might be a preference for any soda
+
+type, and not testing WHICH AGE nor WHICH SODA. Hence, omnibus test.
+
+</p>
+
+</aside>
+
+</section>
+
+<!-- Soda Preference And Age 3 -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Soda Preference And Age</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:2fr 3fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div data-id="ltab">
+
+<table class="smaller center-justify full-grid-table">
+
+<tbody>
+
+<tr>
+
+<td class="bg-info-light border-right" rowspan=2>Soda</td>
+
+<td class="bg-danger-light border-nobottom border-right" colspan=3>Age group</td>
+
+<td rowspan=2>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-danger-light">15-25</td>
+
+<td class="bg-danger-light">26-40</td>
+
+<td class="bg-danger-light border-right">41-55</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">
+
+Coke</td>
+
+<td class="border-nobottom">54</td>
+
+<td class="border-nobottom">45</td>
+
+<td class="border-nobottom border-right">69</td>
+
+<td class="border-nobottom">168</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">Pepsi</td>
+
+<td class="border-nobottom">19</td>
+
+<td class="border-nobottom">41</td>
+
+<td class="border-nobottom border-right">38</td>
+
+<td class="border-nobottom">98</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td class="bg-info-light border-nobottom border-right">Sprite</td>
+
+<td class="border-nobottom">19</td>
+
+<td class="border-nobottom">22</td>
+
+<td class="border-nobottom border-right">28</td>
+
+<td class="border-nobottom">69</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Total</td>
+
+<td>92</td>
+
+<td>108</td>
+
+<td class="border-right">135</td>
+
+<td>335</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="center-justify" style="gap:5vmin;" data-id="bot">
+
+$\textrm{Expected Count}=\frac{\textrm{Row total}\times\textrm{Column total}}{\textrm{Sample size}}$
+
+</div>
+
+<div class="center-justify" style="grid-column:1/3;" data-id="low">
+
+<p class="u em">
+
+Example for coke in the (15-25) age group:
+
+</p>
+
+<p class="down-2">
+
+$\mathrm{Expected}_\mathrm{coke}^\textrm{(15-25)}=\frac{168\times92}{335}=46.14$
+
+</p>
+
+<p class="u em down-3 fragment" data-fragment-index=1>
+
+Example for sprite in the (26-40) age group:
+
+</p>
+
+<p class="down-2 fragment" data-fragment-index=1>
+
+$\mathrm{Expected}_\mathrm{sprite}^\textrm{(26-40)}=\frac{69\times108}{335}=22.24$
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Importantly, we are testing whether there might be a preference for any soda
+
+type, and not testing WHICH AGE nor WHICH SODA. Hence, omnibus test.
+
+</p>
+
+</aside>
+
+</section>
+
+<!-- Soda Preference And Age 4 -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Soda Preference And Age</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div data-id="ltab">
+
+<table class="smaller center-justify full-grid-table">
+
+<tbody>
+
+<tr>
+
+<td class="bg-info-light border-right" rowspan=2>Soda</td>
+
+<td class="bg-danger-light border-nobottom border-right" colspan=3>Age group</td>
+
+<td rowspan=2>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-danger-light">15-25</td>
+
+<td class="bg-danger-light">26-40</td>
+
+<td class="bg-danger-light border-right">41-55</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">
+
+Coke</td>
+
+<td class="border-nobottom">54</td>
+
+<td class="border-nobottom">45</td>
+
+<td class="border-nobottom border-right">69</td>
+
+<td class="border-nobottom">168</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">Pepsi</td>
+
+<td class="border-nobottom">19</td>
+
+<td class="border-nobottom">41</td>
+
+<td class="border-nobottom border-right">38</td>
+
+<td class="border-nobottom">98</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td class="bg-info-light border-nobottom border-right">Sprite</td>
+
+<td class="border-nobottom">19</td>
+
+<td class="border-nobottom">22</td>
+
+<td class="border-nobottom border-right">28</td>
+
+<td class="border-nobottom">69</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Total</td>
+
+<td>92</td>
+
+<td>108</td>
+
+<td class="border-right">135</td>
+
+<td>335</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div style="gap:5vmin;" data-id="bot">
+
+<table class="smaller center-justify full-grid-table">
+
+<tbody>
+
+<tr>
+
+<td class="bg-info-light border-right" rowspan=2>Soda</td>
+
+<td class="bg-danger-light border-nobottom border-right" colspan=3>Age group</td>
+
+<td rowspan=2>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-danger-light">15-25</td>
+
+<td class="bg-danger-light">26-40</td>
+
+<td class="bg-danger-light border-right">41-55</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">
+
+Coke</td>
+
+<td class="border-nobottom">46.14</td>
+
+<td class="border-nobottom">54.16</td>
+
+<td class="border-nobottom border-right">67.7</td>
+
+<td class="border-nobottom">168</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">Pepsi</td>
+
+<td class="border-nobottom">26.91</td>
+
+<td class="border-nobottom">31.59</td>
+
+<td class="border-nobottom border-right">39.49</td>
+
+<td class="border-nobottom">98</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td class="bg-info-light border-nobottom border-right">Sprite</td>
+
+<td class="border-nobottom">18.95</td>
+
+<td class="border-nobottom">22.24</td>
+
+<td class="border-nobottom border-right">27.81</td>
+
+<td class="border-nobottom">69</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Total</td>
+
+<td>92</td>
+
+<td>108</td>
+
+<td class="border-right">135</td>
+
+<td>335</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="left-justify" style="grid-column:1/3;" data-id="low">
+
+<p class="down-3">
+
+<span class="u em muted">Note:</span> The <span class="pop">expected counts maintain row and column totals</span>, but redistribute the counts as if there were no association.
+
+</p>
+
+<p class="down-3">
+
+Compute the $\chi^2$ <span class="strong">from all the cells</span> in the table
+
+</p>
+
+<p>
+
+<i class="fa fa-arrow-circle-right"></i>
+
+How do the observed results compare to the scenario of no-association?
+
+</p>
+
+<p class="fragment">
+
+<i class="fa fa-arrow-circle-right orange"></i>
+
+We can compute the $\chi^2$ statistics to characterize the difference.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Importantly, we are testing whether there might be a preference for any soda
+
+type, and not testing WHICH AGE nor WHICH SODA. Hence, omnibus test.
+
+</p>
+
+</aside>
+
+</section>
+
+<!-- Soda Preference And Age 5 -->
+
+<section data-auto-animate>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Soda Preference And Age</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div data-id="ltab">
+
+<table class="smaller center-justify full-grid-table">
+
+<tbody>
+
+<tr>
+
+<td class="bg-info-light border-right" rowspan=2>Soda</td>
+
+<td class="bg-danger-light border-nobottom border-right" colspan=3>Age group</td>
+
+<td rowspan=2>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-danger-light">15-25</td>
+
+<td class="bg-danger-light">26-40</td>
+
+<td class="bg-danger-light border-right">41-55</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">
+
+Coke</td>
+
+<td class="border-nobottom">54</td>
+
+<td class="border-nobottom">45</td>
+
+<td class="border-nobottom border-right">69</td>
+
+<td class="border-nobottom">168</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">Pepsi</td>
+
+<td class="border-nobottom">19</td>
+
+<td class="border-nobottom">41</td>
+
+<td class="border-nobottom border-right">38</td>
+
+<td class="border-nobottom">98</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td class="bg-info-light border-nobottom border-right">Sprite</td>
+
+<td class="border-nobottom">19</td>
+
+<td class="border-nobottom">22</td>
+
+<td class="border-nobottom border-right">28</td>
+
+<td class="border-nobottom">69</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Total</td>
+
+<td>92</td>
+
+<td>108</td>
+
+<td class="border-right">135</td>
+
+<td>335</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div style="gap:5vmin;" data-id="bot">
+
+<table class="smaller center-justify full-grid-table">
+
+<tbody>
+
+<tr>
+
+<td class="bg-info-light border-right" rowspan=2>Soda</td>
+
+<td class="bg-danger-light border-nobottom border-right" colspan=3>Age group</td>
+
+<td rowspan=2>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-danger-light">15-25</td>
+
+<td class="bg-danger-light">26-40</td>
+
+<td class="bg-danger-light border-right">41-55</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">
+
+Coke</td>
+
+<td class="border-nobottom">46.14</td>
+
+<td class="border-nobottom">54.16</td>
+
+<td class="border-nobottom border-right">67.7</td>
+
+<td class="border-nobottom">168</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">Pepsi</td>
+
+<td class="border-nobottom">26.91</td>
+
+<td class="border-nobottom">31.59</td>
+
+<td class="border-nobottom border-right">39.49</td>
+
+<td class="border-nobottom">98</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td class="bg-info-light border-nobottom border-right">Sprite</td>
+
+<td class="border-nobottom">18.95</td>
+
+<td class="border-nobottom">22.24</td>
+
+<td class="border-nobottom border-right">27.81</td>
+
+<td class="border-nobottom">69</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Total</td>
+
+<td>92</td>
+
+<td>108</td>
+
+<td class="border-right">135</td>
+
+<td>335</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="left-justify" style="grid-column:1/3;" data-id="low">
+
+<p>
+
+$\chi^2=\frac{(54-46.14)^2}{46.14}+\frac{(45-54.16)^2}{54.16}+\frac{(69-67.7)^2}{67.7}+...+\frac{(22-22.24)^2}{22.24}+\frac{(28-27.81)^2}{27.81}$
+
+</p>
+
+<p class="danger">
+
+$\chi^2=8.10$
+
+</p>
+
+<p>
+
+How likely is to get such a $\chi^2$?
+
+</p>
+
+<p>
+
+<i class="fas fa-arrow-right"></i>
+
+We need the $\chi^2$ sampling distribution
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+Importantly, we are testing whether there might be a preference for any soda
+
+type, and not testing WHICH AGE nor WHICH SODA. Hence, omnibus test.
+
+</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- $\chi^2$ Test For Association -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>$\chi^2$ Test For Association</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:3vmin;">
+
+<p>
+
+Remember that the distribution of the $\chi^2$ statistic depends of the degrees of freedom inherent to your data.
+
+</p>
+
+<p>
+
+For a 2-ways contingency table, the number of degrees of freedom can be obtained by:
+
+</p>
+
+<p class="framed border-orange padded">
+
+$df=(\textrm{Number of rows} - 1)\times(\textrm{Number of columns} - 1)$
+
+</p>
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p>
+
+<i class="fa fa-arrow-circle-right orange"></i>
+
+For the soda study: <br>
+
+$df = (3-1)\times(3-1) = 4$
+
+</p>
+
+<div>
+
+<table class="smaller center-justify full-grid-table">
+
+<tbody>
+
+<tr>
+
+<td class="bg-info-light border-right" rowspan=2>Soda</td>
+
+<td class="bg-danger-light border-nobottom border-right" colspan=3>Age group</td>
+
+<td rowspan=2>Total</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-danger-light">15-25</td>
+
+<td class="bg-danger-light">26-40</td>
+
+<td class="bg-danger-light border-right">41-55</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">
+
+Coke</td>
+
+<td class="border-nobottom">46.14</td>
+
+<td class="border-nobottom">54.16</td>
+
+<td class="border-nobottom border-right">67.7</td>
+
+<td class="border-nobottom">168</td>
+
+</tr>
+
+<tr>
+
+<td class="bg-info-light border-nobottom border-right">Pepsi</td>
+
+<td class="border-nobottom">26.91</td>
+
+<td class="border-nobottom">31.59</td>
+
+<td class="border-nobottom border-right">39.49</td>
+
+<td class="border-nobottom">98</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td class="bg-info-light border-nobottom border-right">Sprite</td>
+
+<td class="border-nobottom">18.95</td>
+
+<td class="border-nobottom">22.24</td>
+
+<td class="border-nobottom border-right">27.81</td>
+
+<td class="border-nobottom">69</td>
+
+</tr>
+
+<tr>
+
+<td class="border-right">Total</td>
+
+<td>92</td>
+
+<td>108</td>
+
+<td class="border-right">135</td>
+
+<td>335</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Is Soda Preference Associated With Age? -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Is Soda Preference Associated With Age?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:5vmin;">
+
+<div class="grid-generic box-width" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div>
+
+<p class="smaller">Theoretical distribution</p>
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/soda-age-theory-chi2.svg#axes_1"></use>
+
+<use xlink:href="lib/img/soda-age-theory-chi2.svg#axes_2"></use>
+
+</svg>
+
+</div>
+
+<div>
+
+<p class="smaller">Simulation</p>
+
+<svg width="100%" viewBox="0 0 432 288">
+
+<use xlink:href="lib/img/soda-age-simulation-chi2.svg#axes_1"></use>
+
+<use xlink:href="lib/img/soda-age-simulation-chi2.svg#axes_2"></use>
+
+<use xlink:href="lib/img/soda-age-simulation-chi2.svg#axes_3"></use>
+
+</svg>
+
+</div>
+
+</div>
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+p-value > 0.05, we do not have strong evidence against the null hypothesis of no-association.
+
+</p>
+
+<p>
+
+<i class="fas fa-arrow-circle-right danger"></i>
+
+Soda preference does not seem to be associated with age.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Follow Up? -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Follow Up?</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic box-width left-justify" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<p>
+
+What if you find evidence of an association? How do we determine exactly where the association is? (<span class="strong">post-hoc test</span>)
+
+</p>
+
+<p class="down-3">
+
+Again, <span class="u-pink strong">no standard approach to follow</span>, several options
+
+are possible.
+
+</p>
+
+<p class="down-3">
+
+<i class="fas fa-arrow-circle-right pink"></i>
+
+pairwise confidence intervals for the difference in proportions to determine exactly <span class="pink">where the association lies</span>.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Recap $\chi^2$ -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Recap $\chi^2$</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr;grid-auto-rows:auto;gap:3vh;">
+
+<div>
+
+<table class="small center-justify full-grid-table">
+
+<col width=50%>
+
+<col width=50%>
+
+<tbody>
+
+<tr>
+
+<td class="bg-info-light">$\chi^2$ for goodness of fit</td>
+
+<td class="bg-danger-light">$\chi^2$ test of independence</td>
+
+</tr>
+
+<tr>
+
+<td>Test hypothesis about shape of discrete distribution </td>
+
+<td>Test hypothesis about relationship of categorical variables</td>
+
+</tr>
+
+<tr class="border-bottom">
+
+<td>Are the frequencies I observe for my categorical variable consistent with my theory? </td>
+
+<td>Are the two categorical variables associated with one another in the population?</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<p class="small">
+
+<i class="fas fa-arrow-circle-right"></i>
+
+Goodness-of-fit test and test of independence are in fact the <span class="strong">same approach</span> (how different are my data from the theoretical distribution?)</span>.
+
+</p>
+
+<p class="small">
+
+<i class="fas fa-arrow-circle-right pop"></i>
+
+$\chi^2$ is just another <span class="pop">statistic of interest</span>, and the null randomization distribution can be <span class="pop">easily simulated</span>.
+
+</p>
+
+<p class="smaller">
+
+<i class="fas fa-arrow-circle-right warning-dark"></i>
+
+The theoretical approach to determine the $\chi^2$ distribution requires the use of the <span class="warning-dark">correct number of degrees of freedom</span> of the contingency table you are studying. Remember that you would also need a <span class="strong">count>10 for all the cells</span> as <span class="warning-dark">validity condition</span> of the theoretical approach.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- </section> -->
+        </section>
+        <section>
+          <!-- What If Counts Are Very Few? -->
+
+<!-- <section> -->
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>What If Counts Are Very Few?</h2>
+
+</div>
+
+<div class="content">
+
+<div
+
+class="grid-generic"
+
+style="grid-template-columns: 1fr 1fr; grid-auto-rows: auto; gap: 1vmin"
+
+>
+
+<div>
+
+<p class="big purple-underline center">
+
+$\chi^2$ requires the following conditions:
+
+</p>
+
+<ul>
+
+<li>
+
+When any elements are zero, $\chi^2$ is not possible (think about
+
+the process).
+
+</li>
+
+<li>
+
+When any value is $\phantom{}< 10$, the Gaussian assumptions in
+
+$\chi^2$ fails.
+
+</li>
+
+<li>
+
+$\chi^2$ is generally defined with
+
+<span class="em">free marginals</span>.
+
+</li>
+
+</ul>
+
+</div>
+
+<div class="fragment">
+
+<p class="big purple-underline center">
+
+For example, let's look at this small table:
+
+</p>
+
+<table border="1" class="latex-style-table-row-labels half-width">
+
+<thead>
+
+<tr style="text-align: right">
+
+<th></th>
+
+<th>Diabetes</th>
+
+<th>No Diabetes</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<th>Male</th>
+
+<td>5</td>
+
+<td>1</td>
+
+</tr>
+
+<tr>
+
+<th>Female</th>
+
+<td>1</td>
+
+<td>4</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div style="grid-column: 1/3" class="no-hang fragment">
+
+<p>
+
+If we demand that row and table totals (<em>marginals</em>) remain
+
+constant, then there are a finite number of possible tables. In this
+
+case, there are 6:
+
+</p>
+
+<div class="smallest">
+
+$${\displaystyle {\begin{pmatrix}6&0\\0&5\end{pmatrix}},\quad
+
+{\begin{pmatrix}5&1\\1&4\end{pmatrix}},\quad
+
+{\begin{pmatrix}4&2\\2&3\end{pmatrix}},\quad
+
+{\begin{pmatrix}3&3\\3&2\end{pmatrix}},\quad
+
+{\begin{pmatrix}2&4\\4&1\end{pmatrix}},\quad
+
+{\begin{pmatrix}1&5\\5&0\end{pmatrix}}.} $$
+
+</div>
+
+<p>
+
+Thus, there are only 6 possible $\chi^2$ values:
+
+$0.11,0.78,2.4,4.41,7.64, 11.00$.
+
+</p>
+
+<p class="sided-no-bg border-danger fragment">
+
+Which makes it hard to interpret the $\chi^2$ distribution!
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- Free Marginals in Chi-Squared Analysis -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Free Marginals in Chi-Squared Analysis</h2>
+
+</div>
+
+<div class="content">
+
+<div
+
+class="grid-generic"
+
+style="grid-template-columns: 1fr; grid-auto-rows: auto; gap: 1vmin"
+
+>
+
+<p class="left-justify sided-no-bg border-info">
+
+In chi-squared analysis, <em>free marginals</em> refer to contingency
+
+tables where row and column totals are not pre-determined but observed
+
+from the data. This setup is common in observational studies where the
+
+researcher does not control how data falls into categories.
+
+</p>
+
+<p class="left-justify sided-no-bg border-warning">
+
+The chi-squared test assesses whether there's an association between
+
+row and column variables, assuming that the observed frequencies in
+
+the table arise purely due to the underlying relationship between
+
+these variables.
+
+</p>
+
+<p>Expected frequencies are calculated as:</p>
+
+<p>
+
+$$E_{ij} = \frac{(Row\ Total_i \times Column\ Total_j)}{Grand\
+
+Total}$$
+
+</p>
+
+<p class="left-justify sided-no-bg border-danger">
+
+Here, each expected count \(E_{ij}\) is based on the proportionate
+
+contribution of the corresponding row and column totals to the grand
+
+total, reflecting the independence assumption of the test.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+Emphasize the difference between free and fixed marginals. Highlight the
+
+independence assumption and its implications for the validity of the
+
+chi-squared test results in observational studies.
+
+</aside>
+
+</section>
+
+
+
+<!-- Background of Fisher's Exact Test -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Background of Fisher's Exact Test</h2>
+
+</div>
+
+<div class="content">
+
+<div
+
+class="grid-generic"
+
+style="grid-template-columns: 1fr; grid-auto-rows: auto; gap: 1vmin"
+
+>
+
+<p class="left-justify framed border-info">
+
+Fisher's Exact Test was developed from an intriguing real-life
+
+scenario involving Muriel Bristol, a scientist at the Rothamsted
+
+Experiment Station. Bristol claimed she could discern whether milk or
+
+tea was poured first into a cup.
+
+</p>
+
+<p class="fragment left-justify sided-no-bg border-pop" data-fragment-index="1">
+
+To test her assertion, Ronald Fisher devised a simple experiment:
+
+eight cups of tea were prepared, four with milk poured first and four
+
+with tea poured first. The marginals-four cups for each method-were
+
+<span class="em fragment highlight-pop" data-fragment-index="2">fixed</span>.
+
+</p>
+
+<p class="fragment left-justify sided-no-bg border-muted" data-fragment-index="3">
+
+Bristol was then asked to taste each cup and identify the preparation
+
+method for four of them. This setup created an ideal scenario for
+
+using Fisher's Exact Test to determine if Bristol's claims were
+
+statistically significant, given the fixed margins and small sample
+
+size.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+Stress the importance of the context in which Fisher's Exact Test was
+
+developed. Discuss its relevance to small sample sizes and fixed marginals.
+
+Mention that this anecdote illustrates how statistical methods can be
+
+applied to solve practical, everyday problems.
+
+</aside>
+
+</section>
+
+
+
+
+
+<!-- Fisher's Exact Test -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Fisher's Exact Test</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column:1/3;" class="smaller">
+
+<p>
+
+<p>By fixing the marginals, Fisher could then determine the probability of getting the <span class="em">exact</span> table observed.</p>
+
+</p>
+
+</div>
+
+<div class="left-justify">
+
+<p class="fragment" data-fragment-index="1">He did this by combinatorics: </p>
+
+<div class="fragment smallest no-hang full-width" data-fragment-index="1">
+
+<table style="border-collapse: collapse; text-align: center; width: auto;">
+
+<thead>
+
+<tr>
+
+<th></th>
+
+<th>B1</th>
+
+<th>B2</th>
+
+<th><strong>Row Total</strong></th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<th>A1</th>
+
+<td>$a$</td>
+
+<td>$b$</td>
+
+<td>$a + b$</td>
+
+</tr>
+
+<tr>
+
+<th>A2</th>
+
+<td>$c$</td>
+
+<td>$d$</td>
+
+<td>$c + d$</td>
+
+</tr>
+
+<tr>
+
+<th><strong>Column Total</strong></th>
+
+<td>$a + c$</td>
+
+<td>$b + d$</td>
+
+<td>$n$</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<p class="fragment smallest" data-fragment-index="2">
+
+$${\displaystyle p_{\text{table}} = \frac{\dbinom{a + b}{a} \dbinom{c + d}{c}}{\dbinom{n}{a + c}} }$$
+
+</p>
+
+<div class="fragment" data-fragment-index="3">
+
+<p>
+
+This gets pretty messy when expanded to factorial form:
+
+</p>
+
+<div class="smaller full-width">
+
+$${\displaystyle \frac{ {(a+b)!(c+d)!(a+c)!(b+d)!} }{a!b!c!d!n!}}$$
+
+</div>
+
+</div>
+
+</div>
+
+<div class="fragment" data-fragment-index="3">
+
+<p class="smallest">
+
+$${\displaystyle {\begin{pmatrix}0&1\\1&1\\2&2\\3&6\\4&24\\5&120\\6&720\\7&5,040\\8&40,320\\9&362,880\\10&3,628,800\\11&39,916,800\\12&479,001,600\\13&6,227,020,800\\14&87,178,291,200\end{pmatrix}}}$$
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>
+
+But this gets crazy as the numbers get large, which can be seen even by just looking at the table of the first 15 factorials:
+
+</p>
+
+<ul>
+
+<li>(a+b/a): Ways to choose a successes in the first row</li>
+
+<li>(c+d/c): Ways to choose c successes in the second row</li>
+
+<li>(n/a+c): Total ways to assign a+c to the first column</li>
+
+</ul>
+
+</aside>
+
+</section>
+
+
+
+<!-- Fisher's Exact Test: Tea Experiment -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Fisher's Exact Test: Tea Experiment</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column:1/3;">
+
+<p class="smaller">
+
+Bristol was presented with 8 cups of tea, 4 with milk poured first and 4 with tea poured first, and asked to identify the preparation method for each cup.
+
+</p>
+
+</div>
+
+<div>
+
+<div>
+
+<table border="1" class="latex-style-table-row-labels half-width">
+
+<thead>
+
+<tr style="text-align: right">
+
+<th></th>
+
+<th class="smaller">Milk 1st (Actual)</th>
+
+<th class="smaller">Tea 1st (Actual)</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<th class="smaller">Milk 1st (Guessed)</th>
+
+<td>4</td>
+
+<td>0</td>
+
+</tr>
+
+<tr>
+
+<th class="smaller">Tea 1st (Guessed)</th>
+
+<td>0</td>
+
+<td>4</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<p class="smallest">${\displaystyle p=\frac{(4+0)!\,(0+4)!\,(4+0)!\,(0+4)!}{4!\,0!\,0!\,4!\,(4+0+0+4)!}}= 0.0142857$</p>
+
+</div>
+
+<div class="small">
+
+<p class="strong">And all the probabilities (sorted):</p>
+
+<p class="tiny no-hang">$\{ 0.0142857,\quad 0.0857143,\quad 0.2285714,\quad 0.2285714\}$</p>
+
+<p class="smaller">Since she correctly identified all 8 cups, she had a probability of $0.0142857$ of getting it right <span class="em">by chance</span>.</p>
+
+<p class="fragment">Is this <span class="em">proof</span> of her ability?</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>A p-value of 0.014 is strong evidence against the null hypothesis that she was guessing, but Fisher emphasized this didn't prove her ability but demonstrated the framework for statistical inference.</p>
+
+<p>Again, no standard approach to the post-hoc, but it wasn't needed here.</p>
+
+</aside>
+
+</section>
+
+
+
+<!-- Fisher's Exact Test: Diabetes -->
+
+<section>
+
+<div class="grid-wrapper">
+
+<div class="header">
+
+<h2>Fisher's Exact Test: Diabetes</h2>
+
+</div>
+
+<div class="content">
+
+<div class="grid-generic" style="grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:1vmin;">
+
+<div style="grid-column:1/3;">
+
+<p class="small">
+
+Looking back at the diabetes table, we can see that the probability of the observed table is $0.08$.
+
+</p>
+
+</div>
+
+<div>
+
+<div>
+
+<table border="1" class="latex-style-table-row-labels half-width">
+
+<thead>
+
+<tr style="text-align: right">
+
+<th></th>
+
+<th>Diabetes</th>
+
+<th>No Diabetes</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<th>Male</th>
+
+<td>5</td>
+
+<td>1</td>
+
+</tr>
+
+<tr>
+
+<th>Female</th>
+
+<td>1</td>
+
+<td>4</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<p class="smallest">${\displaystyle p_{diabetes}=\frac{ (5+1)!\, (1+4)!\, (5+1)!\, (1+4)!\,  }{ 5!\,1!\,1!\,4!\,(5+1+1+4)! }}= 0.0649351$</p>
+
+</div>
+
+<div class="small">
+
+<p class="strong">And all the probabilities (sorted):</p>
+
+<p class="tiny no-hang">$\{ 0.0021645,\quad 0.012987,\quad 0.0649351,\quad 0.0162338,\quad 0.324675,\quad 0.4329\}$</p>
+
+<p class="smaller">So we sum all probabilities less than or equal to the observed: <br />
+
+$p = \sum\{ 0.0021645,\quad 0.012987,\quad 0.0162338,\quad 0.0649351 \}=$ <span class="danger">0.096</span></p>
+
+<p class="fragment">With a p-value of 0.096, we fail to reject the null hypothesis at the conventional $\alpha=0.05$ level.</p>
+
+<p class="fragment">While there appears to be some association between sex and diabetes status in this sample, we don't have strong enough evidence to conclude this relationship exists in the population.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<aside class="notes">
+
+<p>Again, no standard approach to the post-hoc, but it wasn't needed here.</p>
+
+</aside>
+
+<!-- </section> -->
+        </section>
+      </div>
+      <footer class="main-footer">
+        <span>
+          Lecture 21
+        </span>
+        <span style="text-align:center;">
+        </span>
+        <span style="text-align:right;">
+          <a href="https:\\khrisgriffis.com" target="_blank" rel="noopener noreferrer">Khris Griffis &#169;2025</a>
+        </span>
+      </footer>
+    </div>
+    <script src="./src/reveal.js">
+    </script>
+    <script src="./src/plugin/notes/notes.js">
+    </script>
+    <script src="./src/plugin/highlight/highlight.js">
+    </script>
+    <script src="./src/plugin/math/math.js">
+    </script>
+    <script src="./src/plugin/reveal-splash/reveal-splash.js">
+    </script>
+    <script src="./src/plugin/vizzy-reveal/vizzy.js">
+    </script>
+    <script>
+      Reveal.initialize({
+autoSlide: 0,
+center: true,
+controls: true,
+controlsBackArrows: "faded",
+controlsLayout: "bottom-right",
+display: "block",
+fragments: true,
+fragmentInURL: true,
+hash: true,
+hideCursorTime: 5000,
+keyboard: true,
+mobileViewDistance: 3,
+mouseWheel: false,
+navigationMode: "linear",
+overview: true,
+pdfMaxPagesPerSlide: 1,
+pdfSeparateFragments: false,
+preloadIframes: null,
+progress: false,
+showNotes: false,
+showSlideNumber: "print",
+sortFragmentsOnSync: true,
+touch: true,
+transition: "fade",
+transitionSpeed: "default",
+viewDistance: 3,
+backgroundTransition: "fade",
+controlsTutorial: false,
+embedded: false,
+help: true,
+hideInactiveCursor: true,
+history: false,
+loop: false,
+previewLinks: false,
+rtl: false,
+shuffle: false,
+slideNumber: false,
+width: 1920,
+height: 1080,
+margin: 0.081,
+minScale: 0.08,
+maxScale: 1.67,
+mathjax3: {
+mathjax: "https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-mml-chtml.js",
+loader: {
+load: [
+"[tex]/html",
+],
+},
+tex: {
+packages: {
+'[+]': [
+"html",
+],
+},
+inlineMath: [
+["$", "$"],
+["\\(", "\\)"],
+],
+processEscapes: true,
+processEnvironments: true,
+},
+options: {
+skipHtmlTags: [
+"script",
+"noscript",
+"style",
+"textarea",
+"pre",
+],
+enableMenu: false,
+},
+chtml: {
+scale: 0.8,
+minScale: 0.4,
+},
+Safe: {
+sizeMin: 0.4,
+sizeMax: 1.25,
+},
+output: {
+linebreaks: {
+inline: true,
+width: "100%",
+lineleading: 0.2,
+LinebreakVisitor: null,
+},
+},
+},
+notes: {
+
+},
+highlight: {
+
+},
+vizzy: {
+autoRunTransitions: true,
+autoTransitionDelay: 100,
+devMode: false,
+onSlideChangedDelay: 0,
+},
+splash: {
+splashImage: "lib/img/ME3040_splash.png",
+text: "Welcome to ME3040!",
+minimumDisplay: 2,
+},
+plugins: [RevealNotes, RevealHighlight, RevealMath.MathJax3, Splash, Vizzy]
+});
+    </script>
+  </body>
+</html>
